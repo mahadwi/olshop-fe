@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Cabin&display=swap');
+
+.footer {
+    background : rgba(30, 30, 30, 1) !important; 
+    width: 100%;
+}
+
+.inputEmail {
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+[placeholder] {
+    font-size: small;
+}
+
+.buttonEmail {
+    float: inline-end;
+    font-family: 'Cabin';
+}
+
+.footerlink {
+    text-decoration: none;
+    color: white;
+}

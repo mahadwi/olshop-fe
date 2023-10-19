@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Cabin&display=swap');
+
+.inp {
+    border:none;
+    border-bottom: 1px solid #0a0b0b;
+    outline: none;
+ }
+
+[placeholder]:focus::-webkit-input-placeholder {
+    transition: text-indent 0.4s 0.4s ease; 
+    text-indent: -100%;
+    opacity: 1;
+ }
+
+.ppcp {
+    font-size: xx-small;
+ }
+ 
+.or {
+    margin-left: 180px;
+}
+
+.form {
+    padding-top: 30px;
+}
