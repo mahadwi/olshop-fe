@@ -1,19 +1,20 @@
 import React, { Component } from 'react'
-import RegisterIndex from '../../components/register/registerIndex'
+import LoginIndex from '../../components/login/loginIndex'
 import IndexNavbar from '../../components/navbar/IndexNavbar'
 import IndexFooter from '../../components/footer/indexFooter'
+
 
 export default class Index extends Component {
   render() {
     return (
-      <div>
-        <IndexNavbar/>
-      <RegisterIndex/>
+        <>
+       <IndexNavbar/> 
+      <LoginIndex/>
       <br/>
       <br/>
       <br/>
-      <IndexFooter/>
-      </div>
+       <IndexFooter/>
+       </>
     )
   }
 }

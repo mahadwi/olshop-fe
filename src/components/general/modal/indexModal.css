@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Cabin&display=swap');
+
+.modalBody{
+  font-size: small;
+}
+
+.modalTitle{
+   font-size: medium;
+}
+
+.modalContent{
+    margin-top: 11%;
+    justify-content: center;
+    align-items: center;
+}

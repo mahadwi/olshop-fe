@@ -12,3 +12,11 @@
     background-color: white;
 
 }
+
+@media (max-width: 1000px) {
+    .navbar {
+        font-family: 'Cabin';
+        margin-right: 25px;
+        color: rgba(0, 0, 0, 1);
+    }
+}

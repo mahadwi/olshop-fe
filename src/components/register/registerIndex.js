@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
-import './loginIndex.css'
+import './registerIndex.css'
 import { Button, Form, InputGroup, Input } from "react-bootstrap";
 import { FaFacebook, FaGoogle, FaEye, FaEyeSlash } from "react-icons/fa";
+import { RegisterUser } from '../../config/api';
+import axios from 'axios';
+import IndexModal from '../general/modal/indexModal';
 
-export default class loginIndex extends Component {
+export default class registerIndex extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -11,25 +14,60 @@ export default class loginIndex extends Component {
       email : null,
       password : null,
       confirmPass : null,
-      checkBox : false
+      checkBox : false,
+      errorMessage : "",
+      showModal : false
     }
   }
+
+handleRegister = async () => {
+  const {fullName, email, password, confirmPass} = this.state;
+  try {
+  const response =  await axios.post(RegisterUser,{
+      name : fullName,
+      email : email,
+      password : password,
+      password_confirmation : confirmPass
+    })
+    this.setState({
+      errorMessage : response.data.message,
+      showModal : false
+    })
+  } catch (errorCode) {
+    if (errorCode === 422){
+      this.setState({errorMessage : errorCode.message})
+    }
+  }
+} 
 
 
   handlePopUp = () => {
     var answer = window.confirm("Save data?");
 if (answer) {
     alert("Data tersimpan")
+    this.handleRegister()
 }
 else {
     //some code
 }
   }
 
+  handleShowModal = () => {
+    const {showModal} = this.state;
+    this.setState({showModal : !showModal})
+  }
+
+
   render() {
     const {fullName} = this.state;
     console.log(fullName)
     return (
+      <>
+      <IndexModal
+       handleShowModal={this.handleShowModal}
+       showModal={this.state.showModal}
+       confirmRegist={this.handleRegister} 
+      />
       <div className='box h-100 d-flex align-items-center justify-content-center'>
       <form className='form' style={{marginTop : "10px"}}>
       <br />
@@ -43,6 +81,7 @@ else {
           <p>-OR-</p>
       </div>
       <br/>
+      <p className='errorMessage'>{this.state.errorMessage}</p>
       <div className="d-grid gap-2">
         <input
         onChange={ (e)=> {this.setState({
@@ -73,14 +112,15 @@ else {
       <br/>
       <br/>
       <div className="d-grid gap-2">
-       <Button disabled={this.state.checkBox === false || fullName===null} size='md' onClick={this.handlePopUp}>Create Account</Button>
+       <Button disabled={this.state.checkBox === false || fullName===null} size='md' onClick={this.handleShowModal}>Create Account</Button>
       </div>
        <br/>
        <div className='ppcp'>
-       <span>Already have an account? </span><a href='#'>Log in</a>
+       <span>Already have an account? </span><a href='/'>Log in</a>
        </div>
       </form>
   </div>
+  </>
     )
   }
 }

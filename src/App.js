@@ -1,19 +1,19 @@
 import React from 'react';
-import { Counter } from './features/counter/Counter';
-import Index from './containers/register/index';
-import IndexNavbar from './components/navbar/IndexNavbar';
-import IndexFooter from './components/footer/indexFooter';
+import Index from './containers/register/Index';
+import IndexLogin from './containers/login/Index'
+import IndexHome from './containers/home/Index';
+import {BrowserRouter, Routes, Route} from "react-router-dom"
 
 function App() {
   return (
     <>
-    <IndexNavbar/>
-    <Index/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <IndexFooter/>
+      <BrowserRouter>
+      <Routes>
+        <Route path="/register" element={<Index/>} />
+        <Route path="/" element={<IndexLogin/>} />
+        <Route path="/home" element={<IndexHome/>} />
+      </Routes>
+      </BrowserRouter>
     </>
   );
 }

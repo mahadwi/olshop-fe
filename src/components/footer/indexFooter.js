@@ -27,7 +27,7 @@ export default class indexFooter extends Component {
         <Card.Body>
           <Card.Title style={{color : "white", fontSize : "18px"}}><img src={ClientServiceLogo}/> Client Service</Card.Title>
           <Card.Text style={{color : "white"}}>
-            <a className='footerlink' href='#'>Delivery & Shipping</a>
+           <a className='footerlink' href='#'>Delivery & Shipping</a>
             <br/>
             <a className='footerlink' href='#'>FAQ</a>
             <br/>

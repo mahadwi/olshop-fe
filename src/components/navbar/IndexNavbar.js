@@ -9,6 +9,7 @@ import Cart from "../../images/cart&bg.svg"
 import Search from "../../images/search.svg"
 import Profile from "../../images/profile.svg"
 import Search2 from "../../images/search2.svg"
+import { Link } from 'react-router-dom';
 
 
 export default class IndexNavbar extends Component {
@@ -29,7 +30,7 @@ export default class IndexNavbar extends Component {
         </Navbar.Collapse>
         <Navbar.Collapse className="justify-content-end">
             <Nav.Link  style={{marginRight : 10}} href="#search2"><img src={Search2}></img></Nav.Link>
-            <Nav.Link style={{marginRight : 10}} href="#profile"><img src={Profile}></img></Nav.Link>
+            <Nav.Link style={{marginRight : 10}} href="/"><img src={Profile}></img></Nav.Link>
             <Nav.Link  style={{marginRight : 10}} href="#search"><img src={Search}></img></Nav.Link>
             <Nav.Link><img src={Cart}></img></Nav.Link>
         </Navbar.Collapse>

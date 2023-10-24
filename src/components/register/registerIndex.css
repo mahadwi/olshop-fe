@@ -20,6 +20,24 @@
     margin-left: 180px;
 }
 
+.errorMessage {
+    margin-left: 140px;
+}
+
 .form {
     padding-top: 30px;
+}
+
+@media (max-width: 1000px) {
+    .inp {
+        border:none;
+        border-bottom: 1px solid #0a0b0b;
+        outline: none;
+     }
+    
+    [placeholder]:focus::-webkit-input-placeholder {
+        transition: text-indent 0.4s 0.4s ease; 
+        text-indent: -100%;
+        opacity: 1;
+     }
 }
