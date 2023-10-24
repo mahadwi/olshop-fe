@@ -1,7 +1,7 @@
 import React from 'react';
-import Index from './containers/register/Index';
-import IndexLogin from './containers/login/Index'
-import IndexHome from './containers/home/Index';
+import Index from './containers/register/indexRegister';
+import IndexLogin from './containers/login/indexLogin'
+import IndexHome from './containers/home/indexHome';
 import {BrowserRouter, Routes, Route} from "react-router-dom"
 
 function App() {

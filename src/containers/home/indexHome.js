@@ -11,22 +11,20 @@ function IndexHome() {
     const [userName, setUsername] = useState()
 
     useEffect(()=>{
-       if(user){
-        console.log(user)
-          setUsername(user.data.user.name)
-       }
-    },[user])
+      dispatch(getMe())
+      setUsername(user.name)
+  },[dispatch])
 
-    // useEffect(()=>{
-    //     if(isError){
-    //         navigate('/')
-    //     }
-    // },[isError,navigate])
+    useEffect(()=>{
+        if(isError){
+            navigate('/')
+        }
+    },[isError,navigate])
 
 
   return (
     <div>
-      
+      Halo {userName}
     </div>
   )
 }

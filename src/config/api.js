@@ -13,12 +13,18 @@ const initialState = {
     message : ""
 }
 
+export let token = ""
+export let config = {}
+
 export const LoginUser = createAsyncThunk("user/loginUser", async(user, thunkAPI)=>{
     try {
         const response = await axios.post("https://dev-olshop.berkatsoft.com/api/login", {
             email: user.email,
             password: user.password
         })
+        token = response.data.data.token;
+        config = { headers: { Authorization: `Bearer ${token}` } }
+        console.log("data config : ",config)
         return response.data;
     } catch (error) {
         if(error.response){
@@ -28,9 +34,12 @@ export const LoginUser = createAsyncThunk("user/loginUser", async(user, thunkAPI
     }
 })
 
+
+
+
 export const getMe = createAsyncThunk("user/getMe", async(_, thunkAPI)=>{
     try {
-        const response = await axios.get("https://dev-olshop.berkatsoft.com/api/user")
+        const response = await axios.get("https://dev-olshop.berkatsoft.com/api/user",config)
         return response.data;
     } catch (error) {
         if(error.response){
