@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Cabin&display=swap');
+
+.navbar {
+    font-family: 'Cabin';
+    margin-right: 25px;
+    color: rgba(0, 0, 0, 1);
+}
+
+.container-fluid {
+    padding-left:0px;
+    padding-right:0px;
+    background: none;
+}
+
+@media (max-width: 1000px) {
+    .navbar {
+        font-family: 'Cabin';
+        margin-right: 25px;
+        color: rgba(0, 0, 0, 1);
+    }
+}

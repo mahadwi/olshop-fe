@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 
-
 export const RegisterUser = "https://dev-olshop.berkatsoft.com/api/register"
 
 const initialState = {
@@ -23,6 +22,7 @@ export const LoginUser = createAsyncThunk("user/loginUser", async(user, thunkAPI
             password: user.password
         })
         token = response.data.data.token;
+        localStorage.setItem('token', token);
         config = { headers: { Authorization: `Bearer ${token}` } }
         console.log("data config : ",config)
         return response.data;
