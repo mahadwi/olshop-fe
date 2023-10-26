@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Cabin&display=swap');
+
+.titleSection2{
+    margin-top: 3%;
+    text-align: center;
+    margin-bottom: 3%;
+    margin-right: 10%;
+    margin-left: 10%;
+    color: rgba(106, 106, 113, 1);
+    font-family: 'Cabin';
+    font-size: 30px;
+}

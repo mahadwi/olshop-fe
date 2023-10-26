@@ -16,6 +16,8 @@
     "mdb-react-ui-kit": "^6.3.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.9.0",
+    "react-bootstrap-range-slider": "^3.0.8",
+    "react-bootstrap-sidebar-menu": "^2.0.3",
     "react-dom": "^18.2.0",
     "react-flags-select": "^2.2.3",
     "react-i18next": "^13.3.1",
@@ -25,7 +27,10 @@
     "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "^6.17.0",
     "react-scripts": "5.0.1",
+    "react-slick": "^0.29.0",
+    "react-slider": "^2.0.6",
     "reactstrap": "^9.2.0",
+    "slick-carousel": "^1.8.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

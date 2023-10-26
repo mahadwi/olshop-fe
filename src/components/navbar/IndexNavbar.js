@@ -15,13 +15,22 @@ import { Button } from 'react-bootstrap';
 import { changeLanguage } from '../../translations/i18n'
 import { MDBIcon } from 'mdb-react-ui-kit';
 import {Us, Id} from 'react-flags-select'
+import { Dropdown } from 'react-bootstrap';
 
 class IndexNavbar extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+     languages : "es"
+    }
+  }
   handleLanguageChange = (lng) => {
     changeLanguage(lng);
+    this.setState({languages:lng})
   };
   render() {
     const { t } = this.props;
+    const { languages } = this.state;
     return (
       <div className='Navbar'>
       <Navbar expand="lg" className="container-fluid">
@@ -29,7 +38,7 @@ class IndexNavbar extends Component {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse className="justify-content-end">
           <Nav >
-            <Nav.Link className='navbar' href="#shop">{t('shop')}</Nav.Link>
+            <Nav.Link className='navbar' href="/shop">{t('shop')}</Nav.Link>
             <Nav.Link className='navbar' href="#collective">{t('collective')}</Nav.Link>
             <Nav.Link className='navbar' href="#designers">{t('designers')}</Nav.Link>
             <Nav.Link className='navbar' href="#aboutus">{t('aboutus')}</Nav.Link>
@@ -41,8 +50,17 @@ class IndexNavbar extends Component {
             <Nav.Link  style={{marginRight : 10}} href="#search2"><img src={Search2}></img></Nav.Link>
             <Nav.Link style={{marginRight : 10}} href="/"><img src={Profile}></img></Nav.Link>
             <Nav.Link  style={{marginRight : 10}} href="#search"><img src={Search}></img></Nav.Link>
-            <Nav.Link  style={{marginRight : 10}}  onClick={() => this.handleLanguageChange('en')}><Us/></Nav.Link>
-            <Nav.Link  style={{marginRight : 10}} onClick={() => this.handleLanguageChange('id')}><Id /></Nav.Link>
+            <Nav.Link  style={{marginRight : 10}} >
+            <Dropdown style={{ background: 'none' }}>
+                <Dropdown.Toggle size ="sm" variant="success" id="dropdown-basic" style={{ background: 'none' }}>
+                  {languages === "id" ? <Id/> : <Us/> }
+                </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                     <Dropdown.Item className='w-10' style={{ background: 'none' }} onClick={() => this.handleLanguageChange('en')}><Us/>English</Dropdown.Item>
+                     <Dropdown.Item style={{ background: 'none' }} onClick={() => this.handleLanguageChange('id')}><Id/>Indonesia</Dropdown.Item>
+                </Dropdown.Menu>
+            </Dropdown>
+            </Nav.Link>
             <Nav.Link><img src={Cart}></img></Nav.Link>
         </Navbar.Collapse>
     </Navbar>

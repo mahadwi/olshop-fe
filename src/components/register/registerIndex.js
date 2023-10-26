@@ -23,6 +23,7 @@ class registerIndex extends Component {
       errorMessage : "",
       showModal : false,
       showPassword: false,
+      showConfPassword: false,
     }
   }
 
@@ -58,13 +59,17 @@ else {
 }
   }
 
-  handleShowModal = () => {
+  handleShowModalPass = () => {
     const {showModal} = this.state;
     this.setState({showModal : !showModal})
   }
 
   handleClickShowPassword = () => {
     this.setState({ showPassword: !this.state.showPassword });
+  };
+
+  handleClickShowConfPassword = () => {
+    this.setState({ showConfPassword: !this.state.showConfPassword });
   };
   
 
@@ -73,7 +78,7 @@ else {
     const {fullName} = this.state;
     console.log(fullName)
     const { t } = this.props;
-    const { showPassword } = this.state;
+    const { showPassword, showConfPassword } = this.state;
     return (
       <>
       <IndexModal
@@ -121,9 +126,9 @@ else {
       <label className='label'>
     <input
      onChange={ (e)=> {this.setState({confirmPass : e.target.value})}}
-     type={showPassword === true ? 'text' : 'password'} className='inp' placeholder='Confirm Password'/>
-     <span onClick={this.handleClickShowPassword} className='label'>
-     <FontAwesomeIcon icon={showPassword === false ? faEyeSlash : faEye} />
+     type={showConfPassword === true ? 'text' : 'password'} className='inp' placeholder='Confirm Password'/>
+     <span onClick={this.handleClickShowConfPassword} className='label'>
+     <FontAwesomeIcon icon={showConfPassword === false ? faEyeSlash : faEye} />
      </span>
      </label>
       </div>

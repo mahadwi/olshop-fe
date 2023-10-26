@@ -6,6 +6,10 @@
     color: rgba(0, 0, 0, 1);
 }
 
+.transparentbar {
+    width: 0%;
+}
+
 .Navbar {
     padding-left:0px;
     padding-right:0px;
