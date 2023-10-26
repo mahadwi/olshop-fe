@@ -1,12 +1,17 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import './registerIndex.css'
-import { Button, Form, InputGroup, Input } from "react-bootstrap";
+import { Button } from "react-bootstrap";
+import { Input } from 'reactstrap';
 import { FaFacebook, FaGoogle, FaEye, FaEyeSlash } from "react-icons/fa";
 import { RegisterUser } from '../../config/api';
 import axios from 'axios';
 import IndexModal from '../general/modal/indexModal';
+import { withTranslation } from 'react-i18next';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye } from '@fortawesome/free-solid-svg-icons';
+import { faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
-export default class registerIndex extends Component {
+class registerIndex extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -16,7 +21,8 @@ export default class registerIndex extends Component {
       confirmPass : null,
       checkBox : false,
       errorMessage : "",
-      showModal : false
+      showModal : false,
+      showPassword: false,
     }
   }
 
@@ -57,10 +63,17 @@ else {
     this.setState({showModal : !showModal})
   }
 
+  handleClickShowPassword = () => {
+    this.setState({ showPassword: !this.state.showPassword });
+  };
+  
 
   render() {
+
     const {fullName} = this.state;
     console.log(fullName)
+    const { t } = this.props;
+    const { showPassword } = this.state;
     return (
       <>
       <IndexModal
@@ -72,9 +85,7 @@ else {
       <form className='form' style={{marginTop : "10px"}}>
       <br />
       <br />
-      <br />
-      <br />
-      <Button style={{marginRight: 20}} variant="light" size='md'><FaGoogle/>  Sign up with Google</Button>
+      <Button style={{marginRight: 20}} variant="light" size='md'><FaGoogle/>  {t('signupgoogle')}</Button>
       <Button size='md' variant="light"><FaFacebook style={{color: "#0c5fed"}}/>  Sign up with Facebook</Button>
       <br/>
       <div className='or' style={{ marginTop : "30px"}}>
@@ -96,15 +107,25 @@ else {
       </div>
       <br/>
      <div className="d-grid gap-2">
+      <label className='label'>
     <input
      onChange={ (e)=> {this.setState({password : e.target.value})}}
-     type="password" className='inp' placeholder='Password'/>
+     type={showPassword === true ? 'text' : 'password'} className='inp' placeholder='Password'/>
+     <span onClick={this.handleClickShowPassword} className='label'>
+     <FontAwesomeIcon icon={showPassword === false ? faEyeSlash : faEye} />
+     </span>
+     </label>
       </div>
       <br/>
       <div className="d-grid gap-2">
-     <input
+      <label className='label'>
+    <input
      onChange={ (e)=> {this.setState({confirmPass : e.target.value})}}
-     type="password" className='inp' placeholder='Confirm Password'/>
+     type={showPassword === true ? 'text' : 'password'} className='inp' placeholder='Confirm Password'/>
+     <span onClick={this.handleClickShowPassword} className='label'>
+     <FontAwesomeIcon icon={showPassword === false ? faEyeSlash : faEye} />
+     </span>
+     </label>
       </div>
       <br />
       <input type='checkbox' onChange={()=>{this.setState({checkBox : !this.state.checkBox})}}/>
@@ -124,3 +145,7 @@ else {
     )
   }
 }
+
+
+
+export default withTranslation()(registerIndex);

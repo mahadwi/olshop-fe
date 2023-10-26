@@ -3,6 +3,7 @@ import Index from './containers/register/indexRegister';
 import IndexLogin from './containers/login/indexLogin'
 import IndexHome from './containers/home/indexHome';
 import {BrowserRouter, Routes, Route} from "react-router-dom"
+import "../src/translations/i18n"
 
 function App() {
   return (

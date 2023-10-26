@@ -38,8 +38,6 @@ function LoginIndex() {
       <form className='form' style={{marginTop : "10px"}}>
       <br />
       <br />
-      <br />
-      <br />
       <Button style={{marginRight: 20}} variant="light" size='md'><FaGoogle/>  Sign up with Google</Button>
       <Button size='md' variant="light"><FaFacebook style={{color: "#0c5fed"}}/>  Sign up with Facebook</Button>
       <br/>

@@ -16,6 +16,7 @@ export default class navbarHome extends Component {
   render() {
     const {userName} = this.props;
     return (
+      <div className='navbarHome'>
         <Navbar expand="lg" className="container-fluid fixed-top">
         <Navbar.Brand href="#home"><img src={Logo}></img></Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -37,6 +38,7 @@ export default class navbarHome extends Component {
               <Nav.Link><img src={Cart}></img></Nav.Link>
           </Navbar.Collapse>
       </Navbar>
+      </div>
     )
   }
 }
