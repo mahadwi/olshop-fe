@@ -59,7 +59,7 @@ else {
 }
   }
 
-  handleShowModalPass = () => {
+  handleShowModal = () => {
     const {showModal} = this.state;
     this.setState({showModal : !showModal})
   }
