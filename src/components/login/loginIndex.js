@@ -21,16 +21,16 @@ function LoginIndex() {
 
   useEffect(()=>{
    if(user || isSuccess){
-    if(user.message === "Unauthorized"){
-      setMessage1(user.message)
-    } else {
-      setUsername(user.data.user)
-      console.log(userName)
-      navigate(`/home`)
-    }
+          setUsername(user.data.user)
+          console.log(userName)
+          navigate(`/home`)
+    } else
+    if(message)
+    {
+        setMessage1(message)
     }
     dispatch(reset())
-  },[user, isSuccess, dispatch, navigate])
+  },[user, isSuccess, dispatch, navigate, isError])
 
   
   return (
@@ -43,8 +43,8 @@ function LoginIndex() {
       <br/>
       <div className='or' style={{ marginTop : "30px"}}>
           <p>-OR-</p>
-          {<p className='has-text-centered'>{message1}</p>}
       </div>
+      {<p style={{textAlign:'center'}}>{message1}</p>}
       <br/>
       <div className="d-grid gap-2">
         <input

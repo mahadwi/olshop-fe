@@ -40,9 +40,16 @@ handleRegister = async () => {
       errorMessage : response.data.message,
       showModal : false
     })
-  } catch (errorCode) {
-    if (errorCode === 422){
-      this.setState({errorMessage : errorCode.message})
+  } catch (err) {
+    if (err.code==="ERR_BAD_REQUEST" && password.length <= 8){
+      this.setState({errorMessage : <div>The password must be at least 8 characters. <p>
+                                          The password confirmation must be at least 8 characters.</p></div>,
+      showModal : false
+    })
+    } else if (err.code==="ERR_BAD_REQUEST" && confirmPass.length <= 8){
+      this.setState({errorMessage : "The password confirmation must be at least 8 characters.",
+      showModal : false
+    })
     }
   }
 } 

@@ -5,7 +5,7 @@ import "./section3.css"
 export default class section3 extends Component {
   render() {
     return (  
-      <div><img className='section3' src={pic1}/></div>
+      <div style={{marginBottom:"3rem"}}><img className='section3' src={pic1}/></div>
     )
   }
 }

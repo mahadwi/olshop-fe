@@ -9,7 +9,7 @@ import './section4.css'
 export default class section4 extends Component {
   render() {
     return (
-      <CardGroup>
+      <CardGroup style={{marginBottom:"3rem", border:'none'}}>
         <Card>
             <Card.Img src={Section41}/>
         </Card>
@@ -18,7 +18,7 @@ export default class section4 extends Component {
             <Card.Img src={Section43}/>
         </Card>
         <Card bg="dark" text="white">
-            <Card.Body className='cardBody'>
+            <Card.Body className='cardBodySect4'>
             <Card.Title>EXUDE THE LUXURY OF<p>
             YOUR OWN STYLE</p></Card.Title>
             <Button href="/shop" variant='light'>Shop Now</Button>

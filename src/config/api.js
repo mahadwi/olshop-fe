@@ -28,7 +28,9 @@ export const LoginUser = createAsyncThunk("user/loginUser", async(user, thunkAPI
         return response.data;
     } catch (error) {
         if(error.response){
-            const message = error.response.data.message;
+            console.log(error.response)
+            const message = error.response.data.errors.email[0];
+            console.log('message :', message)
             return thunkAPI.rejectWithValue(message);
         }
     }

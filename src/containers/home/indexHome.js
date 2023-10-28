@@ -11,6 +11,10 @@ import Section2 from '../../components/homeComponents/section2'
 import TitleSection2 from '../../components/homeComponents/titleSection2'
 import Section2footer from '../../components/homeComponents/section2footer'
 import Section4 from '../../components/homeComponents/section4'
+import Section5 from '../../components/homeComponents/section5'
+import Section6 from '../../components/homeComponents/section6'
+import Section7 from '../../components/homeComponents/section7'
+import Section8 from '../../components/homeComponents/section8'
 
 function IndexHome() {
     const dispatch = useDispatch()
@@ -39,6 +43,10 @@ function IndexHome() {
        <Section2footer/>
       <Section3/>
       <Section4/>
+      <Section5/>
+      <Section6/>
+      <Section7/>
+      <Section8/>
       </Fragment>
       <IndexFooter/>
     </div>
