@@ -16,7 +16,7 @@ export default class section2 extends Component {
         return (
           <div
             className={className}
-            style={{ ...style, display: "block", background: "black" }}
+            style={{ ...style, display: "block", background: "grey" }}
             onClick={onClick}
           />
         );
@@ -27,7 +27,7 @@ export default class section2 extends Component {
         return (
           <div
             className={className}
-            style={{ ...style, display: "block", background: "black" }}
+            style={{ ...style, display: "block", background: "grey" }}
             onClick={onClick}
           />
         );

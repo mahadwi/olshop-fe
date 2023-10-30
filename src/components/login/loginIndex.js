@@ -23,7 +23,7 @@ function LoginIndex() {
    if(user || isSuccess){
           setUsername(user.data.user)
           console.log(userName)
-          navigate(`/home`)
+          navigate(`/`)
     } else
     if(message)
     {

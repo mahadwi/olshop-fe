@@ -16,6 +16,7 @@ import { changeLanguage } from '../../translations/i18n'
 import { MDBIcon } from 'mdb-react-ui-kit';
 import {Us, Id} from 'react-flags-select'
 import { Dropdown } from 'react-bootstrap';
+import { default as ProfileV2 } from '../../images/profilev2.svg'
 
 class IndexNavbar extends Component {
   constructor(props) {
@@ -34,7 +35,7 @@ class IndexNavbar extends Component {
     return (
       <div className='Navbar'>
       <Navbar expand="lg" className="container-fluid">
-      <Navbar.Brand href="#home"><img src={Logo}></img></Navbar.Brand>
+      <Navbar.Brand href="/"><img src={Logo}></img></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse className="justify-content-end">
           <Nav >
@@ -48,12 +49,12 @@ class IndexNavbar extends Component {
         </Navbar.Collapse>
         <Navbar.Collapse className="justify-content-end">
             <Nav.Link  style={{marginRight : 10}} href="#search2"><img src={Search2}></img></Nav.Link>
-            <Nav.Link style={{marginRight : 10}} href="/"><img src={Profile}></img></Nav.Link>
+            <Nav.Link style={{marginRight : 10}} href="/login"><img src={ProfileV2}></img></Nav.Link>
             <Nav.Link  style={{marginRight : 10}} href="#search"><img src={Search}></img></Nav.Link>
             <Nav.Link  style={{marginRight : 10}} >
             <Dropdown style={{ background: 'none' }}>
-                <Dropdown.Toggle size ="sm" variant="success" id="dropdown-basic" style={{ background: 'none' }}>
-                  {languages === "id" ? <Id/> : <Us/> }
+                <Dropdown.Toggle size ="sm" variant="success" id="dropdown-basic" style={{ background: 'none' , border:'none' }}>
+                {languages === "id" ? <Id style={{borderRadius:'50%', width:'70%', height:'70%'}}/> : <Us style={{borderRadius:'50%', width:'70%', height:'70%'}}/> }
                 </Dropdown.Toggle>
                     <Dropdown.Menu>
                      <Dropdown.Item className='w-10' style={{ background: 'none' }} onClick={() => this.handleLanguageChange('en')}><Us/>English</Dropdown.Item>

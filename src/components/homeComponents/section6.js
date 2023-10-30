@@ -24,7 +24,7 @@ export default class section6 extends Component {
             </Carousel>
             </Card.Body>
         </Card>
-        <Card variant='light' className='section6card2' style={{height:"460px"}} bg="light" text="white">
+        <Card variant='light' className='section6card2' style={{height:"460px", border:'none'}} bg="light" text="white">
             <Card.Body className='section6card2body'>
             <Card.Title style={{marginBottom:"3rem", color:'black'}}>NEW ARRIVAL - SPRING FALL 2023<p>
             Prada Odette leather mini-bag</p></Card.Title>

@@ -9,7 +9,7 @@
 .navbarHome {
     padding-left:0px;
     padding-right:0px;
-    background: none;
+    background: rgba(30, 30, 30, 1);
 }
 
 @media (max-width: 1000px) {
