@@ -1,4 +1,7 @@
-.cardImgBodySection6{
+.cardSection6{
+    border: none;
+}
+.ImgBodySection6{
     width: 390px;
     height: 580px;
     margin-left: auto;
@@ -8,13 +11,11 @@
 
 .section6card2{
     margin-right: 5rem;
+    border: none;
 }
 
 .section6card2body{
     margin-top: 80px;
     margin-right: 80px;
-}
-
-.card{
     border: none;
 }
