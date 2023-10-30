@@ -38,7 +38,7 @@ class navbarHome extends Component {
           <Navbar.Collapse className="justify-content-end">
             <Nav>
               <Nav.Link style={{color:"white"}} className='navbar' href="/shop">{t('shop')}</Nav.Link>
-              <Nav.Link style={{color:"white"}} className='navbar' href="#collective">{t('collective')}</Nav.Link>
+              <Nav.Link style={{color:"white"}} className='navbar' href="/collective">{t('collective')}</Nav.Link>
               <Nav.Link style={{color:"white"}} className='navbar' href="#designers">{t('designers')}</Nav.Link>
               <Nav.Link style={{color:"white"}} className='navbar' href="#aboutus">{t('aboutus')}</Nav.Link>
               <Nav.Link style={{color:"white"}} className='navbar' href="#contact">{t('contact')}</Nav.Link>

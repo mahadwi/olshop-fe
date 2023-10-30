@@ -40,7 +40,7 @@ class IndexNavbar extends Component {
         <Navbar.Collapse className="justify-content-end">
           <Nav >
             <Nav.Link className='navbar' href="/shop">{t('shop')}</Nav.Link>
-            <Nav.Link className='navbar' href="#collective">{t('collective')}</Nav.Link>
+            <Nav.Link className='navbar' href="/collective">{t('collective')}</Nav.Link>
             <Nav.Link className='navbar' href="#designers">{t('designers')}</Nav.Link>
             <Nav.Link className='navbar' href="#aboutus">{t('aboutus')}</Nav.Link>
             <Nav.Link className='navbar' href="#contact">{t('contact')}</Nav.Link>
