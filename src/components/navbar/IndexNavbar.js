@@ -18,17 +18,21 @@ import {Us, Id} from 'react-flags-select'
 import { Dropdown } from 'react-bootstrap';
 import { default as ProfileV2 } from '../../images/profilev2.svg'
 
+const storedLanguage = localStorage.getItem('selectedLanguage');
+
 class IndexNavbar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-     languages : "es"
+     languages : storedLanguage
     }
   }
+
   handleLanguageChange = (lng) => {
     changeLanguage(lng);
     this.setState({languages:lng})
   };
+
   render() {
     const { t } = this.props;
     const { languages } = this.state;

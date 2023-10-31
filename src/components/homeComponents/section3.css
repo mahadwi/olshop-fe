@@ -1,3 +1,24 @@
+
 .section3 {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .background-image {
     width: 100%;
-}
+    height: auto;
+  }
+  
+  .text-overlay {
+    position: absolute;
+    top: 50%;
+    left:6%;
+    transform: translate(-50%, -50%);
+    color: rgb(255, 255, 255); /* Text with low opacity */
+    padding: 305px;
+    padding-top: 300px;
+    margin-left: 100px;
+    text-align: center;
+  }
+  
+ 

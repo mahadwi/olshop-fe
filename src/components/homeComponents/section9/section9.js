@@ -1,18 +1,13 @@
 import React, { Component } from 'react'
-import { Carousel } from 'react-bootstrap'
-import {default as Section21 } from '../../images/Section2-1.svg'
-import {default as Section22} from '../../images/Section2-2.svg'
-import {default as Section23} from '../../images/Rectangle 53 (1).svg'
-import {default as Section24} from '../../images/Rectangle 54 (1).svg'
 import Slider from 'react-slick'
-import './section2.css'
+import {default as Section9} from '../../../images/comment.png'
+import './section9.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
-import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
+import { faCaretRight } from '@fortawesome/free-solid-svg-icons'
+import { faCaretLeft } from '@fortawesome/free-solid-svg-icons'
 import { Button } from 'reactstrap'
 
-export default class section2 extends Component {
-
+export default class section9 extends Component {
   render() {
 
     function SampleNextArrow(props) {
@@ -23,7 +18,7 @@ export default class section2 extends Component {
           style={{ ...style, display: "block" }}
           onClick={onClick}
       >
-          <Button color='light'><FontAwesomeIcon icon={faChevronRight} /></Button>
+          <Button color='light'><FontAwesomeIcon icon={faCaretRight} /></Button>
       </div>
         );
       }
@@ -36,16 +31,17 @@ export default class section2 extends Component {
             style={{ ...style, display: "block"}}
             onClick={onClick}
           >
-            <Button color='light'><FontAwesomeIcon  icon={faChevronLeft} /></Button>
+            <Button color='light'><FontAwesomeIcon  icon={faCaretLeft} /></Button>
           </div>
         );
       }
+
 
     const settings = {
         dots: true,
         infinite: true,
         speed: 500,
-        slidesToShow: 4,
+        slidesToShow: 2,
         slidesToScroll: 1,
         autoplay: false,
         autoplaySpeed: 2000,
@@ -54,24 +50,23 @@ export default class section2 extends Component {
         nextArrow: <SampleNextArrow />,
         prevArrow: <SamplePrevArrow />
       };
-
     return (
-        <div className='slider'>
+        <div className='section9slider'>
         <Slider {...settings}>
         <div className='items' >
-            <img src={Section21} alt="image" />
+            <img src={Section9} alt="image" />
           </div>
           <div className='items' >
-            <img   src={Section22} alt="image" />
+            <img   src={Section9} alt="image" />
           </div>
           <div className='items' >
-            <img  src={Section23} alt="image" />
+            <img  src={Section9} alt="image" />
           </div>
           <div className='items' >
-            <img   src={Section24} alt="image" />
+            <img   src={Section9} alt="image" />
           </div>
           <div className='items' >
-            <img   src={Section23} alt="image" />
+            <img   src={Section9} alt="image" />
           </div>
 </Slider>
 </div>

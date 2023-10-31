@@ -3,6 +3,7 @@ import axios from 'axios'
 import { GetProduct } from '../../config/api';
 import CollectiveSearch from '../../components/collectiveComponents/collectiveSearch';
 import IndexNavbar from '../../components/navbar/IndexNavbar';
+import BannerSlider from '../../components/collectiveComponents/headerBanner/bannerSlider';
 
 export default class collectiveIndex extends Component {
 
@@ -21,6 +22,7 @@ export default class collectiveIndex extends Component {
     return (
       <div>
         <IndexNavbar/>
+        <BannerSlider/>
         <CollectiveSearch/>
       </div>
     )

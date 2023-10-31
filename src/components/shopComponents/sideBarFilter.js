@@ -58,7 +58,7 @@ export default class sideBarFilter extends Component {
       <SidebarMenu>
         <SidebarMenuBody>
         <div><hr style={{width:'105%'}}/></div>
-        <div><b>Categories</b></div>
+        <div><b>Price</b></div>
         <div style={{width:'105%'}}>
           <RangeSlider
             value={value}

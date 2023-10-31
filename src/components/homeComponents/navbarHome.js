@@ -15,11 +15,13 @@ import { Dropdown } from 'react-bootstrap';
 import { changeLanguage } from '../../translations/i18n'
 import { withTranslation } from 'react-i18next';
 
+const storedLanguage = localStorage.getItem('selectedLanguage');
+
 class navbarHome extends Component {
   constructor(props) {
     super(props);
     this.state = {
-     languages : "es"
+     languages : storedLanguage
     }
   }
   handleLanguageChange = (lng) => {

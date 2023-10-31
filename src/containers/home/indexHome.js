@@ -15,6 +15,7 @@ import Section5 from '../../components/homeComponents/section5'
 import Section6 from '../../components/homeComponents/section6'
 import Section7 from '../../components/homeComponents/section7'
 import Section8 from '../../components/homeComponents/section8'
+import Section9 from '../../components/homeComponents/section9/section9'
 
 function IndexHome() {
     const dispatch = useDispatch()
@@ -47,6 +48,7 @@ function IndexHome() {
       <Section6/>
       <Section7/>
       <Section8/>
+      <Section9/>
       </Fragment>
       <IndexFooter/>
     </div>

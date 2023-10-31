@@ -1,21 +1,21 @@
-.image-container {
-    position: relative;
-    display: inline-block;
-    width: 100%;
-  }
 
-.overlay {
-    position: absolute;
-    top: 50%;
-    left: 10%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    height: 100%;
-    width: 70%;
-  }
-
-.card-overlay{
-    height: 100%;
-    width: 100%;
-    border-radius: 0px;
+.section8 {
+  position: relative;
+  display: inline-block;
 }
+
+.background-image {
+  width: 1200px;
+  height: auto;
+}
+
+.text-overlay {
+  position: absolute;
+  top: 50%;
+  left:10%;
+  transform: translate(-50%, -50%);
+  color: rgb(255, 255, 255); /* Text with low opacity */
+  padding: 305px;
+  text-align: left;
+}
+
