@@ -5,6 +5,9 @@ import { Card, CardBody, CardGroup, CardText, CardTitle } from 'react-bootstrap'
 // import './productList.css'
 
 export default class productList extends Component {
+  handleDescProd = (description) =>{
+    alert(`${description}`)
+  }
   render() {
     const {products} = this.props;
     const formatter = new Intl.NumberFormat('id-ID', {
@@ -17,6 +20,7 @@ export default class productList extends Component {
         {products.map((data,index)=>{
           return(
                 <Card style={{border:'none',width:'194px', height:'178px'}} key={index}>
+                  <a style={{cursor:"pointer"}} onClick={()=> this.handleDescProd(data.description)}>
                     <CardBody>
                     <Card.Img style={{width:'194px', height:'178px'}} src={data.brand.image_url}/>
                     <CardTitle style={{fontSize:'12px',fontFamily:'Cambay'}}>
@@ -27,6 +31,7 @@ export default class productList extends Component {
                     <p><b>5.0</b> (10) Terjual</p>
                     </CardTitle>
                     </CardBody>
+                    </a>
                 </Card>
         )})}
         </CardGroup>

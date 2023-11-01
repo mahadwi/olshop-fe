@@ -5,7 +5,7 @@ import Slider from 'react-slick';
 import pic1 from '../../images/1.jpg'
 import pic2 from '../../images/2.jpg'
 import pic3 from '../../images/3.jpg'
-import test from '../../images/Rectangle 21.svg'
+import test from '../../images/louis-vuitton--Women_FallWinter_2023_Show_DI3.jpg'
 import './homeSlider.css'
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
