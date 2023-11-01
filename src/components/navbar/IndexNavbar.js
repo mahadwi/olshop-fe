@@ -24,10 +24,19 @@ class IndexNavbar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-     languages : storedLanguage
+     languages : storedLanguage,
+     showNavbar : false,
     }
   }
 
+  showDropdown = (e)=>{
+    const show = this.state.showNavbar
+    this.setState({showNavbar:!show});
+}
+ hideDropdown = (e) => {
+  this.setState({showNavbar:false});
+}
+  
   handleLanguageChange = (lng) => {
     changeLanguage(lng);
     this.setState({languages:lng})
@@ -44,11 +53,25 @@ class IndexNavbar extends Component {
         <Navbar.Collapse className="justify-content-end">
           <Nav >
             <Nav.Link className='navbar' href="/shop">{t('shop')}</Nav.Link>
-            <Nav.Link className='navbar' href="/collective">{t('collective')}</Nav.Link>
+            <Nav.Link className='navbar' href="/collective">
+            <NavDropdown
+            title={t('collective')}
+             show={this.state.showNavbar}
+             onMouseEnter={this.showDropdown} 
+            >
+            <NavDropdown.Item href="/collective">Collective</NavDropdown.Item>
+            <NavDropdown.Divider />
+            <NavDropdown.Item href="/collective">Sling Bag</NavDropdown.Item>
+            <NavDropdown.Item href="/collective">Mini Bag</NavDropdown.Item>
+            <NavDropdown.Item href="/collective">Hand Bag</NavDropdown.Item>
+            <NavDropdown.Item href="/collective">Tote Bag</NavDropdown.Item>
+            <NavDropdown.Item href="/collective">Backpack</NavDropdown.Item>
+            </NavDropdown>
+            </Nav.Link>
             <Nav.Link className='navbar' href="#designers">{t('designers')}</Nav.Link>
             <Nav.Link className='navbar' href="#aboutus">{t('aboutus')}</Nav.Link>
             <Nav.Link className='navbar' href="#contact">{t('contact')}</Nav.Link>
-            <Nav.Link href="#event">{t('event')}</Nav.Link>
+            <Nav.Link className='navbar' href="#event">{t('event')}</Nav.Link>
           </Nav>
         </Navbar.Collapse>
         <Navbar.Collapse className="justify-content-end">

@@ -7,9 +7,35 @@ import SideBarFilter from '../../components/shopComponents/sideBarFilter'
 import ProductList from '../../components/shopComponents/productList'
 import ColorPicker from '../../components/shopComponents/collorPicker/colorPicker'
 import { Col, Row } from 'react-bootstrap'
+import axios from 'axios'
+import { GetProduct } from '../../config/api'
 
 export default class indexShop extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      product : []
+    }
+  }
+
+    async componentDidMount() {
+       try {
+        const response = await axios.get(GetProduct)
+        {
+            let produk = [];
+            const datas = response.data.data[0]
+            datas.map((data)=>{
+              produk.push(data)
+            })
+            this.setState({product:produk})
+        }
+       } catch (error) {
+            console.log('error :',error)
+       }
+      }
   render() {
+    const product = this.state;
+    const products = product.product
     return (
     <>
         <IndexNavbar/>
@@ -21,8 +47,10 @@ export default class indexShop extends Component {
             <SideBarFilter/>
             <ColorPicker/>
             </Col>
-            <Col>
-                <ProductList/>
+            <Col xs={9}>
+              <ProductList
+                products={products}
+              />
             </Col>
             </Row>
         </div>

@@ -1,10 +1,7 @@
 import React, { Component } from 'react'
-import { default as ProductImage } from '../../images/productBag.svg'
-import { default as NoDataImg } from '../../images/nodataimg.png'
 import { Card, CardBody, CardGroup, CardText, CardTitle } from 'react-bootstrap';
-// import './productList.css'
 
-export default class productList extends Component {
+export default class collectiveProduct extends Component {
   render() {
     const {products} = this.props;
     const formatter = new Intl.NumberFormat('id-ID', {
@@ -13,7 +10,7 @@ export default class productList extends Component {
       });
     return (
         <div>
-              <CardGroup style={{marginLeft:'0%', marginRight:'5%'}}>
+            <CardGroup style={{marginLeft:'7%', marginRight:'5%'}}>
         {products.map((data,index)=>{
           return(
                 <Card style={{border:'none',width:'194px', height:'178px'}} key={index}>
@@ -30,7 +27,7 @@ export default class productList extends Component {
                 </Card>
         )})}
         </CardGroup>
-        </div>
+      </div>
     )
   }
 }
