@@ -6,6 +6,7 @@ import IndexShop from './containers/shop/indexShop';
 import {BrowserRouter, Routes, Route} from "react-router-dom"
 import "../src/translations/i18n"
 import CollectiveIndex from './containers/collective/collectiveIndex';
+import DesignerIndex from './containers/designers/designerIndex';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/" element={<IndexHome/>} />
         <Route path="/shop" element={<IndexShop/>} />
         <Route path="/collective" element={<CollectiveIndex/>}/>
+        <Route path="/designers" element={<DesignerIndex/>}/>
       </Routes>
       </BrowserRouter>
     </>

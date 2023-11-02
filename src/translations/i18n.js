@@ -16,7 +16,12 @@ i18n
           aboutus: 'ABOUT US',
           contact: 'CONTACT',
           event: 'EVENT',
-          signupgoogle : "Sign Up With Google"
+          signupgoogle : "Sign Up With Google",
+          slingbag : "Sling Bag",
+          minibag : 'Mini Bag',
+          handbag: 'Hand Bag',
+          totebag : 'Tote Bag',
+          backpack : 'Backpack'
           // Add other EN translations here
         },
       },
@@ -28,7 +33,12 @@ i18n
             aboutus: 'TENTANG KAMI',
             contact: 'KONTAK',
             event: 'ACARA',
-            signupgoogle : "Daftar Dengan Google"
+            signupgoogle : "Daftar Dengan Google",
+            slingbag : 'Tas selempang',
+            minibag :'Tas Mini',
+            handbag : 'Tas Tangan',
+            totebag : 'Tas Jinjing',
+            backpack : 'Ransel'
           // Add other ID translations here
         },
       },

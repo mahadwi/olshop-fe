@@ -149,7 +149,7 @@ else {
       </div>
        <br/>
        <div className='ppcp'>
-       <span>Already have an account? </span><a href='/'>Log in</a>
+       <span>Already have an account? </span><a href='/login'>Log in</a>
        </div>
       </form>
   </div>

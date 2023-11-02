@@ -26,6 +26,7 @@ class IndexNavbar extends Component {
     this.state = {
      languages : storedLanguage,
      showNavbar : false,
+     showNavbarDesign : false
     }
   }
 
@@ -35,6 +36,14 @@ class IndexNavbar extends Component {
 }
  hideDropdown = (e) => {
   this.setState({showNavbar:false});
+}
+
+showDropdownDesign = (e)=>{
+  const show = this.state.showNavbarDesign
+  this.setState({showNavbarDesign:!show});
+}
+hideDropdownDesign = (e) => {
+this.setState({showNavbarDesign:false});
 }
   
   handleLanguageChange = (lng) => {
@@ -59,16 +68,30 @@ class IndexNavbar extends Component {
              show={this.state.showNavbar}
              onMouseEnter={this.showDropdown} 
             >
-            <NavDropdown.Item href="/collective">Collective</NavDropdown.Item>
+            <NavDropdown.Item href="/collective">{t('collective')}</NavDropdown.Item>
             <NavDropdown.Divider />
-            <NavDropdown.Item href="/collective">Sling Bag</NavDropdown.Item>
-            <NavDropdown.Item href="/collective">Mini Bag</NavDropdown.Item>
-            <NavDropdown.Item href="/collective">Hand Bag</NavDropdown.Item>
-            <NavDropdown.Item href="/collective">Tote Bag</NavDropdown.Item>
-            <NavDropdown.Item href="/collective">Backpack</NavDropdown.Item>
+            <NavDropdown.Item href="/collective">{t('slingbag')}</NavDropdown.Item>
+            <NavDropdown.Item href="/collective">{t('minibag')}</NavDropdown.Item>
+            <NavDropdown.Item href="/collective">{t('handbag')}</NavDropdown.Item>
+            <NavDropdown.Item href="/collective">{t('totebag')}</NavDropdown.Item>
+            <NavDropdown.Item href="/collective">{t('backpack')}</NavDropdown.Item>
             </NavDropdown>
             </Nav.Link>
-            <Nav.Link className='navbar' href="#designers">{t('designers')}</Nav.Link>
+            <Nav.Link className='navbar' href="/designers">
+            <NavDropdown
+            title={t('designers')}
+             show={this.state.showNavbarDesign}
+             onMouseEnter={this.showDropdownDesign} 
+            >
+            <NavDropdown.Item href="/designers">{t('designers')}</NavDropdown.Item>
+            <NavDropdown.Divider />
+            <NavDropdown.Item href="/designers">Versace</NavDropdown.Item>
+            <NavDropdown.Item href="/designers">Prada</NavDropdown.Item>
+            <NavDropdown.Item href="/designers">Gucci</NavDropdown.Item>
+            <NavDropdown.Item href="/designers">Giorgio Armani</NavDropdown.Item>
+            <NavDropdown.Item href="/designers">Celine</NavDropdown.Item>
+            </NavDropdown>
+            </Nav.Link>
             <Nav.Link className='navbar' href="#aboutus">{t('aboutus')}</Nav.Link>
             <Nav.Link className='navbar' href="#contact">{t('contact')}</Nav.Link>
             <Nav.Link className='navbar' href="#event">{t('event')}</Nav.Link>
