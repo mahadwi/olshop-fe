@@ -13,13 +13,14 @@ export default class desginersComponent extends Component {
       });
     return (
         <div>
-        <CardGroup style={{marginLeft:'7%', marginRight:'5%'}}>
+        <CardGroup style={{marginLeft:'10%', marginRight:'5%'}}>
     {products.map((data,index)=>{
       return(
+        <div style={{marginBottom:'8rem', marginRight:'3rem'}}>
             <Card style={{border:'none',width:'194px', height:'178px'}} key={index}>
                 <a style={{cursor:"pointer"}} onClick={()=> this.handleDescProd(data.description)}>
                 <CardBody>
-                <Card.Img style={{width:'194px', height:'178px'}} src={data.brand.image_url}/>
+                <Card.Img style={{width:'194px', height:'178px'}} src={data.images}/>
                 <CardTitle style={{fontSize:'12px',fontFamily:'Cambay'}}>
                 <br/>
                 <b>{data.name}</b>
@@ -30,6 +31,7 @@ export default class desginersComponent extends Component {
                 </CardBody>
                 </a>
             </Card>
+            </div>
     )})}
     </CardGroup>
   </div>

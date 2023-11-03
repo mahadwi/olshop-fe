@@ -19,7 +19,8 @@ export default class collectiveIndex extends Component {
         const response = await axios.get(GetProduct)
         {
             let produk = [];
-            const datas = response.data.data[0]
+            const datas = response.data.data
+            console.log('datas:',datas)
             datas.map((data)=>{
               produk.push(data)
             })
@@ -33,7 +34,7 @@ export default class collectiveIndex extends Component {
   render() {
     const product = this.state;
     const products = product.product
-    console.log('product :',product)
+    // console.log('product :',product)
     return (
       <div>
         <IndexNavbar/>

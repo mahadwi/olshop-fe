@@ -1,9 +1,21 @@
 import React, { Component } from 'react'
 import { Card, CardBody, CardGroup, CardText, CardTitle } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
 
 export default class collectiveProduct extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      favInfo :  false,
+    }
+  }
   handleDescProd = (description) =>{
     alert(`${description}`)
+  }
+  handleFavIcon = () => {
+    const favstat = this.state.favInfo
+    this.setState({favInfo:!favstat})
   }
   render() {
     const {products} = this.props;
@@ -13,14 +25,17 @@ export default class collectiveProduct extends Component {
       });
     return (
         <div>
-            <CardGroup style={{marginLeft:'7%', marginRight:'5%'}}>
+            <CardGroup style={{marginLeft:'10%', marginRight:'5%'}}>
         {products.map((data,index)=>{
           return(
+            <div style={{marginBottom:'8rem', marginRight:'3rem'}}>
                 <Card style={{border:'none',width:'194px', height:'178px'}} key={index}>
-                    <a style={{cursor:"pointer"}} onClick={()=> this.handleDescProd(data.description)}>
                     <CardBody>
-                    <Card.Img style={{width:'194px', height:'178px'}} src={data.brand.image_url}/>
+                    <Card.Img style={{width:'194px', height:'178px'}} src={data.images}/>
                     <CardTitle style={{fontSize:'12px',fontFamily:'Cambay'}}>
+                    <a onClick={this.handleFavIcon}>
+                      {this.state.favInfo === false ? (<FontAwesomeIcon icon={faHeart} style={{color: "#ff0000",}} />) :(<FontAwesomeIcon icon={faHeart} />) }
+                    </a>
                     <br/>
                     <b>{data.name}</b>
                     <p></p>
@@ -28,8 +43,8 @@ export default class collectiveProduct extends Component {
                     <p><b>5.0</b> (10) Terjual</p>
                     </CardTitle>
                     </CardBody>
-                    </a>
                 </Card>
+                </div>
         )})}
         </CardGroup>
       </div>

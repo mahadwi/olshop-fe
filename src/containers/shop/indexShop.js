@@ -23,7 +23,7 @@ export default class indexShop extends Component {
         const response = await axios.get(GetProduct)
         {
             let produk = [];
-            const datas = response.data.data[0]
+            const datas = response.data.data
             datas.map((data)=>{
               produk.push(data)
             })
