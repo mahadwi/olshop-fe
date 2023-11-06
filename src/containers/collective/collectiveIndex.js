@@ -16,7 +16,9 @@ export default class collectiveIndex extends Component {
 
     async componentDidMount() {
        try {
-        const response = await axios.get(GetProduct)
+        const response = await axios.get(GetProduct, {params:
+          {color_id:4}
+        })
         {
             let produk = [];
             const datas = response.data.data

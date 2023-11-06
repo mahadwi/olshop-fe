@@ -22,7 +22,8 @@ export default class colorPicker extends Component {
         <br/>
           <Row xs={'auto'} style={{marginLeft:'83px'}}>
             <Col style={{marginRight:'10px'}} xs={1}>
-            <div class="result" style={{backgroundColor:'black', cursor:"pointer", border:'none'}}></div> 
+            <div class="result" style={{backgroundColor:'black', cursor:"pointer", border:'none'}}>
+              </div> 
             </Col>
             <Col style={{marginRight:'10px'}} xs={1}>
             <div class="result" style={{backgroundColor:'rgba(205, 185, 160, 1)', cursor:"pointer", border:'none'}}></div> 

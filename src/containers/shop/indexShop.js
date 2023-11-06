@@ -14,7 +14,8 @@ export default class indexShop extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      product : []
+      product : [],
+      color : null,
     }
   }
 
@@ -33,9 +34,12 @@ export default class indexShop extends Component {
             console.log('error :',error)
        }
       }
+
+
+
   render() {
-    const product = this.state;
-    const products = product.product
+    const {product, color} = this.state;
+    const products = product;
     return (
     <>
         <IndexNavbar/>
@@ -45,7 +49,8 @@ export default class indexShop extends Component {
             <Row>
           <Col>
             <SideBarFilter/>
-            <ColorPicker/>
+            <ColorPicker
+            />
             </Col>
             <Col xs={9}>
               <ProductList
