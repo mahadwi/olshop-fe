@@ -4,6 +4,7 @@ import axios from 'axios'
 
 export const RegisterUser = "https://dev-olshop.berkatsoft.com/api/register"
 export const GetProduct = "https://dev-olshop.berkatsoft.com/api/product"
+export const GetBanner = "https://dev-olshop.berkatsoft.com/api/banner"
 
 const initialState = {
     user : null,

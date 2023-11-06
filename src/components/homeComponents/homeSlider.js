@@ -9,8 +9,31 @@ import test from '../../images/louis-vuitton--Women_FallWinter_2023_Show_DI3.jpg
 import './homeSlider.css'
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { GetBanner } from '../../config/api';
+import axios from 'axios';
 
 export default class homeSlider extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      images : '',
+    }
+  }
+
+  async componentDidMount() {
+    try {
+     const response = await axios.get(GetBanner)
+     {
+         const datas = response.data.data[0]
+         console.log('home slider : ',datas)
+         this.setState({images:datas})
+     }
+    } catch (error) {
+         console.log('error :',error)
+    }
+   }
+
+
   render() {
     const settings = {
       dots: true,
@@ -49,22 +72,23 @@ export default class homeSlider extends Component {
         }
       ]
     };
+    const {images} = this.state;
     return (
          <Slider {...settings}>
             <div>
-                <img className='pic1'  src={test} alt="image" />
+                <img className='pic1'  src={images && images.images[0]} alt="image" />
               </div>
               <div>
-                <img className='pic1'  src={test} alt="image" />
+                <img className='pic1'  src={images && images.images[1]} alt="image" />
               </div>
               <div>
-                <img className='pic1' src={test} alt="image" />
+                <img className='pic1' src={images && images.images[2]} alt="image" />
               </div>
               <div>
-                <img className='pic1'  src={test} alt="image" />
+                <img className='pic1'  src={images && images.images[1]} alt="image" />
               </div>
               <div>
-                <img className='pic1'  src={test} alt="image" />
+                <img className='pic1'  src={images && images.images[0]} alt="image" />
               </div>
     </Slider>
     )
