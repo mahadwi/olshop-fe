@@ -11,8 +11,8 @@ export default class designersSearch extends Component {
     return (
       <div className='designerSearch'>
          <InputGroup className="mb-3">
-        <Form.Control placeholder='Hide Filter' aria-label="Text input with dropdown button"/>
-        <Form.Control className='w-50' placeholder={placeholder} disabled aria-label="Text input with dropdown button" />
+         <Form.Control className='w-50' placeholder={placeholder} disabled aria-label="Text input with dropdown button" />
+        <Form.Control className='w-5' placeholder="Filter by brand" disabled aria-label="Text input with dropdown button"/>
         <DropdownButton
           variant="outline-secondary"
           title="Relevance"

@@ -10,8 +10,29 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 import { Button } from 'reactstrap'
+import axios from 'axios'
+import { GetBanner } from '../../config/api'
 
 export default class section2 extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      images : '',
+    }
+  }
+
+  async componentDidMount() {
+    try {
+     const response = await axios.get(GetBanner)
+     {
+         const datas = response.data.data[1]
+         console.log('home slider : ',datas)
+         this.setState({images:datas})
+     }
+    } catch (error) {
+         console.log('error :',error)
+    }
+   }
 
   render() {
 
@@ -55,23 +76,25 @@ export default class section2 extends Component {
         prevArrow: <SamplePrevArrow />
       };
 
+      const { images } = this.state;
+
     return (
         <div className='slider'>
         <Slider {...settings}>
         <div className='items' >
-            <img src={Section21} alt="image" />
+            <img src={images && images.images[0]} alt="image" />
           </div>
           <div className='items' >
-            <img   src={Section22} alt="image" />
+            <img   src={images && images.images[1]} alt="image" />
           </div>
           <div className='items' >
-            <img  src={Section23} alt="image" />
+            <img  src={images && images.images[2]} alt="image" />
           </div>
           <div className='items' >
-            <img   src={Section24} alt="image" />
+            <img   src={images && images.images[3]} alt="image" />
           </div>
           <div className='items' >
-            <img   src={Section23} alt="image" />
+            <img   src={images && images.images[0]} alt="image" />
           </div>
 </Slider>
 </div>

@@ -56,7 +56,9 @@ function IndexHome() {
       dataBanner={dataBanner}
       />
       <Fragment>
-        <TitleSection2/>
+        <TitleSection2
+        dataBanner={dataBanner}
+        />
        <Section2/>
        <Section2footer/>
       <Section3/>

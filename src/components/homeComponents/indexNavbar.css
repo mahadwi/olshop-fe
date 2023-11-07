@@ -12,6 +12,10 @@
     background: rgba(30, 30, 30, 1);
 }
 
+#nav-dropdown{
+    color: white;
+}
+
 @media (max-width: 1000px) {
     .navbar {
         font-family: 'Cabin';

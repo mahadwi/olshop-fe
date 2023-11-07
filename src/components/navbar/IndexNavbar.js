@@ -26,7 +26,7 @@ class IndexNavbar extends Component {
     this.state = {
      languages : storedLanguage,
      showNavbar : false,
-     showNavbarDesign : false
+     showNavbarDesign : false,
     }
   }
 
@@ -34,8 +34,12 @@ class IndexNavbar extends Component {
     const show = this.state.showNavbar
     this.setState({showNavbar:!show});
 }
- hideDropdown = (e) => {
+ hideDropdownCol = (e) => {
   this.setState({showNavbar:false});
+}
+
+hideDropdownDes = (e) => {
+  this.setState({showNavbarDesign:false});
 }
 
 showDropdownDesign = (e)=>{
@@ -67,6 +71,7 @@ this.setState({showNavbarDesign:false});
             title={t('collective')}
              show={this.state.showNavbar}
              onMouseEnter={this.showDropdown} 
+             onMouseLeave={this.hideDropdownCol}
             >
             <NavDropdown.Item href="/collective">{t('collective')}</NavDropdown.Item>
             <NavDropdown.Divider />
@@ -81,7 +86,8 @@ this.setState({showNavbarDesign:false});
             <NavDropdown
             title={t('designers')}
              show={this.state.showNavbarDesign}
-             onMouseEnter={this.showDropdownDesign} 
+             onMouseEnter={this.showDropdownDesign}
+             onMouseLeave={this.hideDropdownDes} 
             >
             <NavDropdown.Item href="/designers">{t('designers')}</NavDropdown.Item>
             <NavDropdown.Divider />

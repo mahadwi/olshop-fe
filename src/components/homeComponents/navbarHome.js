@@ -21,9 +21,33 @@ class navbarHome extends Component {
   constructor(props) {
     super(props);
     this.state = {
-     languages : storedLanguage
+     languages : storedLanguage,
+     showNavbar : false,
+     showNavbarDesign : false,
     }
   }
+
+  showDropdown = (e)=>{
+    const show = this.state.showNavbar
+    this.setState({showNavbar:!show});
+}
+ hideDropdownCol = (e) => {
+  this.setState({showNavbar:false});
+}
+
+hideDropdownDes = (e) => {
+  this.setState({showNavbarDesign:false});
+}
+
+showDropdownDesign = (e)=>{
+  const show = this.state.showNavbarDesign
+  this.setState({showNavbarDesign:!show});
+}
+hideDropdownDesign = (e) => {
+this.setState({showNavbarDesign:false});
+}
+
+
   handleLanguageChange = (lng) => {
     changeLanguage(lng);
     this.setState({languages:lng})
@@ -38,15 +62,47 @@ class navbarHome extends Component {
         <Navbar.Brand href="/"><img src={Logo}></img></Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse className="justify-content-end">
-            <Nav>
-              <Nav.Link style={{color:"white"}} className='navbar' href="/shop">{t('shop')}</Nav.Link>
-              <Nav.Link style={{color:"white"}} className='navbar' href="/collective">{t('collective')}</Nav.Link>
-              <Nav.Link style={{color:"white"}} className='navbar' href="#designers">{t('designers')}</Nav.Link>
-              <Nav.Link style={{color:"white"}} className='navbar' href="#aboutus">{t('aboutus')}</Nav.Link>
-              <Nav.Link style={{color:"white"}} className='navbar' href="#contact">{t('contact')}</Nav.Link>
-              <Nav.Link style={{color:"white"}} href="#event">{t('event')}</Nav.Link>
-            </Nav>
-          </Navbar.Collapse>
+          <Nav >
+            <Nav.Link style={{color:"white"}} className='navbar' href="/shop">{t('shop')}</Nav.Link>
+            <Nav.Link style={{color:"white"}} className='navbar' href="/collective">
+            <NavDropdown
+            id="nav-dropdown"
+            title={t('collective')}
+             show={this.state.showNavbar}
+             onMouseEnter={this.showDropdown} 
+             onMouseLeave={this.hideDropdownCol}
+            >
+            <NavDropdown.Item href="/collective">{t('collective')}</NavDropdown.Item>
+            <NavDropdown.Divider />
+            <NavDropdown.Item href="/collective">{t('slingbag')}</NavDropdown.Item>
+            <NavDropdown.Item href="/collective">{t('minibag')}</NavDropdown.Item>
+            <NavDropdown.Item href="/collective">{t('handbag')}</NavDropdown.Item>
+            <NavDropdown.Item href="/collective">{t('totebag')}</NavDropdown.Item>
+            <NavDropdown.Item href="/collective">{t('backpack')}</NavDropdown.Item>
+            </NavDropdown>
+            </Nav.Link>
+            <Nav.Link style={{color:"white"}}  className='navbar' href="/designers">
+            <NavDropdown
+            id="nav-dropdown"
+            title={t('designers')}
+             show={this.state.showNavbarDesign}
+             onMouseEnter={this.showDropdownDesign}
+             onMouseLeave={this.hideDropdownDes} 
+            >
+            <NavDropdown.Item href="/designers">{t('designers')}</NavDropdown.Item>
+            <NavDropdown.Divider />
+            <NavDropdown.Item href="/designers">Versace</NavDropdown.Item>
+            <NavDropdown.Item href="/designers">Prada</NavDropdown.Item>
+            <NavDropdown.Item href="/designers">Gucci</NavDropdown.Item>
+            <NavDropdown.Item href="/designers">Giorgio Armani</NavDropdown.Item>
+            <NavDropdown.Item href="/designers">Celine</NavDropdown.Item>
+            </NavDropdown>
+            </Nav.Link>
+            <Nav.Link style={{color:"white"}}  className='navbar' href="#aboutus">{t('aboutus')}</Nav.Link>
+            <Nav.Link style={{color:"white"}}  className='navbar' href="#contact">{t('contact')}</Nav.Link>
+            <Nav.Link style={{color:"white"}}  className='navbar' href="#event">{t('event')}</Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
           <Navbar.Collapse className="justify-content-end">
               <Nav.Link  style={{marginRight : 10}} href="#search2"><img src={SearchHome}></img></Nav.Link>
               <Nav.Link disabled  style={{marginRight : 10}} href="#search2">{userName}</Nav.Link>
