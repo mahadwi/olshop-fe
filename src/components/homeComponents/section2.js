@@ -94,7 +94,7 @@ export default class section2 extends Component {
             <img   src={images && images.images[3]} alt="image" />
           </div>
           <div className='items' >
-            <img   src={images && images.images[0]} alt="image" />
+            <img   src={images && images.images[4]} alt="image" />
           </div>
 </Slider>
 </div>

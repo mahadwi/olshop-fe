@@ -9,13 +9,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default class searchComponent extends Component {
   render() {
-    const placeholder = `Results`;
+    const banyakProduct = this.props.banyakProduct; 
+    const placeholder = banyakProduct || 'Results';
     return (
         <>
         <div className='searchComponent'>
        <InputGroup className="mb-3">
         <Form.Control placeholder='Hide Filter' aria-label="Text input with dropdown button"/>
-        <Form.Control className='w-50' placeholder={placeholder} disabled aria-label="Text input with dropdown button" />
+        <Form.Control className='w-50' placeholder={banyakProduct||'Results'} disabled aria-label="Text input with dropdown button" />
         <DropdownButton
           variant="outline-secondary"
           title="Relevance"

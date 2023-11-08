@@ -85,10 +85,10 @@ export default class homeSlider extends Component {
                 <img className='pic1' src={images && images.images[2]} alt="image" />
               </div>
               <div>
-                <img className='pic1'  src={images && images.images[1]} alt="image" />
+                <img className='pic1'  src={images && images.images[3]} alt="image" />
               </div>
               <div>
-                <img className='pic1'  src={images && images.images[0]} alt="image" />
+                <img className='pic1'  src={images && images.images[4]} alt="image" />
               </div>
     </Slider>
     )

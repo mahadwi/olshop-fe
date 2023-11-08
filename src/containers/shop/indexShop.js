@@ -16,12 +16,13 @@ export default class indexShop extends Component {
     this.state = {
       product : [],
       color : null,
+      colorParam : null
     }
   }
 
     async componentDidMount() {
        try {
-        const response = await axios.get(GetProduct)
+        const response = await axios.get(GetProduct, {params : {color_id : this.state.colorParam}})
         {
             let produk = [];
             const datas = response.data.data
@@ -35,21 +36,43 @@ export default class indexShop extends Component {
        }
       }
 
+  handleColorFilter = async (data) => {
+    try {
+      const response = await axios.get(GetProduct, {params : {color_id : data}})
+      {
+          let produk = [];
+          const datas = response.data.data
+          datas.map((data)=>{
+            produk.push(data)
+          })
+          this.setState({product:produk})
+      }
+     } catch (error) {
+          console.log('error :',error)
+     }
+  }
+
 
 
   render() {
-    const {product, color} = this.state;
+    const {product, color, colorParam} = this.state;
+    const banyakProduct = product.length
     const products = product;
     return (
     <>
         <IndexNavbar/>
         <div className='container-fluid' style={{marginBottom:'5rem'}}>
             <ShopBanner/>
-            <SearchComponent/>
+            <SearchComponent
+            banyakProduct={banyakProduct}
+            />
             <Row>
           <Col>
-            <SideBarFilter/>
+            <SideBarFilter
+            />
             <ColorPicker
+            colorParam={colorParam}
+            handleColorFilter={this.handleColorFilter}
             />
             </Col>
             <Col xs={9}>
