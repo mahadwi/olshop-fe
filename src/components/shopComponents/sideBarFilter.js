@@ -9,7 +9,7 @@ import ReactSlider from 'react-slider'
 import { Input } from 'reactstrap'
 import { InputGroup } from 'react-bootstrap'
 import axios from 'axios'
-import { GetBrand } from '../../config/api'
+import { GetBrand, GetCategory } from '../../config/api'
 
 export default class sideBarFilter extends Component {
     constructor(props) {
@@ -18,7 +18,8 @@ export default class sideBarFilter extends Component {
             value : 0,
             min : 0,
             max : 0,
-            brand : []
+            brand : [],
+            category : []
         }
       }
 
@@ -26,14 +27,24 @@ export default class sideBarFilter extends Component {
         try {
           const response = await axios.get(GetBrand)
           this.setState({brand:response.data.data})
+          this.handleGetCategory()
         } catch (error) {
           console.log(error)
         }
        }
 
+  async handleGetCategory() {
+   try {
+    const response = await axios.get(GetCategory)
+      this.setState({category: response.data.data})
+   } catch (error) {
+      console.log(error)
+   }
+  }
+
 
   render() {
-    const { value, brand } = this.state;
+    const { value, brand, category } = this.state;
     const formatter = new Intl.NumberFormat('id-ID', {
         style: 'currency',
         currency: 'IDR',
@@ -62,11 +73,13 @@ export default class sideBarFilter extends Component {
         <SidebarMenuBody>
         <div><hr style={{width:'110%'}}/></div>
         <div><b>Categories</b></div>
-            <div className='sidebarItem'><Form.Check aria-label="option 1" label="Sling Bag"/></div>
-            <div className='sidebarItem'><Form.Check aria-label="option 1" label="Mini Bag"/></div>
-            <div className='sidebarItem'><Form.Check aria-label="option 1" label="Hand Bag"/></div>
-            <div className='sidebarItem'><Form.Check aria-label="option 1" label="Tote Bag"/></div>
-            <div className='sidebarItem'><Form.Check aria-label="option 1" label="Backpack"/></div>
+        {category.map((data,index)=>{
+            return(
+            <div key={index}>
+             <div className='sidebarItem'><Form.Check aria-label="option 1" label={data.name}/></div>
+            </div>
+            )
+          })}
         <div style={{fontSize:"13px", marginLeft:"70%"}}><a style={{textDecoration:"none", color:"rgba(21, 27, 79, 1)"}} href='#'>More <FontAwesomeIcon icon={faArrowRight} /></a></div>
         </SidebarMenuBody>
       </SidebarMenu>
