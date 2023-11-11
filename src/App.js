@@ -18,7 +18,7 @@ function App() {
         <Route path="/" element={<IndexHome/>} />
         <Route path="/shop" element={<IndexShop/>} />
         <Route path="/collective" element={<CollectiveIndex/>}/>
-        <Route path="/designers" element={<DesignerIndex/>}/>
+        <Route path="/designers/:id" element={<DesignerIndex/>}/>
       </Routes>
       </BrowserRouter>
     </>

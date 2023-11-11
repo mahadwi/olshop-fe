@@ -8,7 +8,7 @@ import ProductList from '../../components/shopComponents/productList'
 import ColorPicker from '../../components/shopComponents/collorPicker/colorPicker'
 import { Col, Row } from 'react-bootstrap'
 import axios from 'axios'
-import { GetProduct } from '../../config/api'
+import { GetProduct, GetBrand, GetCategory } from '../../config/api'
 
 export default class indexShop extends Component {
   constructor(props) {
@@ -16,7 +16,9 @@ export default class indexShop extends Component {
     this.state = {
       product : [],
       color : null,
-      colorParam : null
+      colorParam : null,
+      brands: [],
+      categories : [],
     }
   }
 
@@ -30,6 +32,8 @@ export default class indexShop extends Component {
               produk.push(data)
             })
             this.setState({product:produk})
+            this.handleDropDownDesign()
+            this.handleDropDownCollective()
         }
        } catch (error) {
             console.log('error :',error)
@@ -52,6 +56,24 @@ export default class indexShop extends Component {
      }
   }
 
+  async handleDropDownDesign() {
+    try {
+     const response = await axios.get(GetBrand)
+       this.setState({brands: response.data.data})
+    } catch (error) {
+       console.log(error)
+    }
+   }
+
+   async handleDropDownCollective(){
+    try {
+      const response = await axios.get(GetCategory)
+      this.setState({categories: response.data.data})
+    } catch (error) {
+      console.log(error) 
+    }
+   }
+
 
 
   render() {
@@ -60,7 +82,10 @@ export default class indexShop extends Component {
     const products = product;
     return (
     <>
-        <IndexNavbar/>
+        <IndexNavbar
+        brands={this.state.brands}
+        categories={this.state.categories}
+        />
         <div className='container-fluid' style={{marginBottom:'5rem'}}>
             <ShopBanner/>
             <SearchComponent

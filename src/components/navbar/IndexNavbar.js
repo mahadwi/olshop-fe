@@ -56,8 +56,9 @@ this.setState({showNavbarDesign:false});
   };
 
   render() {
-    const { t } = this.props;
+    const { t, brands, categories } = this.props;
     const { languages } = this.state;
+    console.log('data brand drop', brands)
     return (
       <div className='Navbar'>
       <Navbar expand="lg" className="container-fluid">
@@ -75,11 +76,9 @@ this.setState({showNavbarDesign:false});
             >
             <NavDropdown.Item href="/collective">{t('collective')}</NavDropdown.Item>
             <NavDropdown.Divider />
-            <NavDropdown.Item href="/collective">{t('slingbag')}</NavDropdown.Item>
-            <NavDropdown.Item href="/collective">{t('minibag')}</NavDropdown.Item>
-            <NavDropdown.Item href="/collective">{t('handbag')}</NavDropdown.Item>
-            <NavDropdown.Item href="/collective">{t('totebag')}</NavDropdown.Item>
-            <NavDropdown.Item href="/collective">{t('backpack')}</NavDropdown.Item>
+            {categories.map((data,index)=>{return(
+              <NavDropdown.Item key={index} href="/collective">{data.name}</NavDropdown.Item>
+            )})}
             </NavDropdown>
             </Nav.Link>
             <Nav.Link className='navbar' href="/designers">
@@ -89,13 +88,11 @@ this.setState({showNavbarDesign:false});
              onMouseEnter={this.showDropdownDesign}
              onMouseLeave={this.hideDropdownDes} 
             >
-            <NavDropdown.Item href="/designers">{t('designers')}</NavDropdown.Item>
+            <NavDropdown.Item href="/designers/null">{t('designers')}</NavDropdown.Item>
             <NavDropdown.Divider />
-            <NavDropdown.Item href="/designers">Versace</NavDropdown.Item>
-            <NavDropdown.Item href="/designers">Prada</NavDropdown.Item>
-            <NavDropdown.Item href="/designers">Gucci</NavDropdown.Item>
-            <NavDropdown.Item href="/designers">Giorgio Armani</NavDropdown.Item>
-            <NavDropdown.Item href="/designers">Celine</NavDropdown.Item>
+            {brands.map((data,index)=>{return(
+              <NavDropdown.Item key={index} href={`/designers/${data.id}`}>{data.name}</NavDropdown.Item>
+            )})}
             </NavDropdown>
             </Nav.Link>
             <Nav.Link className='navbar' href="#aboutus">{t('aboutus')}</Nav.Link>

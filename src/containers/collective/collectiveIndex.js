@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import { GetProduct } from '../../config/api';
+import { GetProduct, GetBrand, GetCategory } from '../../config/api';
 import CollectiveSearch from '../../components/collectiveComponents/collectiveSearch';
 import IndexNavbar from '../../components/navbar/IndexNavbar';
 import BannerSlider from '../../components/collectiveComponents/headerBanner/bannerSlider';
@@ -10,7 +10,9 @@ export default class collectiveIndex extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      product : []
+      product : [],
+      brands : [],
+      categories : [],
     }
   }
 
@@ -27,11 +29,31 @@ export default class collectiveIndex extends Component {
               produk.push(data)
             })
             this.setState({product:produk})
+            this.handleDropDownDesign()
+            this.handleDropDownCollective()
         }
        } catch (error) {
             console.log('error :',error)
        }
       }
+
+      async handleDropDownDesign() {
+        try {
+         const response = await axios.get(GetBrand)
+           this.setState({brands: response.data.data})
+        } catch (error) {
+           console.log(error)
+        }
+       }
+
+       async handleDropDownCollective(){
+        try {
+          const response = await axios.get(GetCategory)
+          this.setState({categories: response.data.data})
+        } catch (error) {
+          console.log(error) 
+        }
+       }
 
   render() {
     const product = this.state;
@@ -39,7 +61,10 @@ export default class collectiveIndex extends Component {
     // console.log('product :',product)
     return (
       <div>
-        <IndexNavbar/>
+        <IndexNavbar
+          brands={this.state.brands}
+          categories={this.state.categories}
+        />
         <BannerSlider/>
         <CollectiveSearch/>
         <CollectiveProduct

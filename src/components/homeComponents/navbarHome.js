@@ -14,6 +14,8 @@ import {Us, Id} from 'react-flags-select'
 import { Dropdown } from 'react-bootstrap';
 import { changeLanguage } from '../../translations/i18n'
 import { withTranslation } from 'react-i18next';
+import { GetBrand, GetCategory } from '../../config/api';
+import axios from 'axios';
 
 const storedLanguage = localStorage.getItem('selectedLanguage');
 
@@ -24,6 +26,8 @@ class navbarHome extends Component {
      languages : storedLanguage,
      showNavbar : false,
      showNavbarDesign : false,
+     brands : [],
+     categories : [],
     }
   }
 
@@ -48,6 +52,30 @@ this.setState({showNavbarDesign:false});
 }
 
 
+ componentDidMount() {
+       this.handleDropDownDesign()
+       this.handleDropDownCollective()
+ }
+
+ async handleDropDownDesign() {
+   try {
+    const response = await axios.get(GetBrand)
+      this.setState({brands: response.data.data})
+   } catch (error) {
+      console.log(error)
+   }
+  }
+
+  async handleDropDownCollective(){
+   try {
+     const response = await axios.get(GetCategory)
+     this.setState({categories: response.data.data})
+   } catch (error) {
+     console.log(error) 
+   }
+  }
+
+
   handleLanguageChange = (lng) => {
     changeLanguage(lng);
     this.setState({languages:lng})
@@ -55,7 +83,7 @@ this.setState({showNavbarDesign:false});
   render() {
     const {userName} = this.props;
     const { t } = this.props;
-    const { languages } = this.state;
+    const { languages, categories, brands } = this.state;
     return (
       <div className='navbarHome'>
         <Navbar expand="lg" className="container-fluid">
@@ -74,11 +102,9 @@ this.setState({showNavbarDesign:false});
             >
             <NavDropdown.Item href="/collective">{t('collective')}</NavDropdown.Item>
             <NavDropdown.Divider />
-            <NavDropdown.Item href="/collective">{t('slingbag')}</NavDropdown.Item>
-            <NavDropdown.Item href="/collective">{t('minibag')}</NavDropdown.Item>
-            <NavDropdown.Item href="/collective">{t('handbag')}</NavDropdown.Item>
-            <NavDropdown.Item href="/collective">{t('totebag')}</NavDropdown.Item>
-            <NavDropdown.Item href="/collective">{t('backpack')}</NavDropdown.Item>
+            {categories.map((data,index)=>{return(
+              <NavDropdown.Item key={index} href="/collective">{data.name}</NavDropdown.Item>
+            )})}
             </NavDropdown>
             </Nav.Link>
             <Nav.Link style={{color:"white"}}  className='navbar' href="/designers">
@@ -91,11 +117,9 @@ this.setState({showNavbarDesign:false});
             >
             <NavDropdown.Item href="/designers">{t('designers')}</NavDropdown.Item>
             <NavDropdown.Divider />
-            <NavDropdown.Item href="/designers">Versace</NavDropdown.Item>
-            <NavDropdown.Item href="/designers">Prada</NavDropdown.Item>
-            <NavDropdown.Item href="/designers">Gucci</NavDropdown.Item>
-            <NavDropdown.Item href="/designers">Giorgio Armani</NavDropdown.Item>
-            <NavDropdown.Item href="/designers">Celine</NavDropdown.Item>
+            {brands.map((data,index)=>{return(
+              <NavDropdown.Item key={index} href="/collective">{data.name}</NavDropdown.Item>
+            )})}
             </NavDropdown>
             </Nav.Link>
             <Nav.Link style={{color:"white"}}  className='navbar' href="#aboutus">{t('aboutus')}</Nav.Link>
