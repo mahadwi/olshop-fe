@@ -9,12 +9,13 @@ import { faArrowDownWideShort } from '@fortawesome/free-solid-svg-icons';
 
 export default class collectiveSearch extends Component {
   render() {
-    const placeholder = "Results"
+    const banyakProduct = this.props.banyakProduct;
+    console.log('banyak product collective : ', banyakProduct)
     return (
       <div className='searchCollectiveComponent'>
          <InputGroup className="mb-3">
         <Form.Control placeholder='Hide Filter' aria-label="Text input with dropdown button"/>
-        <Form.Control className='w-50' placeholder={placeholder} disabled aria-label="Text input with dropdown button" />
+        <Form.Control className='w-50' placeholder={`${banyakProduct} Results`||'0 Results'} disabled aria-label="Text input with dropdown button" />
         <Form.Control className='w-5' placeholder="Filter by brand" disabled aria-label="Text input with dropdown button"/>
         {/* <FontAwesomeIcon icon={faArrowDownWideShort} /> */}
         <DropdownButton

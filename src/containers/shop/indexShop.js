@@ -8,7 +8,7 @@ import ProductList from '../../components/shopComponents/productList'
 import ColorPicker from '../../components/shopComponents/collorPicker/colorPicker'
 import { Col, Row } from 'react-bootstrap'
 import axios from 'axios'
-import { GetProduct, GetBrand, GetCategory } from '../../config/api'
+import { GetProduct, GetBrand, GetCategory, GetBanner } from '../../config/api'
 
 export default class indexShop extends Component {
   constructor(props) {
@@ -19,6 +19,7 @@ export default class indexShop extends Component {
       colorParam : null,
       brands: [],
       categories : [],
+      headerBanner : ""
     }
   }
 
@@ -34,6 +35,7 @@ export default class indexShop extends Component {
             this.setState({product:produk})
             this.handleDropDownDesign()
             this.handleDropDownCollective()
+            this.handleGetBanner()
         }
        } catch (error) {
             console.log('error :',error)
@@ -74,10 +76,19 @@ export default class indexShop extends Component {
     }
    }
 
+   async handleGetBanner() {
+    try {
+      const response = await axios.get(GetBanner)
+      this.setState({headerBanner: response.data.data[2].images[0]})
+    } catch (error) {
+      console.log(error)
+    }
+   }
+
 
 
   render() {
-    const {product, color, colorParam} = this.state;
+    const {product, color, colorParam, headerBanner} = this.state;
     const banyakProduct = product.length
     const products = product;
     return (
@@ -87,7 +98,9 @@ export default class indexShop extends Component {
         categories={this.state.categories}
         />
         <div className='container-fluid' style={{marginBottom:'5rem'}}>
-            <ShopBanner/>
+            <ShopBanner
+            headerBanner={headerBanner}
+            />
             <SearchComponent
             banyakProduct={banyakProduct}
             />

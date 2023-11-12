@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import { GetProduct, GetBrand, GetCategory } from '../../config/api';
+import { GetProduct, GetBrand, GetCategory, GetBanner } from '../../config/api';
 import CollectiveSearch from '../../components/collectiveComponents/collectiveSearch';
 import IndexNavbar from '../../components/navbar/IndexNavbar';
 import BannerSlider from '../../components/collectiveComponents/headerBanner/bannerSlider';
@@ -13,13 +13,15 @@ export default class collectiveIndex extends Component {
       product : [],
       brands : [],
       categories : [],
+      headerBanner : "",
     }
   }
 
     async componentDidMount() {
        try {
+        const id = window.location.href.split('/')[4]
         const response = await axios.get(GetProduct, {params:
-          {color_id:4}
+          {category_id: id}
         })
         {
             let produk = [];
@@ -31,11 +33,21 @@ export default class collectiveIndex extends Component {
             this.setState({product:produk})
             this.handleDropDownDesign()
             this.handleDropDownCollective()
+            this.handleGetBanner()
         }
        } catch (error) {
             console.log('error :',error)
        }
       }
+
+      async handleGetBanner() {
+        try {
+          const response = await axios.get(GetBanner)
+          this.setState({headerBanner: response.data.data[2].images[0]})
+        } catch (error) {
+          console.log(error)
+        }
+       }
 
       async handleDropDownDesign() {
         try {
@@ -58,15 +70,20 @@ export default class collectiveIndex extends Component {
   render() {
     const product = this.state;
     const products = product.product
-    // console.log('product :',product)
+    const banyakProduct = products.length
+    console.log('banyak product container :',banyakProduct)
     return (
       <div>
         <IndexNavbar
           brands={this.state.brands}
           categories={this.state.categories}
         />
-        <BannerSlider/>
-        <CollectiveSearch/>
+        <BannerSlider
+        headerBanner={this.state.headerBanner}
+        />
+        <CollectiveSearch
+        banyakProduct={banyakProduct}
+        />
         <CollectiveProduct
           products={products}
         />

@@ -19,7 +19,8 @@ export default class sideBarFilter extends Component {
             min : 0,
             max : 0,
             brand : [],
-            category : []
+            category : [],
+            itemChecked : ''
         }
       }
 
@@ -41,15 +42,16 @@ export default class sideBarFilter extends Component {
       console.log(error)
    }
   }
+  
 
 
   render() {
-    const { value, brand, category } = this.state;
+    const { value, brand, category, itemChecked } = this.state;
     const formatter = new Intl.NumberFormat('id-ID', {
         style: 'currency',
         currency: 'IDR',
       });
-    console.log('data brand : ',JSON.stringify(brand))  
+    console.log('data check : ',JSON.stringify(itemChecked))
     return (
     <>
      <div className='sideBarFilter'>      
@@ -76,7 +78,7 @@ export default class sideBarFilter extends Component {
         {category.map((data,index)=>{
             return(
             <div key={index}>
-             <div className='sidebarItem'><Form.Check aria-label="option 1" label={data.name}/></div>
+             <div className='sidebarItem'><Form.Check value={data.id} onClick={(e)=> this.setState({itemChecked:e.target.value}) } aria-label="option 1" label={data.name}/></div>
             </div>
             )
           })}

@@ -4,9 +4,10 @@ import './banner.css'
 
 export default class banner extends Component {
   render() {
+    const headerBanner = this.props.headerBanner
     return (
       <div className='shopBanner'>
-         <img src={ShopBanner}/>
+         <img src={headerBanner}/>
       </div>
     )
   }

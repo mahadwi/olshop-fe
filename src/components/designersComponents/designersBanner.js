@@ -43,23 +43,24 @@ export default class designersBanner extends Component {
           }
         ]
       };
+    const headerBanner = this.props.headerBanner;
     return (
         <div style={{marginLeft:'8%', marginRight:'8%'}}>
         <Slider {...settings}>
         <div>
-            <img style={{width:'80%'}}  src={CollectiveSlider} alt="image" />
+            <img style={{width:'100%'}}  src={headerBanner} alt="image" />
           </div>
           <div>
-            <img style={{width:'80%'}}   src={CollectiveSlider} alt="image" />
+            <img style={{width:'100%'}}   src={headerBanner} alt="image" />
           </div>
           <div>
-            <img style={{width:'80%'}}  src={CollectiveSlider} alt="image" />
+            <img style={{width:'100%'}}  src={headerBanner} alt="image" />
           </div>
           <div>
-            <img style={{width:'80%'}}  src={CollectiveSlider} alt="image" />
+            <img style={{width:'100%'}}  src={headerBanner} alt="image" />
           </div>
           <div>
-            <img style={{width:'80%'}}   src={CollectiveSlider} alt="image" />
+            <img style={{width:'100%'}}   src={headerBanner} alt="image" />
           </div>
 </Slider>
 </div>

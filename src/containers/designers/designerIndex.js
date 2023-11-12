@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import DesginersComponent from '../../components/designersComponents/desginersComponent'
 import axios from 'axios';
-import { GetProduct, GetBrand, GetCategory } from '../../config/api';
+import { GetProduct, GetBrand, GetCategory, GetBanner } from '../../config/api';
 import IndexNavbar from '../../components/navbar/IndexNavbar';
 import DesignersBanner from '../../components/designersComponents/designersBanner';
 import DesignersSearch from '../../components/designersComponents/designersSearch';
@@ -14,12 +14,14 @@ export default class designerIndex extends Component {
       product : [],
       brands : [],
       categories : [],
+      headerBanner : ""
     }
   }
 
     async componentDidMount() {
        try {
-        const response = await axios.get(GetProduct)
+        const id = window.location.href.split('/')[4]
+        const response = await axios.get(GetProduct,{params:{brand_id:id}})
         {
             let produk = [];
             const datas = response.data.data
@@ -29,11 +31,23 @@ export default class designerIndex extends Component {
             this.setState({product:produk})
             this.handleDropDownDesign()
             this.handleDropDownCollective()
+            this.handleGetBanner()
         }
        } catch (error) {
             console.log('error :',error)
        }
       }
+
+      
+   async handleGetBanner() {
+    try {
+      const response = await axios.get(GetBanner)
+      this.setState({headerBanner: response.data.data[2].images[0]})
+    } catch (error) {
+      console.log(error)
+    }
+   }
+
 
       async handleDropDownDesign() {
         try {
@@ -72,6 +86,7 @@ export default class designerIndex extends Component {
   render() {
     const product = this.state;
     const products = product.product
+    console.log('data banner designer : ', this.state.headerBanner)
     return (
       <div>
         <IndexNavbar
@@ -79,8 +94,12 @@ export default class designerIndex extends Component {
         handleBrandFilter={this.handleBrandFilter}
         categories={this.state.categories}
         />
-        <DesignersBanner/>
-        <DesignersSearch/>
+        <DesignersBanner
+        headerBanner={this.state.headerBanner}
+        />
+        <DesignersSearch
+        products={products}
+        />
         <DesginersComponent
          products={products}
         />

@@ -27,6 +27,7 @@ class IndexNavbar extends Component {
      languages : storedLanguage,
      showNavbar : false,
      showNavbarDesign : false,
+     defaultParam : null,
     }
   }
 
@@ -74,10 +75,10 @@ this.setState({showNavbarDesign:false});
              onMouseEnter={this.showDropdown} 
              onMouseLeave={this.hideDropdownCol}
             >
-            <NavDropdown.Item href="/collective">{t('collective')}</NavDropdown.Item>
+            <NavDropdown.Item href="/collective/null">{t('collective')}</NavDropdown.Item>
             <NavDropdown.Divider />
             {categories.map((data,index)=>{return(
-              <NavDropdown.Item key={index} href="/collective">{data.name}</NavDropdown.Item>
+              <NavDropdown.Item key={index} href={`/collective/${data.id}`}>{data.name}</NavDropdown.Item>
             )})}
             </NavDropdown>
             </Nav.Link>
