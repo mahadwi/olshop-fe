@@ -1,12 +1,12 @@
 import React, { Fragment } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
-import { getMe, GetBanner } from '../../config/api'
+import { getMe, GetBanner, GetGallery } from '../../config/api'
 import { useEffect, useState } from 'react'
 import HomeSlider from '../../components/homeComponents/homeSlider'
 import NavbarHome from '../../components/homeComponents/navbarHome'
 import IndexFooter from '../../components/footer/indexFooter'
-import Section3 from '../../components/homeComponents/section3.js'
+import Section3 from '../../components/homeComponents/section3'
 import Section2 from '../../components/homeComponents/section2'
 import TitleSection2 from '../../components/homeComponents/titleSection2'
 import Section2footer from '../../components/homeComponents/section2footer'
@@ -23,6 +23,7 @@ function IndexHome() {
     const navigate = useNavigate()
     const {isError,user} = useSelector((state) => state.auth)
     const [dataBanner,setDataBanner] = useState({})
+    const [dataGallery,setDataGallery] = useState({})
     useEffect(()=>{
       dispatch(getMe())
   },[dispatch])
@@ -37,6 +38,10 @@ function IndexHome() {
       getBanner();
   },{});
 
+  useEffect(()=>{
+    getGallery();
+},{});
+
     const getBanner = async () => {
         try {
           const response = await axios.get(GetBanner)
@@ -46,7 +51,16 @@ function IndexHome() {
           console.log(error)
         }
       }
-
+    
+      const getGallery = async () => {
+        try {
+          const response = await axios.get(GetGallery)
+          setDataGallery(response.data)
+          console.log('data gallery :', dataGallery)
+        } catch (error) {
+          console.log(error)
+        }
+      }
 
   return (
     <div>
@@ -63,8 +77,11 @@ function IndexHome() {
        <Section2footer
        dataBanner={dataBanner && dataBanner.data}
        />
-      <Section3/>
-      <Section4/>
+      <Section3
+      dataGallery={dataGallery && dataGallery.data}
+      />
+      <Section4
+      />
       <Section5/>
       <Section6/>
       <Section7/>

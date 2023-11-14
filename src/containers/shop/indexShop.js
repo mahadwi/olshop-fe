@@ -111,7 +111,7 @@ export default class indexShop extends Component {
         }
         return { itemChecked: updatedItemChecked };
       });
-      const response = await axios.get(GetProduct, {params : {category_id: this.state.itemChecked.length<1 ? null : [this.state.itemChecked.join(',')]
+      const response = await axios.get(GetProduct, {params : {category_id: this.state.itemChecked.length<1 ? null : this.state.itemChecked
       }})
       {
           let produk = [];
@@ -140,7 +140,7 @@ export default class indexShop extends Component {
         }
         return { itemCheckedBrand: updatedItemChecked };
       });
-      const response = await axios.get(GetProduct, {params : {brand_id: this.state.itemCheckedBrand.length<1 ? null : [this.state.itemCheckedBrand.join(',')]
+      const response = await axios.get(GetProduct, {params : {brand_id: this.state.itemCheckedBrand.length<1 ? null : this.state.itemCheckedBrand
       }})
       {
           let produk = [];

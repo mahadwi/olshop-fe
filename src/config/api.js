@@ -8,6 +8,7 @@ export const GetBanner = "https://dev-olshop.berkatsoft.com/api/banner"
 export const GetColor = "https://dev-olshop.berkatsoft.com/api/color"
 export const GetBrand = "https://dev-olshop.berkatsoft.com/api/brand"
 export const GetCategory = "https://dev-olshop.berkatsoft.com/api/product-category"
+export const GetGallery = "https://dev-olshop.berkatsoft.com/api/gallery"
 
 const initialState = {
     user : null,

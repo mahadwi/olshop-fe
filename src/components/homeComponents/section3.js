@@ -5,6 +5,8 @@ import { Button } from 'react-bootstrap'
 
 export default class section3 extends Component {
   render() {
+    const dataGallery = this.props.dataGallery
+    // console.log('data gallery props :',dataGallery[3].images[0])
     return ( 
       <div className='section3' style={{marginBottom:'3rem'}}>
         <img style={{width:'110%'}} className="background-image" src={pic1}/>
