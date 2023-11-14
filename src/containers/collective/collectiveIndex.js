@@ -21,7 +21,7 @@ export default class collectiveIndex extends Component {
        try {
         const id = window.location.href.split('/')[4]
         const response = await axios.get(GetProduct, {params:
-          {category_id: id}
+          {category_id:[id]}
         })
         {
             let produk = [];

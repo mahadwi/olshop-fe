@@ -22,7 +22,7 @@ function IndexHome() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const {isError,user} = useSelector((state) => state.auth)
-    const [dataBanner,setDataBanner] = useState([])
+    const [dataBanner,setDataBanner] = useState({})
     useEffect(()=>{
       dispatch(getMe())
   },[dispatch])
@@ -35,13 +35,13 @@ function IndexHome() {
 
     useEffect(()=>{
       getBanner();
-  },[]);
+  },{});
 
     const getBanner = async () => {
         try {
           const response = await axios.get(GetBanner)
-          setDataBanner(response && response.data.data.data)
-          console.log('data banner',dataBanner)
+          setDataBanner(response.data)
+          console.log('data banner', dataBanner)
         } catch (error) {
           console.log(error)
         }
@@ -60,7 +60,9 @@ function IndexHome() {
         dataBanner={dataBanner}
         />
        <Section2/>
-       <Section2footer/>
+       <Section2footer
+       dataBanner={dataBanner && dataBanner.data}
+       />
       <Section3/>
       <Section4/>
       <Section5/>

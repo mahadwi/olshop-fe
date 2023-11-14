@@ -4,6 +4,8 @@ import './section2footer.css'
 
 export default class section2footer extends Component {
   render() {
+    // const dataBanner = this.props
+    // console.log('data banner props :',dataBanner)
     return (
       <div className='section2footer'>
             <div style={{ marginBottom:'10px'}}><b>THE RETURN OF THE WINTER EDITION OF THE SERIES - 2023</b></div>

@@ -34,7 +34,7 @@ export default class collectiveProduct extends Component {
                     <Card.Img style={{width:'194px', height:'178px'}} src={data.images}/>
                     <CardTitle style={{fontSize:'12px',fontFamily:'Cambay'}}>
                     <a onClick={this.handleFavIcon}>
-                      {this.state.favInfo === false ? (<FontAwesomeIcon icon={faHeart} style={{color: "#ff0000",}} />) :(<FontAwesomeIcon icon={faHeart} />) }
+                      {data.is_wishlist === true ? (<FontAwesomeIcon icon={faHeart} style={{color: "#ff0000",}} />) :(<FontAwesomeIcon icon={faHeart} />) }
                     </a>
                     <br/>
                     <b>{data.name}</b>

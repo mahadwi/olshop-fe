@@ -19,13 +19,19 @@ export default class indexShop extends Component {
       colorParam : null,
       brands: [],
       categories : [],
-      headerBanner : ""
+      headerBanner : "",
+      itemChecked : [],
+      hideFilter : true,
+      itemCheckedBrand : []
     }
   }
 
     async componentDidMount() {
        try {
-        const response = await axios.get(GetProduct, {params : {color_id : this.state.colorParam}})
+        const response = await axios.get(GetProduct, {params : {color_id : this.state.colorParam,
+          category_id:this.state.itemChecked,
+          brand_id:this.state.itemCheckedBrand
+        }})
         {
             let produk = [];
             const datas = response.data.data
@@ -36,6 +42,8 @@ export default class indexShop extends Component {
             this.handleDropDownDesign()
             this.handleDropDownCollective()
             this.handleGetBanner()
+            this.handleCheckboxChange()
+            this.handleCheckboxChangeBrand()
         }
        } catch (error) {
             console.log('error :',error)
@@ -67,6 +75,10 @@ export default class indexShop extends Component {
     }
    }
 
+   handleHideFilter = () => {
+      this.setState({hideFilter:!this.state.hideFilter})
+   }
+
    async handleDropDownCollective(){
     try {
       const response = await axios.get(GetCategory)
@@ -85,10 +97,68 @@ export default class indexShop extends Component {
     }
    }
 
+   handleCheckboxChange = async (e, itemId) => {
+    try {
+      const { checked } = e.target;
+      await this.setState((prevState) => {
+        let updatedItemChecked;
+        if (checked) {
+          // Add the item to the array if it's checked
+          updatedItemChecked = [...prevState.itemChecked, itemId];
+        } else {
+          // Remove the item from the array if it's unchecked
+          updatedItemChecked = prevState.itemChecked.filter((id) => id !== itemId);
+        }
+        return { itemChecked: updatedItemChecked };
+      });
+      const response = await axios.get(GetProduct, {params : {category_id: this.state.itemChecked.length<1 ? null : [this.state.itemChecked.join(',')]
+      }})
+      {
+          let produk = [];
+          const datas = response.data && response.data.data
+          datas.map((data)=>{
+            produk.push(data)
+          })
+          this.setState({product:produk})
+      }
+     } catch (error) {
+          console.log('error :',error)
+     }
+  };
+
+  handleCheckboxChangeBrand = async (e, itemId) => {
+    try {
+      const { checked } = e.target;
+      await this.setState((prevState) => {
+        let updatedItemChecked;
+        if (checked) {
+          // Add the item to the array if it's checked
+          updatedItemChecked = [...prevState.itemCheckedBrand, itemId];
+        } else {
+          // Remove the item from the array if it's unchecked
+          updatedItemChecked = prevState.itemCheckedBrand.filter((id) => id !== itemId);
+        }
+        return { itemCheckedBrand: updatedItemChecked };
+      });
+      const response = await axios.get(GetProduct, {params : {brand_id: this.state.itemCheckedBrand.length<1 ? null : [this.state.itemCheckedBrand.join(',')]
+      }})
+      {
+          let produk = [];
+          const datas = response.data && response.data.data
+          datas.map((data)=>{
+            produk.push(data)
+          })
+          this.setState({product:produk})
+      }
+     } catch (error) {
+          console.log('error :',error)
+     }
+  };
 
 
   render() {
     const {product, color, colorParam, headerBanner} = this.state;
+    console.log('data product check :',product)
     const banyakProduct = product.length
     const products = product;
     return (
@@ -103,17 +173,30 @@ export default class indexShop extends Component {
             />
             <SearchComponent
             banyakProduct={banyakProduct}
+            handleHideFilter={this.handleHideFilter}
             />
             <Row>
+          {this.state.hideFilter===true ? (
           <Col>
+          {this.state.hideFilter===true ? (
             <SideBarFilter
+            handleCheckboxChange={this.handleCheckboxChange}
+            handleCheckboxChangeBrand={this.handleCheckboxChangeBrand}
+            itemChecked={this.state.itemChecked}
+            hideFilter={this.state.hideFilter}
             />
+            ):null}
+          {this.state.hideFilter===true ? (
             <ColorPicker
             colorParam={colorParam}
             handleColorFilter={this.handleColorFilter}
+            hideFilter={this.state.hideFilter}
             />
+            ):null}
             </Col>
-            <Col xs={9}>
+            ):null}
+            <Col xs={this.state.hideFilter===true ? 9 : 12} 
+            style={{marginLeft:this.state.hideFilter===true ? '0px' : '120px'}}>
               <ProductList
                 products={products}
               />

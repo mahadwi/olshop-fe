@@ -37,6 +37,7 @@ export default class colorPicker extends Component {
   render() {
     const color= this.state;
     const colors = color.color;
+    const hideFilter = this.props
     console.log('data warna : ',this.state.colorPicked)
     return (
       <div className='container-fluid'>

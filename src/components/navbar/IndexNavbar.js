@@ -75,7 +75,7 @@ this.setState({showNavbarDesign:false});
              onMouseEnter={this.showDropdown} 
              onMouseLeave={this.hideDropdownCol}
             >
-            <NavDropdown.Item href="/collective/null">{t('collective')}</NavDropdown.Item>
+            <NavDropdown.Item href="#" style={{fontWeight:'bold'}}>{t('collective')}</NavDropdown.Item>
             <NavDropdown.Divider />
             {categories.map((data,index)=>{return(
               <NavDropdown.Item key={index} href={`/collective/${data.id}`}>{data.name}</NavDropdown.Item>
@@ -89,7 +89,7 @@ this.setState({showNavbarDesign:false});
              onMouseEnter={this.showDropdownDesign}
              onMouseLeave={this.hideDropdownDes} 
             >
-            <NavDropdown.Item href="/designers/null">{t('designers')}</NavDropdown.Item>
+            <NavDropdown.Item href='#' style={{fontWeight:'bold'}}>{t('designers')}</NavDropdown.Item>
             <NavDropdown.Divider />
             {brands.map((data,index)=>{return(
               <NavDropdown.Item key={index} href={`/designers/${data.id}`}>{data.name}</NavDropdown.Item>

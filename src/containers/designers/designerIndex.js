@@ -21,7 +21,7 @@ export default class designerIndex extends Component {
     async componentDidMount() {
        try {
         const id = window.location.href.split('/')[4]
-        const response = await axios.get(GetProduct,{params:{brand_id:id}})
+        const response = await axios.get(GetProduct,{params:{brand_id:[id]}})
         {
             let produk = [];
             const datas = response.data.data

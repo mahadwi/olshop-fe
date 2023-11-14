@@ -20,7 +20,6 @@ export default class sideBarFilter extends Component {
             max : 0,
             brand : [],
             category : [],
-            itemChecked : ''
         }
       }
 
@@ -42,19 +41,24 @@ export default class sideBarFilter extends Component {
       console.log(error)
    }
   }
+
+ 
+  
   
 
 
   render() {
-    const { value, brand, category, itemChecked } = this.state;
+    const { value, brand, category } = this.state;
+    const { handleCheckboxChange, itemChecked, hideFilter, handleCheckboxChangeBrand} = this.props;
     const formatter = new Intl.NumberFormat('id-ID', {
         style: 'currency',
         currency: 'IDR',
       });
     console.log('data check : ',JSON.stringify(itemChecked))
     return (
-    <>
-     <div className='sideBarFilter'>      
+    <div>
+     <div className='sideBarFilter'>
+      {hideFilter===true ? (
       <SidebarMenu>
         <SidebarMenuBody>
         <div><hr style={{width:'110%'}}/></div>
@@ -62,15 +66,17 @@ export default class sideBarFilter extends Component {
         {brand.map((data,index)=>{
             return(
             <div key={index}>
-            <div className='sidebarItem'><Form.Check aria-label="option 1" label={data.name}/></div>
+            <div className='sidebarItem'><Form.Check value={data.id} onClick={(e) => handleCheckboxChangeBrand(e,data.id)} aria-label="option 1" label={data.name}/></div>
             </div>
             )
           })}
         <div style={{fontSize:"13px", marginLeft:"70%"}}><a style={{textDecoration:"none", color:"rgba(21, 27, 79, 1)"}} href='#'>More <FontAwesomeIcon icon={faArrowRight} /></a></div>
         </SidebarMenuBody>
       </SidebarMenu>
+      ):null}  
       </div>
-      <div className='sideBarFilter'>      
+      <div className='sideBarFilter'>   
+      {hideFilter===true ? (   
       <SidebarMenu>
         <SidebarMenuBody>
         <div><hr style={{width:'110%'}}/></div>
@@ -78,13 +84,15 @@ export default class sideBarFilter extends Component {
         {category.map((data,index)=>{
             return(
             <div key={index}>
-             <div className='sidebarItem'><Form.Check value={data.id} onClick={(e)=> this.setState({itemChecked:e.target.value}) } aria-label="option 1" label={data.name}/></div>
+             <div className='sidebarItem'><Form.Check value={data.id} onClick={(e)=> handleCheckboxChange(e,data.id) } aria-label="option 1" label={data.name}/></div>
             </div>
             )
           })}
         <div style={{fontSize:"13px", marginLeft:"70%"}}><a style={{textDecoration:"none", color:"rgba(21, 27, 79, 1)"}} href='#'>More <FontAwesomeIcon icon={faArrowRight} /></a></div>
         </SidebarMenuBody>
       </SidebarMenu>
+      ):null}  
+      {hideFilter===true ? ( 
       <SidebarMenu>
         <SidebarMenuBody>
         <div><hr style={{width:'110%'}}/></div>
@@ -104,8 +112,9 @@ export default class sideBarFilter extends Component {
         </InputGroup>
         </SidebarMenuBody>
       </SidebarMenu>
+      ):null}  
       </div>
-     </>
+      </div>
     )
   }
 }
