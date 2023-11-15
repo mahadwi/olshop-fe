@@ -8,15 +8,31 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowDownWideShort } from '@fortawesome/free-solid-svg-icons';
 
 export default class collectiveSearch extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      filterBrand : this.props.filterBrand
+    }
+  }
+
   render() {
     const banyakProduct = this.props.banyakProduct;
-    console.log('banyak product collective : ', banyakProduct)
+    const brands = this.props.brands;
+    const handleFilterBrand = this.props.handleFilterBrand
     return (
       <div className='searchCollectiveComponent'>
          <InputGroup className="mb-3">
-        <Form.Control placeholder='Hide Filter' aria-label="Text input with dropdown button"/>
+        <Form.Control placeholder='Search' aria-label="Text input with dropdown button"/>
         <Form.Control className='w-50' placeholder={`${banyakProduct} Results`||'0 Results'} disabled aria-label="Text input with dropdown button" />
-        <Form.Control className='w-5' placeholder="Filter by brand" disabled aria-label="Text input with dropdown button"/>
+        <DropdownButton
+          variant="outline-secondary"
+          title="Filter by brands"
+          id="input-group-dropdown-2"
+          align="end"
+        >{brands.map((data,index)=>{return(
+          <Dropdown.Item key={index} onClick={()=> handleFilterBrand(data.id) }>{data.name}</Dropdown.Item>
+        )})}
+        </DropdownButton>
         {/* <FontAwesomeIcon icon={faArrowDownWideShort} /> */}
         <DropdownButton
           variant="outline-secondary"

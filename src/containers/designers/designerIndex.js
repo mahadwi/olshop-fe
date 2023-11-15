@@ -14,7 +14,8 @@ export default class designerIndex extends Component {
       product : [],
       brands : [],
       categories : [],
-      headerBanner : ""
+      headerBanner : "",
+      filterCategory : ''
     }
   }
 
@@ -83,6 +84,29 @@ export default class designerIndex extends Component {
          }
       }
 
+      handleFilterCategory = async (data) => {
+        await this.setState({filterCategory : data})
+        try {
+          const id = window.location.href.split('/')[4]
+          const response = await axios.get(GetProduct, {params:
+            {brand_id:[id],
+            category_id:[this.state.filterCategory]
+            }
+          })
+          {
+              let produk = [];
+              const datas = response.data.data
+              console.log('datas:',datas)
+              datas.map((data)=>{
+                produk.push(data)
+              })
+              this.setState({product:produk})
+          }
+         } catch (error) {
+              console.log('error :',error)
+         }
+       } 
+
   render() {
     const product = this.state;
     const products = product.product
@@ -99,6 +123,8 @@ export default class designerIndex extends Component {
         />
         <DesignersSearch
         products={products}
+        categories={this.state.categories}
+        handleFilterCategory={this.handleFilterCategory}
         />
         <DesginersComponent
          products={products}

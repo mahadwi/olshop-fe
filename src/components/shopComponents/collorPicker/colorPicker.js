@@ -50,7 +50,7 @@ export default class colorPicker extends Component {
               <button
                key={index} onClick={() => this.props.handleColorFilter(data.id) }
                style={{border:'none', 
-              backgroundColor:`${data.id===8 ? 'grey' : data.id===9 ? 'blue' : data.id===5 ? 'brown' : data.id===10 ? 'cream' : data.id===4 ? 'black' : data.id===2 ? 'yellow' : data.id===3 ? 'red' : data.id===7 ? 'orange' : 'white' }`, 
+              backgroundColor:`${data.hex_code}`,
               borderRadius:'50%', padding:'15px', marginRight:'5px', marginBottom:'5px'}}></button>
             )
           })}

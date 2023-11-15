@@ -14,6 +14,7 @@ export default class collectiveIndex extends Component {
       brands : [],
       categories : [],
       headerBanner : "",
+      filterBrand :'',
     }
   }
 
@@ -21,7 +22,9 @@ export default class collectiveIndex extends Component {
        try {
         const id = window.location.href.split('/')[4]
         const response = await axios.get(GetProduct, {params:
-          {category_id:[id]}
+          {category_id:[id],
+          brand_id:this.state.filterBrand
+          }
         })
         {
             let produk = [];
@@ -67,11 +70,34 @@ export default class collectiveIndex extends Component {
         }
        }
 
+        handleFilterBrand = async (data) => {
+        await this.setState({filterBrand : data})
+        try {
+          const id = window.location.href.split('/')[4]
+          const response = await axios.get(GetProduct, {params:
+            {category_id:[id],
+            brand_id:[this.state.filterBrand]
+            }
+          })
+          {
+              let produk = [];
+              const datas = response.data.data
+              console.log('datas:',datas)
+              datas.map((data)=>{
+                produk.push(data)
+              })
+              this.setState({product:produk})
+          }
+         } catch (error) {
+              console.log('error :',error)
+         }
+       }
+
   render() {
     const product = this.state;
     const products = product.product
     const banyakProduct = products.length
-    console.log('banyak product container :',banyakProduct)
+    console.log('filter id brand :',this.state.filterBrand)
     return (
       <div>
         <IndexNavbar
@@ -83,6 +109,9 @@ export default class collectiveIndex extends Component {
         />
         <CollectiveSearch
         banyakProduct={banyakProduct}
+        brands={this.state.brands}
+        handleFilterBrand={this.handleFilterBrand}
+        filterBrand={this.state.filterBrand}
         />
         <CollectiveProduct
           products={products}

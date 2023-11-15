@@ -8,11 +8,22 @@ import './designersSearch.css'
 export default class designersSearch extends Component {
   render() {
     const placeholder = "Results"
+    const categories = this.props.categories
+    const handleFilterCategory = this.props.handleFilterCategory
     return (
       <div className='designerSearch'>
          <InputGroup className="mb-3">
+         <Form.Control placeholder='Search' aria-label="Text input with dropdown button"/>
          <Form.Control className='w-50' placeholder={placeholder} disabled aria-label="Text input with dropdown button" />
-        <Form.Control className='w-5' placeholder="Filter by brand" disabled aria-label="Text input with dropdown button"/>
+         <DropdownButton
+          variant="outline-secondary"
+          title="Filter by brands"
+          id="input-group-dropdown-2"
+          align="end"
+        >{categories.map((data,index)=>{return(
+          <Dropdown.Item key={index} onClick={()=> handleFilterCategory(data.id) }>{data.name}</Dropdown.Item>
+        )})}
+        </DropdownButton>
         <DropdownButton
           variant="outline-secondary"
           title="Relevance"
