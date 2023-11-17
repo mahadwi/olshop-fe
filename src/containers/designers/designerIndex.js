@@ -107,6 +107,23 @@ export default class designerIndex extends Component {
          }
        } 
 
+       handleNonFilter = async () => {
+        try {
+          const response = await axios.get(GetProduct)
+          {
+              let produk = [];
+              const datas = response.data.data
+              console.log('datas:',datas)
+              datas.map((data)=>{
+                produk.push(data)
+              })
+              this.setState({product:produk})
+          }
+         } catch (error) {
+              console.log('error :',error)
+         }
+       }
+
   render() {
     const product = this.state;
     const products = product.product
@@ -125,6 +142,7 @@ export default class designerIndex extends Component {
         products={products}
         categories={this.state.categories}
         handleFilterCategory={this.handleFilterCategory}
+        handleNonFilter={this.handleNonFilter}
         />
         <DesginersComponent
          products={products}

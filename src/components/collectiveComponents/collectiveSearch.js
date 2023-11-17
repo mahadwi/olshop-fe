@@ -19,6 +19,7 @@ export default class collectiveSearch extends Component {
     const banyakProduct = this.props.banyakProduct;
     const brands = this.props.brands;
     const handleFilterBrand = this.props.handleFilterBrand
+    const handleNonFilter =this.props.handleNonFilter
     return (
       <div className='searchCollectiveComponent'>
          <InputGroup className="mb-3">
@@ -29,7 +30,9 @@ export default class collectiveSearch extends Component {
           title="Filter by brands"
           id="input-group-dropdown-2"
           align="end"
-        >{brands.map((data,index)=>{return(
+        >
+          <Dropdown.Item onClick={handleNonFilter}>All</Dropdown.Item>
+          {brands.map((data,index)=>{return(
           <Dropdown.Item key={index} onClick={()=> handleFilterBrand(data.id) }>{data.name}</Dropdown.Item>
         )})}
         </DropdownButton>

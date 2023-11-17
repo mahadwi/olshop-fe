@@ -49,7 +49,7 @@ export default class sideBarFilter extends Component {
 
   render() {
     const { value, brand, category } = this.state;
-    const { handleCheckboxChange, itemChecked, hideFilter, handleCheckboxChangeBrand} = this.props;
+    const { handleCheckboxChange, itemChecked, hideFilter, handleCheckboxChangeBrand, handleMinPriceFilter, handleAfterChange} = this.props;
     const formatter = new Intl.NumberFormat('id-ID', {
         style: 'currency',
         currency: 'IDR',
@@ -66,7 +66,7 @@ export default class sideBarFilter extends Component {
         {brand.map((data,index)=>{
             return(
             <div key={index}>
-            <div className='sidebarItem'><Form.Check value={data.id} onClick={(e) => handleCheckboxChangeBrand(e,data.id)} aria-label="option 1" label={data.name}/></div>
+            <div className='sidebarItem'><Form.Check value={data.id} onChange={(e) => handleCheckboxChangeBrand(e,data.id)} aria-label="option 1" label={data.name}/></div>
             </div>
             )
           })}
@@ -100,7 +100,8 @@ export default class sideBarFilter extends Component {
         <div style={{width:'110%'}}>
           <RangeSlider
             value={value}
-            onChange={e => this.setState({value : e.target.value})}
+            onChange={(e)=> this.setState({value: e.target.value})}
+            onAfterChange={()=>handleAfterChange(value)}
             min={1000000}
             max={100000000}
           />

@@ -10,6 +10,7 @@ export default class designersSearch extends Component {
     const placeholder = "Results"
     const categories = this.props.categories
     const handleFilterCategory = this.props.handleFilterCategory
+    const handleNonFilter = this.props.handleNonFilter
     return (
       <div className='designerSearch'>
          <InputGroup className="mb-3">
@@ -17,10 +18,12 @@ export default class designersSearch extends Component {
          <Form.Control className='w-50' placeholder={placeholder} disabled aria-label="Text input with dropdown button" />
          <DropdownButton
           variant="outline-secondary"
-          title="Filter by brands"
+          title="Filter by categories"
           id="input-group-dropdown-2"
           align="end"
-        >{categories.map((data,index)=>{return(
+        >
+          <Dropdown.Item onClick={handleNonFilter}>ALL</Dropdown.Item>
+          {categories.map((data,index)=>{return(
           <Dropdown.Item key={index} onClick={()=> handleFilterCategory(data.id) }>{data.name}</Dropdown.Item>
         )})}
         </DropdownButton>

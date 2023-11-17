@@ -22,7 +22,8 @@ export default class indexShop extends Component {
       headerBanner : "",
       itemChecked : [],
       hideFilter : true,
-      itemCheckedBrand : []
+      itemCheckedBrand : [],
+      price_min : ''
     }
   }
 
@@ -44,6 +45,7 @@ export default class indexShop extends Component {
             this.handleGetBanner()
             this.handleCheckboxChange()
             this.handleCheckboxChangeBrand()
+            this.handleMinPriceFilter()
         }
        } catch (error) {
             console.log('error :',error)
@@ -155,6 +157,29 @@ export default class indexShop extends Component {
      }
   };
 
+  handleAfterChange = (value) => {
+    // Fetch data when the slider value changes and the mouse is released
+    this.handleMinPriceFilter(value)
+  };
+
+  handleMinPriceFilter = async (data) => {
+    try {
+      const response = await axios.get(GetProduct, {params : {price_min : data,
+        price_max: 100000000
+      }})
+      {
+          let produk = [];
+          const datas = response.data.data
+          datas.map((data)=>{
+            produk.push(data)
+          })
+          this.setState({product:produk})
+      }
+     } catch (error) {
+          console.log('error :',error)
+     }
+  }
+
 
   render() {
     const {product, color, colorParam, headerBanner} = this.state;
@@ -184,6 +209,8 @@ export default class indexShop extends Component {
             handleCheckboxChangeBrand={this.handleCheckboxChangeBrand}
             itemChecked={this.state.itemChecked}
             hideFilter={this.state.hideFilter}
+            handleMinPriceFilter={this.handleMinPriceFilter}
+            handleAfterChange={this.handleAfterChange}
             />
             ):null}
           {this.state.hideFilter===true ? (
