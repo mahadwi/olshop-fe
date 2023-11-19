@@ -11,6 +11,13 @@ export default class designersSearch extends Component {
     const categories = this.props.categories
     const handleFilterCategory = this.props.handleFilterCategory
     const handleNonFilter = this.props.handleNonFilter
+    const handleNewArrivalProd = this.props.handleNewArrivalProd
+    const handlePriceLowToHigh = this.props.handlePriceLowToHigh
+    const handleLowToHigh = this.props.handleLowToHigh
+    const handleAtoZ = this.props.handleAtoZ
+    const handleZtoA = this.props.handleZtoA
+    const handleConditionNew = this.props.handleConditionNew
+    const handleConditionLikeNew = this.props.handleConditionLikeNew
     return (
       <div className='designerSearch'>
          <InputGroup className="mb-3">
@@ -35,13 +42,13 @@ export default class designersSearch extends Component {
         >
           <Dropdown.Item href="#"><b>Relevance</b></Dropdown.Item>
           <Dropdown.Divider/>
-          <Dropdown.Item href="#">New Arrival</Dropdown.Item>
-          <Dropdown.Item href="#">Price, low to high</Dropdown.Item>
-          <Dropdown.Item href="#">Price, hight to low</Dropdown.Item>
-          <Dropdown.Item href="#">Alphabetical, A - Z</Dropdown.Item>
-          <Dropdown.Item href="#">Alphabetical, Z - A</Dropdown.Item>
-          <Dropdown.Item href="#">New</Dropdown.Item>
-          <Dropdown.Item href="#">Like New</Dropdown.Item>
+          <Dropdown.Item onClick={handleNewArrivalProd}>New Arrival</Dropdown.Item>
+          <Dropdown.Item onClick={handlePriceLowToHigh}>Price, low to high</Dropdown.Item>
+          <Dropdown.Item onClick={handleLowToHigh}>Price, hight to low</Dropdown.Item>
+          <Dropdown.Item onClick={handleAtoZ}>Alphabetical, A - Z</Dropdown.Item>
+          <Dropdown.Item onClick={handleZtoA}>Alphabetical, Z - A</Dropdown.Item>
+          <Dropdown.Item onClick={handleConditionNew}>New</Dropdown.Item>
+          <Dropdown.Item onClick={handleConditionLikeNew}>Like New</Dropdown.Item>
         </DropdownButton>
       </InputGroup>
       </div>

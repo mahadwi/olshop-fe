@@ -68,6 +68,125 @@ export default class indexShop extends Component {
      }
   }
 
+  handleNewArrivalProd = async () => {
+    try {
+      const response = await axios.get(GetProduct)
+      {
+          let produk = [];
+          const newArrival = response.data.data
+          const datas = newArrival.filter(data => data.is_new_arrival === true)
+          datas.map((data)=>{
+            produk.push(data)
+          })
+          this.setState({product:produk})
+      }
+     } catch (error) {
+          console.log('error :',error)
+     }
+  }
+
+  handleConditionNew = async () => {
+    try {
+      const response = await axios.get(GetProduct)
+      {
+          let produk = [];
+          const newArrival = response.data.data
+          const datas = newArrival.filter(data => data.condition === "New")
+          datas.map((data)=>{
+            produk.push(data)
+          })
+          this.setState({product:produk})
+      }
+     } catch (error) {
+          console.log('error :',error)
+     }
+  }
+
+  handleConditionLikeNew = async () => {
+    try {
+      const response = await axios.get(GetProduct)
+      {
+          let produk = [];
+          const newArrival = response.data.data
+          const datas = newArrival.filter(data => data.condition === "Like New")
+          datas.map((data)=>{
+            produk.push(data)
+          })
+          this.setState({product:produk})
+      }
+     } catch (error) {
+          console.log('error :',error)
+     }
+  }
+
+  handlePriceLowToHigh = async () => {
+    try {
+      const response = await axios.get(GetProduct)
+      {
+          let produk = [];
+          const datas = response.data.data
+          const sortPrice = datas.sort((a,b) => a.sale_price  - b.sale_price)
+          sortPrice.map((data)=>{
+            produk.push(data)
+          })
+          this.setState({product:produk})
+      }
+     } catch (error) {
+          console.log('error :',error)
+     }
+  }
+
+  handleLowToHigh = async () => {
+    try {
+      const response = await axios.get(GetProduct)
+      {
+          let produk = [];
+          const datas = response.data.data
+          const sortPrice = datas.sort((a,b) => b.sale_price  - a.sale_price)
+          sortPrice.map((data)=>{
+            produk.push(data)
+          })
+          this.setState({product:produk})
+      }
+     } catch (error) {
+          console.log('error :',error)
+     }
+  }
+
+  handleAtoZ = async () => {
+    try {
+      const response = await axios.get(GetProduct)
+      {
+          let produk = [];
+          const datas = response.data.data
+          const sortPrice = datas.sort((a,b) => a.name.localeCompare(b.name))
+          sortPrice.map((data)=>{
+            produk.push(data)
+          })
+          this.setState({product:produk})
+      }
+     } catch (error) {
+          console.log('error :',error)
+     }
+  }
+
+  handleZtoA = async () => {
+    try {
+      const response = await axios.get(GetProduct)
+      {
+          let produk = [];
+          const datas = response.data.data
+          const sortPrice = datas.sort((a,b) => b.name.localeCompare(a.name))
+          sortPrice.map((data)=>{
+            produk.push(data)
+          })
+          this.setState({product:produk})
+      }
+     } catch (error) {
+          console.log('error :',error)
+     }
+  }
+
   async handleDropDownDesign() {
     try {
      const response = await axios.get(GetBrand)
@@ -199,6 +318,13 @@ export default class indexShop extends Component {
             <SearchComponent
             banyakProduct={banyakProduct}
             handleHideFilter={this.handleHideFilter}
+            handleNewArrivalProd={this.handleNewArrivalProd}
+            handlePriceLowToHigh={this.handlePriceLowToHigh}
+            handleLowToHigh={this.handleLowToHigh}
+            handleAtoZ={this.handleAtoZ}
+            handleZtoA={this.handleZtoA}
+            handleConditionNew={this.handleConditionNew}
+            handleConditionLikeNew={this.handleConditionLikeNew}
             />
             <Row>
           {this.state.hideFilter===true ? (
