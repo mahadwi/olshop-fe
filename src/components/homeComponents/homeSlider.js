@@ -13,84 +13,84 @@ import { GetBanner } from '../../config/api';
 import axios from 'axios';
 
 export default class homeSlider extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      images : '',
-    }
-  }
-
-  async componentDidMount() {
-    try {
-     const response = await axios.get(GetBanner)
-     {
-         const datas = response.data.data[0]
-         console.log('home slider : ',datas)
-         this.setState({images:datas})
-     }
-    } catch (error) {
-         console.log('error :',error)
-    }
-   }
-
-
-  render() {
-    const settings = {
-      dots: true,
-      infinite: true,
-      speed: 500,
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      autoplay: true,
-      autoplaySpeed: 2000,
-      pauseOnHover: false,
-      initialSlide: 0,
-      responsive: [
-        {
-          breakpoint: 1024,
-          settings: {
-            slidesToShow: 2,
-            slidesToScroll: 2,
-            infinite: true,
-            dots: true
-          }
-        },
-        {
-          breakpoint: 600,
-          settings: {
-            slidesToShow: 2,
-            slidesToScroll: 2,
-            initialSlide: 2
-          }
-        },
-        {
-          breakpoint: 480,
-          settings: {
-            slidesToShow: 1,
-            slidesToScroll: 1
-          }
+    constructor(props) {
+        super(props);
+        this.state = {
+            images: '',
         }
-      ]
-    };
-    const {images} = this.state;
-    return (
-         <Slider {...settings}>
-            <div>
-                <img className='pic1'  src={images && images.images[0]} alt="image" />
-              </div>
-              <div>
-                <img className='pic1'  src={images && images.images[1]} alt="image" />
-              </div>
-              <div>
-                <img className='pic1' src={images && images.images[2]} alt="image" />
-              </div>
-              <div>
-                <img className='pic1'  src={images && images.images[3]} alt="image" />
-              </div>
-              <div>
-                <img className='pic1'  src={images && images.images[4]} alt="image" />
-              </div>
-    </Slider>
-    )
-  }
+    }
+
+    async componentDidMount() {
+        try {
+            const response = await axios.get(GetBanner)
+            {
+                const datas = response.data.data[0]
+                console.log('home slider : ', datas)
+                this.setState({ images: datas })
+            }
+        } catch (error) {
+            console.log('error :', error)
+        }
+    }
+
+
+    render() {
+        const settings = {
+            dots: true,
+            infinite: true,
+            speed: 500,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 2000,
+            pauseOnHover: false,
+            initialSlide: 0,
+            responsive: [
+                {
+                    breakpoint: 1024,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 2,
+                        infinite: true,
+                        dots: true
+                    }
+                },
+                {
+                    breakpoint: 600,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 2,
+                        initialSlide: 2
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1
+                    }
+                }
+            ]
+        };
+        const { images } = this.state;
+        return (
+            <Slider {...settings}>
+                <div>
+                    <img className='pic1' src={images && images.images[0]} alt="image" />
+                </div>
+                <div>
+                    <img className='pic1' src={images && images.images[1]} alt="image" />
+                </div>
+                <div>
+                    <img className='pic1' src={images && images.images[2]} alt="image" />
+                </div>
+                <div>
+                    <img className='pic1' src={images && images.images[3]} alt="image" />
+                </div>
+                <div>
+                    <img className='pic1' src={images && images.images[4]} alt="image" />
+                </div>
+            </Slider>
+        )
+    }
 }
