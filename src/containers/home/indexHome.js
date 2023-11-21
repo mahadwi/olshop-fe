@@ -17,10 +17,20 @@ import Section7 from '../../components/homeComponents/section7'
 import Section8 from '../../components/homeComponents/section8'
 import Section9 from '../../components/homeComponents/section9/section9'
 import axios from 'axios'
+import { BeatLoader } from 'react-spinners'
+
+
+const override: CSSProperties = {
+  display: "block",
+  margin: "0 auto",
+  borderColor: "red",
+};
 
 function IndexHome() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    let [loading, setLoading] = useState(true);
+    let [color, setColor] = useState("#36d7b7");
     const {isError,user} = useSelector((state) => state.auth)
     const [dataBanner,setDataBanner] = useState({})
     const [dataGallery,setDataGallery] = useState({})
@@ -45,6 +55,7 @@ function IndexHome() {
     const getBanner = async () => {
         try {
           const response = await axios.get(GetBanner)
+          setLoading(false)
           setDataBanner(response.data)
           console.log('data banner', dataBanner)
         } catch (error) {
@@ -62,8 +73,18 @@ function IndexHome() {
         }
       }
 
+      
+
   return (
     <div>
+      <BeatLoader
+        color={color}
+        loading={loading}
+        cssOverride={override}
+        size={150}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+      />
       <NavbarHome
       userName={user && user.name}/>
       <HomeSlider
