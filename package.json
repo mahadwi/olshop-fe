@@ -37,10 +37,10 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "craco start start",
-    "build": "craco start build",
-    "test": "craco start test",
-    "eject": "craco start eject"
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
+    "eject": "craco eject"
   },
   "eslintConfig": {
     "extends": [
