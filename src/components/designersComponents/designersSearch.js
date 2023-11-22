@@ -7,7 +7,7 @@ import './designersSearch.css'
 
 export default class designersSearch extends Component {
   render() {
-    const placeholder = "Results"
+    const banyakProduct = this.props.banyakProduct;
     const categories = this.props.categories
     const handleFilterCategory = this.props.handleFilterCategory
     const handleNonFilter = this.props.handleNonFilter
@@ -22,7 +22,7 @@ export default class designersSearch extends Component {
       <div className='designerSearch'>
          <InputGroup className="mb-3">
          <Form.Control placeholder='Search' aria-label="Text input with dropdown button"/>
-         <Form.Control className='w-50' placeholder={placeholder} disabled aria-label="Text input with dropdown button" />
+         <Form.Control className='w-50' placeholder={`${banyakProduct} Results`||'0 Results'} disabled aria-label="Text input with dropdown button" />
          <DropdownButton
           variant="outline-secondary"
           title="Filter by categories"
