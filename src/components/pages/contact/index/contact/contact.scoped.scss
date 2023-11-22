@@ -1,0 +1,76 @@
+.contact-wrap-box {
+    width: 30%;
+    margin-top: 3.5rem;
+
+    .title-contact-us {
+        color: #000;
+        font-family: 'Poppins', sans-serif;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+    }
+
+    .horizontal-line {
+        margin-top: 0.75rem;
+        background: #000;
+        width: 68px;
+        height: 2px;
+    }
+
+    ul.list-address {
+        padding-left: 1.6rem;
+        margin-top: 1.2rem;
+
+        li.list-item {
+            display: flex;
+            align-items: center;
+            column-gap: 1rem;
+            margin-bottom: .5rem;
+
+            p {
+                color: #000;
+                font-family: 'Inter', sans-serif;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 300;
+                line-height: 16px;
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    .follow-us-wrap {
+        display: flex;
+        margin-top: 1.25rem;
+
+        h4 {
+            color: '#000';
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 16px;
+        }
+
+        ul {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            column-gap: .5rem;
+            padding-left: 1rem;
+
+            li {
+
+                a {
+                    width: 24px;
+                    height: 24px;
+                    border-radius: 12px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+            }
+        }
+    }
+}

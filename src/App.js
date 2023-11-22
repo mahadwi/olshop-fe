@@ -8,8 +8,8 @@ import "../src/translations/i18n"
 import CollectiveIndex from './containers/collective/collectiveIndex';
 import DesignerIndex from './containers/designers/designerIndex';
 import EventIndex from './containers/event/EventIndex';
-import ContactIndex from './containers/contact/ContactIndex';
 import AboutUsIndex from './containers/about-us/index/AboutUsIndex';
+import ContactIndex from './containers/contact/index/ContactIndex';
 
 function App() {
     return (
