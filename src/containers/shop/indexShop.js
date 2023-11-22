@@ -10,6 +10,20 @@ import { Col, Row } from 'react-bootstrap'
 import axios from 'axios'
 import { GetProduct, GetBrand, GetCategory, GetBanner } from '../../config/api'
 import ReactPaginate from 'react-paginate'
+import { BeatLoader } from 'react-spinners';
+
+
+const override = {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  width: '100%',
+  height: '100%',
+  backgroundColor: 'rgba(255, 255, 255, 0.8)', // You can adjust the background color and transparency
+};
 
 export default class indexShop extends Component {
   constructor(props) {
@@ -24,7 +38,9 @@ export default class indexShop extends Component {
       itemChecked : [],
       hideFilter : true,
       itemCheckedBrand : [],
-      price_min : ''
+      price_min : '',
+      loaderColor : 'black',
+      loading : true
     }
   }
 
@@ -47,6 +63,7 @@ export default class indexShop extends Component {
             this.handleCheckboxChange()
             this.handleCheckboxChangeBrand()
             this.handleMinPriceFilter()
+            await this.setState({loading:false})
         }
        } catch (error) {
             console.log('error :',error)
@@ -55,7 +72,8 @@ export default class indexShop extends Component {
 
   handleColorFilter = async (data) => {
     try {
-      const response = await axios.get(GetProduct, {params : {color_id : data}})
+      await this.setState({colorParam:data})
+      const response = await axios.get(GetProduct, {params : {color_id : this.state.colorParam}})
       {
           let produk = [];
           const datas = response.data.data
@@ -73,9 +91,11 @@ export default class indexShop extends Component {
     try {
       this.handleCheckboxChange()
       this.handleCheckboxChangeBrand()
-      const response = await axios.get(GetProduct, {params : {color_id : this.state.colorParam,
+      const response = await axios.get(GetProduct, {params : {price_min : this.state.price_min,
         category_id:this.state.itemChecked,
-        brand_id:this.state.itemCheckedBrand
+        brand_id:this.state.itemCheckedBrand,
+        price_max: 100000000,
+        color_id : this.state.colorParam
       }})
       {
           let produk = [];
@@ -97,7 +117,9 @@ export default class indexShop extends Component {
       this.handleCheckboxChangeBrand()
       const response = await axios.get(GetProduct, {params : {color_id : this.state.colorParam,
         category_id:this.state.itemChecked,
-        brand_id:this.state.itemCheckedBrand
+        brand_id:this.state.itemCheckedBrand,
+        price_min : this.state.price_min,
+        price_max: 100000000
       }})
       {
           let produk = [];
@@ -119,7 +141,9 @@ export default class indexShop extends Component {
       this.handleCheckboxChangeBrand()
       const response = await axios.get(GetProduct, {params : {color_id : this.state.colorParam,
         category_id:this.state.itemChecked,
-        brand_id:this.state.itemCheckedBrand
+        brand_id:this.state.itemCheckedBrand,
+        price_min : this.state.price_min,
+        price_max: 100000000
       }})
       {
           let produk = [];
@@ -141,7 +165,9 @@ export default class indexShop extends Component {
       this.handleCheckboxChangeBrand()
       const response = await axios.get(GetProduct, {params : {color_id : this.state.colorParam,
         category_id:this.state.itemChecked,
-        brand_id:this.state.itemCheckedBrand
+        brand_id:this.state.itemCheckedBrand,
+        price_min : this.state.price_min,
+        price_max: 100000000
       }})
       {
           let produk = [];
@@ -163,7 +189,9 @@ export default class indexShop extends Component {
       this.handleCheckboxChangeBrand()
       const response = await axios.get(GetProduct, {params : {color_id : this.state.colorParam,
         category_id:this.state.itemChecked,
-        brand_id:this.state.itemCheckedBrand
+        brand_id:this.state.itemCheckedBrand,
+        price_min : this.state.price_min,
+        price_max: 100000000
       }})
       {
           let produk = [];
@@ -185,7 +213,9 @@ export default class indexShop extends Component {
       this.handleCheckboxChangeBrand()
       const response = await axios.get(GetProduct, {params : {color_id : this.state.colorParam,
         category_id:this.state.itemChecked,
-        brand_id:this.state.itemCheckedBrand
+        brand_id:this.state.itemCheckedBrand,
+        price_min : this.state.price_min,
+        price_max: 100000000
       }})
       {
           let produk = [];
@@ -207,7 +237,9 @@ export default class indexShop extends Component {
       this.handleCheckboxChangeBrand()
       const response = await axios.get(GetProduct, {params : {color_id : this.state.colorParam,
         category_id:this.state.itemChecked,
-        brand_id:this.state.itemCheckedBrand
+        brand_id:this.state.itemCheckedBrand,
+        price_min : this.state.price_min,
+        price_max: 100000000
       }})
       {
           let produk = [];
@@ -319,7 +351,8 @@ export default class indexShop extends Component {
 
   handleMinPriceFilter = async (data) => {
     try {
-      const response = await axios.get(GetProduct, {params : {price_min : data,
+      await this.setState({price_min:data})
+      const response = await axios.get(GetProduct, {params : {price_min : this.state.price_min,
         price_max: 100000000
       }})
       {
@@ -337,12 +370,24 @@ export default class indexShop extends Component {
 
 
   render() {
-    const {product, color, colorParam, headerBanner} = this.state;
+    const {product, color, colorParam, headerBanner, loading, loaderColor} = this.state;
     console.log('data product check :',product)
     const banyakProduct = product.length
     const products = product;
+    console.log('data loader:',loading)
     return (
     <>
+      {loading && (
+        <BeatLoader
+          color={loaderColor}
+          loading={loading}
+          cssOverride={override}
+          size={50}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+        />
+      )}
+    <div style={{ display: loading ? 'none' : 'block' }}>
         <IndexNavbar
         brands={this.state.brands}
         categories={this.state.categories}
@@ -392,14 +437,8 @@ export default class indexShop extends Component {
             </Col>
             </Row>
         </div>
-        <ReactPaginate
-        breakLabel="..."
-        nextLabel="next >"
-        pageRangeDisplayed={5}
-        pageCount={1}
-        previousLabel="< previous"
-      />
         <IndexFooter/>
+        </div>
     </>
     )
   }

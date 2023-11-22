@@ -5,6 +5,19 @@ import { GetProduct, GetBrand, GetCategory, GetBanner } from '../../config/api';
 import IndexNavbar from '../../components/navbar/IndexNavbar';
 import DesignersBanner from '../../components/designersComponents/designersBanner';
 import DesignersSearch from '../../components/designersComponents/designersSearch';
+import { BeatLoader } from 'react-spinners';
+
+const override = {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  width: '100%',
+  height: '100%',
+  backgroundColor: 'rgba(255, 255, 255, 0.8)', // You can adjust the background color and transparency
+};
 
 
 export default class designerIndex extends Component { 
@@ -15,14 +28,20 @@ export default class designerIndex extends Component {
       brands : [],
       categories : [],
       headerBanner : "",
-      filterCategory : ''
+      filterCategory : [],
+      loaderColor : 'black',
+      loading : true
     }
   }
 
     async componentDidMount() {
        try {
         const id = window.location.href.split('/')[4]
-        const response = await axios.get(GetProduct,{params:{brand_id:[id]}})
+        const response = await axios.get(GetProduct, {params:
+          {brand_id:[id],
+          category_id:this.state.filterCategory
+          }
+        })
         {
             let produk = [];
             const datas = response.data.data
@@ -33,6 +52,7 @@ export default class designerIndex extends Component {
             this.handleDropDownDesign()
             this.handleDropDownCollective()
             this.handleGetBanner()
+            await this.setState({loading:false})
         }
        } catch (error) {
             console.log('error :',error)
@@ -110,7 +130,10 @@ export default class designerIndex extends Component {
        handleNonFilter = async () => {
         try {
           const id = window.location.href.split('/')[4]
-          const response = await axios.get(GetProduct,{params:{brand_id:[id]}})
+          const response = await axios.get(GetProduct, {params:
+            {brand_id:[id]
+            }
+          })
           {
               let produk = [];
               const datas = response.data.data
@@ -128,7 +151,11 @@ export default class designerIndex extends Component {
        handleNewArrivalProd = async () => {
         try {
           const id = window.location.href.split('/')[4]
-          const response = await axios.get(GetProduct,{params:{brand_id:[id]}})
+          const response = await axios.get(GetProduct, {params:
+            {brand_id:[id],
+            category_id:[this.state.filterCategory]
+            }
+          })
           {
               let produk = [];
               const newArrival = response.data.data
@@ -145,7 +172,12 @@ export default class designerIndex extends Component {
 
       handleConditionNew = async () => {
         try {
-          const response = await axios.get(GetProduct)
+          const id = window.location.href.split('/')[4]
+          const response = await axios.get(GetProduct, {params:
+            {brand_id:[id],
+            category_id:[this.state.filterCategory]
+            }
+          })
           {
               let produk = [];
               const newArrival = response.data.data
@@ -162,7 +194,12 @@ export default class designerIndex extends Component {
     
       handleConditionLikeNew = async () => {
         try {
-          const response = await axios.get(GetProduct)
+          const id = window.location.href.split('/')[4]
+          const response = await axios.get(GetProduct, {params:
+            {brand_id:[id],
+            category_id:[this.state.filterCategory]
+            }
+          })
           {
               let produk = [];
               const newArrival = response.data.data
@@ -180,7 +217,11 @@ export default class designerIndex extends Component {
       handlePriceLowToHigh = async () => {
         try {
           const id = window.location.href.split('/')[4]
-          const response = await axios.get(GetProduct,{params:{brand_id:[id]}})
+          const response = await axios.get(GetProduct, {params:
+            {brand_id:[id],
+            category_id:[this.state.filterCategory]
+            }
+          })
           {
               let produk = [];
               const datas = response.data.data
@@ -197,7 +238,12 @@ export default class designerIndex extends Component {
     
       handleLowToHigh = async () => {
         try {
-          const response = await axios.get(GetProduct)
+          const id = window.location.href.split('/')[4]
+          const response = await axios.get(GetProduct, {params:
+            {brand_id:[id],
+            category_id:[this.state.filterCategory]
+            }
+          })
           {
               let produk = [];
               const datas = response.data.data
@@ -214,7 +260,12 @@ export default class designerIndex extends Component {
     
       handleAtoZ = async () => {
         try {
-          const response = await axios.get(GetProduct)
+          const id = window.location.href.split('/')[4]
+          const response = await axios.get(GetProduct, {params:
+            {brand_id:[id],
+            category_id:[this.state.filterCategory]
+            }
+          })
           {
               let produk = [];
               const datas = response.data.data
@@ -231,7 +282,12 @@ export default class designerIndex extends Component {
     
       handleZtoA = async () => {
         try {
-          const response = await axios.get(GetProduct)
+          const id = window.location.href.split('/')[4]
+          const response = await axios.get(GetProduct, {params:
+            {brand_id:[id],
+            category_id:[this.state.filterCategory]
+            }
+          })
           {
               let produk = [];
               const datas = response.data.data
@@ -248,19 +304,33 @@ export default class designerIndex extends Component {
 
   render() {
     const product = this.state;
+    const {loading, loaderColor} = this.state
     const products = product.product
+    const banyakProduct = products.length
     console.log('data banner designer : ', this.state.headerBanner)
     return (
       <div>
+        {loading && (
+        <BeatLoader
+          color={loaderColor}
+          loading={loading}
+          cssOverride={override}
+          size={50}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+        />
+      )}
+    <div style={{ display: loading ? 'none' : 'block' }}>
+      <div>
         <IndexNavbar
         brands={this.state.brands}
-        handleBrandFilter={this.handleBrandFilter}
         categories={this.state.categories}
         />
         <DesignersBanner
         headerBanner={this.state.headerBanner}
         />
         <DesignersSearch
+        banyakProduct={banyakProduct}
         products={products}
         categories={this.state.categories}
         handleFilterCategory={this.handleFilterCategory}
@@ -276,6 +346,8 @@ export default class designerIndex extends Component {
         <DesginersComponent
          products={products}
         />
+      </div>
+      </div>
       </div>
     )
   }
