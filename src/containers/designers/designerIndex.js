@@ -37,6 +37,7 @@ export default class designerIndex extends Component {
     async componentDidMount() {
        try {
         const id = window.location.href.split('/')[4]
+        this.setState({loading:true})
         const response = await axios.get(GetProduct, {params:
           {brand_id:[id],
           category_id:this.state.filterCategory
@@ -52,7 +53,7 @@ export default class designerIndex extends Component {
             this.handleDropDownDesign()
             this.handleDropDownCollective()
             this.handleGetBanner()
-            await this.setState({loading:false})
+            this.setState({loading:false})
         }
        } catch (error) {
             console.log('error :',error)

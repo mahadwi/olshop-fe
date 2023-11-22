@@ -11,6 +11,7 @@ import axios from 'axios'
 import { GetProduct, GetBrand, GetCategory, GetBanner } from '../../config/api'
 import ReactPaginate from 'react-paginate'
 import { BeatLoader } from 'react-spinners';
+import Pagination from '../../components/general/pagination'
 
 
 const override = {
@@ -46,9 +47,12 @@ export default class indexShop extends Component {
 
     async componentDidMount() {
        try {
+        this.setState({loading:true})
         const response = await axios.get(GetProduct, {params : {color_id : this.state.colorParam,
           category_id:this.state.itemChecked,
-          brand_id:this.state.itemCheckedBrand
+          brand_id:this.state.itemCheckedBrand,
+          page: 1,
+          itemPerpage: 9
         }})
         {
             let produk = [];
@@ -63,7 +67,7 @@ export default class indexShop extends Component {
             this.handleCheckboxChange()
             this.handleCheckboxChangeBrand()
             this.handleMinPriceFilter()
-            await this.setState({loading:false})
+            this.setState({loading:false})
         }
        } catch (error) {
             console.log('error :',error)
@@ -73,7 +77,10 @@ export default class indexShop extends Component {
   handleColorFilter = async (data) => {
     try {
       await this.setState({colorParam:data})
-      const response = await axios.get(GetProduct, {params : {color_id : this.state.colorParam}})
+      const response = await axios.get(GetProduct, {params : {color_id : this.state.colorParam,
+        category_id:this.state.itemChecked,
+        brand_id:this.state.itemCheckedBrand
+      }})
       {
           let produk = [];
           const datas = response.data.data
@@ -300,7 +307,9 @@ export default class indexShop extends Component {
         }
         return { itemChecked: updatedItemChecked };
       });
-      const response = await axios.get(GetProduct, {params : {category_id: this.state.itemChecked.length<1 ? null : this.state.itemChecked
+      const response = await axios.get(GetProduct, {params : {category_id: this.state.itemChecked.length<1 ? null : this.state.itemChecked,
+        color_id : this.state.colorParam,
+        brand_id : this.state.itemCheckedBrand
       }})
       {
           let produk = [];
@@ -329,7 +338,9 @@ export default class indexShop extends Component {
         }
         return { itemCheckedBrand: updatedItemChecked };
       });
-      const response = await axios.get(GetProduct, {params : {brand_id: this.state.itemCheckedBrand.length<1 ? null : this.state.itemCheckedBrand
+      const response = await axios.get(GetProduct, {params : {brand_id: this.state.itemCheckedBrand.length<1 ? null : this.state.itemCheckedBrand,
+        color_id : this.state.colorParam,
+        brand_id : this.state.itemCheckedBrand
       }})
       {
           let produk = [];
@@ -353,7 +364,12 @@ export default class indexShop extends Component {
     try {
       await this.setState({price_min:data})
       const response = await axios.get(GetProduct, {params : {price_min : this.state.price_min,
-        price_max: 100000000
+        price_max: 100000000,
+        color_id : this.state.colorParam,
+        category_id:this.state.itemChecked,
+        brand_id:this.state.itemCheckedBrand,
+        page: 1,
+        itemPerpage: 9
       }})
       {
           let produk = [];
@@ -367,6 +383,9 @@ export default class indexShop extends Component {
           console.log('error :',error)
      }
   }
+
+  handlePageChange = () => {
+  };
 
 
   render() {
@@ -430,11 +449,17 @@ export default class indexShop extends Component {
             </Col>
             ):null}
             <Col xs={this.state.hideFilter===true ? 9 : 12} 
-            style={{marginLeft:this.state.hideFilter===true ? '0px' : '120px'}}>
+            style={{marginLeft:this.state.hideFilter===true ? '0px' : '120px', marginBottom:'20px'}}>
               <ProductList
                 products={products}
               />
             </Col>
+            <Pagination
+                currentPage={1}
+                perPage={10}
+                total={10}
+                onPageChange={this.handlePageChange}
+              />
             </Row>
         </div>
         <IndexFooter/>

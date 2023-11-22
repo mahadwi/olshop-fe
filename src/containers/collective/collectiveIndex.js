@@ -36,6 +36,7 @@ export default class collectiveIndex extends Component {
     async componentDidMount() {
        try {
         const id = window.location.href.split('/')[4]
+        this.setState({loading:true})
         const response = await axios.get(GetProduct, {params:
           {category_id:[id],
           brand_id:this.state.filterBrand
@@ -52,7 +53,7 @@ export default class collectiveIndex extends Component {
             this.handleDropDownDesign()
             this.handleDropDownCollective()
             this.handleGetBanner()
-            await this.setState({loading:false})
+            this.setState({loading:false})
         }
        } catch (error) {
             console.log('error :',error)
@@ -61,8 +62,10 @@ export default class collectiveIndex extends Component {
 
       async handleGetBanner() {
         try {
+          this.setState({loading:true})
           const response = await axios.get(GetBanner)
           this.setState({headerBanner: response.data.data[2].images[0]})
+          this.setState({loading:false})
         } catch (error) {
           console.log(error)
         }
