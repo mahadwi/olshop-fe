@@ -1,0 +1,25 @@
+.hero-wrapper {
+    display: flex;
+    justify-content: flex-end;
+
+    .left {
+        width: 42%;
+
+        p {
+            color: #000;
+            text-align: justify;
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            line-height: 23px;
+            font-weight: 400;
+
+            &:first-child {
+                text-indent: 35px;
+            }
+        }
+    }
+
+    img {
+        width: 58%;
+    }
+}

@@ -7,9 +7,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import "../src/translations/i18n"
 import CollectiveIndex from './containers/collective/collectiveIndex';
 import DesignerIndex from './containers/designers/designerIndex';
-import AboutUsIndex from './containers/about-us/AboutUsIndex';
 import EventIndex from './containers/event/EventIndex';
 import ContactIndex from './containers/contact/ContactIndex';
+import AboutUsIndex from './containers/about-us/index/AboutUsIndex';
 
 function App() {
     return (

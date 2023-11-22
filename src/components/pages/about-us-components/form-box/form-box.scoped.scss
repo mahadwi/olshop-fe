@@ -1,0 +1,65 @@
+.container-form {
+    margin-top: 2rem;
+
+    p {
+        margin-top: 1.75rem;
+        color: #000;
+        font-family: 'Inter', sans-serif;
+        font-size: 15px;
+        font-style: normal;
+        font-weight: 300;
+        line-height: 16px;
+        text-align: center;
+    }
+
+    .form-group {
+        margin-bottom: 10px;
+
+        label {
+            color: #222B45;
+            font-family: Cabin, sans-serif;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: normal;
+        }
+
+        input {
+            font-family: Cabin;
+            font-style: normal;
+            margin-top: 2px;
+        }
+
+        input::placeholder {
+            color: #C8D1E1;
+        }
+
+        textarea {
+            font-family: Cabin;
+            font-style: normal;
+            margin-top: 2px;
+            height: 200px;
+        }
+
+        textarea::placeholder {
+            color: #C8D1E1;
+        }
+    }
+
+    .form-group-button {
+        display: flex;
+        justify-content: center;
+        margin-top: 3rem;
+
+        button {
+            padding-left: 27.5px;
+            padding-right: 27.5px;
+            padding-top: 8px;
+            padding-bottom: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            background: #151B4F;
+            color: white;
+        }
+    }
+}
