@@ -126,8 +126,8 @@ class navbarHome extends Component {
                                     })}
                                 </NavDropdown>
                             </Nav.Link>
-                            <Nav.Link style={{ color: 'white' }} className='navbar' href="#about-us">{t('aboutus')}</Nav.Link>
-                            <Nav.Link style={{ color: "white" }} className='navbar' href="#contact">{t('contact')}</Nav.Link>
+                            <Nav.Link style={{ color: 'white' }} className='navbar' href="/about-us">{t('aboutus')}</Nav.Link>
+                            <Nav.Link style={{ color: "white" }} className='navbar' href="/contact">{t('contact')}</Nav.Link>
                             <Nav.Link style={{ color: "white" }} className='navbar' href="/event">{t('event')}</Nav.Link>
                         </Nav>
                     </Navbar.Collapse>

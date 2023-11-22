@@ -4,6 +4,7 @@
     font-family: 'Cabin';
     margin-right: 25px;
     color: rgba(0, 0, 0, 1);
+    border-bottom: 1px solid #C4C4C4;
 }
 
 .transparentbar {
@@ -11,8 +12,8 @@
 }
 
 .Navbar {
-    padding-left:0px;
-    padding-right:0px;
+    padding-left: 0px;
+    padding-right: 0px;
     background-color: white;
 
 }

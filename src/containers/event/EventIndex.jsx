@@ -64,7 +64,14 @@ export default function () {
             {/* End of Navbar */}
 
             <ContainerComponent>
-                <BreadCrumb />
+                <BreadCrumb
+                    lists={[{
+                        label: 'Home',
+                        url: '/'
+                    }, {
+                        label: 'Event'
+                    }]}
+                />
             </ContainerComponent>
 
             <BannerComponent />

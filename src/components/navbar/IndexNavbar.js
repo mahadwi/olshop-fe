@@ -100,8 +100,8 @@ class IndexNavbar extends Component {
                                     })}
                                 </NavDropdown>
                             </Nav.Link>
-                            <Nav.Link className='navbar' href="#aboutus">{t('aboutus')}</Nav.Link>
-                            <Nav.Link className='navbar' href="#contact">{t('contact')}</Nav.Link>
+                            <Nav.Link className='navbar' href="/about-us">{t('aboutus')}</Nav.Link>
+                            <Nav.Link className='navbar' href="/contact">{t('contact')}</Nav.Link>
                             <Nav.Link className='navbar' href="/event">{t('event')}</Nav.Link>
                         </Nav>
                     </Navbar.Collapse>

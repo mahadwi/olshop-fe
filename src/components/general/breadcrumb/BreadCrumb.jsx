@@ -1,20 +1,22 @@
 import { NavLink } from "react-router-dom";
 import './BreadCrumb.scoped.scss'
 
-export default function BreadCrumb() {
+export default function BreadCrumb({ lists }) {
 
     return (
         <div className="breadcrumb-container">
             <ul className="breadcrumb-list-wrapper">
-                <li className="breadcrumb-list-item">
-                    <NavLink>Home</NavLink>
-                </li>
-                <li className="breadcrumb-list-item">
-                    <NavLink>Event</NavLink>
-                </li>
-                <li className="breadcrumb-list-item active">
-                    <span>Fashion Week 2023</span>
-                </li>
+                {
+                    lists.map((list) => (
+                        <li className={`breadcrumb-list-item ${!list.url ? 'active' : ''}`}>
+                            {
+                                list.url ?
+                                    <NavLink to={list.url}>{list.label}</NavLink>
+                                    : <span>{list.label}</span>
+                            }
+                        </li>
+                    ))
+                }
             </ul>
         </div>
     )
