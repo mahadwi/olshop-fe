@@ -6,6 +6,7 @@ import IndexNavbar from '../../components/navbar/IndexNavbar';
 import BannerSlider from '../../components/collectiveComponents/headerBanner/bannerSlider';
 import CollectiveProduct from '../../components/collectiveComponents/collectiveProduct';
 import { BeatLoader } from 'react-spinners';
+import Pagination from '../../components/general/pagination';
 
 const override = {
   display: 'flex',
@@ -23,6 +24,8 @@ export default class collectiveIndex extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      page: 0,
+      perPage: 18,
       product : [],
       brands : [],
       categories : [],
@@ -42,30 +45,33 @@ export default class collectiveIndex extends Component {
           brand_id:this.state.filterBrand
           }
         })
-        {
-            let produk = [];
-            const datas = response.data.data
-            console.log('datas:',datas)
-            datas.map((data)=>{
-              produk.push(data)
-            })
-            this.setState({product:produk})
-            this.handleDropDownDesign()
-            this.handleDropDownCollective()
-            this.handleGetBanner()
-            this.setState({loading:false})
-        }
+        setTimeout(() => {
+          let produk = [];
+          const datas = response.data.data;
+          console.log('datas:', datas);
+          datas.map((data) => {
+            produk.push(data);
+          });
+          this.setState({ product: produk });
+          this.handleDropDownDesign();
+          this.handleDropDownCollective();
+          this.handleGetBanner();
+          this.setState({ loading: false });
+        }, 1000);
        } catch (error) {
             console.log('error :',error)
        }
       }
 
+      handlePageChange = (page) => {
+        this.setState({page:page})
+        };
+    
+
       async handleGetBanner() {
         try {
-          this.setState({loading:true})
           const response = await axios.get(GetBanner)
           this.setState({headerBanner: response.data.data[2].images[0]})
-          this.setState({loading:false})
         } catch (error) {
           console.log(error)
         }
@@ -333,6 +339,13 @@ export default class collectiveIndex extends Component {
         <CollectiveProduct
           products={products}
         />
+           <br/>
+         <Pagination
+                 currentPage={this.state.page}
+                 perPage={this.state.perPage}
+                 total={banyakProduct|| 0}
+                 onPageChange={this.handlePageChange}
+              />
       </div>
       </div> 
      </div> 

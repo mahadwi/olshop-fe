@@ -6,6 +6,7 @@ import IndexNavbar from '../../components/navbar/IndexNavbar';
 import DesignersBanner from '../../components/designersComponents/designersBanner';
 import DesignersSearch from '../../components/designersComponents/designersSearch';
 import { BeatLoader } from 'react-spinners';
+import Pagination from '../../components/general/pagination';
 
 const override = {
   display: 'flex',
@@ -24,6 +25,8 @@ export default class designerIndex extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      page: 0,
+      perPage: 18,
       product : [],
       brands : [],
       categories : [],
@@ -43,22 +46,29 @@ export default class designerIndex extends Component {
           category_id:this.state.filterCategory
           }
         })
-        {
-            let produk = [];
-            const datas = response.data.data
-            datas.map((data)=>{
-              produk.push(data)
-            })
-            this.setState({product:produk})
-            this.handleDropDownDesign()
-            this.handleDropDownCollective()
-            this.handleGetBanner()
-            this.setState({loading:false})
-        }
+        setTimeout(() => {
+          let produk = [];
+          const datas = response.data.data;
+          console.log('datas:', datas);
+          datas.map((data) => {
+            produk.push(data);
+          });
+          this.setState({ product: produk });
+          this.handleDropDownDesign();
+          this.handleDropDownCollective();
+          this.handleGetBanner();
+          this.setState({ loading: false });
+        }, 1000);
        } catch (error) {
             console.log('error :',error)
        }
       }
+
+      
+
+   handlePageChange = (page) => {
+    this.setState({page:page})
+    };
 
       
    async handleGetBanner() {
@@ -347,6 +357,13 @@ export default class designerIndex extends Component {
         <DesginersComponent
          products={products}
         />
+        <br/>
+         <Pagination
+                 currentPage={this.state.page}
+                 perPage={this.state.perPage}
+                 total={banyakProduct|| 0}
+                 onPageChange={this.handlePageChange}
+              />
       </div>
       </div>
       </div>
