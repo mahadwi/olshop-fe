@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import IndexNavbar from "../../components/navbar/IndexNavbar";
-import { GetBrand, GetCategory } from "../../config/api";
+import IndexNavbar from "../../../components/navbar/IndexNavbar";
+import { GetBrand, GetCategory } from "../../../config/api";
 import axios from 'axios'
-import BreadCrumb from "../../components/general/breadcrumb/BreadCrumb";
-import ContainerComponent from "../../components/general/container/ContainerComponent";
-import BannerComponent from "../../components/pages/event-page-components/banner/BannerComponent";
-import EventDescriptionComponent from "../../components/pages/event-page-components/event-description/EventDescriptionComponent";
+import BreadCrumb from "../../../components/general/breadcrumb/BreadCrumb";
+import ContainerComponent from "../../../components/general/container/ContainerComponent";
+import BannerComponent from "../../../components/pages/event-page-components/banner/BannerComponent";
+import EventDescriptionComponent from "../../../components/pages/event-page-components/event-description/EventDescriptionComponent";
 
-export default function () {
+export default function EventShow() {
 
     /**
      * Redundant States

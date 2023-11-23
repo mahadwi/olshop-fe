@@ -7,9 +7,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import "../src/translations/i18n"
 import CollectiveIndex from './containers/collective/collectiveIndex';
 import DesignerIndex from './containers/designers/designerIndex';
-import EventIndex from './containers/event/EventIndex';
 import AboutUsIndex from './containers/about-us/index/AboutUsIndex';
 import ContactIndex from './containers/contact/index/ContactIndex';
+import EventIndex from './containers/event/index/EventIndex';
 
 function App() {
     return (
@@ -23,8 +23,8 @@ function App() {
                     <Route path="/collective/:id" element={<CollectiveIndex />} />
                     <Route path="/designers/:id" element={<DesignerIndex />} />
                     <Route path='/about-us' element={<AboutUsIndex />} />
-                    <Route path='/event' element={<EventIndex />} />
                     <Route path='/contact' element={<ContactIndex />} />
+                    <Route path='/event' element={<EventIndex />} />
                 </Routes>
             </BrowserRouter>
         </>

@@ -1,4 +1,4 @@
-import HighlightTitleComponent from "../highlight-title/HighlightTitleComponent";
+import HighlightTitleComponent from '../../../general/highlight-title/HighlightTitleComponent'
 import './form-box.scoped.scss'
 
 export default function FormBoxComponent() {

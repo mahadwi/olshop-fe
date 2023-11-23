@@ -5,10 +5,10 @@ import './about-us-index.scoped.scss'
 import { GetBrand, GetCategory } from '../../../config/api';
 import IndexNavbar from '../../../components/navbar/IndexNavbar';
 import ContainerComponent from '../../../components/general/container/ContainerComponent';
-import HighlightTitleComponent from '../../../components/pages/about-us-components/highlight-title/HighlightTitleComponent';
 import HeroComponent from '../../../components/pages/about-us-components/hero/HeroComponent';
 import DescriptionComponent from '../../../components/pages/about-us-components/description/DescriptionComponent';
 import FormBoxComponent from '../../../components/pages/about-us-components/form-box/FormBoxComponent';
+import HighlightTitleComponent from '../../../components/general/highlight-title/HighlightTitleComponent';
 
 export default function AboutUsIndex() {
 
