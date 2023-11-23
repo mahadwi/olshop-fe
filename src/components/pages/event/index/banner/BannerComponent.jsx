@@ -12,7 +12,7 @@ export default function BannerComponent() {
                         <p>On 27 Sept - 1 Nov 2021</p>
                         <p>At Hall of Hotel Indonesia</p>
                     </div>
-                    <NavLink>Grab Here</NavLink>
+                    <NavLink to={'/event/fashion-week-2023'}>Grab Here</NavLink>
                 </div>
             </div>
         </div>

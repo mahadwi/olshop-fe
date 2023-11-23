@@ -1,5 +1,5 @@
 import './Banner.scoped.scss'
-import bannerBackground from './../../../../images/62782f1f7146ee3c859503f63905372f.jpeg'
+import bannerBackground from './../../../../../images/62782f1f7146ee3c859503f63905372f.jpeg'
 
 export default function BannerComponent() {
     return (

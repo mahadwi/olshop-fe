@@ -4,8 +4,9 @@ import { GetBrand, GetCategory } from "../../../config/api";
 import axios from 'axios'
 import BreadCrumb from "../../../components/general/breadcrumb/BreadCrumb";
 import ContainerComponent from "../../../components/general/container/ContainerComponent";
-import BannerComponent from "../../../components/pages/event-page-components/banner/BannerComponent";
-import EventDescriptionComponent from "../../../components/pages/event-page-components/event-description/EventDescriptionComponent";
+import BannerComponent from "../../../components/pages/event/show/banner/BannerComponent";
+import EventDescriptionComponent from "../../../components/pages/event/show/event-description/EventDescriptionComponent";
+import TicketPurchaseComponent from "../../../components/pages/event/show/ticket-purchase/TicketPurchaseComponent";
 
 export default function EventShow() {
 
@@ -13,6 +14,7 @@ export default function EventShow() {
      * Redundant States
      * 
      */
+    const [breadcrumbs, setBreadcrumbs] = useState([])
     const [brands, setBrands] = useState([])
     const [categories, setCategories] = useState([])
 
@@ -23,6 +25,10 @@ export default function EventShow() {
     useEffect(() => {
         handleDropDownDesign()
         handleDropDownCollective()
+    }, [])
+
+    useEffect(() => {
+        loadBreadcrumbs()
     }, [])
 
     /**
@@ -53,6 +59,22 @@ export default function EventShow() {
         }
     }
 
+    const loadBreadcrumbs = () => {
+        setBreadcrumbs([
+            {
+                label: 'Home',
+                url: '/'
+            },
+            {
+                label: 'Event',
+                url: '/event'
+            },
+            {
+                label: 'Fashion Week 2023'
+            }
+        ])
+    }
+
     return (
         <div>
 
@@ -64,14 +86,7 @@ export default function EventShow() {
             {/* End of Navbar */}
 
             <ContainerComponent>
-                <BreadCrumb
-                    lists={[{
-                        label: 'Home',
-                        url: '/'
-                    }, {
-                        label: 'Event'
-                    }]}
-                />
+                <BreadCrumb lists={breadcrumbs} />
             </ContainerComponent>
 
             <BannerComponent />
@@ -79,6 +94,13 @@ export default function EventShow() {
             <ContainerComponent>
                 <EventDescriptionComponent />
             </ContainerComponent>
+
+            <TicketPurchaseComponent />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
         </div>
     )
 }

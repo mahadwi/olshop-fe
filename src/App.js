@@ -10,6 +10,7 @@ import DesignerIndex from './containers/designers/designerIndex';
 import AboutUsIndex from './containers/about-us/index/AboutUsIndex';
 import ContactIndex from './containers/contact/index/ContactIndex';
 import EventIndex from './containers/event/index/EventIndex';
+import EventShow from './containers/event/show/EventShow';
 
 function App() {
     return (
@@ -25,6 +26,7 @@ function App() {
                     <Route path='/about-us' element={<AboutUsIndex />} />
                     <Route path='/contact' element={<ContactIndex />} />
                     <Route path='/event' element={<EventIndex />} />
+                    <Route path='/event/:id' element={<EventShow />} />
                 </Routes>
             </BrowserRouter>
         </>
