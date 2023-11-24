@@ -74,32 +74,6 @@ export default function EventDescriptionComponent() {
                     <span>(+62) 123-1231-2345</span>
                 </p>
             </div>
-
-            {/* <div className='third-section'>
-                <p>
-                    Here are some additional details about Jakarta Fashion Week:
-                    <ul>
-                        <li>
-                            Website: <a href="">https://www.jakartafashionweek.co.id/</a>
-                        </li>
-                        <li>
-                            Social media:
-
-                            <ul>
-                                <li>
-                                    Facebook: <a href="https://m.facebook.com/profile.php?id=132973626743441">https://www.instagram.com/jfwofficial/?hl=en</a>
-                                </li>
-                                <li>
-                                    Instagram: <a href="https://www.instagram.com/jfwofficial/?hl=en">https://www.instagram.com/jfwofficial/?hl=en</a>
-                                </li>
-                                <li>
-                                    Twitter: <a href="https://www.instagram.com/jfwofficial/?hl=en">https://twitter.com/JKTfashion</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </p>
-            </div> */}
         </div>
     )
 }

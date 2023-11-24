@@ -7,6 +7,7 @@ import ContainerComponent from "../../../components/general/container/ContainerC
 import BannerComponent from "../../../components/pages/event/show/banner/BannerComponent";
 import EventDescriptionComponent from "../../../components/pages/event/show/event-description/EventDescriptionComponent";
 import TicketPurchaseComponent from "../../../components/pages/event/show/ticket-purchase/TicketPurchaseComponent";
+import AdditionalDetailComponent from "../../../components/pages/event/show/additional-detail/AdditionalDetailComponent";
 
 export default function EventShow() {
 
@@ -96,6 +97,8 @@ export default function EventShow() {
             </ContainerComponent>
 
             <TicketPurchaseComponent />
+
+            <AdditionalDetailComponent />
             <br />
             <br />
             <br />

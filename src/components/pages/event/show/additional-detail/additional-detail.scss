@@ -1,0 +1,29 @@
+.additional-detail {
+    margin-top: 1.5rem;
+
+    p {
+        font-family: 'Inter', sans-serif;
+        font-size: 15px;
+        font-weight: 400;
+        line-height: 28px;
+        margin-bottom: 0;
+        margin-top: 3px;
+        color: #000;
+
+        &:last-child {
+            margin-top: 1.75rem;
+        }
+    }
+
+    ul {
+
+        li {
+            margin-bottom: 1px;
+
+            a {
+                text-decoration: none;
+                color: #081CC9;
+            }
+        }
+    }
+}
