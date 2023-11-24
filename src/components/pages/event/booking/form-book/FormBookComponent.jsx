@@ -1,23 +1,14 @@
-import './form.scoped.scss'
+import './form-book.scoped.scss'
 
-export default function FormComponent() {
+export default function FormBookComponent({ setActivedIndexState }) {
     return (
         <div className='form-container'>
-            <p className='paragraph-question'>
-                Have a question? You may find an answer in our <span style={{
-                    color: '#081CC9',
-                    fontWeight: '700'
-                }}>FAQs</span>. <br />
-                But you can also contact us
-            </p>
-
+            <h2 className='title'>Contact Detail</h2>
+            <hr />
             <form action="">
                 <div className="form-row">
                     <div className="form-group">
-                        <input type="text" className="form-control" placeholder="First Name" />
-                    </div>
-                    <div className="form-group">
-                        <input type="text" className="form-control" placeholder="Last Name" />
+                        <input type="text" className="form-control" placeholder="Full Name" />
                     </div>
                 </div>
                 <div className="form-row">
@@ -40,12 +31,14 @@ export default function FormComponent() {
                 <div className="form-group">
                     <textarea name="" id="" cols="30" rows="10" className="form-control" placeholder="Message Box"></textarea>
                 </div>
-                <div className="form-group form-group__bottom">
-                    <p className='bottom-paragraph'>
-                        By sending your message, you agree to accept the <a href="">General Terms and Conditions</a> of Use
-                        and that your data will be processed in compliance with the <a href="">Privacy Policy</a> of Luxi.
-                    </p>
-                    <button className='btn btn-dark'>Submit</button>
+                <div className='total-payment-wrapper'>
+                    <div className='payment'>
+                        <span className='label'>Total Payment</span>
+                        <h3 className='price'>Rp. 500.000</h3>
+                    </div>
+                    <button type='button' onClick={() => {
+                        setActivedIndexState(1)
+                    }}>Continue to Payment</button>
                 </div>
             </form>
         </div>

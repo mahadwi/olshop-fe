@@ -1,106 +1,118 @@
-.form-row {
-    display: flex;
-    column-gap: 1rem;
-    margin-bottom: 1.75rem;
-}
+.form-container {
+    width: 70%;
 
-.form-group {
-    flex: 1;
-
-    textarea {
-        height: 225px;
+    .paragraph-question {
+        margin-top: 2.2rem;
+        color: #000;
+        font-family: 'Poppins', sans-serif;
+        font-size: 15px;
+        font-style: normal;
+        font-weight: 300;
+        line-height: normal;
     }
 
-    &.form-group__phone-number {
+    .form-row {
         display: flex;
-        position: relative;
-
-        label.any-code {
-            position: absolute;
-            top: -.9rem;
-            left: .35rem;
-            z-index: 20;
-            color: #000;
-            font-family: 'Cabin', sans-serif;
-            font-size: 10px;
-            font-style: normal;
-            font-weight: 500;
-            line-height: normal;
-        }
-
-        select.form-control__phone-code {
-            width: 4rem;
-            z-index: 10;
-        }
-
-        input {
-            transform: translateX(-10px);
-            padding-left: 1rem;
-        }
+        column-gap: 1rem;
+        margin-bottom: 1.75rem;
     }
 
-    &.form-group__bottom {
-        margin-top: 1.5rem;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+    .form-group {
+        flex: 1;
 
-        p.bottom-paragraph {
-            width: 60%;
-            color: #000;
-            font-family: 'Inter', sans-serif;
-            font-size: 14px;
-            font-style: normal;
-            font-weight: 300;
-            line-height: 19px;
-            letter-spacing: 0.1px;
+        textarea {
+            height: 225px;
+        }
 
-            a {
-                color: inherit
+        &.form-group__phone-number {
+            display: flex;
+            position: relative;
+
+            label.any-code {
+                position: absolute;
+                top: -.9rem;
+                left: .35rem;
+                z-index: 20;
+                color: #000;
+                font-family: 'Cabin', sans-serif;
+                font-size: 10px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: normal;
+            }
+
+            select.form-control__phone-code {
+                width: 4rem;
+                z-index: 10;
+            }
+
+            input {
+                transform: translateX(-10px);
+                padding-left: 1rem;
             }
         }
 
-        button {
-            padding-left: 40px;
-            padding-right: 40px;
-            padding-top: 4px;
-            padding-bottom: 4px;
-            font-size: 14px;
-            font-weight: 600;
-            background: #151B4F;
+        &.form-group__bottom {
+            margin-top: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            p.bottom-paragraph {
+                width: 60%;
+                color: #000;
+                font-family: 'Inter', sans-serif;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 300;
+                line-height: 19px;
+                letter-spacing: 0.1px;
+
+                a {
+                    color: inherit
+                }
+            }
+
+            button {
+                padding-left: 40px;
+                padding-right: 40px;
+                padding-top: 4px;
+                padding-bottom: 4px;
+                font-size: 14px;
+                font-weight: 600;
+                background: #151B4F;
+            }
         }
+
     }
 
-}
+    label {
+        color: #222B45;
+        font-family: 'Cabin', sans-serif;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+    }
 
+    input {
+        font-family: 'Cabin', sans-serif;
+        font-style: normal;
+        margin-top: 2px;
+    }
 
+    input::placeholder {
+        color: #C8D1E1;
+    }
 
-label {
-    color: #222B45;
-    font-family: 'Cabin', sans-serif;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-}
+    textarea {
+        font-family: 'Cabin', sans-serif;
+        font-style: normal;
+        margin-top: 2px;
+        height: 200px;
+    }
 
-input {
-    font-family: Cabin;
-    font-style: normal;
-    margin-top: 2px;
-}
-
-input::placeholder {
-    color: #C8D1E1;
-}
-
-textarea {
-    font-family: Cabin;
-    font-style: normal;
-    margin-top: 2px;
-    height: 200px;
-}
-
-textarea::placeholder {
-    color: #C8D1E1;
+    textarea::placeholder {
+        color: #C8D1E1;
+    }
 }

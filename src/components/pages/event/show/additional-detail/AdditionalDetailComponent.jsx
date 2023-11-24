@@ -1,5 +1,5 @@
 import ContainerComponent from '../../../../general/container/ContainerComponent'
-import './additional-detail.scss'
+import './additional-detail.scoped.scss'
 
 export default function AdditionalDetailComponent() {
     return (

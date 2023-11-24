@@ -99,6 +99,7 @@ export default function EventShow() {
             <TicketPurchaseComponent />
 
             <AdditionalDetailComponent />
+
             <br />
             <br />
             <br />
