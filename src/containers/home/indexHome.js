@@ -61,8 +61,10 @@ function IndexHome() {
   const getBanner = async () => {
     try {
       const response = await axios.get(GetBanner);
+      setTimeout(() =>{
       setLoading(false);
       setDataBanner(response.data);
+    },1000)
       console.log('data banner', dataBanner);
     } catch (error) {
       console.log(error);
