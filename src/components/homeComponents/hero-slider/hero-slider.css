@@ -1,0 +1,22 @@
+.hero-slider-container .flickity-page-dots {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    bottom: 5vh !important;
+    left: 50%;
+    margin: auto;
+    transform: translateX(-50%);
+    z-index: 99999999;
+}
+
+.hero-slider-container .flickity-button {
+    display: none !important;
+}
+
+.hero-slider-container .flickity-page-dots .dot {
+    background: #FFF !important;
+}
+
+.hero-slider-container .flickity-page-dots .dot.is-selected {
+    background: #FFF !important;
+}

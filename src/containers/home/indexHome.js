@@ -18,6 +18,7 @@ import Section8 from '../../components/homeComponents/section8';
 import Section9 from '../../components/homeComponents/section9/section9';
 import axios from 'axios';
 import { BeatLoader } from 'react-spinners';
+import HeroSliderComponent from '../../components/homeComponents/hero-slider/HeroSliderComponent';
 
 const override = {
     display: 'flex',
@@ -95,7 +96,7 @@ function IndexHome() {
             )}
             <div style={{ display: loading ? 'none' : 'block' }}>
                 <NavbarHome userName={user && user.name} />
-                <HomeSlider dataBanner={dataBanner} />
+                <HeroSliderComponent dataBanner={dataBanner} />
                 <Fragment>
                     <TitleSection2 dataBanner={dataBanner} />
                     <Section2 />

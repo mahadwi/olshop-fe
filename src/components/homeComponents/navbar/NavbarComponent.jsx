@@ -60,7 +60,6 @@ class navbarHome extends Component {
                     this.navRef.current.classList.add('bg-white')
 
                     document.querySelectorAll('.actions-wrapper li svg').forEach((svgIcon) => {
-                        console.log(svgIcon)
                         svgIcon.setAttribute('stroke', '#000000')
                     })
                 } else {
