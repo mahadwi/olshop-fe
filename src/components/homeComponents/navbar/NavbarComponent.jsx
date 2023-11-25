@@ -1,13 +1,4 @@
 import React, { Component } from 'react'
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
-import Logo from "../../../images/logo.svg"
-import { default as SearchIcon } from '../../../images/searchHome.svg'
-import { default as AccountIcon } from '../../../images/accountHome.svg'
-import { default as MapIcon } from '../../../images/mapHome.svg'
-import { Us, Id } from 'react-flags-select'
 import { Dropdown } from 'react-bootstrap';
 import { changeLanguage } from '../../../translations/i18n'
 import { withTranslation } from 'react-i18next';
@@ -16,10 +7,11 @@ import axios from 'axios';
 import './navbar.scoped.scss'
 import ContainerComponent from '../../general/container/ContainerComponent';
 import BrandLogo from './../../../images/brands/logo.png'
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import MdiCart from './../../../images/icons/mdi_cart.svg'
 import { IconMapPin, IconSearch, IconUserCircle } from '@tabler/icons-react';
 import StringUtil from '../../../utils/StringUtil';
+import "/node_modules/flag-icons/css/flag-icons.min.css";
 
 const storedLanguage = localStorage.getItem('selectedLanguage');
 
@@ -126,7 +118,7 @@ class navbarHome extends Component {
                                 <ul class="dropdown-content">
                                     <li className='dropdown-content-title'>{StringUtil.capitalizeFirstLetter(t('collective').toLowerCase())}</li>
                                     {categories.map((data, index) =>
-                                        <li key={index}><a href={`/collective/${data.id}`}>{data.name}</a></li>
+                                        <li key={index}><Link to={`/collective/${data.id}`}>{data.name}</Link></li>
                                     )}
                                 </ul>
                             </li>
@@ -135,7 +127,7 @@ class navbarHome extends Component {
                                 <ul class="dropdown-content">
                                     <li className='dropdown-content-title'>{StringUtil.capitalizeFirstLetter(t('designers').toLowerCase())}</li>
                                     {brands.map((data, index) =>
-                                        <li key={index}><a href={`/designers/${data.id}`}>{data.name}</a></li>
+                                        <li key={index}><Link to={`/designers/${data.id}`}>{data.name}</Link></li>
                                     )}
                                 </ul>
                             </li>
@@ -149,23 +141,23 @@ class navbarHome extends Component {
                                     <IconSearch color='#FFFFFF' />
                                 </li>
                                 <li>
-                                    <IconUserCircle color='#FFFFFF' />
+                                    <NavLink to={'/login'}>
+                                        <IconUserCircle color='#FFFFFF' />
+                                    </NavLink>
                                 </li>
                                 <li>
                                     <IconMapPin color='#FFFFFF' />
                                 </li>
                                 <li>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
-                                        <g clip-path="url(#clip0_970_3622)">
-                                            <path d="M8.94373 17.4375C13.6125 17.4375 17.3812 13.6688 17.3812 9H0.506226C0.506226 13.6688 4.27498 17.4375 8.94373 17.4375Z" fill="#F9F9F9" />
-                                            <path d="M8.94373 0.5625C4.27498 0.5625 0.506226 4.33125 0.506226 9H17.3812C17.3812 4.33125 13.6125 0.5625 8.94373 0.5625Z" fill="#ED4C5C" />
-                                        </g>
-                                        <defs>
-                                            <clipPath id="clip0_970_3622">
-                                                <rect width="18" height="18" fill="white" />
-                                            </clipPath>
-                                        </defs>
-                                    </svg>
+                                    <Dropdown>
+                                        <Dropdown.Toggle size="sm" variant="transparent" id="dropdown-basic">
+                                            {languages === "id" ? <span className='circle-flag fi fi-id'></span> : <span className='circle-flag fi fi-us'></span>}
+                                        </Dropdown.Toggle>
+                                        <Dropdown.Menu>
+                                            <Dropdown.Item style={{ display: 'flex', alignItems: 'center', gap: '.7rem', fontFamily: "'Nunito Sans', sans-serif", fontSize: '14px', fontWeight: '600' }} onClick={() => this.handleLanguageChange('en')}><span className='circle-flag fi fi-us'></span>English</Dropdown.Item>
+                                            <Dropdown.Item style={{ display: 'flex', alignItems: 'center', gap: '.7rem', fontFamily: "'Nunito Sans', sans-serif", fontSize: '14px', fontWeight: '600' }} onClick={() => this.handleLanguageChange('id')}><span className='circle-flag fi fi-id'></span>Indonesia</Dropdown.Item>
+                                        </Dropdown.Menu>
+                                    </Dropdown>
                                 </li>
                             </ul>
                             <button>
@@ -175,77 +167,6 @@ class navbarHome extends Component {
                     </nav>
                 </ContainerComponent>
             </div>
-
-
-
-
-
-            // <nav className='navbar'>
-            // <ContainerComponent>
-            // <Navbar expand="lg" className="container-fluid">
-            // <Navbar.Brand href="/"><img src={Logo}></img></Navbar.Brand>
-            // <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            // <Navbar.Collapse className="justify-content-end">
-            //     <Nav >
-            //         <Nav.Link style={{ color: "white" }} className='navbar' href="/shop">{t('shop')}</Nav.Link>
-            //         <Nav.Link style={{ color: "white" }} className='navbar' href="/collective">
-            //             <NavDropdown
-            //                 id="nav-dropdown"
-            //                 title={t('collective')}
-            //                 show={this.state.showNavbar}
-            //                 onMouseEnter={this.showDropdown}
-            //                 onMouseLeave={this.hideDropdownCol}
-            //             >
-            //                 <NavDropdown.Item href="/collective/null">{t('collective')}</NavDropdown.Item>
-            //                 <NavDropdown.Divider />
-            //                 {categories.map((data, index) => {
-            //                     return (
-            //                         <NavDropdown.Item key={index} href={`/collective/${data.id}`}>{data.name}</NavDropdown.Item>
-            //                     )
-            //                 })}
-            //             </NavDropdown>
-            //         </Nav.Link>
-            //         <Nav.Link style={{ color: "white" }} className='navbar' href="/designers">
-            //             <NavDropdown
-            //                 id="nav-dropdown"
-            //                 title={t('designers')}
-            //                 show={this.state.showNavbarDesign}
-            //                 onMouseEnter={this.showDropdownDesign}
-            //                 onMouseLeave={this.hideDropdownDes}
-            //             >
-            //                 <NavDropdown.Item href="/designers/null">{t('designers')}</NavDropdown.Item>
-            //                 <NavDropdown.Divider />
-            //                 {brands.map((data, index) => {
-            //                     return (
-            //                         <NavDropdown.Item key={index} href={`/designers/${data.id}`}>{data.name}</NavDropdown.Item>
-            //                     )
-            //                 })}
-            //             </NavDropdown>
-            //         </Nav.Link>
-            //         <Nav.Link style={{ color: 'white' }} className='navbar' href="/about-us">{t('aboutus')}</Nav.Link>
-            //         <Nav.Link style={{ color: "white" }} className='navbar' href="/contact">{t('contact')}</Nav.Link>
-            //         <Nav.Link style={{ color: "white" }} className='navbar' href="/event">{t('event')}</Nav.Link>
-            //     </Nav>
-            // </Navbar.Collapse>
-            // <Navbar.Collapse className="justify-content-end">
-            //     <Nav.Link style={{ marginRight: 10 }} href="#search2"><img src={SearchHome}></img></Nav.Link>
-            //     <Nav.Link disabled style={{ marginRight: 10 }} href="#search2">{userName}</Nav.Link>
-            //     <Nav.Link style={{ marginRight: 10 }} href="/login"><img src={accHome}></img></Nav.Link>
-            //     <Nav.Link style={{ marginRight: 10 }} href="#search"><img src={mapHome}></img></Nav.Link>
-            //     <Dropdown style={{ background: 'none', border: 'none', borderRadius: '25px' }}>
-            //         <Dropdown.Toggle size="sm" variant="success" id="dropdown-basic" style={{ background: 'none', border: 'none', borderRadius: '25px' }}>
-            //             {languages === "id" ? <Id style={{ borderRadius: '50%', width: '70%', height: '70%' }} /> : <Us style={{ borderRadius: '50%', width: '70%', height: '70%' }} />}
-            //         </Dropdown.Toggle>
-            //         <Dropdown.Menu>
-            //             <Dropdown.Item className='w-10' style={{ background: 'none' }} onClick={() => this.handleLanguageChange('en')}><Us />English</Dropdown.Item>
-            //             <Dropdown.Item style={{ background: 'none' }} onClick={() => this.handleLanguageChange('id')}><Id />Indonesia</Dropdown.Item>
-            //         </Dropdown.Menu>
-            //         </Dropdown>
-            //         <Nav.Link><img src={Cart}></img></Nav.Link>
-            //     </Navbar.Collapse>
-            // </Navbar> */}
-            // </ContainerComponent> 
-            // </nav >
         )
     }
 }
