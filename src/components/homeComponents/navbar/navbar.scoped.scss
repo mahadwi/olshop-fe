@@ -3,7 +3,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 10vh;
+    height: 12vh;
     z-index: 999;
     transition: all 300ms ease-in-out;
 
@@ -13,7 +13,7 @@
         align-items: center;
         justify-content: space-between;
         width: 100%;
-        height: 10vh;
+        height: 12vh;
         padding-bottom: .4rem;
 
         .brand-wrapper {
@@ -29,10 +29,10 @@
             flex: 2;
             display: flex;
             align-items: center;
-            justify-content: space-around;
+            justify-content: space-evenly;
             padding-left: 0;
             list-style: none;
-            transform: translateY(.3rem);
+            transform: translateY(.6rem);
             height: 100%;
 
             li {
@@ -148,7 +148,7 @@
             align-items: center;
             justify-content: flex-end;
             height: 100%;
-            gap: 1.75rem;
+            gap: 1rem;
 
             ul {
                 padding-left: 0;
@@ -157,12 +157,13 @@
                 align-items: center;
                 justify-content: space-between;
                 list-style: none;
-                gap: 1rem;
+                gap: .65rem;
 
                 li {
 
                     .dropdown {
                         .circle-flag {
+                            border: 1px solid #666;
                             background-size: cover;
                             width: 1.3rem;
                             height: 1.3rem;

@@ -19,6 +19,16 @@ import Section9 from '../../components/homeComponents/section9/section9';
 import axios from 'axios';
 import { BeatLoader } from 'react-spinners';
 import HeroSliderComponent from '../../components/homeComponents/hero-slider/HeroSliderComponent';
+import TitleBookSectionComponent from '../../components/homeComponents/title-book-section/TitleBookSectionComponent';
+import DescriptionSectionComponent from '../../components/homeComponents/description-section-component/DescriptionSectionComponent';
+import ContainerComponent from '../../components/general/container/ContainerComponent';
+import Section3Component from '../../components/homeComponents/section-3/Section3Component';
+import Section4Component from '../../components/homeComponents/section-4/Section4Component';
+import Section5Component from '../../components/homeComponents/section-5/Section5Component';
+import Section6Component from '../../components/homeComponents/section-6/Section6Component';
+import Section7Component from '../../components/homeComponents/section-7/Section7Component';
+import Section8Component from '../../components/homeComponents/section-8/Section8Component';
+import Section9Component from '../../components/homeComponents/section-9/Section9Component';
 
 const override = {
     display: 'flex',
@@ -98,16 +108,28 @@ function IndexHome() {
                 <NavbarHome userName={user && user.name} />
                 <HeroSliderComponent dataBanner={dataBanner} />
                 <Fragment>
-                    <TitleSection2 dataBanner={dataBanner} />
-                    <Section2 />
-                    <Section2footer dataBanner={dataBanner && dataBanner.data} />
-                    <Section3 dataGallery={dataGallery && dataGallery.data} />
-                    <Section4 />
-                    <Section5 />
-                    <Section6 />
-                    <Section7 />
-                    <Section8 />
-                    <Section9 />
+                    <TitleBookSectionComponent />
+                    {/* <TitleSection2 dataBanner={dataBanner} /> */}
+                    {/* <Section2 /> */}
+                    <ContainerComponent>
+                        <DescriptionSectionComponent />
+                    </ContainerComponent>
+                    <Section3Component />
+                    <Section4Component />
+                    <Section5Component />
+                    <Section6Component />
+                    <Section7Component />
+                    <Section8Component />
+                    <Section9Component />
+
+                    {/* <Section2footer dataBanner={dataBanner && dataBanner.data} /> */}
+                    {/* <Section3 dataGallery={dataGallery && dataGallery.data} /> */}
+                    {/* <Section4 /> */}
+                    {/* <Section5 /> */}
+                    {/* <Section6 />
+                    <Section7 /> */}
+                    {/* <Section8 /> */}
+                    {/* <Section9 /> */}
                 </Fragment>
                 <IndexFooter />
             </div>
