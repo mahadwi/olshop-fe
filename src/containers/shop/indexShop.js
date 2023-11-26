@@ -12,6 +12,7 @@ import { GetProduct, GetBrand, GetCategory, GetBanner } from '../../config/api'
 import ReactPaginate from 'react-paginate'
 import { BeatLoader } from 'react-spinners';
 import Pagination from '../../components/general/pagination'
+import ProductListM from '../../components/shopComponents/productMobileView'
 
 
 const override = {
@@ -39,15 +40,18 @@ export default class indexShop extends Component {
       categories : [],
       headerBanner : "",
       itemChecked : [],
-      hideFilter : true,
+      hideFilter : window.innerWidth < 900 ? false : true,
       itemCheckedBrand : [],
       price_min : '',
       loaderColor : 'black',
-      loading : true
+      loading : true,
+      windowWidth: window.innerWidth,
     }
+    this.handleResize = this.handleResize.bind(this);
   }
 
     async componentDidMount() {
+      window.addEventListener('resize', this.handleResize);
        try {
         this.setState({loading:true})
         const response = await axios.get(GetProduct, {params : {color_id : this.state.colorParam,
@@ -74,6 +78,16 @@ export default class indexShop extends Component {
        } catch (error) {
             console.log('error :',error)
        }
+      }
+
+      componentWillUnmount() {
+        window.removeEventListener('resize', this.handleResize);
+      }
+
+      handleResize() {
+        this.setState({
+          windowWidth: window.innerWidth,
+        });
       }
 
       handleFetchData = async () =>{
@@ -424,7 +438,7 @@ export default class indexShop extends Component {
 
 
   render() {
-    const {product, color, colorParam, headerBanner, loading, loaderColor} = this.state;
+    const {product, color, colorParam, headerBanner, loading, loaderColor, windowWidth} = this.state;
     console.log('data product check :',product)
     const banyakProduct = product.length
     const products = product;
@@ -445,12 +459,15 @@ export default class indexShop extends Component {
         <IndexNavbar
         brands={this.state.brands}
         categories={this.state.categories}
+        windowWidth={windowWidth}
         />
         <div className='container-fluid' style={{marginBottom:'5rem'}}>
             <ShopBanner
             headerBanner={headerBanner}
+            windowWidth={windowWidth}
             />
             <SearchComponent
+            windowWidth={windowWidth}
             banyakProduct={banyakProduct}
             handleHideFilter={this.handleHideFilter}
             handleNewArrivalProd={this.handleNewArrivalProd}
@@ -460,6 +477,7 @@ export default class indexShop extends Component {
             handleZtoA={this.handleZtoA}
             handleConditionNew={this.handleConditionNew}
             handleConditionLikeNew={this.handleConditionLikeNew}
+            hideFilter={this.state.hideFilter}
             />
             <Row>
           {this.state.hideFilter===true ? (
@@ -487,17 +505,25 @@ export default class indexShop extends Component {
             style={{marginLeft:this.state.hideFilter===true ? '0px' : '120px', marginBottom:'20px'}}>
               <ProductList
                 products={products}
+                windowWidth={windowWidth}
               />
             </Col>
+            {windowWidth > 900 ? (
             <Pagination
                  currentPage={this.state.page}
                  perPage={this.state.perPage}
-                 total={banyakProduct|| 0}
+                 total={18|| 0}
                  onPageChange={this.handlePageChange}
-              />
+              />):null}
             </Row>
         </div>
+        {windowWidth > 900 ? null : (
+        <ProductListM
+        products={products}
+        /> )}
+        {windowWidth > 900 ? (
         <IndexFooter/>
+        ):null}
         </div>
     </>
     )

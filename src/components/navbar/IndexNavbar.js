@@ -57,11 +57,13 @@ class IndexNavbar extends Component {
     };
 
     render() {
-        const { t, brands, categories } = this.props;
+        const { t, brands, categories, windowWidth } = this.props;
         const { languages } = this.state;
         console.log('data brand drop', brands)
         return (
-            <div className='Navbar'>
+            <div>
+            {windowWidth > 900 ? (
+              <div className='Navbar'>
                 <Navbar expand="lg" className="container-fluid">
                     <Navbar.Brand href="/"><img src={Logo}></img></Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -124,6 +126,21 @@ class IndexNavbar extends Component {
                     </Navbar.Collapse>
                 </Navbar>
             </div>
+            ):(
+                <div class="pos-f-t">
+                <div class="collapse" id="navbarToggleExternalContent">
+                  <div class="bg-dark p-4">
+                    <h4 class="text-white">Collapsed content</h4>
+                    <span class="text-muted">Toggleable via the navbar brand.</span>
+                  </div>
+                </div>
+                <nav class="navbar navbar-light bg-light">
+                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                </nav>
+              </div>)}
+          </div>
         )
     }
 }
