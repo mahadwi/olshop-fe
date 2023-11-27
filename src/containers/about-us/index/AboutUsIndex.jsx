@@ -9,6 +9,7 @@ import DescriptionComponent from '../../../components/pages/about-us-components/
 import FormBoxComponent from '../../../components/pages/about-us-components/form-box/FormBoxComponent';
 import HighlightTitleComponent from '../../../components/general/highlight-title/HighlightTitleComponent';
 import NavbarComponent from '../../../components/homeComponents/navbar/NavbarComponent';
+import IndexFooter from '../../../components/footer/indexFooter';
 
 export default function AboutUsIndex() {
 
@@ -57,21 +58,24 @@ export default function AboutUsIndex() {
     }
 
     return (
-        <div className='about-us-section'>
-            <NavbarComponent />
+        <div>
+            <div className='about-us-section'>
+                <NavbarComponent />
 
-            <div className='container-about-us'>
-                <div className='top-highlight-wrapper'>
-                    <HighlightTitleComponent title={'About Us'} background={'linear-gradient(90deg, #E4A951 0%, #E4E4EA 50.62%, #FFF 98.93%)'} />
+                <div className='container-about-us'>
+                    <div className='top-highlight-wrapper'>
+                        <HighlightTitleComponent title={'About Us'} background={'linear-gradient(90deg, #E4A951 0%, #E4E4EA 50.62%, #FFF 98.93%)'} />
+                    </div>
+                    <ContainerComponent>
+                        <HeroComponent />
+
+                        <DescriptionComponent />
+                    </ContainerComponent>
+
+                    <FormBoxComponent />
                 </div>
-                <ContainerComponent>
-                    <HeroComponent />
-
-                    <DescriptionComponent />
-                </ContainerComponent>
-
-                <FormBoxComponent />
             </div>
+            <IndexFooter />
         </div>
     )
 

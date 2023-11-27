@@ -8,6 +8,7 @@ import HeroComponent from "../../../components/pages/contact/index/hero/HeroComp
 import FormComponent from "../../../components/pages/contact/index/form/FormComponent";
 import ContactComponent from "../../../components/pages/contact/index/contact/ContactComponent";
 import NavbarComponent from "../../../components/homeComponents/navbar/NavbarComponent";
+import IndexFooter from "../../../components/footer/indexFooter";
 
 export default function ContactIndex() {
     /**
@@ -55,38 +56,41 @@ export default function ContactIndex() {
     }
 
     return (
-        <div className="contact-page">
+        <div>
+            <div className="contact-page">
 
-            <NavbarComponent />
+                <NavbarComponent />
 
-            <ContainerComponent>
-                {/* Breadcrumb */}
-                <BreadCrumb
-                    lists={[
-                        {
-                            label: 'Home',
-                            url: '/'
-                        }, {
-                            label: 'Contact'
-                        }]
-                    }
-                />
-                {/* Breadcrumb */}
+                <ContainerComponent>
+                    {/* Breadcrumb */}
+                    <BreadCrumb
+                        lists={[
+                            {
+                                label: 'Home',
+                                url: '/'
+                            }, {
+                                label: 'Contact'
+                            }]
+                        }
+                    />
+                    {/* Breadcrumb */}
 
-                <HeroComponent />
+                    <HeroComponent />
 
-                {/* Content */}
-                <h1 className="title-love">We’d love to hear from you</h1>
-                {/* End of Content */}
+                    {/* Content */}
+                    <h1 className="title-love">We’d love to hear from you</h1>
+                    {/* End of Content */}
 
-                <div className="horizontal-line"></div>
+                    <div className="horizontal-line"></div>
 
-                <div className="form-and-contact-wrapper">
-                    <FormComponent />
-                    <ContactComponent />
-                </div>
+                    <div className="form-and-contact-wrapper">
+                        <FormComponent />
+                        <ContactComponent />
+                    </div>
 
-            </ContainerComponent>
+                </ContainerComponent>
+            </div>
+            <IndexFooter />
         </div>
     )
 }

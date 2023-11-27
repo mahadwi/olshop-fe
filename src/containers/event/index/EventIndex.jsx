@@ -10,6 +10,7 @@ import BestJournalsComponent from "../../../components/pages/event/index/best-jo
 import OurJournalsComponent from "../../../components/pages/event/index/our-journals/OurJournalsComponent";
 import './event-index.scoped.scss'
 import NavbarComponent from "../../../components/homeComponents/navbar/NavbarComponent";
+import IndexFooter from "../../../components/footer/indexFooter";
 
 export default function EventIndex() {
 
@@ -74,19 +75,22 @@ export default function EventIndex() {
     }
 
     return (
-        <div className="event-index-page">
+        <div>
+            <div className="event-index-page">
 
-            <NavbarComponent />
+                <NavbarComponent />
 
-            <ContainerComponent>
-                <BreadCrumb lists={breadcrumbs} />
-                <TopSectionComponent />
-            </ContainerComponent>
-            <BannerComponent />
-            <ContainerComponent>
-                <BestJournalsComponent />
-            </ContainerComponent>
-            <OurJournalsComponent />
+                <ContainerComponent>
+                    <BreadCrumb lists={breadcrumbs} />
+                    <TopSectionComponent />
+                </ContainerComponent>
+                <BannerComponent />
+                <ContainerComponent>
+                    <BestJournalsComponent />
+                </ContainerComponent>
+                <OurJournalsComponent />
+            </div>
+            <IndexFooter />
         </div>
     )
 }

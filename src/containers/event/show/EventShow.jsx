@@ -9,6 +9,7 @@ import TicketPurchaseComponent from "../../../components/pages/event/show/ticket
 import AdditionalDetailComponent from "../../../components/pages/event/show/additional-detail/AdditionalDetailComponent";
 import NavbarComponent from "../../../components/homeComponents/navbar/NavbarComponent";
 import './event-show.scss'
+import IndexFooter from "../../../components/footer/indexFooter";
 
 export default function EventShow() {
 
@@ -78,29 +79,32 @@ export default function EventShow() {
     }
 
     return (
-        <div className="event-show-container">
+        <div>
+            <div className="event-show-container">
 
-            <NavbarComponent />
+                <NavbarComponent />
 
-            <ContainerComponent>
-                <BreadCrumb lists={breadcrumbs} />
-            </ContainerComponent>
+                <ContainerComponent>
+                    <BreadCrumb lists={breadcrumbs} />
+                </ContainerComponent>
 
-            <BannerComponent />
+                <BannerComponent />
 
-            <ContainerComponent>
-                <EventDescriptionComponent />
-            </ContainerComponent>
+                <ContainerComponent>
+                    <EventDescriptionComponent />
+                </ContainerComponent>
 
-            <TicketPurchaseComponent />
+                <TicketPurchaseComponent />
 
-            <AdditionalDetailComponent />
+                <AdditionalDetailComponent />
 
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+            </div>
+            <IndexFooter />
         </div>
     )
 }
