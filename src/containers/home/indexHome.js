@@ -29,6 +29,7 @@ import Section6Component from '../../components/homeComponents/section-6/Section
 import Section7Component from '../../components/homeComponents/section-7/Section7Component';
 import Section8Component from '../../components/homeComponents/section-8/Section8Component';
 import Section9Component from '../../components/homeComponents/section-9/Section9Component';
+import SubscriptionComponent from '../../components/general/subscription/SubscriptionComponent';
 
 const override = {
     display: 'flex',
@@ -122,14 +123,9 @@ function IndexHome() {
                     <Section8Component />
                     <Section9Component />
 
-                    {/* <Section2footer dataBanner={dataBanner && dataBanner.data} /> */}
-                    {/* <Section3 dataGallery={dataGallery && dataGallery.data} /> */}
-                    {/* <Section4 /> */}
-                    {/* <Section5 /> */}
-                    {/* <Section6 />
-                    <Section7 /> */}
-                    {/* <Section8 /> */}
-                    {/* <Section9 /> */}
+                    {/* Subs */}
+                    <SubscriptionComponent />
+                    {/* End Subs */}
                 </Fragment>
                 <IndexFooter />
             </div>
