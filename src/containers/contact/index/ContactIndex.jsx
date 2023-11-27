@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import IndexNavbar from "../../../components/navbar/IndexNavbar";
 import axios from 'axios'
 import { GetBrand, GetCategory } from "../../../config/api";
 import BreadCrumb from "../../../components/general/breadcrumb/BreadCrumb";
@@ -8,6 +7,7 @@ import './contact.scoped.scss'
 import HeroComponent from "../../../components/pages/contact/index/hero/HeroComponent";
 import FormComponent from "../../../components/pages/contact/index/form/FormComponent";
 import ContactComponent from "../../../components/pages/contact/index/contact/ContactComponent";
+import NavbarComponent from "../../../components/homeComponents/navbar/NavbarComponent";
 
 export default function ContactIndex() {
     /**
@@ -57,12 +57,7 @@ export default function ContactIndex() {
     return (
         <div className="contact-page">
 
-            {/* Navbar */}
-            <IndexNavbar
-                brands={brands}
-                categories={categories}
-            />
-            {/* End of Navbar */}
+            <NavbarComponent />
 
             <ContainerComponent>
                 {/* Breadcrumb */}

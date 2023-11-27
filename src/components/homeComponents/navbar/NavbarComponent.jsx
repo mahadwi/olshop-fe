@@ -29,6 +29,7 @@ class navbarHome extends Component {
         this.navRef = React.createRef()
     }
 
+
     showDropdown = (e) => {
         const show = this.state.showNavbar
         this.setState({ showNavbar: !show });
@@ -54,23 +55,32 @@ class navbarHome extends Component {
         this.handleDropDownDesign()
         this.handleDropDownCollective()
 
-        window.addEventListener('scroll', () => {
-            if (this.navRef.current) {
-                if (window.scrollY >= 10) {
-                    this.navRef.current.classList.add('bg-white')
+        if (window.location.pathname == '/') {
+            window.addEventListener('scroll', () => {
+                if (this.navRef.current) {
+                    if (window.scrollY >= 10) {
+                        this.navRef.current.classList.add('bg-white')
 
-                    document.querySelectorAll('.actions-wrapper li svg').forEach((svgIcon) => {
-                        svgIcon.setAttribute('stroke', '#000000')
-                    })
-                } else {
-                    this.navRef.current.classList.remove('bg-white')
+                        document.querySelectorAll('.actions-wrapper li svg').forEach((svgIcon) => {
+                            svgIcon.setAttribute('stroke', '#000000')
+                        })
+                    } else {
+                        this.navRef.current.classList.remove('bg-white')
 
-                    document.querySelectorAll('.actions-wrapper li svg').forEach((svgIcon) => {
-                        svgIcon.setAttribute('stroke', '#FFFFFF')
-                    })
+                        document.querySelectorAll('.actions-wrapper li svg').forEach((svgIcon) => {
+                            svgIcon.setAttribute('stroke', '#FFFFFF')
+                        })
+                    }
                 }
-            }
-        })
+            })
+        } else {
+            this.navRef.current.classList.add('bg-white')
+
+            document.querySelectorAll('.actions-wrapper li svg').forEach((svgIcon) => {
+                svgIcon.setAttribute('stroke', '#000000')
+            })
+        }
+
     }
 
     async handleDropDownDesign() {
@@ -105,9 +115,9 @@ class navbarHome extends Component {
             <div className='nav-container' ref={this.navRef}>
                 <ContainerComponent>
                     <nav className='navbar-olshop'>
-                        <div className='brand-wrapper'>
+                        <NavLink to={'/'} className='brand-wrapper'>
                             <img src={BrandLogo} alt="brand-logo" />
-                        </div>
+                        </NavLink>
                         <ul className='links-wrapper'>
                             <li>
                                 <NavLink to={'/shop'}>{t('shop')}</NavLink>

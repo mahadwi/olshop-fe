@@ -9,6 +9,7 @@ import StepperComponent from '../../../components/pages/event/booking/stepper/St
 import FormBookComponent from '../../../components/pages/event/booking/form-book/FormBookComponent'
 import FormPaymentComponent from '../../../components/pages/event/booking/form-payment/FormPaymentComponent'
 import TicketBookingSummaryComponent from '../../../components/pages/event/booking/ticket-booking-summary/TicketBookingSummaryComponent'
+import NavbarComponent from '../../../components/homeComponents/navbar/NavbarComponent'
 
 export default function EventBooking() {
 
@@ -85,13 +86,8 @@ export default function EventBooking() {
     }
 
     return (
-        <div>
-            {/* Navbar */}
-            <IndexNavbar
-                brands={brands}
-                categories={categories}
-            />
-            {/* End of Navbar */}
+        <div className='event-booking-container'>
+            <NavbarComponent />
 
             <ContainerComponent>
                 <BreadCrumb lists={breadcrumbs} />

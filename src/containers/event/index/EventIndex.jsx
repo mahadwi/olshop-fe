@@ -9,6 +9,7 @@ import BannerComponent from "../../../components/pages/event/index/banner/Banner
 import BestJournalsComponent from "../../../components/pages/event/index/best-journals/BestJournalsComponent";
 import OurJournalsComponent from "../../../components/pages/event/index/our-journals/OurJournalsComponent";
 import './event-index.scoped.scss'
+import NavbarComponent from "../../../components/homeComponents/navbar/NavbarComponent";
 
 export default function EventIndex() {
 
@@ -74,12 +75,8 @@ export default function EventIndex() {
 
     return (
         <div className="event-index-page">
-            {/* Navbar */}
-            <IndexNavbar
-                brands={brands}
-                categories={categories}
-            />
-            {/* End of Navbar */}
+
+            <NavbarComponent />
 
             <ContainerComponent>
                 <BreadCrumb lists={breadcrumbs} />

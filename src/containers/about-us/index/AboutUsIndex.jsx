@@ -3,12 +3,12 @@ import { useEffect, useState } from "react";
 
 import './about-us-index.scoped.scss'
 import { GetBrand, GetCategory } from '../../../config/api';
-import IndexNavbar from '../../../components/navbar/IndexNavbar';
 import ContainerComponent from '../../../components/general/container/ContainerComponent';
 import HeroComponent from '../../../components/pages/about-us-components/hero/HeroComponent';
 import DescriptionComponent from '../../../components/pages/about-us-components/description/DescriptionComponent';
 import FormBoxComponent from '../../../components/pages/about-us-components/form-box/FormBoxComponent';
 import HighlightTitleComponent from '../../../components/general/highlight-title/HighlightTitleComponent';
+import NavbarComponent from '../../../components/homeComponents/navbar/NavbarComponent';
 
 export default function AboutUsIndex() {
 
@@ -57,13 +57,8 @@ export default function AboutUsIndex() {
     }
 
     return (
-        <div>
-            {/* Navbar */}
-            <IndexNavbar
-                brands={brands}
-                categories={categories}
-            />
-            {/* End of Navbar */}
+        <div className='about-us-section'>
+            <NavbarComponent />
 
             <div className='container-about-us'>
                 <div className='top-highlight-wrapper'>
