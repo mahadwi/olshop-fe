@@ -97,7 +97,7 @@ function IndexHome() {
         <div>
             {loading && (
                 <BeatLoader
-                    color={color}
+                    color={'#E4A951'}
                     loading={loading}
                     cssOverride={override}
                     size={50}
