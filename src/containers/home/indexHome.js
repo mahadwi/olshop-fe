@@ -50,7 +50,22 @@ function IndexHome() {
     const [loading, setLoading] = useState(true);
     const [color, setColor] = useState('black');
     const [dataBanner, setDataBanner] = useState({});
-    const [dataGallery, setDataGallery] = useState({});
+    const [dataGallery, setDataGallery] = useState([]);
+    const [objSection3, setObjSection3] = useState({})
+    const [objSection4, setObjSection4] = useState({})
+    const [objSection5, setObjSection5] = useState({})
+    const [objSection6, setObjSection6] = useState({})
+    const [objSection7, setObjSection7] = useState({})
+
+    useEffect(() => {
+        if (dataGallery.data) {
+            setObjSection3(dataGallery.data.find((e) => e.section == 'Section 3'))
+            setObjSection4(dataGallery.data.find((e) => e.section == 'Section 4'))
+            setObjSection5(dataGallery.data.find((e) => e.section == 'Section 5'))
+            setObjSection6(dataGallery.data.find((e) => e.section == 'Section 6'))
+            setObjSection7(dataGallery.data.find((e) => e.section == 'Section 7'))
+        }
+    }, [dataGallery])
 
     useEffect(() => {
         dispatch(getMe());
@@ -87,7 +102,7 @@ function IndexHome() {
         try {
             const response = await axios.get(GetGallery);
             setDataGallery(response.data);
-            console.log('data gallery :', dataGallery);
+            console.log('data gallery :', response.data.data);
         } catch (error) {
             console.log(error);
         }
@@ -115,11 +130,11 @@ function IndexHome() {
                     <ContainerComponent>
                         <DescriptionSectionComponent />
                     </ContainerComponent>
-                    <Section3Component />
-                    <Section4Component />
-                    <Section5Component />
-                    <Section6Component />
-                    <Section7Component />
+                    <Section3Component item={objSection3} />
+                    <Section4Component item={objSection4} />
+                    <Section5Component item={objSection5} />
+                    <Section6Component item={objSection6} />
+                    <Section7Component item={objSection7} />
                     <Section8Component />
                     <Section9Component />
 
