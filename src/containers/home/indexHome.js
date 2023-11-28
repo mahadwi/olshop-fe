@@ -124,7 +124,7 @@ function IndexHome() {
                     <Section9Component />
 
                     {/* Subs */}
-                    <SubscriptionComponent />
+                    <SubscriptionComponent loading={loading} />
                     {/* End Subs */}
                 </Fragment>
                 <IndexFooter />
