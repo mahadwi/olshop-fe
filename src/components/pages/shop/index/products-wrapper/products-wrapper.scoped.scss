@@ -1,0 +1,11 @@
+.products-wrapper {
+    flex: 4;
+
+    .inner-products-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        column-gap: 1rem;
+        row-gap: 2.35rem;
+        padding-left: 4rem;
+    }
+}

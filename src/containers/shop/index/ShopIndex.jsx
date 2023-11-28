@@ -8,6 +8,7 @@ import BannerComponent from "../../../components/pages/shop/index/banner/BannerC
 import TopFilterComponent from "../../../components/pages/shop/index/top-filter/TopFilterComponent";
 import './shop-index.scoped.scss'
 import LeftFilterComponent from "../../../components/pages/shop/index/left-filter/LeftFilterComponent";
+import ProductsWrapperComponent from "../../../components/pages/shop/index/products-wrapper/ProductsWrapperComponent";
 
 export default function ShopIndex() {
     const [breadcrumbs, setBreadcrumbs] = useState([])
@@ -38,7 +39,7 @@ export default function ShopIndex() {
                     <TopFilterComponent />
                     <div className="content-wrapper">
                         <LeftFilterComponent />
-                        <div style={{ flex: 4 }}></div>
+                        <ProductsWrapperComponent />
                     </div>
                 </ContainerComponent>
             </ScreenContainerComponent>
