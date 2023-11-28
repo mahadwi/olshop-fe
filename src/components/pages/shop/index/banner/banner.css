@@ -1,0 +1,17 @@
+.banner-component .flickity-button {
+    display: none;
+}
+
+.banner-component .flickity-page-dots {
+    bottom: 1.25rem;
+}
+
+.banner-component .flickity-page-dots .dot {
+    opacity: 1;
+    background: #FFF;
+    opacity: .45;
+}
+
+.banner-component .flickity-page-dots .dot.is-selected {
+    opacity: .85;
+}
