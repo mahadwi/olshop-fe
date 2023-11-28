@@ -1,11 +1,4 @@
 import React, { Component } from 'react'
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
-import { Col, Row } from 'react-bootstrap';
-import ClientServiceLogo from "../../images/client_service.svg"
-import ConsignSellLogo from "../../images/consign&sell.svg"
-import BuyLogo from "../../images/buy_footer.svg"
-import LuxiLogo from "../../images/luxi_footer.svg"
 import { IconHeadset, IconInfoCircleFilled, IconShoppingBag } from '@tabler/icons-react';
 import { Link } from 'react-router-dom';
 import ContainerComponent from '../general/container/ContainerComponent';
@@ -20,8 +13,10 @@ export default function IndexFooter() {
                         <h3>Never Miss a Beat</h3>
 
                         <p>Be the first to hear about product launches, collaborations, and more when you sign up for our emails.</p>
-                        <input type="email" placeholder='Enter email here' />
-                        <button>Submit</button>
+                        <form action="">
+                            <input type="email" placeholder='Enter email here' />
+                            <button>Submit</button>
+                        </form>
                     </div>
                     <div className='right'>
                         <div className='footer-links-wrapper'>

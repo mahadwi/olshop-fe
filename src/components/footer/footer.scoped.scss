@@ -6,10 +6,10 @@ footer {
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
-        gap: 7rem;
+        gap: 5rem;
 
         .left {
-            flex: 1;
+            flex: 1.2;
 
             h3 {
                 color: #FFF;
@@ -27,49 +27,56 @@ footer {
                 font-size: 16px;
                 font-style: normal;
                 font-weight: 400;
-                line-height: 20px;
+                line-height: 22px;
                 margin-top: 2rem;
                 width: 100%;
             }
 
-            input {
-                border: 1px solid #FFF;
-                background: #FFF;
-                font-family: 'Poppins', sans-serif;
-                font-size: 14px;
-                font-style: normal;
-                font-weight: 400;
-                line-height: 16px;
-                /* 114.286% */
-                padding: .5rem 1rem;
-                width: 100%;
+            form {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                margin-top: 2.25rem;
 
-                &::placeholder {
-                    color: #545454;
+                input {
+                    border: 1px solid #FFF;
+                    background: #FFF;
+                    font-family: 'Poppins', sans-serif;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 16px;
+                    /* 114.286% */
+                    padding: .5rem 1rem;
+                    width: 100%;
+
+                    &::placeholder {
+                        color: #545454;
+                    }
+
+                    &:focus {
+                        outline: none;
+                    }
                 }
 
-                &:focus {
+                button {
+                    border-radius: 4px;
+                    background: #FFAC33;
+                    color: #000;
+                    font-family: 'Cambay', sans-serif;
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 700;
+                    line-height: 20px;
+                    /* 125% */
+                    letter-spacing: 0.1px;
+                    display: block;
                     outline: none;
+                    border: 0px;
+                    padding: .3rem 1.5rem;
+                    margin-left: auto;
+                    align-self: stretch;
                 }
-            }
-
-            button {
-                border-radius: 4px;
-                background: #FFAC33;
-                color: #000;
-                font-family: 'Cambay', sans-serif;
-                font-size: 16px;
-                font-style: normal;
-                font-weight: 700;
-                line-height: 20px;
-                /* 125% */
-                letter-spacing: 0.1px;
-                display: block;
-                outline: none;
-                border: 0px;
-                margin-top: 1.15rem;
-                padding: .3rem 1.5rem;
-                margin-left: auto;
             }
         }
 
