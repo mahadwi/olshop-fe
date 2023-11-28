@@ -17,6 +17,9 @@ import { MDBIcon } from 'mdb-react-ui-kit';
 import { Us, Id } from 'react-flags-select'
 import { Dropdown } from 'react-bootstrap';
 import { default as ProfileV2 } from '../../images/profilev2.svg'
+import { default as CartMobileIco } from '../../images/cartMobile.svg'
+import { default as SearchMobileIco } from '../../images/searchMobile.svg'
+import { default as LuxiMobileIco } from '../../images/LuxiIconMobile.svg'
 
 const storedLanguage = localStorage.getItem('selectedLanguage');
 
@@ -135,9 +138,14 @@ class IndexNavbar extends Component {
                   </div>
                 </div>
                 <nav class="navbar navbar-light bg-light">
-                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                  {/* <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
-                  </button>
+                  </button> */}
+                    <img style={{float:'left'}} src={LuxiMobileIco}/>
+                  <div style={{float:'right'}}>
+                  <img style={{margin:'7px'}} src={SearchMobileIco}/>
+                  <img src={CartMobileIco} />
+                  </div>
                 </nav>
               </div>)}
           </div>

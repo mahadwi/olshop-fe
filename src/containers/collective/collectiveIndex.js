@@ -7,6 +7,7 @@ import BannerSlider from '../../components/collectiveComponents/headerBanner/ban
 import CollectiveProduct from '../../components/collectiveComponents/collectiveProduct';
 import { BeatLoader } from 'react-spinners';
 import Pagination from '../../components/general/pagination';
+import CollectiveProductMobile from '../../components/collectiveComponents/collectiveProductMobile';
 
 const override = {
   display: 'flex',
@@ -32,11 +33,14 @@ export default class collectiveIndex extends Component {
       headerBanner : "",
       filterBrand :[],
       loaderColor : 'black',
-      loading : true
+      loading : true,
+      windowWidth: window.innerWidth,
     }
+    this.handleResize = this.handleResize.bind(this);
   }
 
     async componentDidMount() {
+      window.addEventListener('resize', this.handleResize);
        try {
         const id = window.location.href.split('/')[4]
         this.setState({loading:true})
@@ -66,6 +70,16 @@ export default class collectiveIndex extends Component {
       handlePageChange = (page) => {
         this.setState({page:page})
         };
+
+        componentWillUnmount() {
+          window.removeEventListener('resize', this.handleResize);
+        }
+
+        handleResize() {
+          this.setState({
+            windowWidth: window.innerWidth,
+          });
+        }
     
 
       async handleGetBanner() {
@@ -297,7 +311,7 @@ export default class collectiveIndex extends Component {
 
   render() {
     const product = this.state;
-    const {loading, loaderColor} = this.state
+    const {loading, loaderColor, windowWidth} = this.state
     const products = product.product
     const banyakProduct = products.length
     console.log('filter id brand :',this.state.filterBrand)
@@ -318,11 +332,13 @@ export default class collectiveIndex extends Component {
         <IndexNavbar
           brands={this.state.brands}
           categories={this.state.categories}
+          windowWidth={windowWidth}
         />
         <BannerSlider
         headerBanner={this.state.headerBanner}
         />
         <CollectiveSearch
+        indowWidth={windowWidth}
         banyakProduct={banyakProduct}
         brands={this.state.brands}
         handleFilterBrand={this.handleFilterBrand}
@@ -338,8 +354,13 @@ export default class collectiveIndex extends Component {
         />
         <CollectiveProduct
           products={products}
+          windowWidth={windowWidth}
         />
            <br/>
+           {windowWidth > 900 ? null : (
+        <CollectiveProductMobile
+        products={products}
+        /> )}
          <Pagination
                  currentPage={this.state.page}
                  perPage={this.state.perPage}
