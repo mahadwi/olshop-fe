@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Card, CardBody, CardGroup, CardTitle } from 'react-bootstrap';
+import { Card, CardBody, CardGroup, CardTitle, Col, Row } from 'react-bootstrap';
 
-export default class DesignersProductMobile extends Component {
+export default class CollectiveProductMobile extends Component {
   handleDescProd = (description) => {
     alert(`${description}`);
   };
@@ -15,15 +15,14 @@ export default class DesignersProductMobile extends Component {
 
     return (
       <div>
-        <CardGroup style={{ display: 'flex', flexWrap: 'wrap' }}>
+        <Row>
           {products.map((data, index) => (
-            <div key={index} style={{ marginBottom: '1rem', flex: '1 0 21%', maxWidth: '200px' }}>
-              <Card style={{ border: 'none' }}>
+            // <Col key={index} style={{ marginBottom: '1rem', flex:'50%' }}>
+              <Card key={index} style={{ border: 'none', width: '100%', flex:'50%'}}>
                 <a style={{ cursor: 'pointer' }} onClick={() => this.handleDescProd(data.description)}>
                   <CardBody>
-                    <Card.Img style={{ width: '100%', height: 'auto' }} src={data.images} alt={data.name} />
-                    <CardTitle style={{ fontSize: '12px', fontFamily: 'Cambay' }}>
-                      <br />
+                    <Card.Img style={{ width: '158px', height: '201px' }} src={data.images[0] || 'no image'} alt={data.name} />
+                    <CardTitle style={{ width: '158px', height: '201px', fontSize: '12 px', fontFamily: 'Cambay', marginTop: '10px' }}>
                       <b>{data.name}</b>
                       <p></p>
                       <p style={{ color: '#FFAC33' }}>
@@ -36,9 +35,9 @@ export default class DesignersProductMobile extends Component {
                   </CardBody>
                 </a>
               </Card>
-            </div>
+            // </Col>
           ))}
-        </CardGroup>
+        </Row>
       </div>
     );
   }

@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import './registerIndex.css'
-import { Button } from "react-bootstrap";
+import { Button, Row, Col } from "react-bootstrap";
 import { Input } from 'reactstrap';
 import { FaFacebook, FaGoogle, FaEye, FaEyeSlash } from "react-icons/fa";
 import { RegisterUser } from '../../config/api';
@@ -10,6 +10,7 @@ import { withTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { default as LogoRegist } from '../../images/Online Shopping app.svg'
 
 class registerIndex extends Component {
   constructor(props) {
@@ -40,7 +41,9 @@ handleRegister = async () => {
       errorMessage : response.data.message,
       showModal : false
     })
+    window.location.href = '/verify';
   } catch (err) {
+    window.location.href = '/verify';
     if (err.code==="ERR_BAD_REQUEST" && password.length <= 8){
       this.setState({errorMessage : <div>The password must be at least 8 characters. <p>
                                           The password confirmation must be at least 8 characters.</p></div>,
@@ -93,6 +96,11 @@ else {
        showModal={this.state.showModal}
        confirmRegist={this.handleRegister} 
       />
+      <Row>
+      <Col>
+      <img style={{marginTop:'140px', marginLeft:'140px'}} src={LogoRegist}/>
+      </Col>
+      <Col style={{marginRight:'70px'}}>
       <div className='box h-100 d-flex align-items-center justify-content-center'>
       <form className='form' style={{marginTop : "10px"}}>
       <br />
@@ -145,7 +153,7 @@ else {
       <br/>
       <br/>
       <div className="d-grid gap-2">
-       <Button disabled={this.state.checkBox === false || fullName===null} size='md' onClick={this.handleShowModal}>Create Account</Button>
+       <Button disabled={this.state.checkBox === false || fullName===null} variant='dark' size='lg' onClick={this.handleShowModal}>Create Account</Button>
       </div>
        <br/>
        <div className='ppcp'>
@@ -153,6 +161,8 @@ else {
        </div>
       </form>
   </div>
+  </Col>
+  </Row>
   </>
     )
   }

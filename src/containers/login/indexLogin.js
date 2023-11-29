@@ -4,6 +4,8 @@ import IndexNavbar from '../../components/navbar/IndexNavbar'
 import IndexFooter from '../../components/footer/indexFooter'
 import axios from 'axios'
 import { GetProduct, GetBrand, GetCategory, GetBanner } from '../../config/api';
+import NavbarComponent from '../../components/homeComponents/navbar/NavbarComponent'
+import ScreenContainerComponent from '../../components/general/screen-container/ScreenContainerComponent'
 
 
 export default class Index extends Component {
@@ -63,14 +65,13 @@ export default class Index extends Component {
   render() {
     return (
         <>
-       <IndexNavbar
-       brands={this.state.brands}
-       categories={this.state.categories}
-       /> 
+      <NavbarComponent/>
+      <ScreenContainerComponent>
       <LoginIndex/>
       <br/>
       <br/>
       <br/>
+      </ScreenContainerComponent>
        <IndexFooter/>
        </>
     )
