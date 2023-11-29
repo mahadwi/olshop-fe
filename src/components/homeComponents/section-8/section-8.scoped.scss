@@ -1,0 +1,37 @@
+.section-8 {
+    background-size: cover;
+    background-position: center;
+    margin-top: 2rem;
+
+    .inner-overlay {
+        padding: 8rem 2.5rem;
+        width: 35%;
+        background: rgba(0, 0, 0, 0.33);
+
+        .top {
+            display: flex;
+            align-items: flex-start;
+
+            h2 {
+                color: #FFF;
+                font-family: 'Inter', sans-serif;
+                font-size: 28px;
+                font-style: normal;
+                font-weight: 600;
+                line-height: 2.5rem;
+                transform: translateY(-.45rem);
+            }
+        }
+
+        p {
+            color: #FFF;
+            font-family: Inter;
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 300;
+            line-height: 1.8rem;
+            padding-left: 34px;
+            padding-right: 2.5rem;
+        }
+    }
+}

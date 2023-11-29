@@ -1,0 +1,63 @@
+.left-filter-price {
+    border-top: 1px solid #C4C4C4;
+
+    .inner-left-filter-price {
+        display: flex;
+        flex-direction: column;
+        padding: 1.15rem 0;
+
+        .sec-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            h3 {
+                color: #000;
+                font-family: 'Inter', sans-serif;
+                font-size: 12px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: normal;
+                letter-spacing: 0.48px;
+                margin-bottom: 0;
+            }
+        }
+
+        .range-slider {
+            margin-top: 1.5rem;
+        }
+
+        .range-price {
+            margin-top: 1.5rem;
+            display: flex;
+
+            .range-price-inner {
+                align-self: stretch;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                span {
+                    width: 14px;
+                    height: 1px;
+                    background: #C4C4C4;
+                }
+
+                input {
+                    border: 1px solid #C4C4C4;
+                    background: #FFF;
+                    color: #000;
+                    font-family: 'Inter', sans-serif;
+                    font-size: 13px;
+                    font-style: normal;
+                    font-weight: 300;
+                    line-height: normal;
+                    letter-spacing: 0.4px;
+                    padding: .3rem 0;
+                    text-align: center;
+                    width: calc(calc(100% / 2) - 14px);
+                }
+            }
+        }
+    }
+}

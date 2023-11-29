@@ -12,6 +12,7 @@ import ContactIndex from './containers/contact/index/ContactIndex';
 import EventIndex from './containers/event/index/EventIndex';
 import EventShow from './containers/event/show/EventShow';
 import EventBooking from './containers/event/booking/EventBooking';
+import ShopIndex from './containers/shop/index/ShopIndex';
 
 function App() {
     return (
@@ -21,7 +22,7 @@ function App() {
                     <Route path="/register" element={<Index />} />
                     <Route path="/login" element={<IndexLogin />} />
                     <Route path="/" element={<IndexHome />} />
-                    <Route path="/shop" element={<IndexShop />} />
+                    {/* <Route path="/shop" element={<IndexShop />} /> */}
                     <Route path="/collective/:id" element={<CollectiveIndex />} />
                     <Route path="/designers/:id" element={<DesignerIndex />} />
                     <Route path='/about-us' element={<AboutUsIndex />} />
@@ -29,6 +30,7 @@ function App() {
                     <Route path='/event' element={<EventIndex />} />
                     <Route path='/event/:id' element={<EventShow />} />
                     <Route path='/event/:id/:ticket' element={<EventBooking />} />
+                    <Route path="/shop" element={<ShopIndex />} />
                 </Routes>
             </BrowserRouter>
         </>

@@ -38,11 +38,11 @@ export default class homeSlider extends Component {
         const settings = {
             dots: true,
             infinite: true,
-            speed: 500,
+            speed: 5000,
             slidesToShow: 1,
             slidesToScroll: 1,
-            autoplay: true,
-            autoplaySpeed: 2000,
+            autoplay: false,
+            autoplaySpeed: 5000,
             pauseOnHover: false,
             initialSlide: 0,
             responsive: [

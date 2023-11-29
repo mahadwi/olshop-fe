@@ -9,6 +9,8 @@ import StepperComponent from '../../../components/pages/event/booking/stepper/St
 import FormBookComponent from '../../../components/pages/event/booking/form-book/FormBookComponent'
 import FormPaymentComponent from '../../../components/pages/event/booking/form-payment/FormPaymentComponent'
 import TicketBookingSummaryComponent from '../../../components/pages/event/booking/ticket-booking-summary/TicketBookingSummaryComponent'
+import NavbarComponent from '../../../components/homeComponents/navbar/NavbarComponent'
+import IndexFooter from '../../../components/footer/indexFooter'
 
 export default function EventBooking() {
 
@@ -86,33 +88,31 @@ export default function EventBooking() {
 
     return (
         <div>
-            {/* Navbar */}
-            <IndexNavbar
-                brands={brands}
-                categories={categories}
-            />
-            {/* End of Navbar */}
+            <div className='event-booking-container'>
+                <NavbarComponent />
 
-            <ContainerComponent>
-                <BreadCrumb lists={breadcrumbs} />
+                <ContainerComponent>
+                    <BreadCrumb lists={breadcrumbs} />
 
-                <TicketBookingSummaryComponent />
+                    <TicketBookingSummaryComponent />
 
-                <StepperComponent activedIndexState={activedIndexState} steps={arrFormStepStates} />
+                    <StepperComponent activedIndexState={activedIndexState} steps={arrFormStepStates} />
 
-                <div className='stepper-content-wrapper'>
-                    {
-                        activedIndexState == 0 ?
-                            <FormBookComponent setActivedIndexState={setActivedIndexState} />
-                            : <>{
-                                activedIndexState == 1 ?
-                                    <FormPaymentComponent setActivedIndexState={setActivedIndexState} /> : <h1 style={{ width: '70%', float: 'right' }}>E-Ticket</h1>
-                            }</>
+                    <div className='stepper-content-wrapper'>
+                        {
+                            activedIndexState == 0 ?
+                                <FormBookComponent setActivedIndexState={setActivedIndexState} />
+                                : <>{
+                                    activedIndexState == 1 ?
+                                        <FormPaymentComponent setActivedIndexState={setActivedIndexState} /> : <h1 style={{ width: '70%', float: 'right' }}>E-Ticket</h1>
+                                }</>
 
-                    }
-                </div>
+                        }
+                    </div>
 
-            </ContainerComponent>
+                </ContainerComponent>
+            </div>
+            <IndexFooter />
         </div>
     )
 }

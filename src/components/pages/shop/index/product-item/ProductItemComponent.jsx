@@ -1,0 +1,31 @@
+import { IconStarFilled, IconHeart, IconHeartFilled } from '@tabler/icons-react';
+import './product-item.scoped.scss'
+
+export default function ProductItemComponent({ product }) {
+    return (
+        <div className="product-item">
+            <div className="product-image">
+                <img src={product.image} alt="" />
+
+                <span className='love-wrap'>
+                    <IconHeart />
+
+                    <IconHeartFilled className='heart-red-filled' style={{ color: '#F44336' }} />
+                </span>
+            </div>
+            <div className="product-body">
+                <h3>{product.name}</h3>
+                <h4>{product.price}</h4>
+                <div className="recap">
+                    <div className="rate">
+                        <span>{product.rate}</span>
+                        <IconStarFilled style={{ color: '#FFAC33' }} size={12} />
+                    </div>
+                    <div className='selled'>
+                        <span>({product.amountSell}) Terjual</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+}

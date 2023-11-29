@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import IndexNavbar from "../../../components/navbar/IndexNavbar";
 import { GetBrand, GetCategory } from "../../../config/api";
 import axios from 'axios'
 import BreadCrumb from "../../../components/general/breadcrumb/BreadCrumb";
@@ -8,6 +7,9 @@ import BannerComponent from "../../../components/pages/event/show/banner/BannerC
 import EventDescriptionComponent from "../../../components/pages/event/show/event-description/EventDescriptionComponent";
 import TicketPurchaseComponent from "../../../components/pages/event/show/ticket-purchase/TicketPurchaseComponent";
 import AdditionalDetailComponent from "../../../components/pages/event/show/additional-detail/AdditionalDetailComponent";
+import NavbarComponent from "../../../components/homeComponents/navbar/NavbarComponent";
+import './event-show.scss'
+import IndexFooter from "../../../components/footer/indexFooter";
 
 export default function EventShow() {
 
@@ -78,33 +80,31 @@ export default function EventShow() {
 
     return (
         <div>
+            <div className="event-show-container">
 
-            {/* Navbar */}
-            <IndexNavbar
-                brands={brands}
-                categories={categories}
-            />
-            {/* End of Navbar */}
+                <NavbarComponent />
 
-            <ContainerComponent>
-                <BreadCrumb lists={breadcrumbs} />
-            </ContainerComponent>
+                <ContainerComponent>
+                    <BreadCrumb lists={breadcrumbs} />
+                </ContainerComponent>
 
-            <BannerComponent />
+                <BannerComponent />
 
-            <ContainerComponent>
-                <EventDescriptionComponent />
-            </ContainerComponent>
+                <ContainerComponent>
+                    <EventDescriptionComponent />
+                </ContainerComponent>
 
-            <TicketPurchaseComponent />
+                <TicketPurchaseComponent />
 
-            <AdditionalDetailComponent />
+                <AdditionalDetailComponent />
 
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+            </div>
+            <IndexFooter />
         </div>
     )
 }

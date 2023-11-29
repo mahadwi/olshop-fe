@@ -1,0 +1,49 @@
+.left-filter-color {
+    border-top: 1px solid #C4C4C4;
+
+    .inner-left-filter-color {
+        display: flex;
+        flex-direction: column;
+        padding: 1.15rem 0;
+
+        .sec-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            h3 {
+                color: #000;
+                font-family: 'Inter', sans-serif;
+                font-size: 12px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: normal;
+                letter-spacing: 0.48px;
+                margin-bottom: 0;
+            }
+        }
+
+        .list-colors-wrap {
+            padding-top: 1.5rem;
+
+            ul {
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                flex-wrap: wrap;
+                padding-left: 0;
+                list-style: none;
+                gap: .65rem;
+
+                li {
+                    span {
+                        display: inline-block;
+                        width: 24px;
+                        height: 24px;
+                        border-radius: 12px;
+                    }
+                }
+            }
+        }
+    }
+}
