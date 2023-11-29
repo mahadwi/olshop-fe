@@ -1,0 +1,187 @@
+.product-cart-wrapper {
+    flex: 2.5;
+
+    form {
+        border-radius: 3px;
+        border: 1px solid #C4C4C4;
+        background: #FFF;
+        padding: .85rem 1.35rem;
+        display: flex;
+        flex-direction: column;
+        gap: .75rem;
+
+        .group {
+            position: relative;
+
+            label {
+                color: #000;
+                font-family: 'Cambay', sans-serif;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: 16px;
+                margin-bottom: .4rem;
+            }
+
+            input {
+                color: #000;
+                font-family: 'Cambay', sans-serif;
+                font-size: 17px;
+                font-style: normal;
+                font-weight: 400;
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                border: 1px solid #C4C4C4;
+                border-radius: 3px;
+                padding: .3rem .7rem;
+                padding-right: 2.5rem;
+                outline: 0px;
+            }
+
+            span.unit {
+                position: absolute;
+                top: 65%;
+                right: .75rem;
+                color: #A2A3B1;
+                font-family: 'Cambay', sans-serif;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 16px;
+                transform: translateY(0%);
+            }
+
+            button.button-shipping-fee {
+                width: 100%;
+                background: #FFF;
+                border: 0px;
+                outline: none;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                color: #000;
+                font-family: 'Cambay', sans-serif;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: 16px;
+                padding-left: 0;
+            }
+
+            .collapse-content {
+                color: #000;
+                text-align: justify;
+                font-family: 'Cabin', sans-serif;
+                font-size: 12px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 16px;
+                /* 133.333% */
+
+                @media screen and (min-width: 1200px) {
+                    font-size: 14px;
+                    line-height: 20px;
+                }
+            }
+
+            .stock-increase-decrease {
+                display: flex;
+                align-items: stretch;
+                gap: .5rem;
+
+                input {
+                    color: #000;
+                    font-family: 'Cambay', sans-serif;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 700;
+                    line-height: 16px;
+                    text-align: center;
+                    padding-right: 0;
+                    padding-left: 0;
+                    outline: 0px;
+                }
+
+                button {
+                    padding: 0 1rem;
+                    border-radius: 5px;
+                    border: 1px solid #151B4F;
+                    background: #151B4F;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+            }
+
+            .price-row-item {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: .65rem 0;
+
+                &:first-child {
+                    border-bottom: 1px solid #C4C4C4;
+                }
+
+                .label {
+                    color: #C4C4C4;
+                    font-family: 'Cambay', sans-serif;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 700;
+                    line-height: 16px;
+                }
+
+                .val {
+                    color: #FFAC33;
+                    font-family: 'Cambay', sans-serif;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 700;
+                    line-height: 16px;
+                    white-space: nowrap;
+                }
+            }
+
+            .btn-cart {
+                margin-top: 1.5rem;
+                width: 100%;
+                border: 2px solid #151B4F;
+                background: #FFF;
+                color: #151B4F;
+                font-family: 'Cambay', sans-serif;
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: 20px;
+                letter-spacing: 0.1px;
+                display: flex;
+                justify-content: center;
+                gap: .75rem;
+                align-items: center;
+                padding: .3rem 0;
+            }
+
+            .btn-buy {
+                width: 100%;
+                border: 2px solid #151B4F;
+                background: #151B4F;
+                color: white;
+                font-family: 'Cambay', sans-serif;
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: 20px;
+                letter-spacing: 0.1px;
+                display: flex;
+                justify-content: center;
+                gap: .75rem;
+                align-items: center;
+                padding: .3rem 0;
+                margin-top: .6rem;
+            }
+        }
+    }
+}
