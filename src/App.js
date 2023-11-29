@@ -14,6 +14,7 @@ import EventShow from './containers/event/show/EventShow';
 import EventBooking from './containers/event/booking/EventBooking';
 import ShopIndex from './containers/shop/index/ShopIndex';
 import VerificationPage from './containers/register/VerificationPage';
+import ShopShow from './containers/shop/show/ShopShow';
 
 function App() {
     return (
@@ -33,6 +34,7 @@ function App() {
                     <Route path='/event/:id/:ticket' element={<EventBooking />} />
                     <Route path="/shop" element={<ShopIndex />} />
                     <Route path="/verify" element={<VerificationPage />} />
+                    <Route path="/shop/:id" element={<ShopShow />} />
                 </Routes>
             </BrowserRouter>
         </>

@@ -42,7 +42,7 @@ export default function TopFilterComponent() {
                                 ...baseStyles,
                                 borderWidth: '0px',
                                 boxShadow: 'none',
-                                backgroundColor: state.isDisabled ? 'transparent' : 'transparent'
+                                backgroundColor: state.isDisabled ? 'transparent' : 'transparent',
                             }),
                             container: (baseStyles, state) => ({
                                 ...baseStyles,

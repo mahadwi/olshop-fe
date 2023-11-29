@@ -1,0 +1,199 @@
+.product-description-wrapper {
+    flex: 4.6;
+
+    .inner-product-description {
+        padding-top: .4rem;
+
+        h2.product-name {
+            color: #000;
+            font-family: 'Cambay', sans-serif;
+            font-size: 24px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 16px;
+            margin-bottom: 0;
+            /* 66.667% */
+        }
+
+        .actions-wrap {
+            display: flex;
+            align-items: center;
+            padding-top: .5rem;
+
+            .sold {
+                display: flex;
+                align-items: center;
+                padding-right: .75rem;
+                gap: .3rem;
+
+                .text-sold {
+                    color: #000;
+                    font-family: 'Cambay', sans-serif;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 700;
+                    line-height: 16px;
+                    transform: translateY(2.8px);
+
+                    @media screen and (min-width: 1200px) {
+                        font-size: 16px;
+                    }
+                }
+
+                .amount-sold {
+                    color: #000;
+                    font-family: 'Cambay', sans-serif;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 16px;
+                    transform: translateY(2.8px);
+
+                    @media screen and (min-width: 1200px) {
+                        font-size: 16px;
+                    }
+                }
+            }
+
+            .rate {
+                display: flex;
+                align-items: center;
+                padding: 0 .75rem;
+                border-right: 2px solid #DDD;
+                border-left: 2px solid #DDD;
+                gap: .3rem;
+
+                .amount-rate {
+                    color: #000;
+                    font-family: 'Cambay', sans-serif;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 700;
+                    line-height: 16px;
+                    transform: translateY(2.8px);
+
+                    @media screen and (min-width: 1200px) {
+                        font-size: 16px;
+                    }
+                }
+
+                .stars {
+                    display: flex;
+                    align-items: center;
+                }
+            }
+
+            .wishlists {
+                display: flex;
+                align-items: center;
+                padding-left: .75rem;
+                gap: .3rem;
+
+                .wishlist-text {
+                    color: #000;
+                    font-family: 'Cambay', sans-serif;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 700;
+                    line-height: 16px;
+                    transform: translateY(2.8px);
+
+                    @media screen and (min-width: 1200px) {
+                        font-size: 16px;
+                    }
+                }
+            }
+        }
+
+        .product-description-body {
+            padding-top: 2rem;
+
+            .product-detail {
+
+                h3.product-detail-title {
+                    color: #000;
+                    font-family: 'Cambay', sans-serif;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 700;
+                    line-height: 16px;
+                    margin-bottom: 0;
+
+                    @media screen and (min-width: 1200px) {
+                        font-size: 16px;
+                        line-height: 20px;
+                    }
+                }
+
+                p.product-description-text {
+                    color: #000;
+                    text-align: justify;
+                    font-family: 'Cabin', sans-serif;
+                    font-size: 12px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 16px;
+                    /* 133.333% */
+
+                    @media screen and (min-width: 1200px) {
+                        font-size: 14px;
+                        line-height: 20px;
+                    }
+                }
+
+                ul.product-list-details {
+                    li {
+                        color: #000;
+                        text-align: justify;
+                        font-family: 'Cabin', sans-serif;
+                        font-size: 12px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: 16px;
+                        /* 133.333% */
+
+                        @media screen and (min-width: 1200px) {
+                            font-size: 14px;
+                            line-height: 20px;
+                        }
+                    }
+                }
+            }
+        }
+
+        .product-materials {
+
+            h3.product-material-title {
+                color: #000;
+                font-family: 'Cambay', sans-serif;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: 16px;
+                margin-bottom: 0;
+
+
+                @media screen and (min-width: 1200px) {
+                    font-size: 16px;
+                    line-height: 20px;
+                }
+            }
+
+            p.product-material-text {
+                color: #000;
+                text-align: justify;
+                font-family: 'Cabin', sans-serif;
+                font-size: 12px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 16px;
+                /* 133.333% */
+
+                @media screen and (min-width: 1200px) {
+                    font-size: 14px;
+                    line-height: 20px;
+                }
+            }
+        }
+    }
+}

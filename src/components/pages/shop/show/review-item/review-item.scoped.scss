@@ -1,0 +1,112 @@
+.review-item {
+    border: 1px solid #C4C4C4;
+    background: #FFF;
+
+    .inner {
+        padding: 1.5rem;
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+
+            .left {
+                display: flex;
+                align-items: flex-start;
+                gap: 1.5rem;
+
+                .photo-wrap {
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 20px;
+                    overflow: hidden;
+
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        object-position: center;
+                    }
+                }
+
+                .profile-wrap {
+
+                    h3 {
+                        color: #545454;
+                        font-family: 'Poppins', sans-serif;
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: normal;
+                        margin-bottom: 0;
+                    }
+
+                    .stars {
+                        margin-top: .075rem;
+                        display: flex;
+                        align-items: center;
+                        gap: .05rem;
+                    }
+
+                    .date {
+                        color: #828181;
+                        font-family: 'Poppins', sans-serif;
+                        font-size: 11px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: normal;
+                    }
+                }
+            }
+
+            .right {
+
+                .other-wrap {
+                    justify-self: flex-end;
+                }
+            }
+        }
+
+        .body {
+            padding-top: 1.25rem;
+
+            p {
+                color: #545454;
+                font-family: 'Poppins', sans-serif;
+                font-size: 13px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+            }
+        }
+
+        .images {
+            display: flex;
+            gap: .75rem;
+
+            img {
+                border-radius: 3.5px;
+                width: 90px;
+                height: 90px;
+                object-fit: cover;
+                object-position: center;
+            }
+        }
+
+        .actions {
+            display: flex;
+            align-items: center;
+            gap: .3rem;
+            padding-top: 1rem;
+
+            span {
+                color: #828181;
+                font-family: 'Poppins', sans-serif;
+                font-size: 15px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+            }
+        }
+    }
+}

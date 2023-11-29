@@ -1,0 +1,48 @@
+.other-products-section {
+    margin-top: -1.5rem;
+
+    .title-section {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        h2.title {
+            color: #000;
+            font-family: 'Cambay', sans-serif;
+            font-size: 24px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 16px;
+            margin-bottom: 0;
+            transform: translateY(2.75px);
+            /* 66.667% */
+        }
+
+        a.view-more {
+            text-decoration: none;
+
+            span {
+                color: #FFAC33;
+                font-family: 'Cambay', sans-serif;
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: 16px;
+                /* 100% */
+            }
+        }
+    }
+
+    hr {
+        opacity: 1;
+        border: 0px;
+        outline: 0px;
+        height: 1px;
+        background: #DADADA;
+    }
+}
+
+.products {
+    display: flex;
+    gap: 1rem;
+}
