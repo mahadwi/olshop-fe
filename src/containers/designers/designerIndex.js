@@ -7,6 +7,7 @@ import DesignersBanner from '../../components/designersComponents/designersBanne
 import DesignersSearch from '../../components/designersComponents/designersSearch';
 import { BeatLoader } from 'react-spinners';
 import Pagination from '../../components/general/pagination';
+import DesignersProductMobile from '../../components/designersComponents/designersProductMobile';
 
 const override = {
   display: 'flex',
@@ -33,11 +34,14 @@ export default class designerIndex extends Component {
       headerBanner : "",
       filterCategory : [],
       loaderColor : 'black',
-      loading : true
+      loading : true,
+      windowWidth: window.innerWidth,
     }
+    this.handleResize = this.handleResize.bind(this);
   }
 
     async componentDidMount() {
+      window.addEventListener('resize', this.handleResize);
        try {
         const id = window.location.href.split('/')[4]
         this.setState({loading:true})
@@ -62,6 +66,16 @@ export default class designerIndex extends Component {
        } catch (error) {
             console.log('error :',error)
        }
+      }
+
+      componentWillUnmount() {
+        window.removeEventListener('resize', this.handleResize);
+      }
+
+      handleResize() {
+        this.setState({
+          windowWidth: window.innerWidth,
+        });
       }
 
       
@@ -315,7 +329,7 @@ export default class designerIndex extends Component {
 
   render() {
     const product = this.state;
-    const {loading, loaderColor} = this.state
+    const {loading, loaderColor, windowWidth} = this.state
     const products = product.product
     const banyakProduct = products.length
     console.log('data banner designer : ', this.state.headerBanner)
@@ -336,6 +350,7 @@ export default class designerIndex extends Component {
         <IndexNavbar
         brands={this.state.brands}
         categories={this.state.categories}
+        windowWidth={windowWidth}
         />
         <DesignersBanner
         headerBanner={this.state.headerBanner}
@@ -357,6 +372,10 @@ export default class designerIndex extends Component {
         <DesginersComponent
          products={products}
         />
+           {windowWidth > 900 ? null : (
+        <DesignersProductMobile
+        products={products}
+        /> )}
         <br/>
          <Pagination
                  currentPage={this.state.page}

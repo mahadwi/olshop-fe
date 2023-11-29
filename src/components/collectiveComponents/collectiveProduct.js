@@ -19,12 +19,13 @@ export default class collectiveProduct extends Component {
   }
   render() {
     const {products} = this.props;
+    const windowWidth = this.props.windowWidth
     const formatter = new Intl.NumberFormat('id-ID', {
         style: 'currency',
         currency: 'IDR',
       });
     return (
-        <div>
+        <div> {windowWidth > 900 ? (
             <CardGroup style={{marginLeft:'10%', marginRight:'5%'}}>
         {products.map((data,index)=>{
           return(
@@ -47,6 +48,7 @@ export default class collectiveProduct extends Component {
                 </div>
         )})}
         </CardGroup>
+        ):null}
       </div>
     )
   }
