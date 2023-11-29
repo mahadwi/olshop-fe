@@ -8,6 +8,7 @@ import DesignersSearch from '../../components/designersComponents/designersSearc
 import { BeatLoader } from 'react-spinners';
 import Pagination from '../../components/general/pagination';
 import DesignersProductMobile from '../../components/designersComponents/designersProductMobile';
+import DesignerSearchMobile from '../../components/designersComponents/designersSearchMobile';
 
 const override = {
   display: 'flex',
@@ -355,6 +356,7 @@ export default class designerIndex extends Component {
         <DesignersBanner
         headerBanner={this.state.headerBanner}
         />
+        {windowWidth > 900 ? ( 
         <DesignersSearch
         banyakProduct={banyakProduct}
         products={products}
@@ -368,7 +370,20 @@ export default class designerIndex extends Component {
         handleZtoA={this.handleZtoA}
         handleConditionNew={this.handleConditionNew}
         handleConditionLikeNew={this.handleConditionLikeNew}
-        />
+        />) : (<DesignerSearchMobile
+          banyakProduct={banyakProduct}
+        products={products}
+        categories={this.state.categories}
+        handleFilterCategory={this.handleFilterCategory}
+        handleNonFilter={this.handleNonFilter}
+        handleNewArrivalProd={this.handleNewArrivalProd}
+        handlePriceLowToHigh={this.handlePriceLowToHigh}
+        handleLowToHigh={this.handleLowToHigh}
+        handleAtoZ={this.handleAtoZ}
+        handleZtoA={this.handleZtoA}
+        handleConditionNew={this.handleConditionNew}
+        handleConditionLikeNew={this.handleConditionLikeNew}
+        />)}
         <DesginersComponent
          products={products}
         />

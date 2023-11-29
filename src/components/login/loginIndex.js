@@ -5,6 +5,8 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { LoginUser, reset } from '../../config/api'
 import { Button, Form, InputGroup, Input } from "react-bootstrap";
 import { FaFacebook, FaGoogle, FaEye, FaEyeSlash } from "react-icons/fa";
+import { default as LoginIcon } from '../../images/icons/Login Icon.svg'
+import {Row, Col} from 'react-bootstrap'
 
 function LoginIndex() {
     const [email, setEmail] = useState("")
@@ -34,6 +36,12 @@ function LoginIndex() {
 
   
   return (
+    <div>
+      <Row>
+        <Col>
+        <img style={{marginTop:'110px', marginLeft:'110px'}} src={LoginIcon}/>
+        </Col>
+        <Col>
     <div className='box h-100 d-flex align-items-center justify-content-center'>
       <form className='form' style={{marginTop : "10px"}}>
       <br />
@@ -65,13 +73,16 @@ function LoginIndex() {
       <br/>
       <br/>
       <div className="d-grid gap-2">
-       <Button onClick={Auth}>Login</Button>
+       <Button size='lg' variant='dark' disabled={!email} onClick={Auth}>Login</Button>
       </div>
        <br/>
        <div className='ppcp'>
        <span>Don’t have an account? </span><a href='/register'>Sign Up</a>
        </div>
       </form>
+  </div>
+  </Col>
+  </Row>
   </div>
   )
 }

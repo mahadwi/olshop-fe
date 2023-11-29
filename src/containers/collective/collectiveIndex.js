@@ -8,6 +8,8 @@ import CollectiveProduct from '../../components/collectiveComponents/collectiveP
 import { BeatLoader } from 'react-spinners';
 import Pagination from '../../components/general/pagination';
 import CollectiveProductMobile from '../../components/collectiveComponents/collectiveProductMobile';
+import TopFilterComponent from '../../components/pages/shop/index/top-filter/TopFilterComponent';
+import CollectiveSearchMobile from '../../components/collectiveComponents/collectiveSearchMobile';
 
 const override = {
   display: 'flex',
@@ -337,6 +339,7 @@ export default class collectiveIndex extends Component {
         <BannerSlider
         headerBanner={this.state.headerBanner}
         />
+        {windowWidth > 900 ? ( 
         <CollectiveSearch
         indowWidth={windowWidth}
         banyakProduct={banyakProduct}
@@ -351,7 +354,21 @@ export default class collectiveIndex extends Component {
         handleZtoA={this.handleZtoA}
         handleConditionNew={this.handleConditionNew}
         handleConditionLikeNew={this.handleConditionLikeNew}
-        />
+        />) : (<CollectiveSearchMobile
+          indowWidth={windowWidth}
+          banyakProduct={banyakProduct}
+          brands={this.state.brands}
+          handleFilterBrand={this.handleFilterBrand}
+          filterBrand={this.state.filterBrand}
+          handleNonFilter={this.handleNonFilter}
+          handleNewArrivalProd={this.handleNewArrivalProd}
+          handlePriceLowToHigh={this.handlePriceLowToHigh}
+          handleLowToHigh={this.handleLowToHigh}
+          handleAtoZ={this.handleAtoZ}
+          handleZtoA={this.handleZtoA}
+          handleConditionNew={this.handleConditionNew}
+          handleConditionLikeNew={this.handleConditionLikeNew}
+        />) }
         <CollectiveProduct
           products={products}
           windowWidth={windowWidth}

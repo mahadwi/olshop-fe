@@ -36,10 +36,10 @@ export default class indexModal extends Component {
           justifyContent: "center",
         }}
         size="sm">
-          <Button size="sm" variant="danger" onClick={handleShowModal}>
+          <Button size="sm" variant="warning" onClick={handleShowModal}>
             Cancel
           </Button>
-          <Button size="sm" variant="primary" onClick={confirmRegist}>
+          <Button size="sm" variant="dark" onClick={confirmRegist}>
             Save
           </Button>
         </Modal.Footer>
