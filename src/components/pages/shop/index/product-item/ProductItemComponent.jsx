@@ -8,6 +8,11 @@ export default function ProductItemComponent({ product }) {
             <div className="product-image">
                 <img src={product.image} alt="" />
 
+                <div className='product-action'>
+                    <button className='btn-cart'>Add to cart</button>
+                    <button className='btn-buy'>Buy Now</button>
+                </div>
+
                 <span className='love-wrap'>
                     <IconHeart />
 
