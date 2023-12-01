@@ -1,8 +1,8 @@
 import './section-6.scoped.scss'
 import Carousel from 'react-bootstrap/Carousel';
-import BagImage from '../../../images/Section6.svg'
 import { Link } from 'react-router-dom';
 import ContainerComponent from '../../general/container/ContainerComponent';
+import parse from 'html-react-parser';
 
 export default function Section6Component({ item }) {
     return (
@@ -26,8 +26,8 @@ export default function Section6Component({ item }) {
                 </div>
                 <div className='right'>
                     <h2>{item.title}</h2>
-                    <p>{item.product ? item.product.description : ''}</p>
-                    <Link>Read More</Link>
+                    <p>{parse(item.product ? item.product.description : '')}</p>
+                    <Link to={`/shop/${item.product ? item.product.id : ''}`}>Read More</Link>
                 </div>
             </div>
         </ContainerComponent>

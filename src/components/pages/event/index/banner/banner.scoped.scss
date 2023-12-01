@@ -4,6 +4,11 @@
     background-position: center;
     margin-top: 1.9rem;
 
+    @media screen and (max-width: 991px) {
+        height: unset;
+        padding: 3rem 0;
+    }
+
     .inner {
         background: linear-gradient(90deg, rgba(84, 84, 84, 0.30) 31.02%, rgba(217, 217, 217, 0.00) 68.77%);
         display: flex;
@@ -12,6 +17,10 @@
         justify-content: center;
         height: 100%;
         padding: 12rem 6rem 0;
+
+        @media screen and (max-width: 991px) {
+            padding: 0 1rem;
+        }
 
         h2 {
             align-self: flex-start;
@@ -24,11 +33,21 @@
             line-height: 52px;
             text-align: center;
             margin-left: 5.5rem;
+
+            @media screen and (max-width: 991px) {
+                margin-left: 0rem;
+                font-size: 18px;
+                line-height: 30px;
+            }
         }
 
         div {
             align-self: flex-end;
             margin-top: .75rem;
+
+            @media screen and (max-width: 991px) {
+                align-self: center;
+            }
 
             p {
                 color: #FFF;
@@ -38,6 +57,11 @@
                 font-style: normal;
                 font-weight: 600;
                 line-height: 9px;
+
+                @media screen and (max-width: 991px) {
+                    text-align: center;
+                    font-size: 12px;
+                }
 
                 &:last-child {
                     margin-bottom: 3rem;

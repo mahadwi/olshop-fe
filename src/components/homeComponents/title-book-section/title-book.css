@@ -1,3 +1,9 @@
 .title-book-section .slick-dots {
     display: none !important;
 }
+
+@media screen and (max-width: 991px) {
+    .title-book-section .slick-arrow {
+        display: none !important;
+    }
+}

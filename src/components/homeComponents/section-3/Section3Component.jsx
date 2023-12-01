@@ -9,7 +9,7 @@ export default function Section3Component({ item }) {
             <ContainerComponent>
                 <div className='inner'>
                     <h2>{item.title}</h2>
-                    <Link>Shop Now</Link>
+                    <Link to={`/shop/${item.product ? item.product.id : ''}`}>Shop Now</Link>
                 </div>
             </ContainerComponent>
         </div>

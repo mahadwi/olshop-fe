@@ -12,7 +12,7 @@ export default function Section5Component({ item }) {
                 <h2>NEW ARRIVAL - SPRING FALL 2023</h2>
                 <h2>{item.title}</h2>
                 <p>{item.product ? item.product.description : ''}</p>
-                <Link>Shop Now</Link>
+                <Link to={`/shop/${item.product ? item.product.id : ''}`}>Shop Now</Link>
             </div>
             <div className="right">
                 {

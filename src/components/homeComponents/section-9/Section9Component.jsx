@@ -2,7 +2,6 @@ import { IconChevronCompactLeft, IconChevronCompactRight, IconStarFilled } from 
 import ContainerComponent from '../../general/container/ContainerComponent'
 import './section-9.scoped.scss'
 import './section-9.css'
-import { default as Section9 } from '../../../images/comment.png'
 import Slider from 'react-slick'
 
 export default function Section9Component() {
@@ -18,7 +17,16 @@ export default function Section9Component() {
         pauseOnHover: false,
         initialSlide: 0,
         nextArrow: <SampleNextArrow />,
-        prevArrow: <SamplePrevArrow />
+        prevArrow: <SamplePrevArrow />,
+        responsive: [
+            {
+                breakpoint: 991,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                }
+            },
+        ]
     };
 
     return (
@@ -34,11 +42,11 @@ export default function Section9Component() {
                                 <div className='detail'>
                                     <h3>Hiroshi Takamoto</h3>
                                     <div className='stars'>
+                                        <IconStarFilled className='active' />
+                                        <IconStarFilled className='active' />
+                                        <IconStarFilled className='active' />
+                                        <IconStarFilled className='active' />
                                         <IconStarFilled />
-                                        <IconStarFilled className='active' />
-                                        <IconStarFilled className='active' />
-                                        <IconStarFilled className='active' />
-                                        <IconStarFilled className='active' />
                                     </div>
                                 </div>
                             </div>
@@ -58,11 +66,11 @@ export default function Section9Component() {
                                 <div className='detail'>
                                     <h3>Hiroshi Takamoto</h3>
                                     <div className='stars'>
+                                        <IconStarFilled className='active' />
+                                        <IconStarFilled className='active' />
+                                        <IconStarFilled className='active' />
+                                        <IconStarFilled className='active' />
                                         <IconStarFilled />
-                                        <IconStarFilled className='active' />
-                                        <IconStarFilled className='active' />
-                                        <IconStarFilled className='active' />
-                                        <IconStarFilled className='active' />
                                     </div>
                                 </div>
                             </div>
@@ -82,11 +90,11 @@ export default function Section9Component() {
                                 <div className='detail'>
                                     <h3>Hiroshi Takamoto</h3>
                                     <div className='stars'>
+                                        <IconStarFilled className='active' />
+                                        <IconStarFilled className='active' />
+                                        <IconStarFilled className='active' />
+                                        <IconStarFilled className='active' />
                                         <IconStarFilled />
-                                        <IconStarFilled className='active' />
-                                        <IconStarFilled className='active' />
-                                        <IconStarFilled className='active' />
-                                        <IconStarFilled className='active' />
                                     </div>
                                 </div>
                             </div>
@@ -106,11 +114,11 @@ export default function Section9Component() {
                                 <div className='detail'>
                                     <h3>Hiroshi Takamoto</h3>
                                     <div className='stars'>
+                                        <IconStarFilled className='active' />
+                                        <IconStarFilled className='active' />
+                                        <IconStarFilled className='active' />
+                                        <IconStarFilled className='active' />
                                         <IconStarFilled />
-                                        <IconStarFilled className='active' />
-                                        <IconStarFilled className='active' />
-                                        <IconStarFilled className='active' />
-                                        <IconStarFilled className='active' />
                                     </div>
                                 </div>
                             </div>
@@ -135,7 +143,7 @@ const SampleNextArrow = (props) => {
             style={{ ...style, display: "block" }}
             onClick={onClick}
         >
-            <button className='btn btn-sm btn-light' style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}><IconChevronCompactRight /></button>
+            <button className='btn btn-sm btn-light section-slide-btn' style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}><IconChevronCompactRight /></button>
         </div>
     );
 }
@@ -148,7 +156,7 @@ const SamplePrevArrow = (props) => {
             style={{ ...style, display: "block" }}
             onClick={onClick}
         >
-            <button className='btn btn-sm btn-light' style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', transform: 'translateX(-1.3rem)' }}><IconChevronCompactLeft /></button>
+            <button className='btn btn-sm btn-light section-slide-btn' style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', transform: 'translateX(-1.3rem)' }}><IconChevronCompactLeft /></button>
         </div>
     );
 }

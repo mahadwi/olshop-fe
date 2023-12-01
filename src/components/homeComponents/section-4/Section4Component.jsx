@@ -2,6 +2,7 @@ import './section-4.scoped.scss'
 import { Link } from 'react-router-dom'
 
 export default function Section4Component({ item }) {
+
     return (
         <div className='section-4'>
             <div className='left'>
@@ -21,7 +22,7 @@ export default function Section4Component({ item }) {
                 <h3>
                     {item.title}
                 </h3>
-                <Link>Shop Now</Link>
+                <Link to={`/shop/${item.product ? item.product.id : ''}`}>Shop Now</Link>
             </div>
         </div>
     )

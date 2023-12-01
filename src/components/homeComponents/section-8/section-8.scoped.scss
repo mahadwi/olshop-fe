@@ -10,6 +10,11 @@
         width: 35%;
         background: rgba(0, 0, 0, 0.33);
 
+        @media screen and (max-width: 991px) {
+            padding: 1rem 2rem;
+            width: 100%;
+        }
+
         .top {
             display: flex;
             align-items: flex-start;

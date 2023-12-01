@@ -33,7 +33,7 @@ export default function Section7Component({ item }) {
                 <div className='right'>
                     <h2>{item.title}</h2>
                     <p>{parse(item.product ? item.product.description : '')}</p>
-                    <Link>Read More</Link>
+                    <Link to={`/shop/${item.product ? item.product.id : ''}`}>Read More</Link>
                 </div>
             </div>
         </ContainerComponent>

@@ -1,5 +1,4 @@
 import './banner.scoped.scss'
-import EventIndexHeroImage from './../../../../../images/event-index-hero.png'
 import { NavLink } from 'react-router-dom'
 
 export default function BannerComponent({ event }) {

@@ -1,3 +1,9 @@
  .section-9 .slick-dots {
      display: none !important;
  }
+
+ @media screen and (max-width: 991px) {
+     .section-slide-btn {
+         display: none !important;
+     }
+ }

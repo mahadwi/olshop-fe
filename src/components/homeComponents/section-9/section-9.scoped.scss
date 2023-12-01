@@ -1,6 +1,10 @@
 .section-9 {
     padding: 7rem 0;
 
+    @media screen and (max-width: 991px) {
+        padding: 1rem 0;
+    }
+
     .box-wrapper {
         background-color: #FFF;
         padding: 0 1rem;

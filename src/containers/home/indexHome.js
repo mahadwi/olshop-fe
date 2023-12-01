@@ -87,7 +87,7 @@ function IndexHome() {
     };
 
     return (
-        <div>
+        <div style={{ maxWidth: '100vw', overflowX: 'hidden' }}>
             <LoadingComponent loading={loading} />
             <div style={{ display: loading ? 'none' : 'block' }}>
                 <NavbarHome userName={user && user.name} />

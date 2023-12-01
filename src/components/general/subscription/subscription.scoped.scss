@@ -26,6 +26,10 @@
         transition-delay: 350ms;
         opacity: 0;
 
+        @media screen and (max-width: 991px) {
+            flex-direction: column;
+        }
+
         &.show {
             opacity: 1;
             visibility: visible;
@@ -43,6 +47,10 @@
             align-self: stretch;
             display: flex;
             align-items: flex-end;
+
+            @media screen and (max-width: 991px) {
+                justify-content: center;
+            }
 
             &::before {
                 content: '';
@@ -76,6 +84,10 @@
                 @media screen and (max-width: 1399px) {
                     height: 25rem;
                     transform: scale(1.15) translateY(-1.65rem);
+                }
+
+                @media screen and (max-width: 991px) {
+                    height: 10rem;
                 }
             }
         }
