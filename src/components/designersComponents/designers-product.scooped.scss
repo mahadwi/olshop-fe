@@ -1,0 +1,13 @@
+.overlay {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .icon-overlay {
+    position: absolute;
+    top: 10%;
+    left: 90%;
+    transform: translate(-50%, -50%);
+    padding: 15px 30px;
+    border-radius: 5px;
+  }

@@ -52,7 +52,7 @@ function LoginIndex() {
       <div className='or' style={{ marginTop : "30px"}}>
           <p>-OR-</p>
       </div>
-      {<p style={{textAlign:'center'}}>{message1}</p>}
+      {<p style={{textAlign:'center'}}>{message1==="Unauthenticated."? null: message1}</p>}
       <br/>
       <div className="d-grid gap-2">
         <input

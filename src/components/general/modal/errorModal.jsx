@@ -3,7 +3,7 @@ import { Modal } from 'react-bootstrap';
 import {Button} from 'react-bootstrap';
 import "./indexModal.css"
 
-export default class indexModal extends Component {
+export default class ErrorModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -18,17 +18,17 @@ export default class indexModal extends Component {
   }
 
   render() {
-    const {handleShowModal, showModal, confirmRegist, errorMessage} = this.props;
+    const {handleShowErrorModal, showErrorModal,errorMessage} = this.props;
     return (
       <div
       className="modal show"
       style={{ display: 'block', position: 'initial' }}
     >
-      <Modal className='modalContent' size="sm" show={showModal} onHide={handleShowModal}>
+      <Modal className='modalContent' size="sm" show={showErrorModal} onHide={handleShowErrorModal}>
         <Modal.Header closeButton>
           <Modal.Title><p className='modalTitle'>Confirmation</p></Modal.Title>
         </Modal.Header>
-        <Modal.Body><p className='modalBody'>Apakah data yang dimasukkan sudah benar?</p></Modal.Body>
+        <Modal.Body><p className='modalBody'>{errorMessage}</p></Modal.Body>
         <div>
         <Modal.Footer 
          style={{
@@ -36,11 +36,8 @@ export default class indexModal extends Component {
           justifyContent: "center",
         }}
         size="sm">
-          <Button size="sm" variant="warning" onClick={handleShowModal}>
-            Cancel
-          </Button>
-          <Button size="sm" variant="dark" onClick={confirmRegist}>
-            Save
+          <Button size="sm" variant="warning" onClick={handleShowErrorModal}>
+            Ubah
           </Button>
         </Modal.Footer>
         </div>

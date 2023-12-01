@@ -9,6 +9,7 @@ export const GetColor = "https://dev-olshop.berkatsoft.com/api/color"
 export const GetBrand = "https://dev-olshop.berkatsoft.com/api/brand"
 export const GetCategory = "https://dev-olshop.berkatsoft.com/api/product-category"
 export const GetGallery = "https://dev-olshop.berkatsoft.com/api/gallery"
+export const VerifyEmail = "https://dev-olshop.berkatsoft.com/api/verify-email"
 
 const initialState = {
     user : null,

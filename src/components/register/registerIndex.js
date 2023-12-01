@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { default as LogoRegist } from '../../images/Online Shopping app.svg'
+import ErrorModal from '../general/modal/errorModal';
 
 class registerIndex extends Component {
   constructor(props) {
@@ -25,6 +26,7 @@ class registerIndex extends Component {
       showModal : false,
       showPassword: false,
       showConfPassword: false,
+      showErrorModal : false,
     }
   }
 
@@ -41,9 +43,15 @@ handleRegister = async () => {
       errorMessage : response.data.message,
       showModal : false
     })
-    window.location.href = '/verify';
+    if (response.data.message === "success"){
+      window.location.href = `/verify/${email}`;
+    } else if (response.data.message === "Error") {
+      this.setState({
+        errorMessage : `Error : ${response.data.meta}`,
+        showErrorModal : true
+      })
+    }
   } catch (err) {
-    window.location.href = '/verify';
     if (err.code==="ERR_BAD_REQUEST" && password.length <= 8){
       this.setState({errorMessage : <div>The password must be at least 8 characters. <p>
                                           The password confirmation must be at least 8 characters.</p></div>,
@@ -81,6 +89,11 @@ else {
   handleClickShowConfPassword = () => {
     this.setState({ showConfPassword: !this.state.showConfPassword });
   };
+
+  handleShowErrorModal = () => {
+    const {showErrorModal} = this.state;
+    this.setState({showErrorModal: !showErrorModal})
+  }
   
 
   render() {
@@ -88,13 +101,19 @@ else {
     const {fullName} = this.state;
     console.log(fullName)
     const { t } = this.props;
-    const { showPassword, showConfPassword } = this.state;
+    const { showPassword, showConfPassword, errorMessage } = this.state;
     return (
       <>
       <IndexModal
        handleShowModal={this.handleShowModal}
        showModal={this.state.showModal}
        confirmRegist={this.handleRegister} 
+       errorMessage={errorMessage}
+      />
+      <ErrorModal
+      handleShowErrorModal={this.handleShowErrorModal}
+      showErrorModal={this.state.showErrorModal}
+      errorMessage={errorMessage}
       />
       <Row>
       <Col>

@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Card, CardBody, CardGroup, CardText, CardTitle } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { IconStarFilled, IconHeart, IconHeartFilled } from '@tabler/icons-react';
+import './collective-product.scooped.scss'
 
 export default class collectiveProduct extends Component {
   constructor(props) {
@@ -29,19 +31,19 @@ export default class collectiveProduct extends Component {
             <CardGroup style={{marginLeft:'10%', marginRight:'5%'}}>
         {products.map((data,index)=>{
           return(
-            <div style={{marginBottom:'8rem', marginRight:'3rem'}}>
+            <div style={{marginBottom:'9rem', marginRight:'3rem'}}>
                 <Card style={{border:'none',width:'194px', height:'178px'}} key={index}>
                     <CardBody>
-                    <Card.Img style={{width:'194px', height:'178px'}} src={data.images}/>
+                    <div className='overlay'>
+                    <img className='' style={{width:'194px', height:'178px'}} src={data.images}/>
+                      <div className='icon-overlay'><IconHeart/></div>
+                    </div>
                     <CardTitle style={{fontSize:'12px',fontFamily:'Cambay'}}>
-                    <a onClick={this.handleFavIcon}>
-                      {data.is_wishlist === true ? (<FontAwesomeIcon icon={faHeart} style={{color: "#ff0000",}} />) :(<FontAwesomeIcon icon={faHeart} />) }
-                    </a>
                     <br/>
                     <b>{data.name}</b>
                     <p></p>
                     <p style={{color:'#FFAC33'}}><b>{formatter.format(data.sale_price)}</b></p>
-                    <p><b>5.0</b> (10) Terjual</p>
+                    <p><b>5.0</b> <IconStarFilled style={{ color: '#FFAC33' }} size={12} /> (10) Terjual</p>
                     </CardTitle>
                     </CardBody>
                 </Card>

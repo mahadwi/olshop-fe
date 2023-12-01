@@ -31,7 +31,7 @@ function App() {
                     <Route path='/event/:id' element={<EventShow />} />
                     <Route path='/event/:id/:ticket' element={<EventBooking />} />
                     <Route path="/shop" element={<ShopIndex />} />
-                    <Route path="/verify" element={<VerificationPage />} />
+                    <Route path="/verify/:id" element={<VerificationPage />} />
                     <Route path="/shop/:id" element={<ShopShow />} />
                 </Routes>
             </BrowserRouter>
