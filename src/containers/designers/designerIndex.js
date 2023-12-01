@@ -9,6 +9,9 @@ import { BeatLoader } from 'react-spinners';
 import Pagination from '../../components/general/pagination';
 import DesignersProductMobile from '../../components/designersComponents/designersProductMobile';
 import DesignerSearchMobile from '../../components/designersComponents/designersSearchMobile';
+import NavbarComponent from '../../components/homeComponents/navbar/NavbarComponent';
+import BreadCrumb from '../../components/general/breadcrumb/BreadCrumb';
+import PaginationComponent from '../../components/pages/shop/index/pagination/PaginationComponent';
 
 const override = {
   display: 'flex',
@@ -34,15 +37,17 @@ export default class designerIndex extends Component {
       categories : [],
       headerBanner : "",
       filterCategory : [],
-      loaderColor : 'black',
+      loaderColor : 'rgba(228, 169, 81, 1)',
       loading : true,
       windowWidth: window.innerWidth,
+      breadcrumbs: [],
     }
     this.handleResize = this.handleResize.bind(this);
   }
 
     async componentDidMount() {
       window.addEventListener('resize', this.handleResize);
+      this.loadBreadcrumbs()
        try {
         const id = window.location.href.split('/')[4]
         this.setState({loading:true})
@@ -72,6 +77,20 @@ export default class designerIndex extends Component {
       componentWillUnmount() {
         window.removeEventListener('resize', this.handleResize);
       }
+
+      loadBreadcrumbs = () => {
+        this.setState({
+          breadcrumbs: [
+            {
+              label: 'Home',
+              url: '/',
+            },
+            {
+              label: 'Designers',
+            },
+          ],
+        });
+      };
 
       handleResize() {
         this.setState({
@@ -348,11 +367,19 @@ export default class designerIndex extends Component {
       )}
     <div style={{ display: loading ? 'none' : 'block' }}>
       <div>
-        <IndexNavbar
+        {/* <IndexNavbar
         brands={this.state.brands}
         categories={this.state.categories}
         windowWidth={windowWidth}
-        />
+        /> */}
+        {windowWidth > 900 ? ( 
+      <NavbarComponent/>):(<IndexNavbar/>)}
+      <br/>
+      <br/>
+      <br/>
+      <div style={{marginLeft:'115px'}}>
+      <BreadCrumb lists={this.state.breadcrumbs}/>
+      </div>
         <DesignersBanner
         headerBanner={this.state.headerBanner}
         />
@@ -386,18 +413,20 @@ export default class designerIndex extends Component {
         />)}
         <DesginersComponent
          products={products}
+         windowWidth={windowWidth}
         />
            {windowWidth > 900 ? null : (
         <DesignersProductMobile
         products={products}
         /> )}
         <br/>
-         <Pagination
+         {/* <Pagination
                  currentPage={this.state.page}
                  perPage={this.state.perPage}
                  total={banyakProduct|| 0}
                  onPageChange={this.handlePageChange}
-              />
+              /> */}
+              <PaginationComponent/>
       </div>
       </div>
       </div>

@@ -52,7 +52,7 @@ export default class collectiveSearch extends Component {
         >
           <Dropdown.Item href="#"><b>Relevance</b></Dropdown.Item>
           <Dropdown.Divider/>
-          <Dropdown.Item onClick={handleNewArrivalProd}>New Arrival</Dropdown.Item>
+          <Dropdown.Item disabled onClick={handleNewArrivalProd}>New Arrival</Dropdown.Item>
           <Dropdown.Item onClick={handlePriceLowToHigh}>Price, low to high</Dropdown.Item>
           <Dropdown.Item onClick={handleLowToHigh}>Price, hight to low</Dropdown.Item>
           <Dropdown.Item onClick={handleAtoZ}>Alphabetical, A - Z</Dropdown.Item>

@@ -10,6 +10,10 @@ import Pagination from '../../components/general/pagination';
 import CollectiveProductMobile from '../../components/collectiveComponents/collectiveProductMobile';
 import TopFilterComponent from '../../components/pages/shop/index/top-filter/TopFilterComponent';
 import CollectiveSearchMobile from '../../components/collectiveComponents/collectiveSearchMobile';
+import NavbarComponent from '../../components/homeComponents/navbar/NavbarComponent';
+import BreadCrumb from '../../components/general/breadcrumb/BreadCrumb';
+import PaginationComponent from '../../components/pages/shop/index/pagination/PaginationComponent';
+import collectiveProduct from '../../components/collectiveComponents/collectiveProduct';
 
 const override = {
   display: 'flex',
@@ -34,15 +38,17 @@ export default class collectiveIndex extends Component {
       categories : [],
       headerBanner : "",
       filterBrand :[],
-      loaderColor : 'black',
+      loaderColor : 'rgba(228, 169, 81, 1)',
       loading : true,
       windowWidth: window.innerWidth,
+      breadcrumbs: [],
     }
     this.handleResize = this.handleResize.bind(this);
   }
 
     async componentDidMount() {
       window.addEventListener('resize', this.handleResize);
+      this.loadBreadcrumbs()
        try {
         const id = window.location.href.split('/')[4]
         this.setState({loading:true})
@@ -68,6 +74,21 @@ export default class collectiveIndex extends Component {
             console.log('error :',error)
        }
       }
+
+      loadBreadcrumbs = () => {
+        this.setState({
+          breadcrumbs: [
+            {
+              label: 'Home',
+              url: '/',
+            },
+            {
+              label: 'Collective',
+            },
+          ],
+        });
+      };
+    
 
       handlePageChange = (page) => {
         this.setState({page:page})
@@ -331,17 +352,20 @@ export default class collectiveIndex extends Component {
       )}
     <div style={{ display: loading ? 'none' : 'block' }}>
       <div>
-        <IndexNavbar
-          brands={this.state.brands}
-          categories={this.state.categories}
-          windowWidth={windowWidth}
-        />
+      {windowWidth > 900 ? ( 
+      <NavbarComponent/>):(<IndexNavbar/>)}
+      <br/>
+      <br/>
+      <br/>
+      <div style={{marginLeft:'115px'}}>
+      <BreadCrumb lists={this.state.breadcrumbs}/>
+      </div>
         <BannerSlider
         headerBanner={this.state.headerBanner}
         />
         {windowWidth > 900 ? ( 
         <CollectiveSearch
-        indowWidth={windowWidth}
+        windowWidth={windowWidth}
         banyakProduct={banyakProduct}
         brands={this.state.brands}
         handleFilterBrand={this.handleFilterBrand}
@@ -355,7 +379,7 @@ export default class collectiveIndex extends Component {
         handleConditionNew={this.handleConditionNew}
         handleConditionLikeNew={this.handleConditionLikeNew}
         />) : (<CollectiveSearchMobile
-          indowWidth={windowWidth}
+          windowWidth={windowWidth}
           banyakProduct={banyakProduct}
           brands={this.state.brands}
           handleFilterBrand={this.handleFilterBrand}
@@ -378,12 +402,13 @@ export default class collectiveIndex extends Component {
         <CollectiveProductMobile
         products={products}
         /> )}
-         <Pagination
+         {/* <Pagination
                  currentPage={this.state.page}
                  perPage={this.state.perPage}
                  total={banyakProduct|| 0}
                  onPageChange={this.handlePageChange}
-              />
+              /> */}
+            <PaginationComponent/>
       </div>
       </div> 
      </div> 
