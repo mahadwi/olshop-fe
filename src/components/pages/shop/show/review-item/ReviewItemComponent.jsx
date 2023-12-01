@@ -22,7 +22,7 @@ export default function ReviewItemComponent() {
                                 <IconStarFilled size={15} style={{ color: '#FFAC33' }} />
                                 <IconStarFilled size={15} style={{ color: '#FFAC33' }} />
                             </div>
-                            <span className='date'>20-01-2023-01</span>
+                            <span className='date'>20-01-2023</span>
                         </div>
                     </div>
                     <div className="right">
