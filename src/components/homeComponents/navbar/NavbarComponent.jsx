@@ -134,7 +134,7 @@ class navbarHome extends Component {
                                 <ul class="dropdown-content">
                                     <li className='dropdown-content-title'>{StringUtil.capitalizeFirstLetter(t('collective').toLowerCase())}</li>
                                     {categories.map((data, index) =>
-                                        <li key={index}><Link to={`/collective/${data.id}`}>{data.name}</Link></li>
+                                        <li key={index}><a href={`/collective/${data.id}`}>{data.name}</a></li>
                                     )}
                                 </ul>
                             </li>
@@ -143,7 +143,7 @@ class navbarHome extends Component {
                                 <ul class="dropdown-content">
                                     <li className='dropdown-content-title'>{StringUtil.capitalizeFirstLetter(t('designers').toLowerCase())}</li>
                                     {brands.map((data, index) =>
-                                        <li key={index}><Link to={`/designers/${data.id}`}>{data.name}</Link></li>
+                                        <li key={index}><a href={`/designers/${data.id}`}>{data.name}</a></li>
                                     )}
                                 </ul>
                             </li>
