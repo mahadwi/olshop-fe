@@ -1,10 +1,16 @@
 import './section-7.scoped.scss'
 import Carousel from 'react-bootstrap/Carousel';
-import BagImage from '../../../images/Section7.svg'
 import { Link } from 'react-router-dom';
 import ContainerComponent from '../../general/container/ContainerComponent';
+import { useEffect } from 'react';
+import parse from 'html-react-parser';
 
 export default function Section7Component({ item }) {
+
+    useEffect(() => {
+        console.log(item)
+    }, [item])
+
     return (
         <ContainerComponent>
             <div className='section-6'>
@@ -26,7 +32,7 @@ export default function Section7Component({ item }) {
                 </div>
                 <div className='right'>
                     <h2>{item.title}</h2>
-                    <p>{item.product ? item.product.description : ''}</p>
+                    <p>{parse(item.product ? item.product.description : '')}</p>
                     <Link>Read More</Link>
                 </div>
             </div>

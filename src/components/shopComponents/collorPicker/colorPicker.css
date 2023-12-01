@@ -1,25 +1,26 @@
-h1, p {
+h1,
+p {
     font-family: Lato;
-  }
-  
-  .result {
+}
+
+.result {
     border: 1px solid #333;
     border-radius: 50%;
     width: 30px;
     height: 30px;
-  }
-  
-  #color-picker {
+}
+
+#color-picker {
     display: none;
-  }
-  
-  .select {
+}
+
+.select {
     cursor: pointer;
     position: absolute;
     left: 65px;
     top: 27px;
-  }
-  
-  .select:before{
-      content: "▼";
-  }
+}
+
+.select:before {
+    content: "▼";
+}
