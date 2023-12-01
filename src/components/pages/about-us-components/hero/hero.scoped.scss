@@ -1,9 +1,10 @@
 .hero-wrapper {
     display: flex;
     justify-content: flex-end;
+    gap: 3rem;
 
     .left {
-        width: 100%;
+        width: 50%;
 
         p {
             color: #000;
@@ -16,24 +17,10 @@
             &:first-child {
                 text-indent: 35px;
             }
-
-            p {
-                p.dropcapimg::first-letter {
-                    background-image: url(https://i.stack.imgur.com/WecKn.png);
-                    background-size: contain;
-                    background-repeat: no-repeat;
-                    background-position: center center;
-                    float: left;
-                    font-size: 6rem;
-                    line-height: 0.65;
-                    color: transparent;
-                    margin-right: -0.15em;
-                }
-            }
         }
     }
 
     img {
-        width: 58%;
+        width: 50%;
     }
 }

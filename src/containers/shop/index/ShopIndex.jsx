@@ -34,6 +34,7 @@ export default function ShopIndex() {
     })
     const [selectedFilterColor, setSelectedFilterColor] = useState([])
     const [metaPagination, setMetaPagination] = useState({})
+    const [banners, setBanners] = useState([])
 
     // Automatically scrolls to top whenever pathname changes
     useEffect(() => {
@@ -61,6 +62,7 @@ export default function ShopIndex() {
         loadBrands()
         loadProductCategories()
         loadProductColors()
+        loadBanners()
     }, [])
 
     useEffect(() => {
@@ -108,6 +110,13 @@ export default function ShopIndex() {
             })
     }
 
+    const loadBanners = () => {
+        Api.get('/banner')
+            .then((res) => {
+                setBanners(res.data.data.find((e) => e.section == 'Shop').images)
+            })
+    }
+
     return (
         <div className="shop-index-page">
 
@@ -117,7 +126,7 @@ export default function ShopIndex() {
             <ScreenContainerComponent>
                 <ContainerComponent>
                     <BreadCrumb lists={breadcrumbs} />
-                    <BannerComponent />
+                    <BannerComponent banners={banners} />
                     <TopFilterComponent productResultAmount={products.length} />
                     <div className="content-wrapper">
                         <LeftFilterComponent

@@ -1,9 +1,10 @@
+import StringUtil from '../../../../utils/StringUtil'
 import './description.scoped.scss'
 
 export default function DescriptionComponent({ aboutUsObject }) {
     return (
         <div className='description-container'>
-            <div>
+            {/* <div>
                 <h4 className='paragraph-title'>Mission: </h4>
                 <p className='desc-content'>To provide our customers with the finest luxury handbags and leather accessories, and to offer them an exceptional shopping experience.</p>
             </div>
@@ -24,12 +25,12 @@ export default function DescriptionComponent({ aboutUsObject }) {
                 <h4 className='paragraph-title'>Target Audience: </h4>
                 <p className='desc-content'>Our competitive advantage is our wide selection of luxury handbags and leather accessories from top brands, our team of experienced and knowledgeable stylists, and our commitment to providing our customers with the best possible shopping experience.
                     We are confident that Luxury Bags for the Elegant and Expensive is the best place to shop for luxury handbags and leather accessories. We invite you to browse our selection and experience the difference for yourself.</p>
-            </div>
+            </div> */}
             <div className='location-container'>
                 <h4 className='paragraph-title'>Our Store Location: </h4>
                 <div className='location-wrapper'>
                     <div className='map-box'>
-                        <iframe src={aboutUsObject.maps} style={{ border: 0 }} allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        <iframe src={StringUtil.googleMapsURLToEmbedURL(aboutUsObject.maps)} style={{ border: 0 }} allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                     <div className='text-location-box'>
                         <div>

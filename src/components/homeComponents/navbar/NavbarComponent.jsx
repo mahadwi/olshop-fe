@@ -12,6 +12,7 @@ import MdiCart from './../../../images/icons/mdi_cart.svg'
 import { IconMapPin, IconSearch, IconUserCircle } from '@tabler/icons-react';
 import StringUtil from '../../../utils/StringUtil';
 import "/node_modules/flag-icons/css/flag-icons.min.css";
+import Api from '../../../utils/Api';
 
 const storedLanguage = localStorage.getItem('selectedLanguage');
 
@@ -19,6 +20,7 @@ class navbarHome extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            aboutUs: {},
             languages: storedLanguage,
             showNavbar: false,
             showNavbarDesign: false,
@@ -99,6 +101,11 @@ class navbarHome extends Component {
         } catch (error) {
             console.log(error)
         }
+
+        Api.get('/about-us')
+            .then((res) => {
+                this.setState({ aboutUs: res.data.data[0] })
+            })
     }
 
 
@@ -109,7 +116,7 @@ class navbarHome extends Component {
     render() {
         const { userName } = this.props;
         const { t } = this.props;
-        const { languages, categories, brands } = this.state;
+        const { languages, categories, brands, aboutUs } = this.state;
 
         return (
             <div className='nav-container' ref={this.navRef}>
@@ -155,7 +162,9 @@ class navbarHome extends Component {
                                     </NavLink>
                                 </li>
                                 <li>
-                                    <IconMapPin color='#FFFFFF' />
+                                    <a href={aboutUs.maps} target='_blank'>
+                                        <IconMapPin color='#FFFFFF' />
+                                    </a>
                                 </li>
                                 <li>
                                     <Dropdown>

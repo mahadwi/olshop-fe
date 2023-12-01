@@ -1,11 +1,12 @@
-import { IconStarFilled, IconHeart } from '@tabler/icons-react';
+import { IconStarFilled, IconHeart, IconHeartFilled } from '@tabler/icons-react';
 import './product-description.scoped.scss'
+import parse from 'html-react-parser';
 
-export default function ProductDescriptionComponent() {
+export default function ProductDescriptionComponent({ productObj }) {
     return (
         <div className="product-description-wrapper">
             <div className="inner-product-description">
-                <h2 className='product-name'>Prada Re-Edition 2005 Re-Nylon  mini bag</h2>
+                <h2 className='product-name'>{productObj.name}</h2>
                 <div className="actions-wrap">
                     <div className="sold">
                         <span className="text-sold">Sold</span>
@@ -23,7 +24,12 @@ export default function ProductDescriptionComponent() {
                     </div>
                     <div className='wishlists'>
                         <div className='wishlist-button'>
-                            <IconHeart size={15} style={{ color: '#F24E1E' }} />
+                            {
+                                productObj.is_wishlist ?
+                                    <IconHeartFilled size={15} style={{ color: '#F24E1E' }} />
+                                    :
+                                    <IconHeart size={15} style={{ color: '#F24E1E' }} />
+                            }
                         </div>
                         <span className='wishlist-text'>Whislist</span>
                     </div>
@@ -31,8 +37,8 @@ export default function ProductDescriptionComponent() {
                 <div className='product-description-body'>
                     <div className='product-detail'>
                         <h3 className='product-detail-title'>Product Detail</h3>
-                        <p className='product-description-text'>A new interpretation of an iconic Prada style, the Re-Edition 2000 mini-bag is made of innovative Re-Nylon, produced from recycled, purified plastic trash collected in the ocean, fishing nets, and textile waste fibers. The accessory with zipper closure and woven tape handle is decorated with the iconic enameled metal triangle logo.</p>
-                        <ul className='product-list-details'>
+                        <p className='product-description-text'>{parse(productObj.description ? productObj.description : '')}</p>
+                        {/* <ul className='product-list-details'>
                             <li>roduct code: 1NE515_RDH0_F0F24</li>
                             <li>Zipper closure</li>
                             <li>Enameled metal triangle logo</li>
@@ -42,12 +48,12 @@ export default function ProductDescriptionComponent() {
                             <li>Width: 22cm</li>
                             <li>Length: 6cm</li>
                             <li>Imported</li>
-                        </ul>
+                        </ul> */}
                     </div>
-                    <div className='product-materials'>
+                    {/* <div className='product-materials'>
                         <h3 className='product-material-title'>Materials</h3>
                         <p className='product-material-text'>Fabric</p>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>

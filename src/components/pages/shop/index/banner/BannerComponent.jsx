@@ -1,24 +1,13 @@
-import { useEffect, useState } from 'react'
 import './banner.scoped.scss'
 import './banner.css'
 import Flickity from 'react-flickity-component'
-import imageBanner1 from './../../../../../images/pages/shop/index/banners/1.jpeg'
 
-export default function BannerComponent() {
-    const [images, setImages] = useState([])
+export default function BannerComponent({ banners }) {
     const flickityOptions = {
         autoPlay: 4500,
         wrapAround: true,
         friction: 0.7,
         draggable: false
-    }
-
-    useEffect(() => {
-        loadImages()
-    }, [])
-
-    const loadImages = () => {
-        setImages([imageBanner1, imageBanner1, imageBanner1])
     }
 
     return (
@@ -27,9 +16,9 @@ export default function BannerComponent() {
                 options={flickityOptions}
             >
                 {
-                    images.map((image) => (
+                    banners.map((banner) => (
                         <div className='hero-slider-item'>
-                            <img src={image} />
+                            <img src={banner} />
                         </div>
                     ))
                 }

@@ -16,11 +16,12 @@ export default function ReviewItemComponent() {
                         <div className="profile-wrap">
                             <h3>Hiroshi Takamoto</h3>
                             <div className='stars'>
+
+                                <IconStarFilled size={15} style={{ color: '#FFAC33' }} />
+                                <IconStarFilled size={15} style={{ color: '#FFAC33' }} />
+                                <IconStarFilled size={15} style={{ color: '#FFAC33' }} />
+                                <IconStarFilled size={15} style={{ color: '#FFAC33' }} />
                                 <IconStarFilled size={15} style={{ color: '#CEC9C1' }} />
-                                <IconStarFilled size={15} style={{ color: '#FFAC33' }} />
-                                <IconStarFilled size={15} style={{ color: '#FFAC33' }} />
-                                <IconStarFilled size={15} style={{ color: '#FFAC33' }} />
-                                <IconStarFilled size={15} style={{ color: '#FFAC33' }} />
                             </div>
                             <span className='date'>20-01-2023</span>
                         </div>

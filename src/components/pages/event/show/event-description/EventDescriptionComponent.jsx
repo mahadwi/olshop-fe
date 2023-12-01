@@ -1,3 +1,4 @@
+import StringUtil from '../../../../../utils/StringUtil'
 import './event-description.scoped.scss'
 
 export default function EventDescriptionComponent({ eventDetailObj }) {
@@ -10,7 +11,7 @@ export default function EventDescriptionComponent({ eventDetailObj }) {
                 <h3>Location Details :</h3>
                 <div className='location-wrapper'>
                     <div className='map-box'>
-                        <iframe src={eventDetailObj.maps} style={{ border: 0 }} allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        <iframe src={StringUtil.googleMapsURLToEmbedURL(eventDetailObj.maps)} style={{ border: 0 }} allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                     <div className='text-location-box'>
                         <div>

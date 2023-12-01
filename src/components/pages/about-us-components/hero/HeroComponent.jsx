@@ -1,10 +1,11 @@
 import BreadCrumb from "../../../general/breadcrumb/BreadCrumb";
 import './hero.scoped.scss'
 import './hero.css'
+import parse from 'html-react-parser';
 
 export default function HeroComponent({ aboutUsObject }) {
     return (
-        <div className='hero-wrapper-432836'>
+        <div className='hero-wrapper'>
             <div className="left">
                 <BreadCrumb
                     lists={[{
@@ -14,8 +15,12 @@ export default function HeroComponent({ aboutUsObject }) {
                         label: 'About Us'
                     }]}
                 />
-                <p dangerouslySetInnerHTML={{ __html: aboutUsObject.description }}>{ }</p>
+                <p>
+                    {parse(aboutUsObject.description ? aboutUsObject.description : '')}
+                </p>
             </div>
+            <img src={aboutUsObject.image_url} alt="bag-image" />
         </div>
+
     )
 }

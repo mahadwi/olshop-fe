@@ -5,6 +5,7 @@ import ContainerComponent from '../../general/container/ContainerComponent';
 import parse from 'html-react-parser';
 
 export default function Section6Component({ item }) {
+
     return (
         <ContainerComponent>
             <div className='section-6'>

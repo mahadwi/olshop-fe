@@ -32,7 +32,7 @@ export default function IndexFooter() {
                                     <Link>FAQ</Link>
                                 </li>
                                 <li>
-                                    <Link to={'/contact'}>Contact Us</Link>
+                                    <Link to={'/contact'}>Contact</Link>
                                 </li>
                             </ul>
                             <ul>

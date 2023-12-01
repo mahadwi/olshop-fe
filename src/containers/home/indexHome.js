@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react';
 import NavbarHome from '../../components/homeComponents/navbar/NavbarComponent';
 import IndexFooter from '../../components/footer/indexFooter';
 import axios from 'axios';
-import { BeatLoader } from 'react-spinners';
 import HeroSliderComponent from '../../components/homeComponents/hero-slider/HeroSliderComponent';
 import TitleBookSectionComponent from '../../components/homeComponents/title-book-section/TitleBookSectionComponent';
 import DescriptionSectionComponent from '../../components/homeComponents/description-section-component/DescriptionSectionComponent';
@@ -26,7 +25,6 @@ function IndexHome() {
     const navigate = useNavigate();
     const { isError, user } = useSelector((state) => state.auth);
     const [loading, setLoading] = useState(true);
-    const [color, setColor] = useState('black');
     const [dataBanner, setDataBanner] = useState({});
     const [dataGallery, setDataGallery] = useState([]);
     const [objSection3, setObjSection3] = useState({})
