@@ -7,7 +7,7 @@ export default function DescriptionSectionComponent() {
             <h2>the return of the winter edition of the series - 2023</h2>
             <p>the thing he had been waiting for so long finally returned in the present</p>
 
-            <Link>Learn More</Link>
+            <Link to={'/shop'}>Learn More</Link>
         </div>
     )
 }

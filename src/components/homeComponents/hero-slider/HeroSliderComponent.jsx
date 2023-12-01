@@ -8,6 +8,7 @@ import { GetBanner } from '../../../config/api';
 import axios from 'axios';
 import Flickity from 'react-flickity-component'
 import './../../../../node_modules/flickity/dist/flickity.min.css'
+import { Link } from 'react-router-dom';
 
 export default function HeroSliderComponent() {
 
@@ -65,7 +66,7 @@ export default function HeroSliderComponent() {
             <div className='hero-content'>
                 <div className='inner'>
                     <h2>NEW SUMMER FALL edition - 2023</h2>
-                    <button>Find Here</button>
+                    <Link to={'/shop'}>Find Here</Link>
                 </div>
             </div>
             {/* Hero Content */}
