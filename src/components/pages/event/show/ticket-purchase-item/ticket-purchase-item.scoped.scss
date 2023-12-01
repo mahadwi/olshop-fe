@@ -35,6 +35,18 @@
                 align-items: center;
                 gap: .4rem;
 
+                a {
+                    display: flex;
+                    align-items: center;
+                    gap: .4rem;
+                    text-decoration: none;
+
+                    &:hover span {
+                        color: #FFAC33;
+                        font-weight: 600;
+                    }
+                }
+
                 span {
                     color: #A2A3B1;
                     font-family: 'Inter', sans-serif;
@@ -66,7 +78,7 @@
 
     .card-action {
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-end;
         margin-top: 1rem;
 
         .detail-btn {

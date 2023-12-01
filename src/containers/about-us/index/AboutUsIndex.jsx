@@ -1,6 +1,5 @@
 import axios from 'axios'
 import { useEffect, useState } from "react";
-
 import './about-us-index.scoped.scss'
 import { GetBrand, GetCategory } from '../../../config/api';
 import ContainerComponent from '../../../components/general/container/ContainerComponent';
@@ -10,55 +9,41 @@ import FormBoxComponent from '../../../components/pages/about-us-components/form
 import HighlightTitleComponent from '../../../components/general/highlight-title/HighlightTitleComponent';
 import NavbarComponent from '../../../components/homeComponents/navbar/NavbarComponent';
 import IndexFooter from '../../../components/footer/indexFooter';
+import { useLocation } from 'react-router-dom';
+import Api from '../../../utils/Api';
+import LoadingComponent from '../../../components/general/loading/LoadingComponent';
 
 export default function AboutUsIndex() {
 
-    /**
-     * Redundant States
-     * 
-     */
-    const [brands, setBrands] = useState([])
-    const [categories, setCategories] = useState([])
+    const { pathname } = useLocation();
+    const [aboutUsObject, setAboutUsObject] = useState({})
+    const [loading, setLoading] = useState(true)
 
-    /**
-     * First Load
-     * 
-     */
     useEffect(() => {
-        handleDropDownDesign()
-        handleDropDownCollective()
+        window.scrollTo(0, 0);
+    }, [pathname]);
+
+    useEffect(() => {
+        loadAboutUs()
     }, [])
 
-    /**
-     * (Redundant) Getting Data Dropdown Design Navbar
-     * 
-     */
-    const handleDropDownDesign = async () => {
-        try {
-            const response = await axios.get(GetBrand)
+    const loadAboutUs = () => {
+        Api.get('/about-us')
+            .then((res) => {
+                if (res) {
+                    setAboutUsObject(res.data.data[0])
 
-            setBrands(response.data.data)
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-    /**
-     * (Redundant) Getting Data Categories Navbar
-     * 
-     */
-    const handleDropDownCollective = async () => {
-        try {
-            const response = await axios.get(GetCategory)
-
-            setCategories(response.data.data)
-        } catch (error) {
-            console.log(error)
-        }
+                    setLoading(false)
+                }
+            }).catch((err) => {
+                console.log(err)
+            })
     }
 
     return (
         <div>
+            <LoadingComponent loading={loading} />
+
             <div className='about-us-section'>
                 <NavbarComponent />
 
@@ -67,9 +52,9 @@ export default function AboutUsIndex() {
                         <HighlightTitleComponent title={'About Us'} background={'linear-gradient(90deg, #E4A951 0%, #E4E4EA 50.62%, #FFF 98.93%)'} />
                     </div>
                     <ContainerComponent>
-                        <HeroComponent />
+                        <HeroComponent aboutUsObject={aboutUsObject} />
 
-                        <DescriptionComponent />
+                        <DescriptionComponent aboutUsObject={aboutUsObject} />
                     </ContainerComponent>
 
                     <FormBoxComponent />

@@ -1,17 +1,8 @@
 import { useEffect, useState } from 'react'
 import './best-journals.scoped.scss'
+import { Link } from 'react-router-dom'
 
-export default function BestJournalsComponent() {
-
-    const [journals, setJournals] = useState([])
-
-    useEffect(() => {
-        loadJournals()
-    }, [])
-
-    const loadJournals = () => {
-        setJournals(['event-journals-1.jpeg', 'event-journals-2.jpeg', 'event-journals-3.jpeg'])
-    }
+export default function BestJournalsComponent({ events }) {
 
     return (
         <div>
@@ -19,9 +10,11 @@ export default function BestJournalsComponent() {
             <hr />
             <ul>
                 {
-                    journals.map((journal, index) => (
+                    events.filter((e, i) => i > 0 && i < 4).map((event, index) => (
                         <li>
-                            <img src={require('./../../../../../images/' + journal)} alt={`journal-${journal + 1}`} />
+                            <Link to={`/event/${event.id}`}>
+                                <img src={event.cover_image} alt={`journal-${event.name}`} />
+                            </Link>
                         </li>
                     ))
                 }

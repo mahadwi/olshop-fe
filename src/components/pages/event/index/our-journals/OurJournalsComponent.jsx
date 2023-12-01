@@ -3,27 +3,9 @@ import HighlightTitleComponent from '../../../../general/highlight-title/Highlig
 import './out-journals.scoped.scss'
 import { useEffect } from 'react'
 import ContainerComponent from '../../../../general/container/ContainerComponent'
+import { Link } from 'react-router-dom'
 
-export default function OurJournalsComponent() {
-
-    const [journals, setJournals] = useState([])
-
-    useEffect(() => {
-        loadJournals()
-    }, [])
-
-    const loadJournals = () => {
-        const arrJournals = [];
-
-        for (let i = 0; i < 14; i++) {
-            arrJournals.push({
-                source: `our-journal-${i + 1}.png`,
-                type: i == 6 || i == 10 ? 'full-row' : 'divide'
-            })
-        }
-
-        setJournals(arrJournals)
-    }
+export default function OurJournalsComponent({ events }) {
 
     return (
         <div className='our-journals-section'>
@@ -32,9 +14,9 @@ export default function OurJournalsComponent() {
             <ContainerComponent>
                 <ul>
                     {
-                        journals.map((journal, index) => (
-                            <li className={`${journal.type}-journal-item`}>
-                                <img src={require('./../../../../../images/' + journal.source)} alt={`${index}`} />
+                        events.filter((e, i) => i >= 4).map((event, index) => (
+                            <li className={`divide-journal-item`}>
+                                <Link to={`/event/${event.id}`}><img src={event.cover_image} alt={`${event.name}`} /></Link>
                             </li>
                         ))
                     }

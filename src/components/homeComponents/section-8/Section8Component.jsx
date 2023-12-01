@@ -1,11 +1,12 @@
 import { IconMapPin } from '@tabler/icons-react'
 import './section-8.scoped.scss'
 import bg from '../../../images/Section8.svg'
+import { Link } from 'react-router-dom'
 
 export default function Section8Component() {
     return (
         <div className="section-8" style={{ backgroundImage: `url(${bg})` }}>
-            <div className='inner-overlay'>
+            <Link to={'/contact'} className='inner-overlay'>
                 <div className='top'>
                     <IconMapPin color='#FFF' size={24} style={{ marginRight: '10px' }} />
                     <h2>Our Flagship Store <br />Jakarta</h2>
@@ -17,7 +18,7 @@ export default function Section8Component() {
                     Daerah Khusus Ibukota Jakarta
                     14240
                 </p>
-            </div>
+            </Link>
         </div>
     )
 }

@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import { GetBrand, GetCategory } from "../../../config/api";
-import axios from 'axios'
 import BreadCrumb from "../../../components/general/breadcrumb/BreadCrumb";
 import ContainerComponent from "../../../components/general/container/ContainerComponent";
 import BannerComponent from "../../../components/pages/event/show/banner/BannerComponent";
@@ -10,57 +8,33 @@ import AdditionalDetailComponent from "../../../components/pages/event/show/addi
 import NavbarComponent from "../../../components/homeComponents/navbar/NavbarComponent";
 import './event-show.scss'
 import IndexFooter from "../../../components/footer/indexFooter";
+import ScreenContainerComponent from "../../../components/general/screen-container/ScreenContainerComponent";
+import Api from "../../../utils/Api";
+import { useParams, useLocation } from "react-router-dom";
+import LoadingComponent from "../../../components/general/loading/LoadingComponent";
 
 export default function EventShow() {
+
+    const { pathname } = useLocation();
+    const { id } = useParams();
+    const [loading, setLoading] = useState(true)
 
     /**
      * Redundant States
      * 
      */
     const [breadcrumbs, setBreadcrumbs] = useState([])
-    const [brands, setBrands] = useState([])
-    const [categories, setCategories] = useState([])
-
-    /**
-     * First Load
-     * 
-     */
-    useEffect(() => {
-        handleDropDownDesign()
-        handleDropDownCollective()
-    }, [])
+    const [eventDetailObj, setEventDetailObj] = useState({})
 
     useEffect(() => {
         loadBreadcrumbs()
+        loadEventDetailObj(id)
     }, [])
 
-    /**
-     * (Redundant) Getting Data Dropdown Design Navbar
-     * 
-     */
-    const handleDropDownDesign = async () => {
-        try {
-            const response = await axios.get(GetBrand)
-
-            setBrands(response.data.data)
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-    /**
-     * (Redundant) Getting Data Categories Navbar
-     * 
-     */
-    const handleDropDownCollective = async () => {
-        try {
-            const response = await axios.get(GetCategory)
-
-            setCategories(response.data.data)
-        } catch (error) {
-            console.log(error)
-        }
-    }
+    // Automatically scrolls to top whenever pathname changes
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [pathname]);
 
     const loadBreadcrumbs = () => {
         setBreadcrumbs([
@@ -78,32 +52,41 @@ export default function EventShow() {
         ])
     }
 
+    const loadEventDetailObj = (id) => {
+        if (id) {
+            setLoading(true)
+            Api.get('/event/' + id)
+                .then((res) => {
+                    setEventDetailObj(res.data.data)
+                    setLoading(false)
+                })
+        }
+    }
+
     return (
         <div>
-            <div className="event-show-container">
+            <LoadingComponent loading={loading} />
 
-                <NavbarComponent />
+            <ScreenContainerComponent>
+                <div className="event-show-container">
 
-                <ContainerComponent>
-                    <BreadCrumb lists={breadcrumbs} />
-                </ContainerComponent>
+                    <NavbarComponent />
 
-                <BannerComponent />
+                    <ContainerComponent>
+                        <BreadCrumb lists={breadcrumbs} />
+                    </ContainerComponent>
 
-                <ContainerComponent>
-                    <EventDescriptionComponent />
-                </ContainerComponent>
+                    <BannerComponent eventDetailObj={eventDetailObj} />
 
-                <TicketPurchaseComponent />
+                    <ContainerComponent>
+                        <EventDescriptionComponent eventDetailObj={eventDetailObj} />
+                    </ContainerComponent>
 
-                <AdditionalDetailComponent />
+                    <TicketPurchaseComponent eventDetailObj={eventDetailObj} />
 
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-            </div>
+                    <AdditionalDetailComponent />
+                </div>
+            </ScreenContainerComponent>
             <IndexFooter />
         </div>
     )

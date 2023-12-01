@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import axios from 'axios'
-import { GetBrand, GetCategory } from "../../../config/api";
 import BreadCrumb from "../../../components/general/breadcrumb/BreadCrumb";
 import ContainerComponent from "../../../components/general/container/ContainerComponent";
 import './contact.scoped.scss'
@@ -9,54 +7,40 @@ import FormComponent from "../../../components/pages/contact/index/form/FormComp
 import ContactComponent from "../../../components/pages/contact/index/contact/ContactComponent";
 import NavbarComponent from "../../../components/homeComponents/navbar/NavbarComponent";
 import IndexFooter from "../../../components/footer/indexFooter";
+import { useLocation } from 'react-router-dom';
+import Api from "../../../utils/Api";
+import LoadingComponent from "../../../components/general/loading/LoadingComponent";
 
 export default function ContactIndex() {
-    /**
-     * Redundant States
-     * 
-     */
-    const [brands, setBrands] = useState([])
-    const [categories, setCategories] = useState([])
 
-    /**
-     * First Load
-     * 
-     */
+    const { pathname } = useLocation();
+    const [contactObj, setContactObj] = useState({})
+    const [loading, setLoading] = useState(true)
+
+    // Automatically scrolls to top whenever pathname changes
     useEffect(() => {
-        handleDropDownDesign()
-        handleDropDownCollective()
+        window.scrollTo(0, 0);
+    }, [pathname]);
+
+    useEffect(() => {
+        loadContact()
     }, [])
 
-    /**
-    * (Redundant) Getting Data Dropdown Design Navbar
-    * 
-    */
-    const handleDropDownDesign = async () => {
-        try {
-            const response = await axios.get(GetBrand)
+    const loadContact = () => {
 
-            setBrands(response.data.data)
-        } catch (error) {
-            console.log(error)
-        }
-    }
+        setLoading(true)
+        Api.get('/contact')
+            .then((res) => {
+                setContactObj(res.data.data[0])
 
-    /**
-     * (Redundant) Getting Data Categories Navbar
-     * 
-     */
-    const handleDropDownCollective = async () => {
-        try {
-            const response = await axios.get(GetCategory)
-
-            setCategories(response.data.data)
-        } catch (error) {
-            console.log(error)
-        }
+                setLoading(false)
+            })
     }
 
     return (
         <div>
+            <LoadingComponent loading={loading} />
+
             <div className="contact-page">
 
                 <NavbarComponent />
@@ -85,7 +69,7 @@ export default function ContactIndex() {
 
                     <div className="form-and-contact-wrapper">
                         <FormComponent />
-                        <ContactComponent />
+                        <ContactComponent contactObj={contactObj} />
                     </div>
 
                 </ContainerComponent>

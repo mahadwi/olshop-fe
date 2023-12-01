@@ -4,13 +4,13 @@ import LeftFilterColorComponent from '../left-filter-color/LeftFilterColorCompon
 import LeftFilterPriceComponent from '../left-filter-price/LeftFilterPriceComponent'
 import './left-filter.scoped.scss'
 
-export default function LeftFilterComponent() {
+export default function LeftFilterComponent({ brands, productCategories, productColors, selectedBrands, setSelectedBrands, selectedProductCategories, setSelectedProductCategories, selectedPriceMinAndMax, setSelectedPriceMinAndMax, selectedFilterColor, setSelectedFilterColor }) {
     return (
         <div className='left-filter'>
-            <LeftFilterBrandComponent />
-            <LeftFilterCategoriesComponent />
-            <LeftFilterPriceComponent />
-            <LeftFilterColorComponent />
+            <LeftFilterBrandComponent brands={brands} selectedBrands={selectedBrands} setSelectedBrands={setSelectedBrands} />
+            <LeftFilterCategoriesComponent productCategories={productCategories} selectedProductCategories={selectedProductCategories} setSelectedProductCategories={setSelectedProductCategories} />
+            <LeftFilterPriceComponent selectedPriceMinAndMax={selectedPriceMinAndMax} setSelectedPriceMinAndMax={setSelectedPriceMinAndMax} minRangeValue={1000000} maxRangeValue={15000000} step={500000} />
+            <LeftFilterColorComponent productColors={productColors} selectedFilterColor={selectedFilterColor} setSelectedFilterColor={setSelectedFilterColor} />
         </div>
     )
 }

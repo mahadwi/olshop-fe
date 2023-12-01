@@ -1,48 +1,16 @@
 import './event-description.scoped.scss'
 
-export default function EventDescriptionComponent() {
+export default function EventDescriptionComponent({ eventDetailObj }) {
     return (
         <div className='event-description-section'>
             <div className='first-section'>
-                <p>
-                    Jakarta Fashion Week (JFW) is an annual fashion event held in Jakarta, Indonesia. It is considered the largest and most influential fashion week in Southeast Asia. The event showcases the latest collections of Indonesian and international designers, and it is a major platform for promoting Indonesian fashion to the world.
-                </p>
-                <p>
-                    JFW was first held in 2008, and it has grown in popularity and prestige each year. The event is now attended by thousands of buyers, journalists, and fashion enthusiasts from around the world.
-                </p>
-                <p>
-                    JFW is more than just a fashion show; it is also a major cultural event. The event features a variety of fashion-related activities, such as workshops, seminars, and parties. JFW is also a platform for showcasing Indonesian culture to the world.
-                    The next Jakarta Fashion Week will be held from October 23 to 29, 2023, at Pondok Indah Mall 3 in Jakarta. The event will feature more than 200 designers from Indonesia and around the world.
-                </p>
+                <div dangerouslySetInnerHTML={{ __html: eventDetailObj.description }} />
             </div>
-            <div className='second-section'>
-                <p>
-                    Here are some of the highlights of Jakarta Fashion Week:
-                </p>
-                <ul>
-                    <li>
-                        <b>Runway shows: </b>The main event of JFW is the runway shows, where designers showcase their latest collections.
-                    </li>
-                    <li>
-                        <b>Exhibition booths: </b>In addition to the runway shows, JFW also features a number of exhibition booths, where designers can sell their products to buyers and consumers.
-                    </li>
-                    <li>
-                        <b>Seminars and workshops: </b>JFW also hosts a number of seminars and workshops on topics related to fashion, such as design, marketing, and sustainability.
-                    </li>
-                    <li>
-                        <b>Parties and events: </b>JFW is also a major social event, with a number of parties and events held throughout the week.
-                    </li>
-                </ul>
-                <p>
-                    If you are interested in fashion, Indonesia, or Southeast Asia, then Jakarta Fashion Week is an event you should not miss.
-                </p>
-            </div>
-
             <div className='location-box'>
                 <h3>Location Details :</h3>
                 <div className='location-wrapper'>
                     <div className='map-box'>
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.666307543373!2d106.82458402554342!3d-6.175408343811989!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5d2db8c5617%3A0x4e446b7ac891d847!2sMonas%2C%20Gambir%2C%20Kecamatan%20Gambir%2C%20Kota%20Jakarta%20Pusat%2C%20Daerah%20Khusus%20Ibukota%20Jakarta!5e0!3m2!1sid!2sid!4v1700552424025!5m2!1sid!2sid" style={{ border: 0 }} allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        <iframe src={eventDetailObj.maps} style={{ border: 0 }} allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                     <div className='text-location-box'>
                         <div>
@@ -52,27 +20,27 @@ export default function EventDescriptionComponent() {
                                     <path d="M8.00001 15L3.78201 10.0255C3.7234 9.95081 3.66539 9.87564 3.60801 9.8C2.8875 8.85089 2.49826 7.69161 2.50001 6.5C2.50001 5.04131 3.07947 3.64236 4.11092 2.61091C5.14237 1.57946 6.54131 1 8.00001 1C9.4587 1 10.8576 1.57946 11.8891 2.61091C12.9205 3.64236 13.5 5.04131 13.5 6.5C13.5018 7.69107 13.1127 8.84982 12.3925 9.7985L12.392 9.8C12.392 9.8 12.242 9.997 12.2195 10.0235L8.00001 15ZM4.40601 9.1975C4.40701 9.1975 4.52301 9.3515 4.54951 9.3845L8.00001 13.454L11.455 9.379C11.477 9.3515 11.594 9.1965 11.5945 9.196C12.1831 8.42056 12.5012 7.47352 12.5 6.5C12.5 5.30653 12.0259 4.16193 11.182 3.31802C10.3381 2.47411 9.19348 2 8.00001 2C6.80653 2 5.66194 2.47411 4.81803 3.31802C3.97411 4.16193 3.50001 5.30653 3.50001 6.5C3.49896 7.47412 3.81689 8.42171 4.40601 9.1975Z" fill="black" />
                                 </svg>
                                 <h4 className='title-text'>
-                                    Pondok Indah Mall 3
+                                    {eventDetailObj.place}
                                 </h4>
                             </div>
                         </div>
                         <div className='bottom-location-wrap'>
-                            <h4 className='title'>Jakarta</h4>
-                            <p className='address'>Jl. Kartika Utama Nomor 1, RT.6, RW.3, Pondok Pinang, Kec. Kebayoran Lama, Jakarta Selatan</p>
-                            <a href="">
+                            <p className='address' dangerouslySetInnerHTML={{ __html: eventDetailObj.detail_maps }}>
+                            </p>
+                            <a href={eventDetailObj.maps} target='_blank'>
                                 <img src={require('./../../../../../images/carbon_location.png')} alt="" />
                                 <span>View In Map</span>
                             </a>
                         </div>
                     </div>
                 </div>
-                <p>
+                {/* <p>
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
                         <path d="M11.6375 12.25C10.4222 12.25 9.22153 11.985 8.03542 11.4549C6.84931 10.9249 5.77014 10.1739 4.79792 9.20208C3.82569 8.22986 3.07475 7.15069 2.54508 5.96458C2.01542 4.77847 1.75039 3.57778 1.75 2.3625C1.75 2.1875 1.80833 2.04167 1.925 1.925C2.04167 1.80833 2.1875 1.75 2.3625 1.75H4.725C4.86111 1.75 4.98264 1.79628 5.08958 1.88883C5.19653 1.98139 5.25972 2.09067 5.27917 2.21667L5.65833 4.25833C5.67778 4.41389 5.67292 4.54514 5.64375 4.65208C5.61458 4.75903 5.56111 4.85139 5.48333 4.92917L4.06875 6.35833C4.26319 6.71806 4.494 7.06553 4.76117 7.40075C5.02833 7.73597 5.32253 8.05933 5.64375 8.37083C5.94514 8.67222 6.26111 8.95183 6.59167 9.20967C6.92222 9.4675 7.27222 9.70317 7.64167 9.91667L9.0125 8.54583C9.1 8.45833 9.21433 8.39261 9.3555 8.34867C9.49667 8.30472 9.63511 8.29267 9.77083 8.3125L11.7833 8.72083C11.9194 8.75972 12.0312 8.83031 12.1187 8.93258C12.2062 9.03486 12.25 9.149 12.25 9.275V11.6375C12.25 11.8125 12.1917 11.9583 12.075 12.075C11.9583 12.1917 11.8125 12.25 11.6375 12.25Z" fill="black" />
                     </svg>
                     <span>Contact Partner :</span>
                     <span>(+62) 123-1231-2345</span>
-                </p>
+                </p> */}
             </div>
         </div>
     )

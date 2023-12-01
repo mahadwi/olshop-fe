@@ -4,9 +4,7 @@ import './left-filter-categories.scoped.scss'
 import Checkbox from "react-custom-checkbox";
 import { IconArrowRight } from '@tabler/icons-react';
 
-export default function LeftFilterCategoriesComponent() {
-
-    const options = ['Sling Bag', 'Mini Bag', 'Hand Bag', 'Tote Bag', 'Backpack']
+export default function LeftFilterCategoriesComponent({ productCategories, selectedProductCategories, setSelectedProductCategories }) {
 
     return (
         <div className="left-filter-categories">
@@ -17,15 +15,26 @@ export default function LeftFilterCategoriesComponent() {
                 </div>
                 <ul>
                     {
-                        options.map((option) => (
+                        productCategories.map((productCategory) => (
                             <li>
                                 <Checkbox
                                     icon={<div style={{ backgroundColor: "#E4A951", borderRadius: 5, padding: 5 }} />}
                                     borderWidth={1}
                                     borderRadius={3}
                                     borderColor={'#DDD'}
+                                    checked={selectedProductCategories.includes(productCategory.id)}
+                                    value={productCategory.id}
+                                    onChange={(e) => {
+                                        if (e) {
+                                            setSelectedProductCategories(selectedProductCategories => [...selectedProductCategories, productCategory.id])
+                                        } else {
+                                            setSelectedProductCategories(() => {
+                                                return selectedProductCategories.filter((e) => e != productCategory.id)
+                                            })
+                                        }
+                                    }}
                                 />
-                                <span>{option}</span>
+                                <span>{productCategory.name}</span>
                             </li>
                         ))
                     }

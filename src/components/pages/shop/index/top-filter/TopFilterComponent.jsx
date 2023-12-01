@@ -3,7 +3,7 @@ import './top-filter.scoped.scss'
 import { IconAdjustmentsHorizontal } from '@tabler/icons-react';
 import Select from 'react-select';
 
-export default function TopFilterComponent() {
+export default function TopFilterComponent({ productResultAmount }) {
 
     const [selectedOption, setSelectedOption] = useState({ value: 'Relevance', label: 'Relevance' })
 
@@ -31,7 +31,7 @@ export default function TopFilterComponent() {
             </div>
             <div className='center'>
                 <div>
-                    <p>12 Result</p>
+                    <p>{productResultAmount} Result</p>
                 </div>
             </div>
             <div className='right'>

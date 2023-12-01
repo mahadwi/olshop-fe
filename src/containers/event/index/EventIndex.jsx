@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
 import BreadCrumb from "../../../components/general/breadcrumb/BreadCrumb";
 import ContainerComponent from "../../../components/general/container/ContainerComponent";
-import IndexNavbar from "../../../components/navbar/IndexNavbar";
-import { GetBrand, GetCategory } from "../../../config/api";
-import axios from 'axios'
 import TopSectionComponent from "../../../components/pages/event/index/top-section/TopSectionComponent";
 import BannerComponent from "../../../components/pages/event/index/banner/BannerComponent";
 import BestJournalsComponent from "../../../components/pages/event/index/best-journals/BestJournalsComponent";
@@ -11,17 +8,16 @@ import OurJournalsComponent from "../../../components/pages/event/index/our-jour
 import './event-index.scoped.scss'
 import NavbarComponent from "../../../components/homeComponents/navbar/NavbarComponent";
 import IndexFooter from "../../../components/footer/indexFooter";
+import { useLocation } from 'react-router-dom';
+import Api from "../../../utils/Api";
+import LoadingComponent from "../../../components/general/loading/LoadingComponent";
 
 export default function EventIndex() {
 
+    const { pathname } = useLocation();
     const [breadcrumbs, setBreadcrumbs] = useState([])
-
-    /**
-    * Redundant States
-    * 
-    */
-    const [brands, setBrands] = useState([])
-    const [categories, setCategories] = useState([])
+    const [events, setEvents] = useState([])
+    const [loading, setLoading] = useState(true)
 
     /**
      * First Load
@@ -29,38 +25,13 @@ export default function EventIndex() {
      */
     useEffect(() => {
         loadBreadcrumbs()
-
-        handleDropDownDesign()
-        handleDropDownCollective()
+        loadEvents()
     }, [])
 
-    /**
-    * (Redundant) Getting Data Dropdown Design Navbar
-    * 
-    */
-    const handleDropDownDesign = async () => {
-        try {
-            const response = await axios.get(GetBrand)
-
-            setBrands(response.data.data)
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-    /**
-     * (Redundant) Getting Data Categories Navbar
-     * 
-     */
-    const handleDropDownCollective = async () => {
-        try {
-            const response = await axios.get(GetCategory)
-
-            setCategories(response.data.data)
-        } catch (error) {
-            console.log(error)
-        }
-    }
+    // Automatically scrolls to top whenever pathname changes
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [pathname]);
 
     const loadBreadcrumbs = () => {
         setBreadcrumbs([
@@ -74,8 +45,20 @@ export default function EventIndex() {
         ])
     }
 
+    const loadEvents = () => {
+
+        setLoading(true)
+        Api.get('/event')
+            .then((res) => {
+                setEvents(res.data.data)
+                setLoading(false)
+            })
+    }
+
     return (
         <div>
+            <LoadingComponent loading={loading} />
+
             <div className="event-index-page">
 
                 <NavbarComponent />
@@ -84,11 +67,11 @@ export default function EventIndex() {
                     <BreadCrumb lists={breadcrumbs} />
                     <TopSectionComponent />
                 </ContainerComponent>
-                <BannerComponent />
+                <BannerComponent event={events[0]} />
                 <ContainerComponent>
-                    <BestJournalsComponent />
+                    <BestJournalsComponent events={events} />
                 </ContainerComponent>
-                <OurJournalsComponent />
+                <OurJournalsComponent events={events} />
             </div>
             <IndexFooter />
         </div>

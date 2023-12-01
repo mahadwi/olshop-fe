@@ -4,46 +4,7 @@ import HighlightTitleComponent from '../../../../general/highlight-title/Highlig
 import TicketPurchaseItemComponent from '../ticket-purchase-item/TicketPurchaseItemComponent'
 import './ticket-purchase.scoped.scss'
 
-export default function TicketPurchaseComponent() {
-
-    const [tickets, setTickets] = useState([])
-
-    useEffect(() => {
-        loadTickets()
-    }, [])
-
-    const loadTickets = () => {
-        setTickets([
-            {
-                day: 1,
-                price: 'Rp. 500.000'
-            },
-            {
-                day: 2,
-                price: 'Rp. 1.000.000'
-            },
-            {
-                day: 3,
-                price: 'Rp. 1.500.000'
-            },
-            {
-                day: 4,
-                price: 'Rp. 1.800.000'
-            },
-            {
-                day: 5,
-                price: 'Rp. 2.300.000'
-            },
-            {
-                day: 6,
-                price: 'Rp. 2.700.000'
-            },
-            {
-                day: 7,
-                price: 'Rp. 3.000.000'
-            }
-        ])
-    }
+export default function TicketPurchaseComponent({ eventDetailObj }) {
 
     return (
         <div>
@@ -52,9 +13,10 @@ export default function TicketPurchaseComponent() {
             <ContainerComponent>
                 <div className='ticket-purchase-wrapper'>
                     {
-                        tickets.map((ticket) => (
-                            <TicketPurchaseItemComponent ticket={ticket} />
-                        ))
+                        eventDetailObj.details ?
+                            eventDetailObj.details.map((eventTicketDetail) => (
+                                <TicketPurchaseItemComponent ticket={eventTicketDetail} />
+                            )) : <></>
                     }
                 </div>
             </ContainerComponent>

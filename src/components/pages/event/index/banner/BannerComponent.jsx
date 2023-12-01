@@ -2,19 +2,25 @@ import './banner.scoped.scss'
 import EventIndexHeroImage from './../../../../../images/event-index-hero.png'
 import { NavLink } from 'react-router-dom'
 
-export default function BannerComponent() {
+export default function BannerComponent({ event }) {
     return (
-        <div className='banner-container' style={{ backgroundImage: `url(${EventIndexHeroImage})` }}>
-            <div className='inner'>
-                <h2>JOIN US FOR <br /> FASHION WEEK</h2>
-                <div>
-                    <div>
-                        <p>On 27 Sept - 1 Nov 2021</p>
-                        <p>At Hall of Hotel Indonesia</p>
-                    </div>
-                    <NavLink to={'/event/fashion-week-2023'}>Grab Here</NavLink>
-                </div>
-            </div>
-        </div>
+        <>
+            {
+                event ?
+                    <div className='banner-container' style={{ backgroundImage: `url(${event.banner_image})` }}>
+                        <div className='inner'>
+                            <h2>JOIN US FOR <br /> {event.name}</h2>
+                            <div>
+                                <div>
+                                    <p>On {event.start_date} - {event.end_date}</p>
+                                    <p>At {event.place}</p>
+                                </div>
+                                <NavLink to={'/event/' + event.id}>Grab Here</NavLink>
+                            </div>
+                        </div>
+                    </div> : <></>
+            }
+        </>
+
     )
 }

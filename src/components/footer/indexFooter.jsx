@@ -32,7 +32,7 @@ export default function IndexFooter() {
                                     <Link>FAQ</Link>
                                 </li>
                                 <li>
-                                    <Link>Contact Us</Link>
+                                    <Link to={'/contact'}>Contact Us</Link>
                                 </li>
                             </ul>
                             <ul>
@@ -71,7 +71,7 @@ export default function IndexFooter() {
                                     <span>Luxi</span>
                                 </li>
                                 <li>
-                                    <Link>About Us</Link>
+                                    <Link to={'/about-us'}>About Us</Link>
                                 </li>
                                 <li>
                                     <Link>Work With Us</Link>
@@ -96,82 +96,10 @@ export default function IndexFooter() {
                                 <Link>Your Privacy Choize</Link>
                             </li>
                         </ul>
-                        <p>© 2023 LUXI All rights Reserved. | <Link>Follow Our Social Media</Link></p>
+                        <p>© 2023 LUXI All rights Reserved. | <Link to={'/contact'}>Follow Our Social Media</Link></p>
                     </div>
                 </div>
             </ContainerComponent>
         </footer>
     )
 }
-// export default class indexFooter extends Component {
-//     render() {
-//         return (
-//             <footer>
-//                 div
-//             </footer>
-
-//             // <Card className='footer rounded-0'>
-//             //     <Row>
-//             //         <Col className='col-3' style={{ marginRight: "60px" }}>
-//             //             <Card.Body>
-//             //                 <Card.Title style={{ color: "white" }}>Never Miss a Beat</Card.Title>
-//             //                 <Card.Text style={{ color: "white" }}>
-//             //                     Be the first to hear about product launches, collaborations, and more when you sign up for our emails
-//             //                 </Card.Text>
-//             //                 <input className='inputEmail' placeholder='Enter Email Here' />
-//             //                 <Button variant="warning" className='buttonEmail' size='sm'>Submit</Button>
-//             //             </Card.Body>
-//             //         </Col>
-//             //         <Col className='col-2'>
-//             //             <Card.Body>
-//             //                 <Card.Title style={{ color: "white", fontSize: "18px" }}><img src={ClientServiceLogo} /> Client Service</Card.Title>
-//             //                 <Card.Text style={{ color: "white" }}>
-//             //                     <a className='footerlink' href='#'>Delivery & Shipping</a>
-//             //                     <br />
-//             //                     <a className='footerlink' href='#'>FAQ</a>
-//             //                     <br />
-//             //                     <a className='footerlink' href='#'>Contact Us</a>
-//             //                 </Card.Text>
-//             //             </Card.Body>
-//             //         </Col>
-//             //         <Col className='col-2'>
-//             //             <Card.Body>
-//             //                 <Card.Title style={{ color: "white", fontSize: "18px" }}><img src={ConsignSellLogo} /> Consign & Sell</Card.Title>
-//             //                 <Card.Text style={{ color: "white" }}>
-//             //                     <a className='footerlink' href='#'>Consignment</a>
-//             //                     <br />
-//             //                     <a className='footerlink' href='#'>Trade - In</a>
-//             //                     <br />
-//             //                     <a className='footerlink' href='#'>Direct Selling</a>
-//             //                 </Card.Text>
-//             //             </Card.Body>
-//             //         </Col>
-//             //         <Col className='col-2'>
-//             //             <Card.Body>
-//             //                 <Card.Title style={{ color: "white", fontSize: "18px" }}><img src={BuyLogo} /> Buy</Card.Title>
-//             //                 <Card.Text style={{ color: "white" }}>
-//             //                     <a className='footerlink' href='#'>Order Tracking</a>
-//             //                     <br />
-//             //                     <a className='footerlink' href='#'>Return Policy</a>
-//             //                     <br />
-//             //                     <a className='footerlink' href='#'>Authentication</a>
-//             //                 </Card.Text>
-//             //             </Card.Body>
-//             //         </Col>
-//             //         <Col className='col-2'>
-//             //             <Card.Body>
-//             //                 <Card.Title style={{ color: "white", fontSize: "18px" }}><img src={LuxiLogo} /> Luxi</Card.Title>
-//             //                 <Card.Text style={{ color: "white" }}>
-//             //                     <a className='footerlink' href='#'>About Us</a>
-//             //                     <br />
-//             //                     <a className='footerlink' href='#'>Work With Us</a>
-//             //                     <br />
-//             //                     <a className='footerlink' href='#'>Review</a>
-//             //                 </Card.Text>
-//             //             </Card.Body>
-//             //         </Col>
-//             //     </Row>
-//             // </Card>
-//         )
-//     }
-// }

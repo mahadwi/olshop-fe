@@ -4,9 +4,7 @@ import './left-filter-brand.scoped.scss'
 import Checkbox from "react-custom-checkbox";
 import { IconArrowRight } from '@tabler/icons-react';
 
-export default function LeftFilterBrandComponent() {
-
-    const options = ['Prada', 'Versace', 'Giorgio Armani', 'Hermes', 'Channel']
+export default function LeftFilterBrandComponent({ brands, selectedBrands, setSelectedBrands }) {
 
     return (
         <div className="left-filter-brand">
@@ -17,15 +15,26 @@ export default function LeftFilterBrandComponent() {
                 </div>
                 <ul>
                     {
-                        options.map((option) => (
+                        brands.map((brand) => (
                             <li>
                                 <Checkbox
                                     icon={<div style={{ backgroundColor: "#E4A951", borderRadius: 5, padding: 5 }} />}
                                     borderWidth={1}
                                     borderRadius={3}
                                     borderColor={'#DDD'}
+                                    checked={selectedBrands.includes(brand.id)}
+                                    value={brand.id}
+                                    onChange={(e) => {
+                                        if (e) {
+                                            setSelectedBrands(selectedBrands => [...selectedBrands, brand.id])
+                                        } else {
+                                            setSelectedBrands(() => {
+                                                return selectedBrands.filter((e) => e != brand.id)
+                                            })
+                                        }
+                                    }}
                                 />
-                                <span>{option}</span>
+                                <span>{brand.name}</span>
                             </li>
                         ))
                     }

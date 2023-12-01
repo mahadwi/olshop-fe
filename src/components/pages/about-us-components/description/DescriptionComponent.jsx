@@ -1,6 +1,6 @@
 import './description.scoped.scss'
 
-export default function DescriptionComponent() {
+export default function DescriptionComponent({ aboutUsObject }) {
     return (
         <div className='description-container'>
             <div>
@@ -29,7 +29,7 @@ export default function DescriptionComponent() {
                 <h4 className='paragraph-title'>Our Store Location: </h4>
                 <div className='location-wrapper'>
                     <div className='map-box'>
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.666307543373!2d106.82458402554342!3d-6.175408343811989!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5d2db8c5617%3A0x4e446b7ac891d847!2sMonas%2C%20Gambir%2C%20Kecamatan%20Gambir%2C%20Kota%20Jakarta%20Pusat%2C%20Daerah%20Khusus%20Ibukota%20Jakarta!5e0!3m2!1sid!2sid!4v1700552424025!5m2!1sid!2sid" style={{ border: 0 }} allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        <iframe src={aboutUsObject.maps} style={{ border: 0 }} allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                     <div className='text-location-box'>
                         <div>
@@ -39,13 +39,12 @@ export default function DescriptionComponent() {
                                     <path d="M8.00001 15L3.78201 10.0255C3.7234 9.95081 3.66539 9.87564 3.60801 9.8C2.8875 8.85089 2.49826 7.69161 2.50001 6.5C2.50001 5.04131 3.07947 3.64236 4.11092 2.61091C5.14237 1.57946 6.54131 1 8.00001 1C9.4587 1 10.8576 1.57946 11.8891 2.61091C12.9205 3.64236 13.5 5.04131 13.5 6.5C13.5018 7.69107 13.1127 8.84982 12.3925 9.7985L12.392 9.8C12.392 9.8 12.242 9.997 12.2195 10.0235L8.00001 15ZM4.40601 9.1975C4.40701 9.1975 4.52301 9.3515 4.54951 9.3845L8.00001 13.454L11.455 9.379C11.477 9.3515 11.594 9.1965 11.5945 9.196C12.1831 8.42056 12.5012 7.47352 12.5 6.5C12.5 5.30653 12.0259 4.16193 11.182 3.31802C10.3381 2.47411 9.19348 2 8.00001 2C6.80653 2 5.66194 2.47411 4.81803 3.31802C3.97411 4.16193 3.50001 5.30653 3.50001 6.5C3.49896 7.47412 3.81689 8.42171 4.40601 9.1975Z" fill="black" />
                                 </svg>
                                 <h4 className='title-text'>
-                                    Our Flagship Store
+                                    {aboutUsObject.address}
                                 </h4>
                             </div>
                         </div>
                         <div className='bottom-location-wrap'>
-                            <h4 className='title'>Jakarta</h4>
-                            <p className='address'>Jl. Boulevard Bar. Raya No.12, RT.18/RW.19, Klp. Gading Bar., Kec. Klp. Gading, Jkt Utara, Daerah Khusus Ibukota Jakarta 14240</p>
+                            <p className='address'>{aboutUsObject.detail_address}</p>
                         </div>
                     </div>
                 </div>

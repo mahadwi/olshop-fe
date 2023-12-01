@@ -3,7 +3,7 @@
     justify-content: flex-end;
 
     .left {
-        width: 42%;
+        width: 100%;
 
         p {
             color: #000;
@@ -15,6 +15,20 @@
 
             &:first-child {
                 text-indent: 35px;
+            }
+
+            p {
+                p.dropcapimg::first-letter {
+                    background-image: url(https://i.stack.imgur.com/WecKn.png);
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                    background-position: center center;
+                    float: left;
+                    font-size: 6rem;
+                    line-height: 0.65;
+                    color: transparent;
+                    margin-right: -0.15em;
+                }
             }
         }
     }

@@ -3,19 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getMe, GetBanner, GetGallery } from '../../config/api';
 import { useEffect, useState } from 'react';
-import HomeSlider from '../../components/homeComponents/homeSlider';
 import NavbarHome from '../../components/homeComponents/navbar/NavbarComponent';
 import IndexFooter from '../../components/footer/indexFooter';
-import Section3 from '../../components/homeComponents/section3';
-import Section2 from '../../components/homeComponents/section2';
-import TitleSection2 from '../../components/homeComponents/titleSection2';
-import Section2footer from '../../components/homeComponents/section2footer';
-import Section4 from '../../components/homeComponents/section4';
-import Section5 from '../../components/homeComponents/section5';
-import Section6 from '../../components/homeComponents/section6';
-import Section7 from '../../components/homeComponents/section7';
-import Section8 from '../../components/homeComponents/section8';
-import Section9 from '../../components/homeComponents/section9/section9';
 import axios from 'axios';
 import { BeatLoader } from 'react-spinners';
 import HeroSliderComponent from '../../components/homeComponents/hero-slider/HeroSliderComponent';
@@ -30,18 +19,7 @@ import Section7Component from '../../components/homeComponents/section-7/Section
 import Section8Component from '../../components/homeComponents/section-8/Section8Component';
 import Section9Component from '../../components/homeComponents/section-9/Section9Component';
 import SubscriptionComponent from '../../components/general/subscription/SubscriptionComponent';
-
-const override = {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
-    backgroundColor: 'rgba(255, 255, 255, 0.8)', // You can adjust the background color and transparency
-};
+import LoadingComponent from '../../components/general/loading/LoadingComponent';
 
 function IndexHome() {
     const dispatch = useDispatch();
@@ -110,16 +88,7 @@ function IndexHome() {
 
     return (
         <div>
-            {loading && (
-                <BeatLoader
-                    color={'#E4A951'}
-                    loading={loading}
-                    cssOverride={override}
-                    size={50}
-                    aria-label="Loading Spinner"
-                    data-testid="loader"
-                />
-            )}
+            <LoadingComponent loading={loading} />
             <div style={{ display: loading ? 'none' : 'block' }}>
                 <NavbarHome userName={user && user.name} />
                 <HeroSliderComponent dataBanner={dataBanner} />
