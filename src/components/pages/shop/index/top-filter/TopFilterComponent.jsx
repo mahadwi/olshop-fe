@@ -3,22 +3,10 @@ import './top-filter.scoped.scss'
 import { IconAdjustmentsHorizontal } from '@tabler/icons-react';
 import Select from 'react-select';
 
-export default function TopFilterComponent({ productResultAmount }) {
-
-    const [selectedOption, setSelectedOption] = useState({ value: 'Relevance', label: 'Relevance' })
-
-    const options = [
-        { value: 'Relevance', label: 'Relevance', isDisabled: true },
-        { value: 'New Arrival', label: 'New Arrival' },
-        { value: 'Price, low to high', label: 'Price, low to high' },
-        { value: 'ALphabetical, A - Z', label: 'ALphabetical, A - Z' },
-        { value: 'ALphabetical, Z - A', label: 'ALphabetical, Z - A' },
-        { value: 'Date, old to new', label: 'Date, old to new' },
-        { value: 'Date, new to old', label: 'Date, new to old' },
-    ];
+export default function TopFilterComponent({ productResultAmount, sortOptions, selectedSortOption, setSelectedSortOption }) {
 
     const handleChange = (selectedOption) => {
-        setSelectedOption(selectedOption)
+        setSelectedSortOption(selectedOption)
     };
 
     return (
@@ -70,9 +58,9 @@ export default function TopFilterComponent({ productResultAmount }) {
                             }),
 
                         }}
-                        value={selectedOption}
+                        value={selectedSortOption}
                         onChange={handleChange}
-                        options={options}
+                        options={sortOptions}
                     />
                 </div>
             </div>

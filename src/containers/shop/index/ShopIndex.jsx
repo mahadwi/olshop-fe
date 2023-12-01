@@ -35,6 +35,16 @@ export default function ShopIndex() {
     const [selectedFilterColor, setSelectedFilterColor] = useState([])
     const [metaPagination, setMetaPagination] = useState({})
     const [banners, setBanners] = useState([])
+    const sortOptions = [
+        { value: 'is_new_arrival', label: 'New Arrival' },
+        { value: 'price_asc', label: 'Price, low to high' },
+        { value: 'price_desc', label: 'Price, high to low' },
+        { value: 'name_asc', label: 'ALphabetical, A - Z' },
+        { value: 'name_desc', label: 'ALphabetical, Z - A' },
+        { value: 'date_desc', label: 'Date, old to new' },
+        { value: 'date_asc', label: 'Date, new to old' },
+    ];
+    const [selectedSortOption, setSelectedSortOption] = useState({ value: 'is_new_arrival', label: 'New Arrival' })
 
     // Automatically scrolls to top whenever pathname changes
     useEffect(() => {
@@ -67,7 +77,7 @@ export default function ShopIndex() {
 
     useEffect(() => {
         loadProducts()
-    }, [selectedBrands, selectedProductCategories, selectedPriceMinAndMax, selectedFilterColor, searchParams])
+    }, [selectedBrands, selectedProductCategories, selectedPriceMinAndMax, selectedFilterColor, searchParams, selectedSortOption])
 
     const loadProducts = () => {
         setLoading(true)
@@ -79,7 +89,9 @@ export default function ShopIndex() {
                 price_max: selectedPriceMinAndMax.price_max,
                 color_id: selectedFilterColor,
                 itemPerpage: 10,
-                page: currentPage ? currentPage : 1
+                page: currentPage ? currentPage : 1,
+                is_new_arrival: selectedSortOption.value == 'is_new_arrival' ? 1 : 0,
+                sort_by: selectedSortOption.value != 'is_new_arrival' ? selectedSortOption.value : null
             }
         })
             .then((res) => {
@@ -127,7 +139,7 @@ export default function ShopIndex() {
                 <ContainerComponent>
                     <BreadCrumb lists={breadcrumbs} />
                     <BannerComponent banners={banners} />
-                    <TopFilterComponent productResultAmount={products.length} />
+                    <TopFilterComponent productResultAmount={products.length} sortOptions={sortOptions} selectedSortOption={selectedSortOption} setSelectedSortOption={setSelectedSortOption} />
                     <div className="content-wrapper">
                         <LeftFilterComponent
                             brands={brands}
