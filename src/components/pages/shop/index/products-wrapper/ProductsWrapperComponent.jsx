@@ -4,7 +4,7 @@ import ProductImage1 from './../../../../../images/pages/shop/index/products/pro
 import './products-wrapper.scoped.scss'
 import PaginationComponent from '../pagination/PaginationComponent'
 
-export default function ProductsWrapperComponent({ products }) {
+export default function ProductsWrapperComponent({ products, metaPagination, setMetaPagination }) {
     return (
         <div className="products-wrapper">
             <div className='inner-products-wrapper'>
@@ -14,7 +14,7 @@ export default function ProductsWrapperComponent({ products }) {
                     ))
                 }
             </div>
-            <PaginationComponent />
+            <PaginationComponent metaPagination={metaPagination} setMetaPagination={setMetaPagination} />
         </div>
     )
 }

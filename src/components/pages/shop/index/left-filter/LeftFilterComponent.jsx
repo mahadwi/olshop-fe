@@ -9,7 +9,7 @@ export default function LeftFilterComponent({ brands, productCategories, product
         <div className='left-filter'>
             <LeftFilterBrandComponent brands={brands} selectedBrands={selectedBrands} setSelectedBrands={setSelectedBrands} />
             <LeftFilterCategoriesComponent productCategories={productCategories} selectedProductCategories={selectedProductCategories} setSelectedProductCategories={setSelectedProductCategories} />
-            <LeftFilterPriceComponent selectedPriceMinAndMax={selectedPriceMinAndMax} setSelectedPriceMinAndMax={setSelectedPriceMinAndMax} minRangeValue={1000000} maxRangeValue={15000000} step={500000} />
+            <LeftFilterPriceComponent selectedPriceMinAndMax={selectedPriceMinAndMax} setSelectedPriceMinAndMax={setSelectedPriceMinAndMax} minRangeValue={1000000} maxRangeValue={150000000} step={500000} />
             <LeftFilterColorComponent productColors={productColors} selectedFilterColor={selectedFilterColor} setSelectedFilterColor={setSelectedFilterColor} />
         </div>
     )

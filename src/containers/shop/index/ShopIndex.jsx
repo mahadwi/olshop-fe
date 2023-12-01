@@ -11,9 +11,13 @@ import LeftFilterComponent from "../../../components/pages/shop/index/left-filte
 import ProductsWrapperComponent from "../../../components/pages/shop/index/products-wrapper/ProductsWrapperComponent";
 import Api from "../../../utils/Api";
 import LoadingComponent from "../../../components/general/loading/LoadingComponent";
-import { useLocation } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 
 export default function ShopIndex() {
+
+    const [searchParams, setSearchParams] = useSearchParams();
+
+    const currentPage = searchParams.get('page');
 
     const { pathname } = useLocation();
     const [loading, setLoading] = useState(true)
@@ -26,10 +30,10 @@ export default function ShopIndex() {
     const [selectedProductCategories, setSelectedProductCategories] = useState([])
     const [selectedPriceMinAndMax, setSelectedPriceMinAndMax] = useState({
         price_min: 1000000,
-        price_max: 15000000,
+        price_max: 150000000,
     })
     const [selectedFilterColor, setSelectedFilterColor] = useState([])
-    const [page, setPage] = useState(1)
+    const [metaPagination, setMetaPagination] = useState({})
 
     // Automatically scrolls to top whenever pathname changes
     useEffect(() => {
@@ -61,7 +65,7 @@ export default function ShopIndex() {
 
     useEffect(() => {
         loadProducts()
-    }, [selectedBrands, selectedProductCategories, selectedPriceMinAndMax, selectedFilterColor, page])
+    }, [selectedBrands, selectedProductCategories, selectedPriceMinAndMax, selectedFilterColor, searchParams])
 
     const loadProducts = () => {
         setLoading(true)
@@ -72,12 +76,13 @@ export default function ShopIndex() {
                 price_min: selectedPriceMinAndMax.price_min,
                 price_max: selectedPriceMinAndMax.price_max,
                 color_id: selectedFilterColor,
-                // itemPerpage: 1,
-                // page: page
+                itemPerpage: 10,
+                page: currentPage ? currentPage : 1
             }
         })
             .then((res) => {
                 setProducts(res.data.data)
+                setMetaPagination(res.data.meta)
                 setLoading(false)
             })
     }
@@ -128,7 +133,7 @@ export default function ShopIndex() {
                             selectedFilterColor={selectedFilterColor}
                             setSelectedFilterColor={setSelectedFilterColor}
                         />
-                        <ProductsWrapperComponent products={products} />
+                        <ProductsWrapperComponent products={products} metaPagination={metaPagination} setMetaPagination={setMetaPagination} />
                     </div>
                 </ContainerComponent>
             </ScreenContainerComponent>

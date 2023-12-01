@@ -25,6 +25,22 @@
                 font-style: normal;
                 font-weight: 400;
                 line-height: normal;
+                display: flex;
+                align-items: center;
+
+                &.active {
+                    font-weight: 700;
+                }
+
+                a {
+                    text-decoration: none;
+                    color: inherit;
+
+                    &:hover {
+                        text-shadow: .25px 0px .1px,
+                            -.25px 0px .1px;
+                    }
+                }
             }
         }
     }

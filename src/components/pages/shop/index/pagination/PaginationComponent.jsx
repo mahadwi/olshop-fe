@@ -1,20 +1,82 @@
 import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
 import './pagination.scoped.scss'
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
-export default function PaginationComponent() {
+export default function PaginationComponent({ metaPagination, setMetaPagination }) {
+    const [pages, setPages] = useState([])
+
+    useEffect(() => {
+        loadListPages()
+    }, [metaPagination])
+
+    const loadListPages = () => {
+        const tempPages = []
+
+        for (let i = 1; i <= metaPagination.totalPage; i++) {
+            tempPages.push(i)
+        }
+
+        setPages(tempPages)
+    }
+
     return (
         <div className='pagination-wrapper'>
             <div className='pagination'>
-                <span className='prev'><IconChevronLeft style={{ color: '#444' }} size={18} /></span>
+                {
+                    metaPagination.currentPage - 1 > 0 ?
+                        <Link to={`/shop?page=${metaPagination.currentPage - 1}`} className='prev'><IconChevronLeft style={{ color: '#444' }} size={18} /></Link>
+                        : <></>
+                }
                 <ul>
-                    <li>1</li>
-                    <li>2</li>
-                    <li>3</li>
-                    <li>...</li>
-                    <li>...</li>
-                    <li>9</li>
+                    {
+                        metaPagination.currentPage > 1 ?
+                            <li>
+                                <Link to={`/shop?page=1`}>{1}</Link>
+                            </li>
+                            : <></>
+                    }
+
+                    {
+                        metaPagination.currentPage > 2 ?
+                            <li>
+                                <Link to={`/shop?page=2`}>{2}</Link>
+                            </li>
+                            : <></>
+                    }
+
+                    <li className='active'>{metaPagination.currentPage}</li>
+                    {
+                        pages.filter((p) => p > metaPagination.currentPage && p < metaPagination.currentPage + 4).map((page) => (
+                            <li className={`${page == metaPagination.currentPage ? 'active' : ''}`}>
+                                {
+                                    page == metaPagination.currentPage ?
+                                        page : <Link to={`/shop?page=${page}`}>{page}</Link>
+                                }
+                            </li>
+                        ))
+                    }
+
+                    {
+                        pages[pages.length - 2] >= metaPagination.currentPage + 4 ?
+                            <li>
+                                <Link to={`/shop?page=${pages[pages.length - 2]}`}>{pages[pages.length - 2]}</Link>
+                            </li>
+                            : <></>
+                    }
+                    {
+                        pages[pages.length - 1] >= metaPagination.currentPage + 4 ?
+                            <li>
+                                <Link to={`/shop?page=${pages[pages.length - 1]}`}>{pages[pages.length - 1]}</Link>
+                            </li>
+                            : <></>
+                    }
                 </ul>
-                <span className='next'><IconChevronRight style={{ color: '#444' }} size={18} /></span>
+                {
+                    metaPagination.currentPage + 1 <= pages[pages.length - 1] ?
+                        <Link to={`/shop?page=${metaPagination.currentPage + 1}`} className='next'><IconChevronRight style={{ color: '#444' }} size={18} /></Link>
+                        : <></>
+                }
             </div>
         </div>
     )
