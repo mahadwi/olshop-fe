@@ -31,19 +31,19 @@ export default class collectiveProduct extends Component {
             <CardGroup style={{marginLeft:'10%', marginRight:'5%'}}>
         {products.map((data,index)=>{
           return(
-            <div style={{marginBottom:'9rem', marginRight:'3rem'}}>
+            <div style={{marginBottom:'10rem', marginRight:'3rem'}}>
                 <Card style={{border:'none',width:'194px', height:'178px'}} key={index}>
                     <CardBody>
                     <div className='overlay'>
                     <img className='' style={{width:'194px', height:'178px'}} src={data.images}/>
                       <div className='icon-overlay'><IconHeart/></div>
                     </div>
-                    <CardTitle style={{fontSize:'12px',fontFamily:'Cambay'}}>
+                    <CardTitle style={{fontFamily:'Cambay'}}>
                     <br/>
-                    <b>{data.name}</b>
+                    <b style={{fontSize:'13px'}}>{data.name}</b>
                     <p></p>
-                    <p style={{color:'#FFAC33'}}><b>{formatter.format(data.sale_price)}</b></p>
-                    <p><b>5.0</b> <IconStarFilled style={{ color: '#FFAC33' }} size={12} /> (10) Terjual</p>
+                    <p style={{color:'#FFAC33', fontSize:'13px'}}><b>{formatter.format(data.sale_price)}</b></p>
+                    <p style={{fontSize:'13px'}}><b>5.0</b> <IconStarFilled style={{ color: '#FFAC33' }} size={12} /> (10) Terjual</p>
                     </CardTitle>
                     </CardBody>
                 </Card>

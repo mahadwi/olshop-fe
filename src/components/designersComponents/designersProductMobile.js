@@ -28,13 +28,13 @@ export default class CollectiveProductMobile extends Component {
                 <img className='' style={{width:'194px', height:'178px'}} src={data.images}/>
                   <div className='icon-overlay'><IconHeart/></div>
                 </div>
-                <CardTitle style={{fontSize:'12px',fontFamily:'Cambay'}}>
-                <br/>
-                <b>{data.name}</b>
-                <p></p>
-                <p style={{color:'#FFAC33'}}><b>{formatter.format(data.sale_price)}</b></p>
-                <p><b>5.0</b> <IconStarFilled style={{ color: '#FFAC33' }} size={12} /> (10) Terjual</p>
-                </CardTitle>
+                <CardTitle style={{fontFamily:'Cambay'}}>
+                    <br/>
+                    <b style={{fontSize:'13px'}}>{data.name}</b>
+                    <p></p>
+                    <p style={{color:'#FFAC33', fontSize:'13px'}}><b>{formatter.format(data.sale_price)}</b></p>
+                    <p style={{fontSize:'13px'}}><b>5.0</b> <IconStarFilled style={{ color: '#FFAC33' }} size={12} /> (10) Terjual</p>
+                    </CardTitle>
                 </CardBody>
             </Card>
             </div>
