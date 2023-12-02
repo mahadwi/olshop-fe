@@ -111,7 +111,7 @@ export default class designerIndex extends Component {
     async handleGetBanner() {
         try {
             const response = await axios.get(GetBanner)
-            this.setState({ headerBanner: response.data.data[2].images[0] })
+            this.setState({ headerBanner: response.data.data[4].images[0] })
         } catch (error) {
             console.log(error)
         }
