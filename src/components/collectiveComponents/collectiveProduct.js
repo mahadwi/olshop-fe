@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { IconStarFilled, IconHeart, IconHeartFilled } from '@tabler/icons-react';
 import './collective-product.scoped.scss'
+import NoPhotoProduct from './../../images/product-item/no-photo-product.png'
 
 export default class collectiveProduct extends Component {
     constructor(props) {
@@ -35,7 +36,7 @@ export default class collectiveProduct extends Component {
                                 <Card style={{ border: 'none', width: '194px', height: '178px' }} key={index}>
                                     <CardBody>
                                         <div className='overlay'>
-                                            <img className='' style={{ width: '194px', height: '178px' }} src={data.images} />
+                                            <img className='' style={{ width: '194px', height: '178px' }} src={data.images ? data.images[0] : NoPhotoProduct} />
                                             <div className='icon-overlay'><IconHeart /></div>
                                         </div>
                                         <CardTitle style={{ fontFamily: 'Cambay' }}>

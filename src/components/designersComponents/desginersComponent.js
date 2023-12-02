@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Card, CardBody, CardGroup, CardText, CardTitle } from 'react-bootstrap';
 import { IconStarFilled, IconHeart, IconHeartFilled } from '@tabler/icons-react';
 import './designers-product.scoped.scss'
+import NoPhotoProduct from './../../images/product-item/no-photo-product.png'
 
 export default class desginersComponent extends Component {
     handleDescProd = (description) => {
@@ -23,7 +24,7 @@ export default class desginersComponent extends Component {
                                 <Card style={{ border: 'none', width: '194px', height: '178px' }} key={index}>
                                     <CardBody>
                                         <div className='overlay'>
-                                            <img className='' style={{ width: '194px', height: '178px' }} src={data.images} />
+                                            <img className='' style={{ width: '194px', height: '178px' }} src={data.images ? data.images[0] : NoPhotoProduct} />
                                             <div className='icon-overlay'><IconHeart /></div>
                                         </div>
                                         <CardTitle style={{ fontSize: '12px', fontFamily: 'Cambay' }}>

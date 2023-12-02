@@ -90,7 +90,7 @@ export default function ShopIndex() {
                 color_id: selectedFilterColor,
                 itemPerpage: 10,
                 page: currentPage ? currentPage : 1,
-                is_new_arrival: selectedSortOption.value == 'is_new_arrival' ? 1 : 0,
+                // is_new_arrival: selectedSortOption.value == 'is_new_arrival' ? 1 : 0,
                 sort_by: selectedSortOption.value != 'is_new_arrival' ? selectedSortOption.value : null
             }
         })
