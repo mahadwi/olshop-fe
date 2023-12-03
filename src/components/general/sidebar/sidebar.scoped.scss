@@ -1,0 +1,88 @@
+aside {
+    position: fixed;
+    top: 10vh;
+    left: 0;
+    background: rgba(226, 226, 226, 0.85);
+    width: 0;
+    visibility: hidden;
+    z-index: 999999999999999999999999;
+    height: 90vh;
+    transition: all 300ms ease-in-out;
+    overflow-y: scroll;
+
+    &.show {
+        width: 60vw;
+        visibility: visible;
+    }
+
+    ul.side-links-wrapper {
+        padding-top: 2rem;
+        list-style: none;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+
+        li.side-link-item {
+
+            &.event {
+                border-bottom: 1px solid #000;
+            }
+
+            &.dropdown {
+                a.side-link-item-a {
+
+                    &::after {
+                        content: '>';
+                        position: absolute;
+                        right: 0;
+                        font-size: 1.5rem;
+                        transition: all 300ms ease;
+                    }
+                }
+
+                &.show-dropdown {
+                    a.side-link-item-a {
+                        &::after {
+                            transform: rotate(90deg);
+                        }
+                    }
+                }
+
+                &.show-dropdown .dropdown-content {
+                    visibility: visible;
+                    max-height: 1000px;
+                    overflow: visible;
+                }
+
+                .dropdown-content {
+                    visibility: hidden;
+                    max-height: 0;
+                    transition: all 400ms ease-in-out;
+                }
+            }
+
+
+
+            a {
+                display: block;
+                padding: .7rem 0;
+                text-decoration: none;
+                color: #000;
+                font-family: 'Poppins', sans-serif;
+                font-size: 15px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 16px;
+                /* 133.333% */
+            }
+        }
+    }
+
+    button.close-sidebar-btn {
+        position: absolute;
+        top: .5rem;
+        right: .5rem;
+        border: 0px;
+        outline: 0px;
+        background: transparent;
+    }
+}
