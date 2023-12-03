@@ -1,13 +1,24 @@
+@use './../../../styles/func.scoped.scss' as *;
+
 .section-4 {
     display: flex;
-    height: 700px;
-    gap: .8rem;
-    margin: 3rem 0;
+    height: 250px;
+    gap: .5rem;
+    margin: 2rem 0;
+
+    @include md {
+        height: 350px;
+    }
+
+    @include lg {
+        height: 700px;
+        margin: 3rem 0;
+    }
 
     .left {
         flex: 2;
         display: flex;
-        gap: .8rem;
+        gap: .5rem;
 
         .inner-left {
             flex: 1;
@@ -27,7 +38,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            gap: .8rem;
+            gap: .5rem;
             flex-grow: 1;
 
             div {
@@ -56,10 +67,21 @@
             color: #FFF;
             text-align: center;
             font-family: 'Inter', sans-serif;
-            font-size: 20px;
             font-style: normal;
             font-weight: 600;
-            line-height: 2.3rem;
+            line-height: 1.3rem;
+            font-size: 12px;
+            padding: 0 .5rem;
+
+            @include md {
+                font-size: 16px;
+                line-height: 1.7rem;
+            }
+
+            @include lg {
+                font-size: 20px;
+                line-height: 2.3rem;
+            }
         }
 
         a {
@@ -70,17 +92,27 @@
             gap: 16px;
             border-radius: 4px;
             flex-shrink: 0;
-            padding: .6rem 1.5rem;
+            padding: .4rem 1rem;
             color: #151B4F;
             font-family: 'Cambay', sans-serif;
-            font-size: 16px;
+            font-size: 14px;
             font-style: normal;
             font-weight: 700;
             line-height: 20px;
             /* 125% */
             letter-spacing: 0.1px;
             text-decoration: none;
-            margin-top: -.3rem;
+            margin: .15rem;
+
+            @include md {
+                font-size: 16px;
+                padding: .6rem 1.5rem;
+            }
+
+            @include lg {
+                font-size: 16px;
+                padding: .6rem 1.5rem;
+            }
         }
     }
 }
