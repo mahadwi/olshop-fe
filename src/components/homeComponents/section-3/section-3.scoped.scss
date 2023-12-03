@@ -1,11 +1,17 @@
+@use './../../../styles/func.scoped.scss' as *;
+
 .section-3 {
     display: flex;
-    height: 30rem;
     background-size: cover;
     background-position: center;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
+    padding: 5rem 0;
+
+    @include lg {
+        padding: 12.5rem;
+    }
 
     .inner {
         flex-direction: column;
