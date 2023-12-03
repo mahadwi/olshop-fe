@@ -1,19 +1,23 @@
+@use './../../styles/func.scoped.scss' as *;
+
 footer {
     background: #1E1E1E;
-    padding: 3rem 0;
+    padding: 3rem 1rem;
 
-    @media screen and (max-width: 991px) {
-        padding: 3rem 1rem;
+    @include lg {
+        padding: 3rem 0;
     }
 
     .inner-footer {
         display: flex;
+        flex-direction: column;
         justify-content: space-between;
         align-items: flex-start;
-        gap: 5rem;
+        gap: 3rem;
 
-        @media screen and (max-width: 991px) {
-            flex-direction: column;
+        @include lg {
+            gap: 5rem;
+            flex-direction: row;
         }
 
         .left {
@@ -95,16 +99,22 @@ footer {
                 display: flex;
                 align-items: flex-start;
                 justify-content: space-between;
-                gap: 3rem;
+                gap: 10%;
+                flex-wrap: wrap;
 
-                @media screen and (max-width: 991px) {
-                    flex-direction: column;
-                    gap: 0rem;
+                @include lg {
+                    flex-wrap: unset;
+                    gap: 3rem;
                 }
 
                 ul {
                     list-style: none;
                     padding-left: 0;
+                    width: 45%;
+
+                    @include lg {
+                        width: unset;
+                    }
 
                     li {
                         color: #FFF;
@@ -151,17 +161,23 @@ footer {
 
             .footer-foot-list {
                 display: flex;
-                align-items: center;
+                flex-direction: column;
                 padding-left: 0;
                 list-style: none;
 
-                @media screen and (max-width: 991px) {
-                    flex-direction: column;
+                @include lg {
+                    flex-direction: row;
+                    align-items: center;
                 }
 
                 li {
                     position: relative;
-                    padding: 0 .75rem;
+                    margin-bottom: .5rem;
+
+                    @include lg {
+                        padding: 0 .75rem;
+                        margin-bottom: 0;
+                    }
 
                     &:first-child {
                         padding-left: 0;
@@ -192,6 +208,11 @@ footer {
                         top: 0;
                         top: 50%;
                         transform: translateY(-50%);
+                        visibility: hidden;
+
+                        @include lg {
+                            visibility: visible;
+                        }
                     }
 
                     &:last-child::after {
@@ -206,9 +227,14 @@ footer {
                 font-size: 16px;
                 font-style: normal;
                 font-weight: 700;
-                line-height: 16px;
+                line-height: 28px;
                 margin-top: -.25rem;
-                /* 100% */
+                text-align: center;
+
+                @include lg {
+                    text-align: left;
+                    line-height: 16px;
+                }
 
                 a {
                     color: #FFF;

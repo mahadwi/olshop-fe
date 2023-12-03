@@ -13,7 +13,11 @@
 
     .hero-slider-item {
         width: 100%;
-        height: 100vh;
+        height: 60vh;
+
+        @include lg {
+            height: 100vh;
+        }
 
         img {
             object-fit: cover;

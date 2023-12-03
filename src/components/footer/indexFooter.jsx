@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { IconHeadset, IconInfoCircleFilled, IconShoppingBag } from '@tabler/icons-react';
+import { IconHeadset, IconInfoCircleFilled, IconShoppingBag, IconTag } from '@tabler/icons-react';
 import { Link } from 'react-router-dom';
 import ContainerComponent from '../general/container/ContainerComponent';
 import './footer.scoped.scss'
@@ -37,7 +37,7 @@ export default function IndexFooter() {
                             </ul>
                             <ul>
                                 <li>
-                                    <IconHeadset />
+                                    <IconTag />
                                     <span>Consign & Sell</span>
                                 </li>
                                 <li>

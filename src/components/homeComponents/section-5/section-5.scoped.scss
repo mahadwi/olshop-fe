@@ -2,7 +2,7 @@
 
 .section-5 {
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
 
     @include lg {
         flex-direction: row;
@@ -11,20 +11,29 @@
     .left {
         flex: 1;
         background: #1E1E1E;
-        padding: 0px 8rem;
+        padding: 2rem 2rem;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
 
+        @include lg {
+            padding: 0px 8rem;
+        }
+
         h2 {
             color: #FFF;
             text-align: center;
             font-family: 'Inter', sans-serif;
-            font-size: 24px;
+            font-size: 18px;
             font-style: normal;
             font-weight: 600;
-            line-height: 2rem;
+            line-height: 1.25rem;
+
+            @include lg {
+                font-size: 24px;
+                line-height: 2rem;
+            }
         }
 
         p {
@@ -35,7 +44,6 @@
             font-style: normal;
             font-weight: 300;
             line-height: 1.3rem;
-            margin-top: 1rem;
         }
 
         a {
