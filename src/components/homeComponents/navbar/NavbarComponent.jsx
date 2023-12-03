@@ -9,7 +9,7 @@ import ContainerComponent from '../../general/container/ContainerComponent';
 import BrandLogo from './../../../images/brands/logo.png'
 import { Link, NavLink } from 'react-router-dom';
 import MdiCart from './../../../images/icons/mdi_cart.svg'
-import { IconMapPin, IconSearch, IconUserCircle } from '@tabler/icons-react';
+import { IconMapPin, IconSearch, IconShoppingCartFilled, IconUserCircle } from '@tabler/icons-react';
 import StringUtil from '../../../utils/StringUtil';
 import "/node_modules/flag-icons/css/flag-icons.min.css";
 import Api from '../../../utils/Api';
@@ -153,7 +153,7 @@ class navbarHome extends Component {
                         </ul>
                         <div className='actions-wrapper'>
                             <ul>
-                                <li>
+                                <li className='search-act'>
                                     <IconSearch color='#FFFFFF' />
                                 </li>
                                 <li>
@@ -179,7 +179,7 @@ class navbarHome extends Component {
                                 </li>
                             </ul>
                             <button>
-                                <img src={MdiCart} alt="" />
+                                <IconShoppingCartFilled />
                             </button>
                         </div>
                     </nav>

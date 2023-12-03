@@ -1,6 +1,8 @@
 .olshop-container {
     margin: auto;
 
+    padding: 0 1rem;
+
     @media screen and (min-width: 576px) {
         width: 540px;
     }
@@ -11,6 +13,7 @@
 
     @media screen and (min-width: 992px) {
         width: 960px;
+        padding: 0 0;
     }
 
     @media screen and (min-width: 1200px) {

@@ -1,5 +1,12 @@
+@use './../../../styles/func.scoped.scss' as *;
+
 .section-5 {
     display: flex;
+    flex-direction: column;
+
+    @include lg {
+        flex-direction: row;
+    }
 
     .left {
         flex: 1;
