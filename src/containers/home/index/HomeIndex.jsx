@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { getMe, GetBanner, GetGallery } from '../../../config/api';
 import { useEffect, useState } from 'react';
 import NavbarHome from '../../../components/homeComponents/navbar/NavbarComponent';
-import IndexFooter from '../../../components/footer/indexFooter';
+import FooterComponent from '../../../components/footer/FooterComponent';
 import axios from 'axios';
 import ContainerComponent from '../../../components/general/container/ContainerComponent';
 import Section3Component from '../../../components/homeComponents/section-3/Section3Component';
@@ -99,7 +99,7 @@ function HomeIndex() {
                     <SubscriptionComponent loading={loading} />
                     {/* End Subs */}
                 </Fragment>
-                <IndexFooter />
+                <FooterComponent />
             </div>
         </div>
     );

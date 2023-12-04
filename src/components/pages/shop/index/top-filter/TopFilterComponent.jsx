@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import './top-filter.scoped.scss'
 import { IconAdjustmentsHorizontal } from '@tabler/icons-react';
 import Select from 'react-select';

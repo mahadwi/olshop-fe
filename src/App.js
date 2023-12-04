@@ -4,7 +4,6 @@ import IndexLogin from './containers/login/indexLogin'
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import "../src/translations/i18n"
 import CollectiveIndex from './containers/collective/index/CollectiveIndex';
-import DesignerIndex from './containers/designers/designerIndex';
 import AboutUsIndex from './containers/about-us/index/AboutUsIndex';
 import ContactIndex from './containers/contact/index/ContactIndex';
 import EventIndex from './containers/event/index/EventIndex';
@@ -24,7 +23,7 @@ function App() {
                     <Route path="/login" element={<IndexLogin />} />
                     <Route path="/" element={<HomeIndex />} />
                     <Route path="/collective/:id" element={<CollectiveIndex />} />
-                    <Route path="/designers/:id" element={<DesignerIndex />} />
+                    {/* <Route path="/designers/:id" element={<DesignerIndex />} /> */}
                     <Route path='/about-us' element={<AboutUsIndex />} />
                     <Route path='/contact' element={<ContactIndex />} />
                     <Route path='/event' element={<EventIndex />} />

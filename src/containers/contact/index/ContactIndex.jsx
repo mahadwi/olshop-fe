@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import BreadCrumb from "../../../components/general/breadcrumb/BreadCrumb";
+import BreadCrumb from "../../../components/general/breadcrumb/BreadCrumbComponent";
 import ContainerComponent from "../../../components/general/container/ContainerComponent";
 import './contact.scoped.scss'
 import HeroComponent from "../../../components/pages/contact/index/hero/HeroComponent";
 import FormComponent from "../../../components/pages/contact/index/form/FormComponent";
 import ContactComponent from "../../../components/pages/contact/index/contact/ContactComponent";
 import NavbarComponent from "../../../components/homeComponents/navbar/NavbarComponent";
-import IndexFooter from "../../../components/footer/indexFooter";
+import FooterComponent from "../../../components/footer/FooterComponent";
 import { useLocation } from 'react-router-dom';
 import Api from "../../../utils/Api";
 import LoadingComponent from "../../../components/general/loading/LoadingComponent";
@@ -74,7 +74,7 @@ export default function ContactIndex() {
 
                 </ContainerComponent>
             </div>
-            <IndexFooter />
+            <FooterComponent />
         </div>
     )
 }

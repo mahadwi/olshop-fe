@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import './BreadCrumb.scoped.scss'
 
-export default function BreadCrumb({ lists }) {
+export default function BreadCrumbComponent({ lists }) {
 
     return (
         <div className="breadcrumb-container">

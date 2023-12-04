@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import IndexFooter from "../../../components/footer/indexFooter";
-import BreadCrumb from "../../../components/general/breadcrumb/BreadCrumb";
+import FooterComponent from "../../../components/footer/FooterComponent";
+import BreadCrumb from "../../../components/general/breadcrumb/BreadCrumbComponent";
 import ContainerComponent from "../../../components/general/container/ContainerComponent";
 import ScreenContainerComponent from "../../../components/general/screen-container/ScreenContainerComponent";
 import NavbarComponent from "../../../components/homeComponents/navbar/NavbarComponent";
@@ -100,7 +100,7 @@ export default function ShopShow() {
                     <ReviewSectionComponent />
                 </ContainerComponent>
             </ScreenContainerComponent>
-            <IndexFooter />
+            <FooterComponent />
         </div>
     )
 }

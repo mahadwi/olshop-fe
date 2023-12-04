@@ -1,0 +1,12 @@
+.banner-component .flickity-page-dots {
+    bottom: -1.75rem !important;
+}
+
+.banner-component .flickity-page-dots .dot {
+    background-color: #C4C4C4 !important;
+    margin: 0 4px !important;
+}
+
+.banner-component .flickity-page-dots .dot.is-selected {
+    background-color: #A2A3B1 !important;
+}

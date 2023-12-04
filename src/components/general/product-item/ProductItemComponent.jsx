@@ -1,12 +1,12 @@
 import { IconStarFilled, IconHeart, IconHeartFilled } from '@tabler/icons-react';
 import './product-item.scoped.scss'
 import { Link } from 'react-router-dom';
-import NoPhotoProduct from './../../../../../images/product-item/no-photo-product.png'
-import StringUtil from '../../../../../utils/StringUtil';
+import NoPhotoProduct from './../../../images/product-item/no-photo-product.png'
+import StringUtil from '../../../utils/StringUtil';
 
-export default function ProductItemComponent({ product }) {
+export default function ProductItemComponent({ product, className }) {
     return (
-        <div className="product-item">
+        <div className={`product-item ${className ? className : ''}`}>
             <div className="product-image">
                 <img src={product.images.length > 0 ? product.images[0] : NoPhotoProduct} alt="" />
 

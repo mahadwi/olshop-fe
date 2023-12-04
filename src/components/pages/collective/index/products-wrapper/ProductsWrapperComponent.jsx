@@ -1,14 +1,14 @@
-import './products-wrapper.scoped.scss'
-import PaginationComponent from '../../../../general/pagination/PaginationComponent'
 import ProductItemComponent from '../../../../general/product-item/ProductItemComponent'
+import './product-wrapper.scoped.scss'
+import PaginationComponent from '../../../../general/pagination/PaginationComponent'
 
 export default function ProductsWrapperComponent({ products, metaPagination, setMetaPagination }) {
     return (
-        <div className="products-wrapper">
-            <div className='inner-products-wrapper'>
+        <div>
+            <div className='products-wrapper'>
                 {
                     products.map((product) => (
-                        <ProductItemComponent product={product} />
+                        <ProductItemComponent className="product-item-collective-designers-index" product={product} />
                     ))
                 }
             </div>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import BreadCrumb from "../../../components/general/breadcrumb/BreadCrumb";
+import BreadCrumb from "../../../components/general/breadcrumb/BreadCrumbComponent";
 import ContainerComponent from "../../../components/general/container/ContainerComponent";
 import BannerComponent from "../../../components/pages/event/show/banner/BannerComponent";
 import EventDescriptionComponent from "../../../components/pages/event/show/event-description/EventDescriptionComponent";
@@ -7,7 +7,7 @@ import TicketPurchaseComponent from "../../../components/pages/event/show/ticket
 import AdditionalDetailComponent from "../../../components/pages/event/show/additional-detail/AdditionalDetailComponent";
 import NavbarComponent from "../../../components/homeComponents/navbar/NavbarComponent";
 import './event-show.scss'
-import IndexFooter from "../../../components/footer/indexFooter";
+import FooterComponent from "../../../components/footer/FooterComponent";
 import ScreenContainerComponent from "../../../components/general/screen-container/ScreenContainerComponent";
 import Api from "../../../utils/Api";
 import { useParams, useLocation } from "react-router-dom";
@@ -87,7 +87,7 @@ export default function EventShow() {
                     <AdditionalDetailComponent />
                 </div>
             </ScreenContainerComponent>
-            <IndexFooter />
+            <FooterComponent />
         </div>
     )
 }

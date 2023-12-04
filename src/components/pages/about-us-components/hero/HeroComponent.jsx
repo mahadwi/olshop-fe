@@ -1,4 +1,4 @@
-import BreadCrumb from "../../../general/breadcrumb/BreadCrumb";
+import BreadCrumb from "../../../general/breadcrumb/BreadCrumbComponent";
 import './hero.scoped.scss'
 import './hero.css'
 import parse from 'html-react-parser';

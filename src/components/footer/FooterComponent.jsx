@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import ContainerComponent from '../general/container/ContainerComponent';
 import './footer.scoped.scss'
 
-export default function IndexFooter() {
+export default function FooterComponent() {
     return (
         <footer>
             <ContainerComponent>

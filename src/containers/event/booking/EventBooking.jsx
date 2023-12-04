@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import BreadCrumb from '../../../components/general/breadcrumb/BreadCrumb'
+import BreadCrumb from '../../../components/general/breadcrumb/BreadCrumbComponent'
 import ContainerComponent from '../../../components/general/container/ContainerComponent'
 import './event-booking.scss'
 import IndexNavbar from '../../../components/navbar/IndexNavbar'
@@ -10,7 +10,7 @@ import FormBookComponent from '../../../components/pages/event/booking/form-book
 import FormPaymentComponent from '../../../components/pages/event/booking/form-payment/FormPaymentComponent'
 import TicketBookingSummaryComponent from '../../../components/pages/event/booking/ticket-booking-summary/TicketBookingSummaryComponent'
 import NavbarComponent from '../../../components/homeComponents/navbar/NavbarComponent'
-import IndexFooter from '../../../components/footer/indexFooter'
+import FooterComponent from '../../../components/footer/FooterComponent'
 
 export default function EventBooking() {
 
@@ -112,7 +112,7 @@ export default function EventBooking() {
 
                 </ContainerComponent>
             </div>
-            <IndexFooter />
+            <FooterComponent />
         </div>
     )
 }

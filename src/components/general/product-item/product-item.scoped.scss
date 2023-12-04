@@ -2,6 +2,11 @@
     width: calc(calc(100% - 4rem) / 5);
     aspect-ratio: 1;
 
+    /* For Collection & Designers */
+    &.product-item-collective-designers-index {
+        width: calc(calc(100% - 5rem) / 6) !important;
+    }
+
     @media screen and (max-width: 1399px) {
         width: calc(calc(100% - 3rem) / 4);
     }

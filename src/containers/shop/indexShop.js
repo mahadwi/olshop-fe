@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import IndexNavbar from '../../components/navbar/IndexNavbar'
-import IndexFooter from '../../components/footer/indexFooter'
+import FooterComponent from '../../components/footer/FooterComponent'
 import ShopBanner from '../../components/shopComponents/banner'
 import SearchComponent from '../../components/shopComponents/searchComponent'
 import SideBarFilter from '../../components/shopComponents/sideBarFilter'
@@ -561,7 +561,7 @@ export default class indexShop extends Component {
                             products={products}
                         />)}
                     {windowWidth > 900 ? (
-                        <IndexFooter />
+                        <FooterComponent />
                     ) : null}
                 </div>
             </>

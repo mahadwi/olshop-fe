@@ -1,7 +1,7 @@
 import { IconChevronRight } from '@tabler/icons-react';
 import { Link } from 'react-router-dom'
 import './other-products.scoped.scss'
-import ProductItemComponent from '../product-item/ProductItemComponent';
+import ProductItemComponent from '../../../../general/product-item/ProductItemComponent';
 
 export default function OtherProductsComponent({ productsByCategory }) {
 

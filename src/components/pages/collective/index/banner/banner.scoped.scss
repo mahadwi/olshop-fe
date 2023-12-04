@@ -1,0 +1,86 @@
+@use './../../../../../styles/func.scoped.scss' as *;
+
+.banner-component {
+    position: relative;
+    padding-bottom: 3rem;
+
+    .hero-slider-item {
+        width: 100%;
+        height: 50vh;
+        margin: 0 .75rem;
+        border-radius: 5px;
+        overflow: hidden;
+        position: relative;
+
+        .content {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            position: relative;
+            background: #F7F8FF;
+
+            .inner {
+                position: relative;
+
+                h1 {
+                    margin-bottom: 0;
+                    color: #000;
+                    font-family: 'Poppins', sans-serif;
+                    font-style: normal;
+                    font-weight: 800;
+                    line-height: normal;
+
+                    @include lg {
+                        font-size: 24px;
+                    }
+
+                    @include xl {
+                        font-size: 35px;
+                    }
+                }
+
+                h3 {
+                    color: #000;
+                    font-family: 'Poppins', sans-serif;
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 700;
+                    line-height: normal;
+                    margin-bottom: 0;
+                    margin-top: -.15rem;
+
+                    @include lg {
+                        font-size: 16px;
+                    }
+
+                    @include xl {
+                        font-size: 20px;
+                    }
+                }
+
+                p {
+                    width: 50%;
+                    color: #000;
+                    text-align: justify;
+                    font-family: 'Poppins', sans-serif;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: 23px;
+                    margin-top: 1.75rem;
+                }
+            }
+        }
+
+        .bg-image {
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 100%;
+            width: 55%;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+    }
+}

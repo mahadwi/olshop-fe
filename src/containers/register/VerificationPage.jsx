@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import NavbarComponent from '../../components/homeComponents/navbar/NavbarComponent'
 import ScreenContainerComponent from '../../components/general/screen-container/ScreenContainerComponent'
-import IndexFooter from '../../components/footer/indexFooter'
+import FooterComponent from '../../components/footer/FooterComponent'
 import VerificationComponent from '../../components/register/VerificationComponent'
 import './verification-index.scoped.scss'
 import VerificationLabelsComponent from '../../components/register/VerificationLabelsComponent'
@@ -41,7 +41,7 @@ export default class VerificationPage extends Component {
                             <VerificationTimer />
                         </div>
                     </div>
-                    <IndexFooter />
+                    <FooterComponent />
                 </ScreenContainerComponent>
             </div>
         )

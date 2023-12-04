@@ -1,18 +1,20 @@
 import React, { Component } from 'react'
-import DesginersComponent from '../../components/designersComponents/desginersComponent'
-import axios from 'axios';
-import { GetProduct, GetBrand, GetCategory, GetBanner } from '../../config/api';
-import IndexNavbar from '../../components/navbar/IndexNavbar';
-import DesignersBanner from '../../components/designersComponents/designersBanner';
-import DesignersSearch from '../../components/designersComponents/designersSearch';
+import axios from 'axios'
+import { GetProduct, GetBrand, GetCategory, GetBanner } from '../../../config/api';
+import CollectiveSearch from '../../../components/collectiveComponents/collectiveSearch';
+import IndexNavbar from '../../../components/navbar/IndexNavbar';
+import BannerSlider from '../../../components/collectiveComponents/headerBanner/bannerSlider';
+import CollectiveProduct from '../../../components/collectiveComponents/collectiveProduct';
 import { BeatLoader } from 'react-spinners';
-import Pagination from '../../components/general/pagination';
-import DesignersProductMobile from '../../components/designersComponents/designersProductMobile';
-import DesignerSearchMobile from '../../components/designersComponents/designersSearchMobile';
-import NavbarComponent from '../../components/homeComponents/navbar/NavbarComponent';
-import BreadCrumb from '../../components/general/breadcrumb/BreadCrumbComponent';
-import PaginationComponent from '../../components/pages/shop/index/pagination/PaginationComponent';
-import ScreenContainerComponent from '../../components/general/screen-container/ScreenContainerComponent';
+import Pagination from '../../../components/general/pagination';
+import CollectiveProductMobile from '../../../components/collectiveComponents/collectiveProductMobile';
+import TopFilterComponent from '../../../components/pages/shop/index/top-filter/TopFilterComponent';
+import CollectiveSearchMobile from '../../../components/collectiveComponents/collectiveSearchMobile';
+import NavbarComponent from '../../../components/homeComponents/navbar/NavbarComponent';
+import BreadCrumb from '../../../components/general/breadcrumb/BreadCrumbComponent';
+import PaginationComponent from '../../../components/pages/shop/index/pagination/PaginationComponent';
+import collectiveProduct from '../../../components/collectiveComponents/collectiveProduct';
+import ScreenContainerComponent from '../../../components/general/screen-container/ScreenContainerComponent';
 
 const override = {
     display: 'flex',
@@ -26,8 +28,7 @@ const override = {
     backgroundColor: 'rgba(255, 255, 255, 0.8)', // You can adjust the background color and transparency
 };
 
-
-export default class designerIndex extends Component {
+export default class collectiveIndex extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -37,7 +38,7 @@ export default class designerIndex extends Component {
             brands: [],
             categories: [],
             headerBanner: "",
-            filterCategory: [],
+            filterBrand: [],
             loaderColor: 'rgba(228, 169, 81, 1)',
             loading: true,
             windowWidth: window.innerWidth,
@@ -55,8 +56,8 @@ export default class designerIndex extends Component {
             const response = await axios.get(GetProduct, {
                 params:
                 {
-                    brand_id: [id],
-                    category_id: this.state.filterCategory
+                    category_id: [id],
+                    brand_id: this.state.filterBrand
                 }
             })
             setTimeout(() => {
@@ -77,10 +78,6 @@ export default class designerIndex extends Component {
         }
     }
 
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.handleResize);
-    }
-
     loadBreadcrumbs = () => {
         this.setState({
             breadcrumbs: [
@@ -89,11 +86,20 @@ export default class designerIndex extends Component {
                     url: '/',
                 },
                 {
-                    label: 'Designers',
+                    label: 'Collective',
                 },
             ],
         });
     };
+
+
+    handlePageChange = (page) => {
+        this.setState({ page: page })
+    };
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.handleResize);
+    }
 
     handleResize() {
         this.setState({
@@ -102,21 +108,15 @@ export default class designerIndex extends Component {
     }
 
 
-
-    handlePageChange = (page) => {
-        this.setState({ page: page })
-    };
-
-
     async handleGetBanner() {
         try {
             const response = await axios.get(GetBanner)
-            this.setState({ headerBanner: response.data.data[4].images[0] })
+
+            this.setState({ headerBanner: response.data.data[3].images[0] })
         } catch (error) {
             console.log(error)
         }
     }
-
 
     async handleDropDownDesign() {
         try {
@@ -136,31 +136,15 @@ export default class designerIndex extends Component {
         }
     }
 
-    handleBrandFilter = async (data) => {
-        try {
-            const response = await axios.get(GetProduct, { params: { brand_id: data } })
-            {
-                let produk = [];
-                const datas = response.data.data
-                datas.map((data) => {
-                    produk.push(data)
-                })
-                this.setState({ product: produk })
-            }
-        } catch (error) {
-            console.log('error :', error)
-        }
-    }
-
-    handleFilterCategory = async (data) => {
-        await this.setState({ filterCategory: data })
+    handleFilterBrand = async (data) => {
+        await this.setState({ filterBrand: data })
         try {
             const id = window.location.href.split('/')[4]
             const response = await axios.get(GetProduct, {
                 params:
                 {
-                    brand_id: [id],
-                    category_id: [this.state.filterCategory]
+                    category_id: [id],
+                    brand_id: [this.state.filterBrand]
                 }
             })
             {
@@ -180,12 +164,14 @@ export default class designerIndex extends Component {
     handleNonFilter = async () => {
         try {
             const id = window.location.href.split('/')[4]
-            const response = await axios.get(GetProduct, {
-                params:
+            const response = await axios.get(GetProduct,
                 {
-                    brand_id: [id]
+                    params:
+                    {
+                        category_id: [id]
+                    }
                 }
-            })
+            )
             {
                 let produk = [];
                 const datas = response.data.data
@@ -206,8 +192,8 @@ export default class designerIndex extends Component {
             const response = await axios.get(GetProduct, {
                 params:
                 {
-                    brand_id: [id],
-                    category_id: [this.state.filterCategory]
+                    category_id: [id],
+                    brand_id: [this.state.filterBrand]
                 }
             })
             {
@@ -230,8 +216,8 @@ export default class designerIndex extends Component {
             const response = await axios.get(GetProduct, {
                 params:
                 {
-                    brand_id: [id],
-                    category_id: [this.state.filterCategory]
+                    category_id: [id],
+                    brand_id: [this.state.filterBrand]
                 }
             })
             {
@@ -254,8 +240,8 @@ export default class designerIndex extends Component {
             const response = await axios.get(GetProduct, {
                 params:
                 {
-                    brand_id: [id],
-                    category_id: [this.state.filterCategory]
+                    category_id: [id],
+                    brand_id: [this.state.filterBrand]
                 }
             })
             {
@@ -278,8 +264,8 @@ export default class designerIndex extends Component {
             const response = await axios.get(GetProduct, {
                 params:
                 {
-                    brand_id: [id],
-                    category_id: [this.state.filterCategory]
+                    category_id: [id],
+                    brand_id: [this.state.filterBrand]
                 }
             })
             {
@@ -302,8 +288,8 @@ export default class designerIndex extends Component {
             const response = await axios.get(GetProduct, {
                 params:
                 {
-                    brand_id: [id],
-                    category_id: [this.state.filterCategory]
+                    category_id: [id],
+                    brand_id: [this.state.filterBrand]
                 }
             })
             {
@@ -326,8 +312,8 @@ export default class designerIndex extends Component {
             const response = await axios.get(GetProduct, {
                 params:
                 {
-                    brand_id: [id],
-                    category_id: [this.state.filterCategory]
+                    category_id: [id],
+                    brand_id: [this.state.filterBrand]
                 }
             })
             {
@@ -350,8 +336,8 @@ export default class designerIndex extends Component {
             const response = await axios.get(GetProduct, {
                 params:
                 {
-                    brand_id: [id],
-                    category_id: [this.state.filterCategory]
+                    category_id: [id],
+                    brand_id: [this.state.filterBrand]
                 }
             })
             {
@@ -373,7 +359,7 @@ export default class designerIndex extends Component {
         const { loading, loaderColor, windowWidth } = this.state
         const products = product.product
         const banyakProduct = products.length
-        console.log('data banner designer : ', this.state.headerBanner)
+        console.log('filter id brand :', this.state.filterBrand)
         return (
             <ScreenContainerComponent>
                 <div>
@@ -389,11 +375,6 @@ export default class designerIndex extends Component {
                     )}
                     <div style={{ display: loading ? 'none' : 'block' }}>
                         <div>
-                            {/* <IndexNavbar
-        brands={this.state.brands}
-        categories={this.state.categories}
-        windowWidth={windowWidth}
-        /> */}
                             {windowWidth > 900 ? (
                                 <NavbarComponent />) : (<IndexNavbar />)}
                             <br />
@@ -402,15 +383,16 @@ export default class designerIndex extends Component {
                             <div style={{ marginLeft: '115px' }}>
                                 <BreadCrumb lists={this.state.breadcrumbs} />
                             </div>
-                            <DesignersBanner
+                            <BannerSlider
                                 headerBanner={this.state.headerBanner}
                             />
                             {windowWidth > 900 ? (
-                                <DesignersSearch
+                                <CollectiveSearch
+                                    windowWidth={windowWidth}
                                     banyakProduct={banyakProduct}
-                                    products={products}
-                                    categories={this.state.categories}
-                                    handleFilterCategory={this.handleFilterCategory}
+                                    brands={this.state.brands}
+                                    handleFilterBrand={this.handleFilterBrand}
+                                    filterBrand={this.state.filterBrand}
                                     handleNonFilter={this.handleNonFilter}
                                     handleNewArrivalProd={this.handleNewArrivalProd}
                                     handlePriceLowToHigh={this.handlePriceLowToHigh}
@@ -419,11 +401,12 @@ export default class designerIndex extends Component {
                                     handleZtoA={this.handleZtoA}
                                     handleConditionNew={this.handleConditionNew}
                                     handleConditionLikeNew={this.handleConditionLikeNew}
-                                />) : (<DesignerSearchMobile
+                                />) : (<CollectiveSearchMobile
+                                    windowWidth={windowWidth}
                                     banyakProduct={banyakProduct}
-                                    products={products}
-                                    categories={this.state.categories}
-                                    handleFilterCategory={this.handleFilterCategory}
+                                    brands={this.state.brands}
+                                    handleFilterBrand={this.handleFilterBrand}
+                                    filterBrand={this.state.filterBrand}
                                     handleNonFilter={this.handleNonFilter}
                                     handleNewArrivalProd={this.handleNewArrivalProd}
                                     handlePriceLowToHigh={this.handlePriceLowToHigh}
@@ -433,15 +416,15 @@ export default class designerIndex extends Component {
                                     handleConditionNew={this.handleConditionNew}
                                     handleConditionLikeNew={this.handleConditionLikeNew}
                                 />)}
-                            <DesginersComponent
+                            <CollectiveProduct
                                 products={products}
                                 windowWidth={windowWidth}
                             />
+                            <br />
                             {windowWidth > 900 ? null : (
-                                <DesignersProductMobile
+                                <CollectiveProductMobile
                                     products={products}
                                 />)}
-                            <br />
                             {/* <Pagination
                  currentPage={this.state.page}
                  perPage={this.state.perPage}
