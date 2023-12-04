@@ -13,6 +13,7 @@ import ShopIndex from './containers/shop/index/ShopIndex';
 import VerificationPage from './containers/register/VerificationPage';
 import ShopShow from './containers/shop/show/ShopShow';
 import HomeIndex from './containers/home/index/HomeIndex';
+import DesignerIndex from './containers/designers/index/DesignerIndex';
 
 function App() {
     return (
@@ -23,7 +24,7 @@ function App() {
                     <Route path="/login" element={<IndexLogin />} />
                     <Route path="/" element={<HomeIndex />} />
                     <Route path="/collective/:id" element={<CollectiveIndex />} />
-                    {/* <Route path="/designers/:id" element={<DesignerIndex />} /> */}
+                    <Route path="/designers/:id" element={<DesignerIndex />} />
                     <Route path='/about-us' element={<AboutUsIndex />} />
                     <Route path='/contact' element={<ContactIndex />} />
                     <Route path='/event' element={<EventIndex />} />

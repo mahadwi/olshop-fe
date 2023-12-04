@@ -1,23 +1,23 @@
-import { useEffect, useState } from "react";
+import { useSearchParams, useParams } from "react-router-dom";
 import FooterComponent from "../../../components/footer/FooterComponent";
 import BreadCrumbComponent from "../../../components/general/breadcrumb/BreadCrumbComponent";
 import ContainerComponent from "../../../components/general/container/ContainerComponent";
+import LoadingComponent from "../../../components/general/loading/LoadingComponent";
 import ScreenContainerComponent from "../../../components/general/screen-container/ScreenContainerComponent";
 import NavbarComponent from "../../../components/homeComponents/navbar/NavbarComponent";
-import BannerComponent from "../../../components/pages/collective/index/banner/BannerComponent";
-import TopFilterComponent from "../../../components/pages/collective/index/top-filter/TopFilterComponent";
-import ProductsWrapperComponent from "../../../components/pages/collective/index/products-wrapper/ProductsWrapperComponent";
-import { useParams, useSearchParams } from "react-router-dom";
+import BannerComponent from "../../../components/pages/designer/index/banner/BannerComponent";
+import ProductsWrapperComponent from "../../../components/pages/designer/index/products-wrapper/ProductsWrapperComponent";
+import TopFilterComponent from "../../../components/pages/designer/index/top-filter/TopFilterComponent";
+import { useEffect, useState } from "react";
 import Api from "../../../utils/Api";
-import LoadingComponent from "../../../components/general/loading/LoadingComponent";
 
-export default function CollectiveIndex() {
+export default function DesignerIndex() {
     const [searchParams, setSearchParams] = useSearchParams();
     const { id } = useParams();
     const [loading, setLoading] = useState(true)
 
-    const [brands, setBrands] = useState([])
-    const [selectedBrands, setSelectedBrands] = useState([])
+    const [categories, setCategories] = useState([])
+    const [selectedCategories, setSelectedCategories] = useState([])
     const [searchNameProduct, setSearchNameProduct] = useState(null)
     const [selectedSortOption, setSelectedSortOption] = useState({ value: 'is_new_arrival', label: 'New Arrival' })
     const [products, setProducts] = useState([])
@@ -36,14 +36,14 @@ export default function CollectiveIndex() {
     const [bannerObj, setBannerObj] = useState({})
 
     useEffect(() => {
-        loadBannerObj()
         loadBreadcrumbs()
-        loadBrands()
+        loadCategories()
+        loadBannerObj()
     }, [])
 
     useEffect(() => {
         loadProducts()
-    }, [id, selectedSortOption, searchNameProduct, selectedBrands])
+    }, [id, selectedSortOption, searchNameProduct, selectedCategories])
 
     const loadProducts = () => {
         setLoading(true)
@@ -51,8 +51,8 @@ export default function CollectiveIndex() {
         Api.get('/product', {
             params: {
                 search: searchNameProduct,
-                brand_id: selectedBrands,
-                category_id: [id],
+                category_id: selectedCategories,
+                brand_id: [id],
                 is_new_arrival: selectedSortOption.value == 'is_new_arrival' ? 1 : 0,
                 sort_by: selectedSortOption.value != 'is_new_arrival' ? selectedSortOption.value : null,
                 itemPerpage: 10,
@@ -78,23 +78,22 @@ export default function CollectiveIndex() {
         ])
     }
 
-    const loadBrands = () => {
-        Api.get('/brand')
+    const loadCategories = () => {
+        Api.get('/product-category')
             .then((res) => {
-                setBrands(res.data.data)
+                setCategories(res.data.data)
             })
     }
 
     const loadBannerObj = () => {
         Api.get('/banner')
             .then((res) => {
-                setBannerObj(res.data.data.find((e) => e.section == 'Collective'))
+                setBannerObj(res.data.data.find((e) => e.section == 'Designer'))
             })
     }
 
     return (
         <div>
-
             <LoadingComponent loading={loading} />
 
             <NavbarComponent />
@@ -104,7 +103,7 @@ export default function CollectiveIndex() {
                 </ContainerComponent>
                 <BannerComponent bannerObj={bannerObj} />
                 <ContainerComponent>
-                    <TopFilterComponent brands={brands} selectedBrands={selectedBrands} setSelectedBrands={setSelectedBrands} searchNameProduct={searchNameProduct} setSearchNameProduct={setSearchNameProduct} productResultAmount={products.length} sortOptions={sortOptions} selectedSortOption={selectedSortOption} setSelectedSortOption={setSelectedSortOption} />
+                    <TopFilterComponent categories={categories} selectedCategories={selectedCategories} setSelectedCategories={setSelectedCategories} searchNameProduct={searchNameProduct} setSearchNameProduct={setSearchNameProduct} productResultAmount={products.length} sortOptions={sortOptions} selectedSortOption={selectedSortOption} setSelectedSortOption={setSelectedSortOption} />
                     <ProductsWrapperComponent products={products} metaPagination={metaPagination} setMetaPagination={setMetaPagination} />
                 </ContainerComponent>
             </ScreenContainerComponent>
