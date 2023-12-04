@@ -1,20 +1,20 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import { GetProduct, GetBrand, GetCategory, GetBanner } from '../../config/api';
-import CollectiveSearch from '../../components/collectiveComponents/collectiveSearch';
-import IndexNavbar from '../../components/navbar/IndexNavbar';
-import BannerSlider from '../../components/collectiveComponents/headerBanner/bannerSlider';
-import CollectiveProduct from '../../components/collectiveComponents/collectiveProduct';
+import { GetProduct, GetBrand, GetCategory, GetBanner } from '../../../config/api';
+import CollectiveSearch from '../../../components/collectiveComponents/collectiveSearch';
+import IndexNavbar from '../../../components/navbar/IndexNavbar';
+import BannerSlider from '../../../components/collectiveComponents/headerBanner/bannerSlider';
+import CollectiveProduct from '../../../components/collectiveComponents/collectiveProduct';
 import { BeatLoader } from 'react-spinners';
-import Pagination from '../../components/general/pagination';
-import CollectiveProductMobile from '../../components/collectiveComponents/collectiveProductMobile';
-import TopFilterComponent from '../../components/pages/shop/index/top-filter/TopFilterComponent';
-import CollectiveSearchMobile from '../../components/collectiveComponents/collectiveSearchMobile';
-import NavbarComponent from '../../components/homeComponents/navbar/NavbarComponent';
-import BreadCrumb from '../../components/general/breadcrumb/BreadCrumb';
-import PaginationComponent from '../../components/pages/shop/index/pagination/PaginationComponent';
-import collectiveProduct from '../../components/collectiveComponents/collectiveProduct';
-import ScreenContainerComponent from '../../components/general/screen-container/ScreenContainerComponent';
+import Pagination from '../../../components/general/pagination';
+import CollectiveProductMobile from '../../../components/collectiveComponents/collectiveProductMobile';
+import TopFilterComponent from '../../../components/pages/shop/index/top-filter/TopFilterComponent';
+import CollectiveSearchMobile from '../../../components/collectiveComponents/collectiveSearchMobile';
+import NavbarComponent from '../../../components/homeComponents/navbar/NavbarComponent';
+import BreadCrumb from '../../../components/general/breadcrumb/BreadCrumb';
+import PaginationComponent from '../../../components/pages/shop/index/pagination/PaginationComponent';
+import collectiveProduct from '../../../components/collectiveComponents/collectiveProduct';
+import ScreenContainerComponent from '../../../components/general/screen-container/ScreenContainerComponent';
 
 const override = {
     display: 'flex',

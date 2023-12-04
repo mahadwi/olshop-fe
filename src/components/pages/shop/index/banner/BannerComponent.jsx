@@ -2,7 +2,7 @@ import './banner.scoped.scss'
 import './banner.css'
 import Flickity from 'react-flickity-component'
 
-export default function BannerComponent({ banners }) {
+export default function BannerComponent({ bannerObj }) {
     const flickityOptions = {
         autoPlay: 4500,
         wrapAround: true,
@@ -12,17 +12,22 @@ export default function BannerComponent({ banners }) {
 
     return (
         <div className='banner-component'>
-            <Flickity
-                options={flickityOptions}
-            >
-                {
-                    banners.map((banner) => (
-                        <div className='hero-slider-item'>
-                            <img src={banner} />
-                        </div>
-                    ))
-                }
-            </Flickity>
+            {
+                bannerObj.images ?
+                    <Flickity
+                        options={flickityOptions}
+                    >
+                        {
+                            bannerObj.images.map((banner) => (
+                                <div className='hero-slider-item'>
+                                    <img src={banner} />
+                                </div>
+                            ))
+                        }
+                    </Flickity> : <></>
+            }
+            <h2>{bannerObj.title}</h2>
+
         </div>
     )
 }

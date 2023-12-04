@@ -92,4 +92,73 @@
             }
         }
     }
+
+    .description-component {
+        padding: 1.5rem 0;
+
+        @include lg {
+            padding: 3.25rem 0;
+        }
+
+        h2 {
+            color: #000;
+            text-align: center;
+            font-family: 'Roboto', sans-serif;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 23px;
+            letter-spacing: 1.08px;
+            text-transform: uppercase;
+
+            @include lg {
+                font-size: 18px;
+                line-height: normal;
+            }
+        }
+
+        p {
+            color: #000;
+            font-family: 'Roboto', sans-serif;
+            font-style: normal;
+            font-weight: 300;
+            line-height: 20px;
+            letter-spacing: 0.84px;
+            text-transform: uppercase;
+            text-align: center;
+            font-size: 13px;
+            margin-top: .5rem;
+
+            @include lg {
+                margin-top: 0;
+                font-size: 14px;
+                line-height: normal;
+            }
+        }
+
+        a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            flex-shrink: 0;
+            color: #FFF;
+            font-family: 'Cambay', sans-serif;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 20px;
+            letter-spacing: 0.1px;
+            background: #151B4F;
+            text-decoration: none;
+            width: fit-content;
+            margin: auto;
+            padding: .75rem 2.1rem;
+            margin-top: 1.5rem;
+            font-size: 15px;
+
+            @include lg {
+                font-size: 16px;
+            }
+        }
+    }
 }

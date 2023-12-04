@@ -34,7 +34,7 @@ export default function ShopIndex() {
     })
     const [selectedFilterColor, setSelectedFilterColor] = useState([])
     const [metaPagination, setMetaPagination] = useState({})
-    const [banners, setBanners] = useState([])
+    const [bannerObj, setBannerObj] = useState({})
     const sortOptions = [
         { value: 'is_new_arrival', label: 'New Arrival' },
         { value: 'price_asc', label: 'Price, low to high' },
@@ -90,7 +90,7 @@ export default function ShopIndex() {
                 color_id: selectedFilterColor,
                 itemPerpage: 10,
                 page: currentPage ? currentPage : 1,
-                // is_new_arrival: selectedSortOption.value == 'is_new_arrival' ? 1 : 0,
+                is_new_arrival: selectedSortOption.value == 'is_new_arrival' ? 1 : 0,
                 sort_by: selectedSortOption.value != 'is_new_arrival' ? selectedSortOption.value : null
             }
         })
@@ -125,7 +125,7 @@ export default function ShopIndex() {
     const loadBanners = () => {
         Api.get('/banner')
             .then((res) => {
-                setBanners(res.data.data.find((e) => e.section == 'Shop').images)
+                setBannerObj(res.data.data.find((e) => e.section == 'Shop'))
             })
     }
 
@@ -138,7 +138,7 @@ export default function ShopIndex() {
             <ScreenContainerComponent>
                 <ContainerComponent>
                     <BreadCrumb lists={breadcrumbs} />
-                    <BannerComponent banners={banners} />
+                    <BannerComponent bannerObj={bannerObj} />
                     <TopFilterComponent productResultAmount={products.length} sortOptions={sortOptions} selectedSortOption={selectedSortOption} setSelectedSortOption={setSelectedSortOption} />
                     <div className="content-wrapper">
                         <LeftFilterComponent

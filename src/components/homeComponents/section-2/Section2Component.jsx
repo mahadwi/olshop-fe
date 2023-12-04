@@ -1,15 +1,14 @@
 import { useEffect, useState } from 'react'
-import './title-book.scoped.scss'
-import './title-book.css'
+import './section-2.scoped.scss'
+import './section-2.css'
 import axios from 'axios'
 import { GetBanner } from '../../../config/api'
 import ContainerComponent from '../../general/container/ContainerComponent'
 import Slider from 'react-slick'
 import { IconTriangleFilled } from '@tabler/icons-react';
+import { Link } from 'react-router-dom'
 
-export default function TitleBookSectionComponent() {
-
-    const [images, setImages] = useState([])
+export default function Section2Component({ item }) {
 
     const settings = {
         dots: true,
@@ -25,23 +24,6 @@ export default function TitleBookSectionComponent() {
         prevArrow: <SamplePrevArrow />
     };
 
-    useEffect(() => {
-        loadImages()
-    }, [])
-
-    const loadImages = async () => {
-        try {
-            const response = await axios.get(GetBanner)
-            {
-                const datas = response.data.data[1].images
-
-                setImages(datas)
-            }
-        } catch (error) {
-            console.log('error :', error)
-        }
-    }
-
     return (
         <div className="title-book-section">
             <ContainerComponent>
@@ -49,13 +31,22 @@ export default function TitleBookSectionComponent() {
                     <h2>Look Book</h2>
                 </div>
                 <div className='title-book-sliders'>
-                    <Slider {...settings}>
-                        {images.map((image) => (
-                            <div className='title-book-slider-item'>
-                                <img src={image} alt="" />
-                            </div>
-                        ))}
-                    </Slider>
+                    {
+                        item.images ?
+                            <Slider {...settings}>
+                                {item.images.map((image) => (
+                                    <div className='title-book-slider-item'>
+                                        <img src={image} alt="" />
+                                    </div>
+                                ))}
+                            </Slider> : <></>
+                    }
+                </div>
+                <div className="description-component">
+                    <h2>{item.title}</h2>
+                    <p>{item.description}</p>
+
+                    <Link to={'/shop'}>Learn More</Link>
                 </div>
             </ContainerComponent>
         </div>

@@ -1,4 +1,5 @@
 .banner-component {
+    position: relative;
 
     .hero-slider-item {
         width: 100%;
@@ -6,6 +7,7 @@
         margin: 0 .75rem;
         border-radius: 5px;
         overflow: hidden;
+        position: relative;
 
         img {
             width: 100%;
@@ -13,5 +15,19 @@
             object-fit: cover;
             object-position: center;
         }
+    }
+
+    h2 {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 7%;
+        color: #FFF;
+        font-family: 'Inter', sans-serif;
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+        letter-spacing: 0.8px;
     }
 }

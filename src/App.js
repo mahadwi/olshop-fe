@@ -1,10 +1,9 @@
 import React from 'react';
 import Index from './containers/register/indexRegister';
 import IndexLogin from './containers/login/indexLogin'
-import IndexHome from './containers/home/indexHome';
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import "../src/translations/i18n"
-import CollectiveIndex from './containers/collective/collectiveIndex';
+import CollectiveIndex from './containers/collective/index/CollectiveIndex';
 import DesignerIndex from './containers/designers/designerIndex';
 import AboutUsIndex from './containers/about-us/index/AboutUsIndex';
 import ContactIndex from './containers/contact/index/ContactIndex';
@@ -14,6 +13,7 @@ import EventBooking from './containers/event/booking/EventBooking';
 import ShopIndex from './containers/shop/index/ShopIndex';
 import VerificationPage from './containers/register/VerificationPage';
 import ShopShow from './containers/shop/show/ShopShow';
+import HomeIndex from './containers/home/index/HomeIndex';
 
 function App() {
     return (
@@ -22,7 +22,7 @@ function App() {
                 <Routes>
                     <Route path="/register" element={<Index />} />
                     <Route path="/login" element={<IndexLogin />} />
-                    <Route path="/" element={<IndexHome />} />
+                    <Route path="/" element={<HomeIndex />} />
                     <Route path="/collective/:id" element={<CollectiveIndex />} />
                     <Route path="/designers/:id" element={<DesignerIndex />} />
                     <Route path='/about-us' element={<AboutUsIndex />} />
