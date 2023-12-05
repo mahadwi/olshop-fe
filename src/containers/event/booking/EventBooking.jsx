@@ -9,7 +9,7 @@ import StepperComponent from '../../../components/pages/event/booking/stepper/St
 import FormBookComponent from '../../../components/pages/event/booking/form-book/FormBookComponent'
 import FormPaymentComponent from '../../../components/pages/event/booking/form-payment/FormPaymentComponent'
 import TicketBookingSummaryComponent from '../../../components/pages/event/booking/ticket-booking-summary/TicketBookingSummaryComponent'
-import NavbarComponent from '../../../components/homeComponents/navbar/NavbarComponent'
+import NavbarComponent from '../../../components/general/navbar/NavbarComponent'
 import FooterComponent from '../../../components/footer/FooterComponent'
 
 export default function EventBooking() {

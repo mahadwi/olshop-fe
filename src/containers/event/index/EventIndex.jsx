@@ -6,7 +6,7 @@ import BannerComponent from "../../../components/pages/event/index/banner/Banner
 import BestJournalsComponent from "../../../components/pages/event/index/best-journals/BestJournalsComponent";
 import OurJournalsComponent from "../../../components/pages/event/index/our-journals/OurJournalsComponent";
 import './event-index.scoped.scss'
-import NavbarComponent from "../../../components/homeComponents/navbar/NavbarComponent";
+import NavbarComponent from "../../../components/general/navbar/NavbarComponent";
 import FooterComponent from "../../../components/footer/FooterComponent";
 import { useLocation } from 'react-router-dom';
 import Api from "../../../utils/Api";

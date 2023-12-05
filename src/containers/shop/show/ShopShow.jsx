@@ -3,7 +3,7 @@ import FooterComponent from "../../../components/footer/FooterComponent";
 import BreadCrumb from "../../../components/general/breadcrumb/BreadCrumbComponent";
 import ContainerComponent from "../../../components/general/container/ContainerComponent";
 import ScreenContainerComponent from "../../../components/general/screen-container/ScreenContainerComponent";
-import NavbarComponent from "../../../components/homeComponents/navbar/NavbarComponent";
+import NavbarComponent from "../../../components/general/navbar/NavbarComponent";
 import OtherProductsComponent from "../../../components/pages/shop/show/other-products/OtherProductsComponent";
 import ProductCartComponent from "../../../components/pages/shop/show/product-cart/ProductCartComponent";
 import ProductDescriptionComponent from "../../../components/pages/shop/show/product-description/ProductDescriptionComponent";

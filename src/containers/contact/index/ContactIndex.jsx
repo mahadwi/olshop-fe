@@ -5,7 +5,7 @@ import './contact.scoped.scss'
 import HeroComponent from "../../../components/pages/contact/index/hero/HeroComponent";
 import FormComponent from "../../../components/pages/contact/index/form/FormComponent";
 import ContactComponent from "../../../components/pages/contact/index/contact/ContactComponent";
-import NavbarComponent from "../../../components/homeComponents/navbar/NavbarComponent";
+import NavbarComponent from "../../../components/general/navbar/NavbarComponent";
 import FooterComponent from "../../../components/footer/FooterComponent";
 import { useLocation } from 'react-router-dom';
 import Api from "../../../utils/Api";

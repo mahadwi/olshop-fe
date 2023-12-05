@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import FooterComponent from "../../../components/footer/FooterComponent";
 import BreadCrumb from "../../../components/general/breadcrumb/BreadCrumbComponent";
 import ContainerComponent from "../../../components/general/container/ContainerComponent";
-import NavbarComponent from "../../../components/homeComponents/navbar/NavbarComponent";
+import NavbarComponent from "../../../components/general/navbar/NavbarComponent";
 import ScreenContainerComponent from "../../../components/general/screen-container/ScreenContainerComponent";
 import BannerComponent from "../../../components/pages/shop/index/banner/BannerComponent";
 import TopFilterComponent from "../../../components/pages/shop/index/top-filter/TopFilterComponent";

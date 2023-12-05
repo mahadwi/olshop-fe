@@ -5,7 +5,7 @@ import BannerComponent from "../../../components/pages/event/show/banner/BannerC
 import EventDescriptionComponent from "../../../components/pages/event/show/event-description/EventDescriptionComponent";
 import TicketPurchaseComponent from "../../../components/pages/event/show/ticket-purchase/TicketPurchaseComponent";
 import AdditionalDetailComponent from "../../../components/pages/event/show/additional-detail/AdditionalDetailComponent";
-import NavbarComponent from "../../../components/homeComponents/navbar/NavbarComponent";
+import NavbarComponent from "../../../components/general/navbar/NavbarComponent";
 import './event-show.scss'
 import FooterComponent from "../../../components/footer/FooterComponent";
 import ScreenContainerComponent from "../../../components/general/screen-container/ScreenContainerComponent";

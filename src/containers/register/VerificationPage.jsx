@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import NavbarComponent from '../../components/homeComponents/navbar/NavbarComponent'
+import NavbarComponent from '../../components/general/navbar/NavbarComponent'
 import ScreenContainerComponent from '../../components/general/screen-container/ScreenContainerComponent'
 import FooterComponent from '../../components/footer/FooterComponent'
 import VerificationComponent from '../../components/register/VerificationComponent'

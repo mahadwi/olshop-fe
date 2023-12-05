@@ -4,7 +4,7 @@ import BreadCrumbComponent from "../../../components/general/breadcrumb/BreadCru
 import ContainerComponent from "../../../components/general/container/ContainerComponent";
 import LoadingComponent from "../../../components/general/loading/LoadingComponent";
 import ScreenContainerComponent from "../../../components/general/screen-container/ScreenContainerComponent";
-import NavbarComponent from "../../../components/homeComponents/navbar/NavbarComponent";
+import NavbarComponent from "../../../components/general/navbar/NavbarComponent";
 import BannerComponent from "../../../components/pages/designer/index/banner/BannerComponent";
 import ProductsWrapperComponent from "../../../components/pages/designer/index/products-wrapper/ProductsWrapperComponent";
 import TopFilterComponent from "../../../components/pages/designer/index/top-filter/TopFilterComponent";

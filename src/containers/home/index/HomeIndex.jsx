@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getMe, GetBanner, GetGallery } from '../../../config/api';
 import { useEffect, useState } from 'react';
-import NavbarHome from '../../../components/homeComponents/navbar/NavbarComponent';
+import NavbarHome from '../../../components/general/navbar/NavbarComponent';
 import FooterComponent from '../../../components/footer/FooterComponent';
 import axios from 'axios';
 import ContainerComponent from '../../../components/general/container/ContainerComponent';

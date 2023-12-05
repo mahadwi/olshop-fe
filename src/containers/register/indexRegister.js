@@ -4,7 +4,7 @@ import IndexNavbar from '../../components/navbar/IndexNavbar'
 import FooterComponent from '../../components/footer/FooterComponent'
 import axios from 'axios'
 import { GetProduct, GetBrand, GetCategory, GetBanner } from '../../config/api';
-import NavbarComponent from '../../components/homeComponents/navbar/NavbarComponent'
+import NavbarComponent from '../../components/general/navbar/NavbarComponent'
 import ScreenContainerComponent from '../../components/general/screen-container/ScreenContainerComponent'
 export default class Index extends Component {
     constructor(props) {

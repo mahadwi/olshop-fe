@@ -7,7 +7,7 @@ import HeroComponent from '../../../components/pages/about-us-components/hero/He
 import DescriptionComponent from '../../../components/pages/about-us-components/description/DescriptionComponent';
 import FormBoxComponent from '../../../components/pages/about-us-components/form-box/FormBoxComponent';
 import HighlightTitleComponent from '../../../components/general/highlight-title/HighlightTitleComponent';
-import NavbarComponent from '../../../components/homeComponents/navbar/NavbarComponent';
+import NavbarComponent from '../../../components/general/navbar/NavbarComponent';
 import FooterComponent from '../../../components/footer/FooterComponent';
 import { useLocation } from 'react-router-dom';
 import Api from '../../../utils/Api';

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import LoginIndex from '../../components/login/loginIndex'
-import IndexNavbar from '../../components/navbar/IndexNavbar'
 import FooterComponent from '../../components/footer/FooterComponent'
 import axios from 'axios'
 import { GetProduct, GetBrand, GetCategory, GetBanner } from '../../config/api';

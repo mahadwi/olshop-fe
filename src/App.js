@@ -1,6 +1,5 @@
 import React from 'react';
 import Index from './containers/register/indexRegister';
-import IndexLogin from './containers/login/indexLogin'
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import "../src/translations/i18n"
 import CollectiveIndex from './containers/collective/index/CollectiveIndex';
@@ -14,6 +13,8 @@ import VerificationPage from './containers/register/VerificationPage';
 import ShopShow from './containers/shop/show/ShopShow';
 import HomeIndex from './containers/home/index/HomeIndex';
 import DesignerIndex from './containers/designers/index/DesignerIndex';
+import LoginIndex from './containers/login/index/LoginIndex';
+import AccountIndex from './containers/account/index/AccountIndex';
 
 function App() {
     return (
@@ -21,7 +22,7 @@ function App() {
             <BrowserRouter>
                 <Routes>
                     <Route path="/register" element={<Index />} />
-                    <Route path="/login" element={<IndexLogin />} />
+                    <Route path="/login" element={<LoginIndex />} />
                     <Route path="/" element={<HomeIndex />} />
                     <Route path="/collective/:id" element={<CollectiveIndex />} />
                     <Route path="/designers/:id" element={<DesignerIndex />} />
@@ -33,6 +34,7 @@ function App() {
                     <Route path="/shop" element={<ShopIndex />} />
                     <Route path="/verify/:id" element={<VerificationPage />} />
                     <Route path="/shop/:id" element={<ShopShow />} />
+                    <Route path='/account' element={<AccountIndex />} />
                 </Routes>
             </BrowserRouter>
         </>
