@@ -87,7 +87,7 @@ export default function FooterComponent() {
                                 <Link to={'/customer-care'}>Customer Care</Link>
                             </li>
                             <li>
-                                <Link>Term & conditions</Link>
+                                <Link to={'/term-and-conditions'}>Term & conditions</Link>
                             </li>
                             <li>
                                 <Link to={'/privacy-police'}>Privacy Policy</Link>

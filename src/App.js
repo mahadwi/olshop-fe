@@ -20,6 +20,7 @@ import ReturnPolicyIndex from './containers/return-policy/index/ReturnPolicyInde
 import PrivacyPoliceIndex from './containers/privacy-policy/index/PrivacyPoliceIndex';
 import DeliveryAndShippingIndex from './containers/delivery-and-shipping/index/DeliveryAndShippingIndex';
 import CustomerCareIndex from './containers/customer-care/index/CustomerCareIndex';
+import TermAndConditionIndex from './containers/term-and-condition/index/TermAndConditionIndex';
 
 function App() {
     return (
@@ -45,6 +46,7 @@ function App() {
                     <Route path='/privacy-police' element={<PrivacyPoliceIndex />} />
                     <Route path='/delivery-and-shipping' element={<DeliveryAndShippingIndex />} />
                     <Route path='/customer-care' element={<CustomerCareIndex />} />
+                    <Route path='/term-and-conditions' element={<TermAndConditionIndex />} />
                 </Routes>
             </BrowserRouter>
         </>
