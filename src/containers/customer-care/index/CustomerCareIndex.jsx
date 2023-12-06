@@ -4,11 +4,12 @@ import BreadCrumbComponent from "../../../components/general/breadcrumb/BreadCru
 import ContainerComponent from "../../../components/general/container/ContainerComponent";
 import NavbarComponent from "../../../components/general/navbar/NavbarComponent";
 import ScreenContainerComponent from "../../../components/general/screen-container/ScreenContainerComponent";
-import ShippingInformationComponent from "../../../components/pages/delivery-and-shipping/index/shipping-information/ShippingInformationComponent";
-import CardComponent from "../../../components/pages/delivery-and-shipping/index/card-component/CardComponent";
-import ReturnPoliceComponent from "../../../components/pages/delivery-and-shipping/index/return-police/ReturnPoliceComponent";
+import CardComponent from "../../../components/pages/customer-care/index/card-component/CardComponent";
+import ReturnPoliceComponent from "../../../components/pages/customer-care/index/return-police/ReturnPoliceComponent";
+import ShippingInformationComponent from "../../../components/pages/customer-care/index/shipping-information/ShippingInformationComponent";
+import TitleDescriptionComponent from "../../../components/pages/customer-care/index/title-description/TitleDescriptionComponent";
 
-export default function DeliveryAndShippingIndex() {
+export default function CustomerCareIndex() {
     const [breadcrumb, setBreadcrumb] = useState([])
 
     useEffect(() => {
@@ -22,7 +23,7 @@ export default function DeliveryAndShippingIndex() {
                 url: '/'
             },
             {
-                label: 'Delivery And Shipping'
+                label: 'Customer Care'
             }
         ])
     }
@@ -34,6 +35,7 @@ export default function DeliveryAndShippingIndex() {
                 <ContainerComponent>
                     <BreadCrumbComponent lists={breadcrumb} />
 
+                    <TitleDescriptionComponent />
                     <ShippingInformationComponent />
                     <CardComponent />
                     <ReturnPoliceComponent />

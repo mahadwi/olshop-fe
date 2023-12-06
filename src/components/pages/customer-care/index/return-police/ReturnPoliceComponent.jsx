@@ -1,5 +1,5 @@
 import './return-police.scoped.scss'
-import ReturnPoliceIllustration from './../../../../images/delivery-and-shipping/ReturnPoliceIllustration.png'
+import ReturnPoliceIllustration from './../../../../../images/delivery-and-shipping/ReturnPoliceIllustration.png'
 import { IconBrandWhatsapp } from '@tabler/icons-react'
 
 export default function ReturnPoliceComponent() {

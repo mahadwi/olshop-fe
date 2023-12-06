@@ -84,7 +84,7 @@ export default function FooterComponent() {
                         <hr />
                         <ul className='footer-foot-list'>
                             <li>
-                                <Link>Customer Care</Link>
+                                <Link to={'/customer-care'}>Customer Care</Link>
                             </li>
                             <li>
                                 <Link>Term & conditions</Link>

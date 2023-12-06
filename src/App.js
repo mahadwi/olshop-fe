@@ -19,6 +19,7 @@ import EmailVerificationIndex from './containers/email-verification/index/EmailV
 import ReturnPolicyIndex from './containers/return-policy/index/ReturnPolicyIndex';
 import PrivacyPoliceIndex from './containers/privacy-policy/index/PrivacyPoliceIndex';
 import DeliveryAndShippingIndex from './containers/delivery-and-shipping/index/DeliveryAndShippingIndex';
+import CustomerCareIndex from './containers/customer-care/index/CustomerCareIndex';
 
 function App() {
     return (
@@ -43,6 +44,7 @@ function App() {
                     <Route path='/return-police' element={<ReturnPolicyIndex />} />
                     <Route path='/privacy-police' element={<PrivacyPoliceIndex />} />
                     <Route path='/delivery-and-shipping' element={<DeliveryAndShippingIndex />} />
+                    <Route path='/customer-care' element={<CustomerCareIndex />} />
                 </Routes>
             </BrowserRouter>
         </>
