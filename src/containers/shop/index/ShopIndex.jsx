@@ -44,7 +44,7 @@ export default function ShopIndex() {
         { value: 'date_desc', label: 'Date, old to new' },
         { value: 'date_asc', label: 'Date, new to old' },
     ];
-    const [selectedSortOption, setSelectedSortOption] = useState({ value: 'is_new_arrival', label: 'New Arrival' })
+    const [selectedSortOption, setSelectedSortOption] = useState({ value: 'name_asc', label: 'ALphabetical, A - Z' })
     const [user, setUser] = useState(null)
 
     // Automatically scrolls to top whenever pathname changes

@@ -19,7 +19,7 @@ export default function DesignerIndex() {
     const [categories, setCategories] = useState([])
     const [selectedCategories, setSelectedCategories] = useState([])
     const [searchNameProduct, setSearchNameProduct] = useState(null)
-    const [selectedSortOption, setSelectedSortOption] = useState({ value: 'is_new_arrival', label: 'New Arrival' })
+    const [selectedSortOption, setSelectedSortOption] = useState({ value: 'name_asc', label: 'ALphabetical, A - Z' })
     const [products, setProducts] = useState([])
     const currentPage = searchParams.get('page');
     const [metaPagination, setMetaPagination] = useState({})
