@@ -16,6 +16,7 @@ import LoginIndex from './containers/login/index/LoginIndex';
 import AccountIndex from './containers/account/index/AccountIndex';
 import RegisterIndex from './containers/register/index/RegisterIndex';
 import EmailVerificationIndex from './containers/email-verification/index/EmailVerificationIndex';
+import ReturnPolicyIndex from './containers/return-policy/index/ReturnPolicyIndex';
 
 function App() {
     return (
@@ -37,6 +38,7 @@ function App() {
                     <Route path="/shop/:id" element={<ShopShow />} />
                     <Route path='/account' element={<AccountIndex />} />
                     <Route path='/email-verification' element={<EmailVerificationIndex />} />
+                    <Route path='/return-policy' element={<ReturnPolicyIndex />} />
                 </Routes>
             </BrowserRouter>
         </>

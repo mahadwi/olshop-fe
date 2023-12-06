@@ -59,7 +59,7 @@ export default function FooterComponent() {
                                     <Link>Order Tracking</Link>
                                 </li>
                                 <li>
-                                    <Link>Return Policy</Link>
+                                    <Link to={'/return-policy'}>Return Policy</Link>
                                 </li>
                                 <li>
                                     <Link>Authentication</Link>
