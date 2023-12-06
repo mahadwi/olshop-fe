@@ -2,37 +2,51 @@ import FooterComponent from '../../../components/footer/FooterComponent'
 import ContainerComponent from '../../../components/general/container/ContainerComponent'
 import NavbarComponent from '../../../components/general/navbar/NavbarComponent'
 import ScreenContainerComponent from '../../../components/general/screen-container/ScreenContainerComponent'
-import './login.scoped.scss'
-import LoginIllustration from './../../../images/login/LoginIllustration.svg'
+import './register.scoped.scss'
+import RegisterIllustration from './../../../images/register/RegisterIllustration.png'
 import Checkbox from 'react-custom-checkbox'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import GoogleIcon from './../../../images/icons/google-icon.png'
 import FacebookIcon from './../../../images/icons/facebook-icon.png'
-import { IconEye, IconEyeOff } from '@tabler/icons-react'
+import { IconEyeOff } from '@tabler/icons-react'
 import Api from '../../../utils/Api'
 import { useEffect, useRef, useState } from 'react'
 import LoadingComponent from '../../../components/general/loading/LoadingComponent'
 import ApiErrorHandling from '../../../utils/ApiErrorHandling'
+import ModalConfirmRegisterComponent from '../../../components/pages/register/index/ModalConfirmRegisterComponent'
 
-export default function LoginIndex() {
+export default function RegisterIndex() {
 
+    const navigate = useNavigate();
     const [loading, setLoading] = useState(false)
+    const [fullName, setFullName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [passwordConfirmation, setPasswordConfirmation] = useState('')
     const [errorObj422, setErrorObj422] = useState({})
+    const inputConfirmPasswordRef = useRef()
     const inputPasswordRef = useRef()
+    const [buttonEnabledMode, setButtonEnabledMode] = useState(false)
+    const [modalConfirmRegistrationShow, setModalConfirmRegistrationShow] = useState(false)
 
-    const doLogin = () => {
+    const doOpenModalConfirmRegis = () => {
+        if (buttonEnabledMode) {
+            setModalConfirmRegistrationShow(true)
+        }
+    }
+
+    const doActionRegister = () => {
+        setModalConfirmRegistrationShow(false)
         setErrorObj422({})
         setLoading(true)
-        Api.post('/login', {
+        Api.post('/register', {
+            name: fullName,
             email: email,
-            password: password
+            password: password,
+            password_confirmation: passwordConfirmation
         }).then((res) => {
             if (res) {
-                console.log(res.data.data.token)
-                localStorage.setItem('apiToken', res.data.data.token)
-                window.location.href = '/'
+                return navigate('/email-verification')
             }
         }).catch((err) => {
             ApiErrorHandling.handlingErr(err, [setErrorObj422])
@@ -59,10 +73,14 @@ export default function LoginIndex() {
             <NavbarComponent />
             <ScreenContainerComponent>
                 <ContainerComponent>
+
                     <div className='login-section'>
+
+                        <ModalConfirmRegisterComponent modalShow={modalConfirmRegistrationShow} setModalShow={setModalConfirmRegistrationShow} callbackConfirm={doActionRegister} />
+
                         <div className="left">
                             <div className='inner'>
-                                <img src={LoginIllustration} alt="" />
+                                <img src={RegisterIllustration} alt="" />
                             </div>
                         </div>
                         <div className="right">
@@ -76,8 +94,19 @@ export default function LoginIndex() {
                                 </div>
                                 <form action="">
                                     <div className='form-group'>
+                                        <label htmlFor="name">Full Name</label>
+                                        <input className={`${errorObj422.name ? 'is-invalid' : ''}`} type="text" name="name" id="name" placeholder='Full Name' value={fullName} onChange={(e) => { setFullName(e.target.value) }} />
+                                        {
+                                            errorObj422.name ?
+                                                <span className='text-danger'>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-info-circle" width="18" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" /><path d="M12 9h.01" /><path d="M11 12h1v4h1" /></svg>
+                                                    {errorObj422.name}</span>
+                                                : <></>
+                                        }
+                                    </div>
+                                    <div className='form-group'>
                                         <label htmlFor="email">Email</label>
-                                        <input className={`${errorObj422.email ? 'is-invalid' : ''}`} type="text" name="email" id="email" placeholder='Email' value={email} onChange={(e) => { setEmail(e.target.value) }} />
+                                        <input className={`${errorObj422.email ? 'is-invalid' : ''}`} type="email" name="email" id="email" placeholder='Email' value={email} onChange={(e) => { setEmail(e.target.value) }} />
                                         {
                                             errorObj422.email ?
                                                 <span className='text-danger'>
@@ -100,18 +129,33 @@ export default function LoginIndex() {
                                             toggleShowHideInput(inputPasswordRef, e)
                                         }} className='show-hide'><IconEyeOff size={30} color='#999' /></button>
                                     </div>
+                                    <div className='form-group'>
+                                        <label htmlFor="password_confirmation">Confirm Password</label>
+                                        <input ref={inputConfirmPasswordRef} className={`${errorObj422.password_confirmation ? 'is-invalid' : ''}`} type="password" name="password_confirmation" id="password_confirmation" placeholder='Password' value={passwordConfirmation} onChange={(e) => { setPasswordConfirmation(e.target.value) }} />
+                                        {
+                                            errorObj422.password_confirmation ?
+                                                <span className='text-danger'>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-info-circle" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" /><path d="M12 9h.01" /><path d="M11 12h1v4h1" /></svg>
+                                                    {errorObj422.password_confirmation}</span>
+                                                : <></>
+                                        }
+                                        <button type='button' onClick={(e) => {
+                                            toggleShowHideInput(inputConfirmPasswordRef, e)
+                                        }} className='show-hide'><IconEyeOff size={30} color='#999' /></button>
+                                    </div>
                                     <div className='form-group remember-me-password'>
-                                        <div className='form-check'>
-                                            <Checkbox borderColor={'#DADADA'} />
-                                            <label className='remember-me-label' htmlFor="remember_me">Remember Me</label>
+                                        <div className='form-check' style={{ cursor: 'pointer' }}>
+                                            <Checkbox style={{ cursor: 'pointer' }} checked={buttonEnabledMode} onChange={(value) => {
+                                                setButtonEnabledMode(value)
+                                            }} borderColor={'#DADADA'} />
+                                            <p className='remember-me-label' htmlFor="remember_me">By clicking Register, you agree to our <Link>Terms</Link>, <Link>Privacy Policy</Link> and <Link>Cookie Policy</Link></p>
                                         </div>
-                                        <Link to={'/forgot-password'}>Forgot Password?</Link>
                                     </div>
                                     <div className='form-group form-group__button'>
-                                        <button className='button-submit' type='button' onClick={doLogin}>Login</button>
+                                        <button className={`button-submit ${buttonEnabledMode ? 'enabled' : ''}`} type='button' onClick={doOpenModalConfirmRegis}>Create Account</button>
                                     </div>
                                 </form>
-                                <p>Don't have an account? <Link to={'/register'}>Sign Up</Link></p>
+                                <p>Already have an account? <Link to={'/login'}>Log In</Link></p>
                             </div>
                         </div>
                     </div>

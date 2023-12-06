@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import './other-products.scoped.scss'
 import ProductItemComponent from '../../../../general/product-item/ProductItemComponent';
 
-export default function OtherProductsComponent({ productsByCategory }) {
+export default function OtherProductsComponent({ productsByCategory, user }) {
 
     return (
         <div className='other-products-section'>
@@ -18,7 +18,7 @@ export default function OtherProductsComponent({ productsByCategory }) {
             <div className='products'>
                 {
                     productsByCategory.map((product) => (
-                        <ProductItemComponent product={product} />
+                        <ProductItemComponent blur={!user} product={product} />
                     ))
                 }
             </div>

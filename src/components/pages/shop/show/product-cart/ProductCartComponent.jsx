@@ -1,9 +1,10 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './product-cart.scoped.scss'
 import './product-cart.css'
 import { Collapse } from 'react-collapse';
 import Select from 'react-select';
 import { IconChevronDown, IconChevronUp, IconMinus, IconPlus, IconShoppingCartFilled } from '@tabler/icons-react';
+import Api from '../../../../../utils/Api';
 
 export default function ProductCartComponent() {
     const [selectedShippingOption, setSelectedShippingOption] = useState({ value: 'Courier', label: 'Courier' })
@@ -19,6 +20,22 @@ export default function ProductCartComponent() {
         { value: 'Kota Semarang', label: 'Kota Semarang' },
         { value: 'Kab. Malang', label: 'Kab. Malang' }
     ];
+
+    const [user, setUser] = useState(null)
+
+    useEffect(() => {
+        Api.get('/user', {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('apiToken')
+            }
+        }).then((res) => {
+            if (res) {
+                setUser(res.data.data)
+            }
+        }).catch((err) => {
+
+        })
+    }, [])
 
     return (
         <div className="product-cart-wrapper">
@@ -136,11 +153,11 @@ export default function ProductCartComponent() {
                 <div className='group'>
                     <div className='price-row-item'>
                         <span className='label'>Price</span>
-                        <span className='val'>Rp. 19.631.312</span>
+                        <span className={`val ${user ? '' : 'blur'}`}>Rp. 19.631.312</span>
                     </div>
                     <div className='price-row-item'>
                         <span className='label'>Sub Total</span>
-                        <span className='val'>Rp. 19.631.312</span>
+                        <span className={`val ${user ? '' : 'blur'}`}>Rp. 19.631.312</span>
                     </div>
                 </div>
                 <div className='group'>

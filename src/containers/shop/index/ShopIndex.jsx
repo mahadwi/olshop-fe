@@ -45,6 +45,7 @@ export default function ShopIndex() {
         { value: 'date_asc', label: 'Date, new to old' },
     ];
     const [selectedSortOption, setSelectedSortOption] = useState({ value: 'is_new_arrival', label: 'New Arrival' })
+    const [user, setUser] = useState(null)
 
     // Automatically scrolls to top whenever pathname changes
     useEffect(() => {
@@ -73,6 +74,7 @@ export default function ShopIndex() {
         loadProductCategories()
         loadProductColors()
         loadBanners()
+        loadUser()
     }, [])
 
     useEffect(() => {
@@ -129,6 +131,20 @@ export default function ShopIndex() {
             })
     }
 
+    const loadUser = () => {
+        Api.get('/user', {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('apiToken')
+            }
+        }).then((res) => {
+            if (res) {
+                setUser(res.data.data)
+            }
+        }).catch((err) => {
+
+        })
+    }
+
     return (
         <div className="shop-index-page">
 
@@ -154,7 +170,7 @@ export default function ShopIndex() {
                             selectedFilterColor={selectedFilterColor}
                             setSelectedFilterColor={setSelectedFilterColor}
                         />
-                        <ProductsWrapperComponent products={products} metaPagination={metaPagination} setMetaPagination={setMetaPagination} />
+                        <ProductsWrapperComponent user={user} products={products} metaPagination={metaPagination} setMetaPagination={setMetaPagination} />
                     </div>
                 </ContainerComponent>
             </ScreenContainerComponent>

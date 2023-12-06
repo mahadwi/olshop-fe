@@ -142,6 +142,11 @@
                     font-weight: 700;
                     line-height: 16px;
                     white-space: nowrap;
+
+                    &.blur {
+                        color: transparent;
+                        text-shadow: 0 0 8px #FFAC33;
+                    }
                 }
             }
 

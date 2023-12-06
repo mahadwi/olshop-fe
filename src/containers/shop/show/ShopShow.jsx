@@ -20,6 +20,7 @@ export default function ShopShow() {
     const [productObj, setProductObj] = useState({})
     const [productCategory, setProductCategory] = useState({})
     const [productsByCategory, setProductsByCategory] = useState([])
+    const [user, setUser] = useState(null)
 
     const breadcrumbs = [
         {
@@ -46,6 +47,7 @@ export default function ShopShow() {
 
     useEffect(() => {
         loadProductObj()
+        loadUser()
     }, [])
 
     useEffect(() => {
@@ -83,6 +85,20 @@ export default function ShopShow() {
             })
     }
 
+    const loadUser = () => {
+        Api.get('/user', {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('apiToken')
+            }
+        }).then((res) => {
+            if (res) {
+                setUser(res.data.data)
+            }
+        }).catch((err) => {
+
+        })
+    }
+
     return (
         <div className="shop-show-container">
             <NavbarComponent />
@@ -95,7 +111,7 @@ export default function ShopShow() {
                         <ProductCartComponent />
                     </div>
                     <hr />
-                    <OtherProductsComponent productsByCategory={productsByCategory} />
+                    <OtherProductsComponent user={user} productsByCategory={productsByCategory} />
                     <hr />
                     <ReviewSectionComponent />
                 </ContainerComponent>

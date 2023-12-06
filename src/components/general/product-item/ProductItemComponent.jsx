@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import NoPhotoProduct from './../../../images/product-item/no-photo-product.png'
 import StringUtil from '../../../utils/StringUtil';
 
-export default function ProductItemComponent({ product, className }) {
+export default function ProductItemComponent({ product, className, blur }) {
     return (
         <div className={`product-item ${className ? className : ''}`}>
             <div className="product-image">
@@ -30,7 +30,7 @@ export default function ProductItemComponent({ product, className }) {
                 <h3>
                     <Link to={'/shop/' + product.id}>{product.name}</Link>
                 </h3>
-                <h4>{StringUtil.rupiahFormat(`${product.sale_price}`)}</h4>
+                <h4 className={`${blur ? 'blur' : ''}`}>{StringUtil.rupiahFormat(`${product.sale_price}`)}</h4>
                 <div className="recap">
                     <div className="rate">
                         <span>{5}</span>

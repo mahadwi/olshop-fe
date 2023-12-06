@@ -1,5 +1,4 @@
 import React from 'react';
-import Index from './containers/register/indexRegister';
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import "../src/translations/i18n"
 import CollectiveIndex from './containers/collective/index/CollectiveIndex';
@@ -15,13 +14,15 @@ import HomeIndex from './containers/home/index/HomeIndex';
 import DesignerIndex from './containers/designers/index/DesignerIndex';
 import LoginIndex from './containers/login/index/LoginIndex';
 import AccountIndex from './containers/account/index/AccountIndex';
+import RegisterIndex from './containers/register/index/RegisterIndex';
+import EmailVerificationIndex from './containers/email-verification/index/EmailVerificationIndex';
 
 function App() {
     return (
         <>
             <BrowserRouter>
                 <Routes>
-                    <Route path="/register" element={<Index />} />
+                    <Route path="/register" element={<RegisterIndex />} />
                     <Route path="/login" element={<LoginIndex />} />
                     <Route path="/" element={<HomeIndex />} />
                     <Route path="/collective/:id" element={<CollectiveIndex />} />
@@ -35,6 +36,7 @@ function App() {
                     <Route path="/verify/:id" element={<VerificationPage />} />
                     <Route path="/shop/:id" element={<ShopShow />} />
                     <Route path='/account' element={<AccountIndex />} />
+                    <Route path='/email-verification' element={<EmailVerificationIndex />} />
                 </Routes>
             </BrowserRouter>
         </>

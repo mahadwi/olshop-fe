@@ -34,11 +34,13 @@ export default function CollectiveIndex() {
         { value: 'date_asc', label: 'Date, new to old' },
     ];
     const [bannerObj, setBannerObj] = useState({})
+    const [user, setUser] = useState(null)
 
     useEffect(() => {
         loadBannerObj()
         loadBreadcrumbs()
         loadBrands()
+        loadUser()
     }, [])
 
     useEffect(() => {
@@ -92,6 +94,20 @@ export default function CollectiveIndex() {
             })
     }
 
+    const loadUser = () => {
+        Api.get('/user', {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('apiToken')
+            }
+        }).then((res) => {
+            if (res) {
+                setUser(res.data.data)
+            }
+        }).catch((err) => {
+
+        })
+    }
+
     return (
         <div>
 
@@ -105,7 +121,7 @@ export default function CollectiveIndex() {
                 <BannerComponent bannerObj={bannerObj} />
                 <ContainerComponent>
                     <TopFilterComponent brands={brands} selectedBrands={selectedBrands} setSelectedBrands={setSelectedBrands} searchNameProduct={searchNameProduct} setSearchNameProduct={setSearchNameProduct} productResultAmount={products.length} sortOptions={sortOptions} selectedSortOption={selectedSortOption} setSelectedSortOption={setSelectedSortOption} />
-                    <ProductsWrapperComponent products={products} metaPagination={metaPagination} setMetaPagination={setMetaPagination} />
+                    <ProductsWrapperComponent user={user} products={products} metaPagination={metaPagination} setMetaPagination={setMetaPagination} />
                 </ContainerComponent>
             </ScreenContainerComponent>
             <FooterComponent />

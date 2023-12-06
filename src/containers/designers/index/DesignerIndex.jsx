@@ -34,11 +34,13 @@ export default function DesignerIndex() {
         { value: 'date_asc', label: 'Date, new to old' },
     ];
     const [bannerObj, setBannerObj] = useState({})
+    const [user, setUser] = useState(null)
 
     useEffect(() => {
         loadBreadcrumbs()
         loadCategories()
         loadBannerObj()
+        loadUser()
     }, [])
 
     useEffect(() => {
@@ -90,6 +92,20 @@ export default function DesignerIndex() {
             .then((res) => {
                 setBannerObj(res.data.data.find((e) => e.section == 'Designer'))
             })
+    }
+
+    const loadUser = () => {
+        Api.get('/user', {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('apiToken')
+            }
+        }).then((res) => {
+            if (res) {
+                setUser(res.data.data)
+            }
+        }).catch((err) => {
+
+        })
     }
 
     return (

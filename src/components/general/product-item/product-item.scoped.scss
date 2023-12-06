@@ -121,6 +121,11 @@
             line-height: 16px;
             margin-top: .4rem;
             margin-bottom: 0;
+
+            &.blur {
+                color: transparent;
+                text-shadow: 0 0 8px #FFAC33;
+            }
         }
 
         .recap {

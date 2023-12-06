@@ -1,9 +1,9 @@
 import './highlight-title.scoped.scss'
 
-export default function HighlightTitleComponent(props) {
+export default function HighlightTitleComponent({ background, title }) {
     return (
-        <div style={{ background: props.background }}>
-            <h2>{props.title}</h2>
+        <div style={{ background: background }}>
+            <h2>{title}</h2>
         </div>
     )
 }
