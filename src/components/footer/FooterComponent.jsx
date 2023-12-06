@@ -26,7 +26,7 @@ export default function FooterComponent() {
                                     <span>Client Service</span>
                                 </li>
                                 <li>
-                                    <Link>Delivery & Shipping</Link>
+                                    <Link to={'/delivery-and-shipping'}>Delivery & Shipping</Link>
                                 </li>
                                 <li>
                                     <Link>FAQ</Link>

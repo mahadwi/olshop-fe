@@ -1,0 +1,49 @@
+.return-police-information {
+    display: flex;
+    gap: 2.25rem;
+    padding-top: 3rem;
+    margin-bottom: 7rem;
+
+    .left {
+        flex: 1;
+
+        .inner {
+            img {
+                width: 100%;
+            }
+        }
+    }
+
+    .right {
+        flex: 1;
+
+        .inner {
+            color: #000;
+            text-align: justify;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 23px;
+
+            a {
+                border-radius: 5px;
+                background: #151B4F;
+                text-decoration: none;
+                display: flex;
+                align-items: center;
+                gap: .4rem;
+                color: #FFF;
+                width: fit-content;
+                padding: .35rem 1.1rem;
+                margin: auto;
+                margin-top: 2rem;
+                display: block;
+
+                &:hover {
+                    background: #000;
+                }
+            }
+        }
+    }
+}
