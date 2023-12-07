@@ -21,6 +21,7 @@ import PrivacyPoliceIndex from './containers/privacy-policy/index/PrivacyPoliceI
 import DeliveryAndShippingIndex from './containers/delivery-and-shipping/index/DeliveryAndShippingIndex';
 import CustomerCareIndex from './containers/customer-care/index/CustomerCareIndex';
 import TermAndConditionIndex from './containers/term-and-condition/index/TermAndConditionIndex';
+import AddressIndex from './containers/address/index/AddressIndex';
 
 function App() {
     return (
@@ -41,6 +42,7 @@ function App() {
                     <Route path="/verify/:id" element={<VerificationPage />} />
                     <Route path="/shop/:id" element={<ShopShow />} />
                     <Route path='/account' element={<AccountIndex />} />
+                    <Route path='/address' element={<AddressIndex />} />
                     <Route path='/email-verification' element={<EmailVerificationIndex />} />
                     <Route path='/return-police' element={<ReturnPolicyIndex />} />
                     <Route path='/privacy-police' element={<PrivacyPoliceIndex />} />

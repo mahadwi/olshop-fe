@@ -49,6 +49,10 @@
         .inner {
 
             .top-area {
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+
                 h2.title {
                     color: #000;
                     font-family: 'Poppins', sans-serif;
@@ -75,6 +79,31 @@
                     background: #000;
                     opacity: 1;
                     margin-top: .75rem;
+                }
+
+                button {
+                    transform: translateY(.5rem);
+                    border-radius: 4px;
+                    background: #FFAC33;
+                    color: #FFF;
+                    text-align: right;
+                    font-family: 'Cambay', sans-serif;
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 700;
+                    line-height: 20px;
+                    /* 125% */
+                    letter-spacing: 0.1px;
+                    border: 0px;
+                    outline: 0px;
+                    padding: .3rem 2rem;
+                    display: flex;
+                    align-items: center;
+                    gap: .75rem;
+
+                    span {
+                        transform: translateY(.1rem);
+                    }
                 }
             }
         }

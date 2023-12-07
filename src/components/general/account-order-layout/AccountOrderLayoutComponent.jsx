@@ -5,8 +5,9 @@ import NavbarComponent from "../../../components/general/navbar/NavbarComponent"
 import ScreenContainerComponent from "../../../components/general/screen-container/ScreenContainerComponent";
 import BreadCrumbComponent from "../breadcrumb/BreadCrumbComponent";
 import './account-order-layout.scoped.scss'
+import { IconPlus } from "@tabler/icons-react";
 
-export default function AccountOrderLayoutComponent({ children, breadcrumb, title, description }) {
+export default function AccountOrderLayoutComponent({ children, breadcrumb, title, description, buttonAddress }) {
     return (
         <div>
             <NavbarComponent />
@@ -32,12 +33,20 @@ export default function AccountOrderLayoutComponent({ children, breadcrumb, titl
                         <div className="right">
                             <div className="inner">
                                 <div className="top-area">
-                                    <h2 className="title">{title}</h2>
+                                    <div className="text">
+                                        <h2 className="title">{title}</h2>
+                                        {
+                                            description ?
+                                                <p className="description">Manage and protect your account</p> : <></>
+                                        }
+                                        <hr className="line-title" />
+                                    </div>
+
                                     {
-                                        description ?
-                                            <p className="description">Manage and protect your account</p> : <></>
+                                        buttonAddress ?
+                                            <button type="button"><span>Add New Address</span> <IconPlus /></button>
+                                            : <></>
                                     }
-                                    <hr className="line-title" />
                                 </div>
 
                                 {children}
