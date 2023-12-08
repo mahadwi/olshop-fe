@@ -46,6 +46,7 @@ export default function RegisterIndex() {
             password_confirmation: passwordConfirmation
         }).then((res) => {
             if (res) {
+                localStorage.setItem('emailVerification', email)
                 return navigate('/email-verification')
             }
         }).catch((err) => {

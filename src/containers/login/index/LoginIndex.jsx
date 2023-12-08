@@ -5,7 +5,7 @@ import ScreenContainerComponent from '../../../components/general/screen-contain
 import './login.scoped.scss'
 import LoginIllustration from './../../../images/login/LoginIllustration.svg'
 import Checkbox from 'react-custom-checkbox'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import GoogleIcon from './../../../images/icons/google-icon.png'
 import FacebookIcon from './../../../images/icons/facebook-icon.png'
 import { IconEye, IconEyeOff } from '@tabler/icons-react'
@@ -16,6 +16,7 @@ import ApiErrorHandling from '../../../utils/ApiErrorHandling'
 
 export default function LoginIndex() {
 
+    const navigate = useNavigate();
     const [loading, setLoading] = useState(false)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -30,12 +31,16 @@ export default function LoginIndex() {
             password: password
         }).then((res) => {
             if (res) {
-                console.log(res.data.data.token)
                 localStorage.setItem('apiToken', res.data.data.token)
                 window.location.href = '/'
             }
         }).catch((err) => {
-            ApiErrorHandling.handlingErr(err, [setErrorObj422])
+            if (err.response.status == 422 && err.response.data.message == 'unverified account') {
+                localStorage.setItem('emailVerification', email)
+                return navigate('/email-verification')
+            } else {
+                ApiErrorHandling.handlingErr(err, [setErrorObj422])
+            }
         }).finally(() => {
             setLoading(false)
         })
