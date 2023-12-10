@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import "../src/translations/i18n"
+import "./translations/i18n"
 import CollectiveIndex from './containers/collective/index/CollectiveIndex';
 import AboutUsIndex from './containers/about-us/index/AboutUsIndex';
 import ContactIndex from './containers/contact/index/ContactIndex';
@@ -22,12 +22,28 @@ import DeliveryAndShippingIndex from './containers/delivery-and-shipping/index/D
 import CustomerCareIndex from './containers/customer-care/index/CustomerCareIndex';
 import TermAndConditionIndex from './containers/term-and-condition/index/TermAndConditionIndex';
 import AddressIndex from './containers/address/index/AddressIndex';
+import MainLayout from './layouts/MainLayout';
+import AuthenticateMiddleware from './middleware/AuthenticateMiddleware';
+import AccountOrder from './containers/account/order/AccountOrder';
 
 function App() {
     return (
         <>
             <BrowserRouter>
                 <Routes>
+                    <Route element={<MainLayout />}>
+                        <Route index element={<HomeIndex />} />
+
+                        <Route path='/account' element={<AuthenticateMiddleware />}>
+                            <Route index element={<AccountIndex />} />
+                            <Route path='orders' element={<AccountOrder />} />
+                        </Route>
+
+
+                    </Route>
+
+
+                    {/*                     
                     <Route path="/register" element={<RegisterIndex />} />
                     <Route path="/login" element={<LoginIndex />} />
                     <Route path="/" element={<HomeIndex />} />
@@ -48,7 +64,7 @@ function App() {
                     <Route path='/privacy-police' element={<PrivacyPoliceIndex />} />
                     <Route path='/delivery-and-shipping' element={<DeliveryAndShippingIndex />} />
                     <Route path='/customer-care' element={<CustomerCareIndex />} />
-                    <Route path='/term-and-conditions' element={<TermAndConditionIndex />} />
+                    <Route path='/term-and-conditions' element={<TermAndConditionIndex />} /> */}
                 </Routes>
             </BrowserRouter>
         </>

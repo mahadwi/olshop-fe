@@ -1,12 +1,6 @@
-import React, { Fragment } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { getMe, GetBanner, GetGallery } from '../../../config/api';
+import React, { Fragment, useContext } from 'react';
 import { useEffect, useState } from 'react';
 import NavbarHome from '../../../components/general/navbar/NavbarComponent';
-import FooterComponent from '../../../components/footer/FooterComponent';
-import axios from 'axios';
-import ContainerComponent from '../../../components/general/container/ContainerComponent';
 import Section3Component from '../../../components/homeComponents/section-3/Section3Component';
 import Section4Component from '../../../components/homeComponents/section-4/Section4Component';
 import Section5Component from '../../../components/homeComponents/section-5/Section5Component';
@@ -15,13 +9,14 @@ import Section7Component from '../../../components/homeComponents/section-7/Sect
 import Section8Component from '../../../components/homeComponents/section-8/Section8Component';
 import Section9Component from '../../../components/homeComponents/section-9/Section9Component';
 import SubscriptionComponent from '../../../components/general/subscription/SubscriptionComponent';
-import LoadingComponent from '../../../components/general/loading/LoadingComponent';
 import Section1Component from '../../../components/homeComponents/section-1/Section1Component';
 import Api from '../../../utils/Api';
 import Section2Component from '../../../components/homeComponents/section-2/Section2Component';
+import { LoadingContext } from '../../../context/LoadingContext';
 
 function HomeIndex() {
-    const [loading, setLoading] = useState(true);
+    const { loading, setLoading } = useContext(LoadingContext);
+
     const [dataBanner, setDataBanner] = useState([]);
     const [dataGallery, setDataGallery] = useState([]);
     const [objSection1, setObjSection1] = useState({})
@@ -33,6 +28,14 @@ function HomeIndex() {
     const [objSection7, setObjSection7] = useState({})
 
     useEffect(() => {
+        if (dataBanner.length > 0 && dataBanner.length > 0) {
+            setLoading(false)
+        }
+    }, [dataGallery, dataBanner])
+
+    useEffect(() => {
+        setLoading(true)
+
         loadGalleries()
         loadBanners()
     }, [])
@@ -80,26 +83,20 @@ function HomeIndex() {
 
     return (
         <div style={{ maxWidth: '100vw', overflowX: 'hidden' }}>
-            <LoadingComponent loading={loading} />
-            <div style={{ display: loading ? 'none' : 'block' }}>
+            <div style={{ background: loading ? 'rgba(0, 0, 0, 0.8)' : 'unset' }}>
                 <NavbarHome />
                 <Section1Component item={objSection1} />
                 <Fragment>
                     <Section2Component item={objSection2} />
                     <Section3Component item={objSection3} />
-
                     <Section4Component item={objSection4} />
                     <Section5Component item={objSection5} />
                     <Section6Component item={objSection6} />
                     <Section7Component item={objSection7} />
                     <Section8Component />
                     <Section9Component />
-
-                    {/* Subs */}
                     <SubscriptionComponent loading={loading} />
-                    {/* End Subs */}
                 </Fragment>
-                <FooterComponent />
             </div>
         </div>
     );

@@ -1,0 +1,29 @@
+.account-order-container[data-unique_attr="wxshf"] .react-tabs__tab--selected {
+    background: #FFAC33;
+    border: 1px solid #FFAC33;
+}
+
+.account-order-container[data-unique_attr="wxshf"] .react-tabs__tab-list {
+    border: 0px !important;
+    display: flex;
+}
+
+.account-order-container[data-unique_attr="wxshf"] .react-tabs__tab {
+    color: #000;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 0.48px;
+    border: 1px solid #C4C4C4;
+    border-radius: 0px;
+    flex: 1;
+    padding: .8rem 0;
+    text-align: center;
+}
+
+.account-order-container[data-unique_attr="wxshf"] .react-tabs__tab:nth-child(2) {
+    border-right: 0px;
+    border-left: 0px;
+}

@@ -22,7 +22,7 @@ export default function AccountIndex() {
     }
 
     return (
-        <AccountOrderLayoutComponent breadcrumb={breadcrumb} title={'My Account'} description={'Manage and protect your account'}>
+        <AccountOrderLayoutComponent position={'My Account'} breadcrumb={breadcrumb} title={'My Account'} description={'Manage and protect your account'}>
             <BoxProfileComponent />
         </AccountOrderLayoutComponent>
     )

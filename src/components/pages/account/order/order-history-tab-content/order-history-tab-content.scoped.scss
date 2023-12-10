@@ -1,0 +1,175 @@
+.order-history-tab-content {
+    margin-top: 1rem;
+
+    .search-wrap {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+
+        input {
+            font-family: 'Cabin', sans-serif;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+            border-radius: 5px;
+            border: 1px solid #DADADA;
+            background: #FFF;
+            padding: .5rem 1.25rem;
+
+            &::placeholder {
+                color: #C8D1E1;
+            }
+        }
+    }
+
+    .body-order-history-tab-content {
+        margin-top: 1.5rem;
+        padding-bottom: 5rem;
+
+        .inner {
+
+            .item {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                gap: 1.5rem;
+                border: 1px solid #C4C4C4;
+                background: #FFF;
+
+                .left {
+                    display: flex;
+                    gap: 1.5rem;
+
+                    img {
+                        width: 114px;
+                        aspect-ratio: 1;
+                        object-fit: cover;
+                        object-position: center;
+                    }
+
+                    .product-detail {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+
+                        h4.product-name {
+                            color: #000;
+                            font-family: 'Cambay', sans-serif;
+                            font-size: 14px;
+                            font-style: normal;
+                            font-weight: 700;
+                            line-height: 16px;
+                            /* 133.333% */
+                        }
+
+                        table {
+                            tr {
+                                td {
+                                    color: #A2A3B1;
+                                    font-family: 'Cambay', sans-serif;
+                                    font-size: 12px;
+                                    font-style: normal;
+                                    font-weight: 400;
+                                    line-height: 16px;
+
+                                    &:first-child {
+                                        width: 50px;
+                                    }
+
+                                    &:nth-child(2) {
+                                        width: 20px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+
+
+                .right {
+                    position: relative;
+                    display: flex;
+                    align-items: center;
+                    padding-right: 1rem;
+
+                    .top {
+                        display: flex;
+                        align-items: center;
+                        position: absolute;
+                        top: 1rem;
+                        right: 1rem;
+
+                        .product-detail {
+                            color: #000;
+                            font-family: 'Cambay', sans-serif;
+                            font-size: 12px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: 16px;
+                            white-space: nowrap;
+                            padding-right: .5rem;
+                            position: relative;
+
+                            &::after {
+                                content: '';
+                                width: 1px;
+                                height: 100%;
+                                background: #C4C4C4;
+                                position: absolute;
+                                right: 0;
+                            }
+
+                            /* 160% */
+                        }
+
+                        .track-order {
+                            color: #081CC9;
+                            font-family: 'Cambay', sans-serif;
+                            font-size: 12px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: 16px;
+                            white-space: nowrap;
+                            padding-left: .5rem;
+                            /* 160% */
+                        }
+                    }
+
+                    .price {
+                        color: #FFAC33;
+                        font-family: 'Cambay', sans-serif;
+                        font-size: 17px;
+                        font-style: normal;
+                        font-weight: 700;
+                        line-height: 16px;
+                        padding-right: 1rem;
+                        /* 106.667% */
+                    }
+
+                    .bottom {
+                        position: absolute;
+                        right: 0;
+                        bottom: 0;
+
+                        .label {
+                            padding: 0rem 2.5rem;
+                            background: #00AE65;
+
+                            span {
+                                color: #FFF;
+                                font-family: 'Inter', sans-serif;
+                                font-size: 10px;
+                                font-style: normal;
+                                font-weight: 700;
+                                line-height: normal;
+                                letter-spacing: 0.32px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

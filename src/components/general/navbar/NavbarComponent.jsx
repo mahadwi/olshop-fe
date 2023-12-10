@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { Dropdown } from 'react-bootstrap';
 import { changeLanguage } from '../../../translations/i18n'
 import { withTranslation } from 'react-i18next';
@@ -11,23 +11,26 @@ import StringUtil from '../../../utils/StringUtil';
 import "/node_modules/flag-icons/css/flag-icons.min.css";
 import Api from '../../../utils/Api';
 import SidebarComponent from '../sidebar/SidebarComponent';
+import { AuthUserContext } from '../../../context/AuthUserContext';
 
 const storedLanguage = localStorage.getItem('selectedLanguage');
 
 function NavbarComponent({ t }) {
+
+    const { user } = useContext(AuthUserContext)
+
+    const navRef = useRef()
+
     const [brands, setBrands] = useState([])
     const [categories, setCategories] = useState([])
     const [sidebarOpen, setSidebarOpen] = useState(false)
-    const navRef = useRef()
     const [aboutUs, setAboutUs] = useState({})
     const [language, setLanguage] = useState(storedLanguage)
-    const [user, setUser] = useState(null)
 
     useEffect(() => {
         loadBrands()
         loadCategories()
         loadAboutUs()
-        loadUser()
         startFuncNavbarDynamicStyle()
     }, [])
 
@@ -56,20 +59,6 @@ function NavbarComponent({ t }) {
             })
     }
 
-    const loadUser = () => {
-        Api.get('/user', {
-            headers: {
-                Authorization: 'Bearer ' + localStorage.getItem('apiToken')
-            }
-        }).then((res) => {
-            if (res) {
-                setUser(res.data.data)
-            }
-        }).catch((err) => {
-
-        })
-    }
-
     const startFuncNavbarDynamicStyle = () => {
         if (window.location.pathname == '/') {
             window.addEventListener('scroll', () => {
@@ -84,6 +73,7 @@ function NavbarComponent({ t }) {
                         })
                     } else {
                         navRef.current.classList.remove('bg-white')
+                        console.log(navRef.current)
 
                         document.querySelectorAll('.actions-wrapper li svg').forEach((svgIcon) => {
                             if (svgIcon.getAttribute('stroke') != '#E4A951') {
