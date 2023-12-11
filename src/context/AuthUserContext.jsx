@@ -11,16 +11,16 @@ const AuthUserContextProvider = ({ children }) => {
         if (user === null) {
             return user;
         } else {
-            const response = await Api.get('/user', {
-                headers: {
-                    Authorization: 'Bearer ' + localStorage.getItem('apiToken')
-                }
-            })
+            try {
+                const response = await Api.get('/user', {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem('apiToken')
+                    }
+                })
 
-            if (response) {
                 setUser(response.data.data)
                 return response.data.data
-            } else {
+            } catch (error) {
                 setUser(null)
                 return null
             }
@@ -37,30 +37,37 @@ const AuthUserContextProvider = ({ children }) => {
                 window.location.href = '/'
             }
         }).catch((err) => {
-            errCallback()
+            errCallback(err)
         }).finally(() => {
             finnalyCallback()
         })
     }
 
     const refreshUser = async () => {
-        const response = await Api.get('/user', {
-            headers: {
-                Authorization: 'Bearer ' + localStorage.getItem('apiToken')
-            }
-        })
+        try {
+            const response = await Api.get('/user', {
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('apiToken')
+                }
+            })
 
-        if (response) {
             setUser(response.data.data)
             return response.data.data
-        } else {
+        } catch (error) {
             setUser(null)
             return null
         }
     }
 
+    const doLogout = (cb) => {
+        setUser(null)
+        localStorage.removeItem('apiToken')
+
+        cb()
+    }
+
     return (
-        <AuthUserContext.Provider value={{ getUser, doLogin, refreshUser, user }}>
+        <AuthUserContext.Provider value={{ getUser, doLogin, refreshUser, user, doLogout }}>
             {children}
         </AuthUserContext.Provider>
     )

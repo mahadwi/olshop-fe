@@ -1,13 +1,14 @@
 import { Link } from "react-router-dom";
-import FooterComponent from "../../../components/footer/FooterComponent";
 import ContainerComponent from "../../../components/general/container/ContainerComponent";
-import NavbarComponent from "../../../components/general/navbar/NavbarComponent";
-import ScreenContainerComponent from "../../../components/general/screen-container/ScreenContainerComponent";
 import BreadCrumbComponent from "../breadcrumb/BreadCrumbComponent";
 import './account-order-layout.scoped.scss'
 import { IconPlus } from "@tabler/icons-react";
+import { useContext } from "react";
+import { AuthUserContext } from "../../../context/AuthUserContext";
 
 export default function AccountOrderLayoutComponent({ children, breadcrumb, title, description, buttonAddress, position }) {
+    const { doLogout } = useContext(AuthUserContext)
+
     return (
         <div>
             <ContainerComponent>
@@ -19,12 +20,17 @@ export default function AccountOrderLayoutComponent({ children, breadcrumb, titl
                             <ul>
                                 <li><Link to={'/account'} className={position == 'My Account' ? 'active' : ''}>My Account</Link></li>
                                 <li><Link to={'/account/orders'} className={position == 'Orders' ? 'active' : ''}>Orders</Link></li>
-                                <li><Link to={'/wishlist'} className={position == 'Wishlist' ? 'active' : ''}>Wishlist</Link></li>
+                                <li><Link to={'/account/wishlist'} className={position == 'Wishlist' ? 'active' : ''}>Wishlist</Link></li>
                             </ul>
                             <hr />
                             <ul>
-                                <li><Link to={'/address'}>Address</Link></li>
-                                <li><Link to={'/logout'}>Logout</Link></li>
+                                <li><Link to={'/account/address'} className={position == 'Address' ? 'active' : ''}>Address</Link></li>
+                                <li><Link to={'/logout'} onClick={(e) => {
+                                    e.preventDefault()
+                                    doLogout(() => {
+                                        window.location.href = '/login'
+                                    })
+                                }}>Logout</Link></li>
                             </ul>
                         </div>
                     </div>

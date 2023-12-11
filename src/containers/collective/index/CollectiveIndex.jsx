@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import FooterComponent from "../../../components/footer/FooterComponent";
 import BreadCrumbComponent from "../../../components/general/breadcrumb/BreadCrumbComponent";
 import ContainerComponent from "../../../components/general/container/ContainerComponent";
@@ -10,11 +10,12 @@ import ProductsWrapperComponent from "../../../components/pages/collective/index
 import { useParams, useSearchParams } from "react-router-dom";
 import Api from "../../../utils/Api";
 import LoadingComponent from "../../../components/general/loading/LoadingComponent";
+import { LoadingContext } from "../../../context/LoadingContext";
 
 export default function CollectiveIndex() {
     const [searchParams, setSearchParams] = useSearchParams();
     const { id } = useParams();
-    const [loading, setLoading] = useState(true)
+    const { setLoading } = useContext(LoadingContext)
 
     const [brands, setBrands] = useState([])
     const [selectedBrands, setSelectedBrands] = useState([])
@@ -110,21 +111,14 @@ export default function CollectiveIndex() {
 
     return (
         <div>
-
-            <LoadingComponent loading={loading} />
-
-            <NavbarComponent />
-            <ScreenContainerComponent>
-                <ContainerComponent>
-                    <BreadCrumbComponent lists={breadcrumbs} />
-                </ContainerComponent>
-                <BannerComponent bannerObj={bannerObj} />
-                <ContainerComponent>
-                    <TopFilterComponent brands={brands} selectedBrands={selectedBrands} setSelectedBrands={setSelectedBrands} searchNameProduct={searchNameProduct} setSearchNameProduct={setSearchNameProduct} productResultAmount={products.length} sortOptions={sortOptions} selectedSortOption={selectedSortOption} setSelectedSortOption={setSelectedSortOption} />
-                    <ProductsWrapperComponent user={user} products={products} metaPagination={metaPagination} setMetaPagination={setMetaPagination} />
-                </ContainerComponent>
-            </ScreenContainerComponent>
-            <FooterComponent />
+            <ContainerComponent>
+                <BreadCrumbComponent lists={breadcrumbs} />
+            </ContainerComponent>
+            <BannerComponent bannerObj={bannerObj} />
+            <ContainerComponent>
+                <TopFilterComponent brands={brands} selectedBrands={selectedBrands} setSelectedBrands={setSelectedBrands} searchNameProduct={searchNameProduct} setSearchNameProduct={setSearchNameProduct} productResultAmount={products.length} sortOptions={sortOptions} selectedSortOption={selectedSortOption} setSelectedSortOption={setSelectedSortOption} />
+                <ProductsWrapperComponent user={user} products={products} metaPagination={metaPagination} setMetaPagination={setMetaPagination} />
+            </ContainerComponent>
         </div>
     )
 }

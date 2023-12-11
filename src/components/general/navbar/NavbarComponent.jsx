@@ -73,7 +73,6 @@ function NavbarComponent({ t }) {
                         })
                     } else {
                         navRef.current.classList.remove('bg-white')
-                        console.log(navRef.current)
 
                         document.querySelectorAll('.actions-wrapper li svg').forEach((svgIcon) => {
                             if (svgIcon.getAttribute('stroke') != '#E4A951') {
@@ -171,7 +170,9 @@ function NavbarComponent({ t }) {
                                     </Dropdown>
                                 </li>
                             </ul>
-                            <button>
+                            <button onClick={() => {
+                                window.location.href = '/shopping/cart'
+                            }}>
                                 <IconShoppingCartFilled />
                             </button>
                         </div>

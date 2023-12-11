@@ -22,7 +22,7 @@ export default function AddressIndex() {
     }
 
     return (
-        <AccountOrderLayoutComponent breadcrumb={breadcrumb} title={'Address'} buttonAddress={true}>
+        <AccountOrderLayoutComponent breadcrumb={breadcrumb} position={'Address'} title={'Address'} buttonAddress={true}>
             <div className="addresess">
                 <div className="address-box active">
                     <div className="inner-address-box">

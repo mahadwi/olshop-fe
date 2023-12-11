@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import FooterComponent from "../../../components/footer/FooterComponent";
 import BreadCrumb from "../../../components/general/breadcrumb/BreadCrumbComponent";
 import ContainerComponent from "../../../components/general/container/ContainerComponent";
@@ -10,17 +10,17 @@ import './shop-index.scoped.scss'
 import LeftFilterComponent from "../../../components/pages/shop/index/left-filter/LeftFilterComponent";
 import ProductsWrapperComponent from "../../../components/pages/shop/index/products-wrapper/ProductsWrapperComponent";
 import Api from "../../../utils/Api";
-import LoadingComponent from "../../../components/general/loading/LoadingComponent";
 import { useLocation, useSearchParams } from 'react-router-dom';
+import { LoadingContext } from "../../../context/LoadingContext";
 
 export default function ShopIndex() {
 
     const [searchParams, setSearchParams] = useSearchParams();
 
     const currentPage = searchParams.get('page');
+    const { setLoading } = useContext(LoadingContext)
 
     const { pathname } = useLocation();
-    const [loading, setLoading] = useState(true)
     const [breadcrumbs, setBreadcrumbs] = useState([])
     const [products, setProducts] = useState([])
     const [productCategories, setProductCategories] = useState([])
@@ -148,33 +148,27 @@ export default function ShopIndex() {
     return (
         <div className="shop-index-page">
 
-            <LoadingComponent loading={loading} />
-
-            <NavbarComponent />
-            <ScreenContainerComponent>
-                <ContainerComponent>
-                    <BreadCrumb lists={breadcrumbs} />
-                    <BannerComponent bannerObj={bannerObj} />
-                    <TopFilterComponent productResultAmount={products.length} sortOptions={sortOptions} selectedSortOption={selectedSortOption} setSelectedSortOption={setSelectedSortOption} />
-                    <div className="content-wrapper">
-                        <LeftFilterComponent
-                            brands={brands}
-                            productCategories={productCategories}
-                            productColors={productColors}
-                            selectedBrands={selectedBrands}
-                            setSelectedBrands={setSelectedBrands}
-                            selectedProductCategories={selectedProductCategories}
-                            setSelectedProductCategories={setSelectedProductCategories}
-                            selectedPriceMinAndMax={selectedPriceMinAndMax}
-                            setSelectedPriceMinAndMax={setSelectedPriceMinAndMax}
-                            selectedFilterColor={selectedFilterColor}
-                            setSelectedFilterColor={setSelectedFilterColor}
-                        />
-                        <ProductsWrapperComponent user={user} products={products} metaPagination={metaPagination} setMetaPagination={setMetaPagination} />
-                    </div>
-                </ContainerComponent>
-            </ScreenContainerComponent>
-            <FooterComponent />
+            <ContainerComponent>
+                <BreadCrumb lists={breadcrumbs} />
+                <BannerComponent bannerObj={bannerObj} />
+                <TopFilterComponent productResultAmount={products.length} sortOptions={sortOptions} selectedSortOption={selectedSortOption} setSelectedSortOption={setSelectedSortOption} />
+                <div className="content-wrapper">
+                    <LeftFilterComponent
+                        brands={brands}
+                        productCategories={productCategories}
+                        productColors={productColors}
+                        selectedBrands={selectedBrands}
+                        setSelectedBrands={setSelectedBrands}
+                        selectedProductCategories={selectedProductCategories}
+                        setSelectedProductCategories={setSelectedProductCategories}
+                        selectedPriceMinAndMax={selectedPriceMinAndMax}
+                        setSelectedPriceMinAndMax={setSelectedPriceMinAndMax}
+                        selectedFilterColor={selectedFilterColor}
+                        setSelectedFilterColor={setSelectedFilterColor}
+                    />
+                    <ProductsWrapperComponent user={user} products={products} metaPagination={metaPagination} setMetaPagination={setMetaPagination} />
+                </div>
+            </ContainerComponent>
         </div>
     )
 }

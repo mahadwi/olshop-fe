@@ -25,6 +25,8 @@ import AddressIndex from './containers/address/index/AddressIndex';
 import MainLayout from './layouts/MainLayout';
 import AuthenticateMiddleware from './middleware/AuthenticateMiddleware';
 import AccountOrder from './containers/account/order/AccountOrder';
+import AccountWishlist from './containers/account/wishlist/AccountWishlist';
+import ShoppingCart from './containers/shopping/cart/ShoppingCart';
 
 function App() {
     return (
@@ -34,18 +36,31 @@ function App() {
                     <Route element={<MainLayout />}>
                         <Route index element={<HomeIndex />} />
 
+                        <Route path='/shop' element={<ShopIndex />} />
+                        <Route path='/collective/:id' element={<CollectiveIndex />} />
+
+                        {/* Auth */}
+                        <Route path="/login" element={<LoginIndex />} />
+                        {/* End of Auth */}
+
+                        {/* POS */}
+                        <Route path='/shopping'>
+                            <Route path="cart" element={<ShoppingCart />} />
+                        </Route>
+                        {/* End of POS */}
+
                         <Route path='/account' element={<AuthenticateMiddleware />}>
                             <Route index element={<AccountIndex />} />
                             <Route path='orders' element={<AccountOrder />} />
+                            <Route path='wishlist' element={<AccountWishlist />} />
+                            <Route path='address' element={<AddressIndex />} />
                         </Route>
-
 
                     </Route>
 
 
                     {/*                     
                     <Route path="/register" element={<RegisterIndex />} />
-                    <Route path="/login" element={<LoginIndex />} />
                     <Route path="/" element={<HomeIndex />} />
                     <Route path="/collective/:id" element={<CollectiveIndex />} />
                     <Route path="/designers/:id" element={<DesignerIndex />} />
@@ -58,7 +73,6 @@ function App() {
                     <Route path="/verify/:id" element={<VerificationPage />} />
                     <Route path="/shop/:id" element={<ShopShow />} />
                     <Route path='/account' element={<AccountIndex />} />
-                    <Route path='/address' element={<AddressIndex />} />
                     <Route path='/email-verification' element={<EmailVerificationIndex />} />
                     <Route path='/return-police' element={<ReturnPolicyIndex />} />
                     <Route path='/privacy-police' element={<PrivacyPoliceIndex />} />
