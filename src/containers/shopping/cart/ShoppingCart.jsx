@@ -112,7 +112,9 @@ export default function ShoppingCart() {
                             </div>
                         </div>
                         <div className="bottom-action">
-                            <button type="button">Check Out</button>
+                            <button type="button" onClick={() => {
+                                window.location.href = '/shopping/checkout'
+                            }}>Check Out</button>
                         </div>
                     </div>
                 </div>

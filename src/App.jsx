@@ -27,6 +27,7 @@ import AuthenticateMiddleware from './middleware/AuthenticateMiddleware';
 import AccountOrder from './containers/account/order/AccountOrder';
 import AccountWishlist from './containers/account/wishlist/AccountWishlist';
 import ShoppingCart from './containers/shopping/cart/ShoppingCart';
+import ShoppingCheckout from './containers/shopping/checkout/ShoppingCheckout';
 
 function App() {
     return (
@@ -46,6 +47,7 @@ function App() {
                         {/* POS */}
                         <Route path='/shopping'>
                             <Route path="cart" element={<ShoppingCart />} />
+                            <Route path="checkout" element={<ShoppingCheckout />} />
                         </Route>
                         {/* End of POS */}
 

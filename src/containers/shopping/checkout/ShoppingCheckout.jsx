@@ -1,0 +1,183 @@
+import { IconArrowLeft, IconArrowRight, IconPencil } from "@tabler/icons-react"
+import ContainerComponent from "../../../components/general/container/ContainerComponent"
+import BagCurrentOrder from './../../../images/temp/5c855532d5cc981711da2cd9d3b2c062.png'
+import './shopping-checkout.scoped.scss'
+
+export default function ShoppingCheckout() {
+    return (
+        <ContainerComponent>
+            <div className="shopping-checkout-wrapper">
+                <h2 className="title-checkout">Check Out</h2>
+
+                <div className="box-shipping-address">
+                    <div className="action-box-shipping-address">
+                        <div className="text-action-shipping-address">
+                            <h4 className="text-select-shipping">Select Shipping Address</h4>
+                            <h4 className="manage-address"><IconPencil size={20} /> Manage Address</h4>
+                        </div>
+                        <div className="arrow-wrap">
+                            <button><IconArrowLeft color="#828181" /></button>
+                            <button><IconArrowRight color="#FFAC33" /></button>
+                        </div>
+                    </div>
+                    <div className="address-wrapper">
+                        <div className="address-item">
+                            <h5 className="address-title">Company</h5>
+                            <div className="name-phone-number">
+                                <h5 className="address-name">Roberto Marquez</h5>
+                                <h5 className="address-phone">(+62) 89000111222</h5>
+                            </div>
+                            <p>Jl. Tulodong Atas 2 No.8B, RT.5/RW.3, Senayan, Kec. Kby. Baru, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12190</p>
+                        </div>
+                        <div className="address-item">
+                            <h5 className="address-title">Company</h5>
+                            <div className="name-phone-number">
+                                <h5 className="address-name">Roberto Marquez</h5>
+                                <h5 className="address-phone">(+62) 89000111222</h5>
+                            </div>
+                            <p>Jl. Tulodong Atas 2 No.8B, RT.5/RW.3, Senayan, Kec. Kby. Baru, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12190</p>
+                        </div>
+                        <div className="address-item">
+                            <h5 className="address-title">Company</h5>
+                            <div className="name-phone-number">
+                                <h5 className="address-name">Roberto Marquez</h5>
+                                <h5 className="address-phone">(+62) 89000111222</h5>
+                            </div>
+                            <p>Jl. Tulodong Atas 2 No.8B, RT.5/RW.3, Senayan, Kec. Kby. Baru, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12190</p>
+                        </div>
+                    </div>
+                </div>
+
+                <hr />
+
+                <div className="box-product-order">
+                    <div className="head-row">
+                        <div className="product-order-head">
+                            <h4>Product Order</h4>
+                        </div>
+                        <div className="basc-order-head">
+                            <span>Item Price</span>
+                        </div>
+                        <div className="basc-order-head">
+                            <span>Quantity</span>
+                        </div>
+                        <div className="basc-order-head">
+                            <span>Price</span>
+                        </div>
+                    </div>
+                    <div className="row-data">
+                        <div className="product-order-data">
+                            <img src={BagCurrentOrder} alt="" />
+                            <div className="product-item-data-text">
+                                <h4>Prada Re-Edition 2005 Re-Nylon  mini bag</h4>
+                                <span>
+                                    1 pcs (500 gr)
+                                </span>
+                            </div>
+                        </div>
+                        <div className="basic-row-data">
+                            <h4>Rp. 19.631.312</h4>
+                        </div>
+                        <div className="basic-row-data">
+                            <h4>1</h4>
+                        </div>
+                        <div className="basic-row-data basic-row-data__price">
+                            <h4>Rp. 19.631.312</h4>
+                        </div>
+                    </div>
+                    <div className="row-data">
+                        <div className="product-order-data">
+                            <img src={BagCurrentOrder} alt="" />
+                            <div className="product-item-data-text">
+                                <h4>Prada Re-Edition 2005 Re-Nylon  mini bag</h4>
+                                <span>
+                                    1 pcs (500 gr)
+                                </span>
+                            </div>
+                        </div>
+                        <div className="basic-row-data">
+                            <h4>Rp. 19.631.312</h4>
+                        </div>
+                        <div className="basic-row-data">
+                            <h4>1</h4>
+                        </div>
+                        <div className="basic-row-data basic-row-data__price">
+                            <h4>Rp. 19.631.312</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="box-order-transaction">
+                    <div className="recap-text">
+                        <div className="left">
+                            <div className="inner">
+                                <h4>Notes</h4>
+                                <input type="text" name="" id="" />
+                            </div>
+                        </div>
+                        <div className="right">
+                            <div className="inner">
+                                <div>
+                                    <h4>Shipping Option</h4>
+                                </div>
+                                <div>
+                                    <h4 className="courier">Courier</h4>
+                                    <span>Receive by 22 - 23 Okt</span>
+                                </div>
+                                <div>
+                                    <h4>Change</h4>
+                                </div>
+                                <div>
+                                    <h4>1.000.000</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="basic-row basic-row__voucher">
+                        <div className="left">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
+                                <path d="M14.8 8.01562L16 9.21562L9.2 16.0156L8 14.8156L14.8 8.01562ZM4 4.01562H20C21.11 4.01562 22 4.90562 22 6.01562V10.0156C21.4696 10.0156 20.9609 10.2263 20.5858 10.6014C20.2107 10.9765 20 11.4852 20 12.0156C20 12.5461 20.2107 13.0548 20.5858 13.4298C20.9609 13.8049 21.4696 14.0156 22 14.0156V18.0156C22 19.1256 21.11 20.0156 20 20.0156H4C3.46957 20.0156 2.96086 19.8049 2.58579 19.4298C2.21071 19.0548 2 18.5461 2 18.0156V14.0156C3.11 14.0156 4 13.1256 4 12.0156C4 11.4852 3.78929 10.9765 3.41421 10.6014C3.03914 10.2263 2.53043 10.0156 2 10.0156V6.01562C2 5.48519 2.21071 4.97648 2.58579 4.60141C2.96086 4.22634 3.46957 4.01563 4 4.01562ZM4 6.01562V8.55562C4.60768 8.90602 5.11236 9.41029 5.46325 10.0177C5.81415 10.6251 5.9989 11.3142 5.9989 12.0156C5.9989 12.7171 5.81415 13.4062 5.46325 14.0136C5.11236 14.621 4.60768 15.1252 4 15.4756V18.0156H20V15.4756C19.3923 15.1252 18.8876 14.621 18.5367 14.0136C18.1858 13.4062 18.0011 12.7171 18.0011 12.0156C18.0011 11.3142 18.1858 10.6251 18.5367 10.0177C18.8876 9.41029 19.3923 8.90602 20 8.55562V6.01562H4ZM9.5 8.01562C10.33 8.01562 11 8.68563 11 9.51562C11 10.3456 10.33 11.0156 9.5 11.0156C8.67 11.0156 8 10.3456 8 9.51562C8 8.68563 8.67 8.01562 9.5 8.01562ZM14.5 13.0156C15.33 13.0156 16 13.6856 16 14.5156C16 15.3456 15.33 16.0156 14.5 16.0156C13.67 16.0156 13 15.3456 13 14.5156C13 13.6856 13.67 13.0156 14.5 13.0156Z" fill="#E4A951" />
+                            </svg>
+                            <h4>Platform Voucher</h4>
+                        </div>
+                        <div className="right">
+                            <h4>Enter code</h4>
+                        </div>
+                    </div>
+                    <div className="basic-row basic-row__payment">
+                        <div className="left">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M5.25 4.5C4.25544 4.5 3.30161 4.89509 2.59835 5.59835C1.89509 6.30161 1.5 7.25544 1.5 8.25V9H22.5V8.25C22.5 7.25544 22.1049 6.30161 21.4016 5.59835C20.6984 4.89509 19.7446 4.5 18.75 4.5H5.25ZM22.5 10.5H1.5V15.75C1.5 16.7446 1.89509 17.6984 2.59835 18.4017C3.30161 19.1049 4.25544 19.5 5.25 19.5H18.75C19.7446 19.5 20.6984 19.1049 21.4016 18.4017C22.1049 17.6984 22.5 16.7446 22.5 15.75V10.5ZM15.75 15H18.75C18.9489 15 19.1397 15.079 19.2803 15.2197C19.421 15.3603 19.5 15.5511 19.5 15.75C19.5 15.9489 19.421 16.1397 19.2803 16.2803C19.1397 16.421 18.9489 16.5 18.75 16.5H15.75C15.5511 16.5 15.3603 16.421 15.2197 16.2803C15.079 16.1397 15 15.9489 15 15.75C15 15.5511 15.079 15.3603 15.2197 15.2197C15.3603 15.079 15.5511 15 15.75 15Z" fill="#151B4F" />
+                            </svg>
+                            <h4>Method Payment</h4>
+                        </div>
+                        <div className="right">
+                            <h4>Transfer bank</h4>
+                        </div>
+                    </div>
+                    <div className="price-row">
+                        <div>
+                            <h4>Transfer bank</h4>
+                            <h4>Rp. 39.262.624</h4>
+                        </div>
+                        <div>
+                            <h4>Shipping Total</h4>
+                            <h4>Shipping Total</h4>
+                        </div>
+                        <div>
+                            <h4>Handling fee</h4>
+                            <h4>Rp. 500.000</h4>
+                        </div>
+                        <div className="total">
+                            <h4>Total Payment</h4>
+                            <h4>Rp. 40.762.624</h4>
+                        </div>
+                    </div>
+                    <div className="btn-row">
+                        <button>Place Order</button>
+                    </div>
+                </div>
+            </div>
+        </ContainerComponent>
+    )
+}
