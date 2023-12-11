@@ -8,20 +8,37 @@ import NavbarComponent from "../../../components/general/navbar/NavbarComponent"
 import BannerComponent from "../../../components/pages/designer/index/banner/BannerComponent";
 import ProductsWrapperComponent from "../../../components/pages/designer/index/products-wrapper/ProductsWrapperComponent";
 import TopFilterComponent from "../../../components/pages/designer/index/top-filter/TopFilterComponent";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Api from "../../../utils/Api";
+import { LoadingContext } from "../../../context/LoadingContext";
+import { AuthUserContext } from "../../../context/AuthUserContext";
 
 export default function DesignerIndex() {
-    const [searchParams, setSearchParams] = useSearchParams();
-    const { id } = useParams();
-    const [loading, setLoading] = useState(true)
 
+    /**
+     * Hooks
+     * 
+     */
+    const [searchParams] = useSearchParams();
+    const { id } = useParams();
+    const currentPage = searchParams.get('page');
+
+    /**
+     * Context
+     * 
+     */
+    const { setLoading } = useContext(LoadingContext)
+    const { user } = useContext(AuthUserContext)
+
+    /**
+     * Page State
+     * 
+     */
     const [categories, setCategories] = useState([])
     const [selectedCategories, setSelectedCategories] = useState([])
     const [searchNameProduct, setSearchNameProduct] = useState(null)
     const [selectedSortOption, setSelectedSortOption] = useState({ value: 'name_asc', label: 'ALphabetical, A - Z' })
     const [products, setProducts] = useState([])
-    const currentPage = searchParams.get('page');
     const [metaPagination, setMetaPagination] = useState({})
     const [breadcrumbs, setBreadcrumbs] = useState([])
     const sortOptions = [
@@ -34,13 +51,11 @@ export default function DesignerIndex() {
         { value: 'date_asc', label: 'Date, new to old' },
     ];
     const [bannerObj, setBannerObj] = useState({})
-    const [user, setUser] = useState(null)
 
     useEffect(() => {
         loadBreadcrumbs()
         loadCategories()
         loadBannerObj()
-        loadUser()
     }, [])
 
     useEffect(() => {
@@ -94,36 +109,16 @@ export default function DesignerIndex() {
             })
     }
 
-    const loadUser = () => {
-        Api.get('/user', {
-            headers: {
-                Authorization: 'Bearer ' + localStorage.getItem('apiToken')
-            }
-        }).then((res) => {
-            if (res) {
-                setUser(res.data.data)
-            }
-        }).catch((err) => {
-
-        })
-    }
-
     return (
         <div>
-            <LoadingComponent loading={loading} />
-
-            <NavbarComponent />
-            <ScreenContainerComponent>
-                <ContainerComponent>
-                    <BreadCrumbComponent lists={breadcrumbs} />
-                </ContainerComponent>
-                <BannerComponent bannerObj={bannerObj} />
-                <ContainerComponent>
-                    <TopFilterComponent categories={categories} selectedCategories={selectedCategories} setSelectedCategories={setSelectedCategories} searchNameProduct={searchNameProduct} setSearchNameProduct={setSearchNameProduct} productResultAmount={products.length} sortOptions={sortOptions} selectedSortOption={selectedSortOption} setSelectedSortOption={setSelectedSortOption} />
-                    <ProductsWrapperComponent products={products} metaPagination={metaPagination} setMetaPagination={setMetaPagination} />
-                </ContainerComponent>
-            </ScreenContainerComponent>
-            <FooterComponent />
+            <ContainerComponent>
+                <BreadCrumbComponent lists={breadcrumbs} />
+            </ContainerComponent>
+            <BannerComponent bannerObj={bannerObj} />
+            <ContainerComponent>
+                <TopFilterComponent categories={categories} selectedCategories={selectedCategories} setSelectedCategories={setSelectedCategories} searchNameProduct={searchNameProduct} setSearchNameProduct={setSearchNameProduct} productResultAmount={products.length} sortOptions={sortOptions} selectedSortOption={selectedSortOption} setSelectedSortOption={setSelectedSortOption} />
+                <ProductsWrapperComponent user={user} products={products} metaPagination={metaPagination} setMetaPagination={setMetaPagination} />
+            </ContainerComponent>
         </div>
     )
 }

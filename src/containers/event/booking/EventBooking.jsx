@@ -2,20 +2,24 @@ import { useEffect, useState } from 'react'
 import BreadCrumb from '../../../components/general/breadcrumb/BreadCrumbComponent'
 import ContainerComponent from '../../../components/general/container/ContainerComponent'
 import './event-booking.scss'
-import IndexNavbar from '../../../components/navbar/IndexNavbar'
-import { GetBrand, GetCategory } from '../../../config/api'
-import axios from 'axios'
 import StepperComponent from '../../../components/pages/event/booking/stepper/StepperComponent'
 import FormBookComponent from '../../../components/pages/event/booking/form-book/FormBookComponent'
 import FormPaymentComponent from '../../../components/pages/event/booking/form-payment/FormPaymentComponent'
 import TicketBookingSummaryComponent from '../../../components/pages/event/booking/ticket-booking-summary/TicketBookingSummaryComponent'
-import NavbarComponent from '../../../components/general/navbar/NavbarComponent'
-import FooterComponent from '../../../components/footer/FooterComponent'
+import { useLocation } from 'react-router-dom'
 
 export default function EventBooking() {
 
-    const [brands, setBrands] = useState([])
-    const [categories, setCategories] = useState([])
+    /**
+     * Hooks
+     * 
+     */
+    const { pathname } = useLocation();
+
+    /**
+     * Main State
+     * 
+     */
     const [breadcrumbs, setBreadcrumbs] = useState([])
 
     /**
@@ -26,41 +30,14 @@ export default function EventBooking() {
     const [activedIndexState, setActivedIndexState] = useState(0)
 
     useEffect(() => {
-        handleDropDownDesign()
-        handleDropDownCollective()
-
         loadBreadcrumbs()
-
         loadArrFormStepStates()
     }, [])
 
-    /**
-     * (Redundant) Getting Data Dropdown Design Navbar
-     * 
-     */
-    const handleDropDownDesign = async () => {
-        try {
-            const response = await axios.get(GetBrand)
-
-            setBrands(response.data.data)
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-    /**
-     * (Redundant) Getting Data Categories Navbar
-     * 
-     */
-    const handleDropDownCollective = async () => {
-        try {
-            const response = await axios.get(GetCategory)
-
-            setCategories(response.data.data)
-        } catch (error) {
-            console.log(error)
-        }
-    }
+    // Automatically scrolls to top whenever pathname changes
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [pathname]);
 
     const loadArrFormStepStates = () => {
         setArrFormStepStates(['Book', 'Payment', 'E-Ticket'])
@@ -87,32 +64,27 @@ export default function EventBooking() {
     }
 
     return (
-        <div>
-            <div className='event-booking-container'>
-                <NavbarComponent />
+        <div className='event-booking-container'>
+            <ContainerComponent>
+                <BreadCrumb lists={breadcrumbs} />
 
-                <ContainerComponent>
-                    <BreadCrumb lists={breadcrumbs} />
+                <TicketBookingSummaryComponent />
 
-                    <TicketBookingSummaryComponent />
+                <StepperComponent activedIndexState={activedIndexState} steps={arrFormStepStates} />
 
-                    <StepperComponent activedIndexState={activedIndexState} steps={arrFormStepStates} />
+                <div className='stepper-content-wrapper'>
+                    {
+                        activedIndexState == 0 ?
+                            <FormBookComponent setActivedIndexState={setActivedIndexState} />
+                            : <>{
+                                activedIndexState == 1 ?
+                                    <FormPaymentComponent setActivedIndexState={setActivedIndexState} /> : <h1 style={{ width: '70%', float: 'right' }}>E-Ticket</h1>
+                            }</>
 
-                    <div className='stepper-content-wrapper'>
-                        {
-                            activedIndexState == 0 ?
-                                <FormBookComponent setActivedIndexState={setActivedIndexState} />
-                                : <>{
-                                    activedIndexState == 1 ?
-                                        <FormPaymentComponent setActivedIndexState={setActivedIndexState} /> : <h1 style={{ width: '70%', float: 'right' }}>E-Ticket</h1>
-                                }</>
+                    }
+                </div>
 
-                        }
-                    </div>
-
-                </ContainerComponent>
-            </div>
-            <FooterComponent />
+            </ContainerComponent>
         </div>
     )
 }

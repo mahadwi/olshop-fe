@@ -8,13 +8,30 @@ import CardComponent from "../../../components/pages/customer-care/index/card-co
 import ReturnPoliceComponent from "../../../components/pages/customer-care/index/return-police/ReturnPoliceComponent";
 import ShippingInformationComponent from "../../../components/pages/customer-care/index/shipping-information/ShippingInformationComponent";
 import TitleDescriptionComponent from "../../../components/pages/customer-care/index/title-description/TitleDescriptionComponent";
+import { useLocation } from "react-router-dom";
 
 export default function CustomerCareIndex() {
+
+    /**
+     * Hooks
+     * 
+     */
+    const { pathname } = useLocation();
+
+    /**
+     * Main State
+     * 
+     */
     const [breadcrumb, setBreadcrumb] = useState([])
 
     useEffect(() => {
         loadBreadcrumb()
     }, [])
+
+    // Automatically scrolls to top whenever pathname changes
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [pathname]);
 
     const loadBreadcrumb = () => {
         setBreadcrumb([
@@ -30,18 +47,14 @@ export default function CustomerCareIndex() {
 
     return (
         <div>
-            <NavbarComponent />
-            <ScreenContainerComponent>
-                <ContainerComponent>
-                    <BreadCrumbComponent lists={breadcrumb} />
+            <ContainerComponent>
+                <BreadCrumbComponent lists={breadcrumb} />
 
-                    <TitleDescriptionComponent />
-                    <ShippingInformationComponent />
-                    <CardComponent />
-                    <ReturnPoliceComponent />
-                </ContainerComponent>
-            </ScreenContainerComponent>
-            <FooterComponent />
+                <TitleDescriptionComponent />
+                <ShippingInformationComponent />
+                <CardComponent />
+                <ReturnPoliceComponent />
+            </ContainerComponent>
         </div>
     )
 }

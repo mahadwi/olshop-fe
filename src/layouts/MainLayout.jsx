@@ -6,6 +6,7 @@ import { Outlet, useLocation } from 'react-router-dom'
 import LoadingComponent from "../components/general/loading/LoadingComponent";
 import { LoadingContext } from "../context/LoadingContext";
 import { AuthUserContext } from "../context/AuthUserContext";
+import NavbarHomeComponent from "../components/general/navbar-home/NavbarHomeComponent";
 
 export default function MainLayout() {
 
@@ -21,7 +22,11 @@ export default function MainLayout() {
     return (
         <div>
             <LoadingComponent loading={loading} />
-            <NavbarComponent />
+            {
+                pathname == '/' ?
+                    <NavbarHomeComponent />
+                    : <NavbarComponent />
+            }
             {
                 pathname != '/' ?
                     <ScreenContainerComponent>

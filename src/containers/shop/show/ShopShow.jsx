@@ -1,9 +1,6 @@
-import { useEffect, useState } from "react";
-import FooterComponent from "../../../components/footer/FooterComponent";
+import { useContext, useEffect, useState } from "react";
 import BreadCrumb from "../../../components/general/breadcrumb/BreadCrumbComponent";
 import ContainerComponent from "../../../components/general/container/ContainerComponent";
-import ScreenContainerComponent from "../../../components/general/screen-container/ScreenContainerComponent";
-import NavbarComponent from "../../../components/general/navbar/NavbarComponent";
 import OtherProductsComponent from "../../../components/pages/shop/show/other-products/OtherProductsComponent";
 import ProductCartComponent from "../../../components/pages/shop/show/product-cart/ProductCartComponent";
 import ProductDescriptionComponent from "../../../components/pages/shop/show/product-description/ProductDescriptionComponent";
@@ -12,16 +9,30 @@ import ReviewSectionComponent from "../../../components/pages/shop/show/review-s
 import './shop-show.scoped.scss'
 import { useParams, useLocation } from "react-router-dom";
 import Api from "../../../utils/Api";
+import { AuthUserContext } from "../../../context/AuthUserContext";
 
 export default function ShopShow() {
 
+    /**
+     * Hooks
+     * 
+     */
     const { pathname } = useLocation();
     const { id } = useParams();
+
+    /**
+     * Context
+     * 
+     */
+    const { user } = useContext(AuthUserContext)
+
+    /**
+     * Main State
+     * 
+     */
     const [productObj, setProductObj] = useState({})
     const [productCategory, setProductCategory] = useState({})
     const [productsByCategory, setProductsByCategory] = useState([])
-    const [user, setUser] = useState(null)
-
     const breadcrumbs = [
         {
             label: 'Home',
@@ -47,7 +58,6 @@ export default function ShopShow() {
 
     useEffect(() => {
         loadProductObj()
-        loadUser()
     }, [])
 
     useEffect(() => {
@@ -85,38 +95,20 @@ export default function ShopShow() {
             })
     }
 
-    const loadUser = () => {
-        Api.get('/user', {
-            headers: {
-                Authorization: 'Bearer ' + localStorage.getItem('apiToken')
-            }
-        }).then((res) => {
-            if (res) {
-                setUser(res.data.data)
-            }
-        }).catch((err) => {
-
-        })
-    }
-
     return (
         <div className="shop-show-container">
-            <NavbarComponent />
-            <ScreenContainerComponent>
-                <ContainerComponent>
-                    <BreadCrumb lists={breadcrumbs} />
-                    <div className="product-item-detail">
-                        <ProductImageComponent productImages={productObj.images ? productObj.images : []} />
-                        <ProductDescriptionComponent productObj={productObj} />
-                        <ProductCartComponent />
-                    </div>
-                    <hr />
-                    <OtherProductsComponent user={user} productsByCategory={productsByCategory} />
-                    <hr />
-                    <ReviewSectionComponent />
-                </ContainerComponent>
-            </ScreenContainerComponent>
-            <FooterComponent />
+            <ContainerComponent>
+                <BreadCrumb lists={breadcrumbs} />
+                <div className="product-item-detail">
+                    <ProductImageComponent productImages={productObj.images ? productObj.images : []} />
+                    <ProductDescriptionComponent productObj={productObj} />
+                    <ProductCartComponent />
+                </div>
+                <hr />
+                <OtherProductsComponent user={user} productsByCategory={productsByCategory} />
+                <hr />
+                <ReviewSectionComponent />
+            </ContainerComponent>
         </div>
     )
 }

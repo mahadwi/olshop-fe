@@ -1,31 +1,45 @@
-import FooterComponent from '../../../components/footer/FooterComponent'
 import ContainerComponent from '../../../components/general/container/ContainerComponent'
-import NavbarComponent from '../../../components/general/navbar/NavbarComponent'
-import ScreenContainerComponent from '../../../components/general/screen-container/ScreenContainerComponent'
 import './login.scoped.scss'
 import LoginIllustration from './../../../images/login/LoginIllustration.svg'
 import Checkbox from 'react-custom-checkbox'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import GoogleIcon from './../../../images/icons/google-icon.png'
 import FacebookIcon from './../../../images/icons/facebook-icon.png'
 import { IconEye, IconEyeOff } from '@tabler/icons-react'
-import Api from '../../../utils/Api'
 import { useContext, useEffect, useRef, useState } from 'react'
-import LoadingComponent from '../../../components/general/loading/LoadingComponent'
 import ApiErrorHandling from '../../../utils/ApiErrorHandling'
 import { AuthUserContext } from '../../../context/AuthUserContext'
 import { LoadingContext } from '../../../context/LoadingContext'
 
 export default function LoginIndex() {
 
+    /**
+     * Hooks
+     * 
+     */
     const navigate = useNavigate();
+    const { pathname } = useLocation();
+
+    /**
+     * Context
+     * 
+     */
+    const { setLoading } = useContext(LoadingContext)
+    const { doLogin } = useContext(AuthUserContext)
+
+    /**
+     * Main State
+     * 
+     */
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [errorObj422, setErrorObj422] = useState({})
     const inputPasswordRef = useRef()
 
-    const { setLoading } = useContext(LoadingContext)
-    const { doLogin } = useContext(AuthUserContext)
+    // Automatically scrolls to top whenever pathname changes
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [pathname]);
 
     const doLoginActionPage = () => {
         setErrorObj422({})

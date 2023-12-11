@@ -115,6 +115,11 @@
                 }
             }
 
+            .hr-button-price-check {
+                margin-bottom: .25rem;
+                margin-top: 1rem;
+            }
+
             .price-row-item {
                 display: flex;
                 justify-content: space-between;
@@ -147,6 +152,20 @@
                         color: transparent;
                         text-shadow: 0 0 8px #FFAC33;
                     }
+                }
+
+                button {
+                    color: white;
+                    font-family: 'Cambay', sans-serif;
+                    background: #151B4F;
+                    font-size: 12px;
+                    border: 0px;
+                    outline: 0px;
+                    font-weight: 600;
+                    border-radius: 3px;
+                    padding: .5rem .45rem;
+                    transform: translateY(2px);
+                    width: 100%;
                 }
             }
 

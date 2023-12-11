@@ -1,41 +1,41 @@
-import { useEffect, useState } from 'react'
+import { useContext, useState } from 'react'
 import './product-cart.scoped.scss'
 import './product-cart.css'
 import { Collapse } from 'react-collapse';
 import Select from 'react-select';
 import { IconChevronDown, IconChevronUp, IconMinus, IconPlus, IconShoppingCartFilled } from '@tabler/icons-react';
-import Api from '../../../../../utils/Api';
+import { useNavigate } from 'react-router-dom'
+import { AuthUserContext } from '../../../../../context/AuthUserContext';
 
 export default function ProductCartComponent() {
+
+    /**
+     * Hooks
+     * 
+     */
+    const navigate = useNavigate();
+
+    /**
+     * Context
+     * 
+     */
+    const { user } = useContext(AuthUserContext)
+
+    /**
+     * Main State
+     * 
+     */
     const [selectedShippingOption, setSelectedShippingOption] = useState({ value: 'Courier', label: 'Courier' })
     const [selectedShippingToOption, setSelectedShippingToOption] = useState({ value: 'Kota Bandung', label: 'Kota Bandung' })
     const [shippingFeeOpened, setShippingFeeOpened] = useState(false)
-
     const shippingOptions = [
         { value: 'Courier', label: 'Courier' }
     ];
-
     const shippingToOptions = [
         { value: 'Kota Bandung', label: 'Kota Bandung' },
         { value: 'Kota Semarang', label: 'Kota Semarang' },
         { value: 'Kab. Malang', label: 'Kab. Malang' }
     ];
-
-    const [user, setUser] = useState(null)
-
-    useEffect(() => {
-        Api.get('/user', {
-            headers: {
-                Authorization: 'Bearer ' + localStorage.getItem('apiToken')
-            }
-        }).then((res) => {
-            if (res) {
-                setUser(res.data.data)
-            }
-        }).catch((err) => {
-
-        })
-    }, [])
 
     return (
         <div className="product-cart-wrapper">
@@ -159,6 +159,18 @@ export default function ProductCartComponent() {
                         <span className='label'>Sub Total</span>
                         <span className={`val ${user ? '' : 'blur'}`}>Rp. 19.631.312</span>
                     </div>
+                    {
+                        !user ?
+                            <>
+                                <div className='price-row-item'>
+                                    <button onClick={() => {
+                                        navigate('/login')
+                                    }}>Cek Harga</button>
+                                </div>
+                                <hr className='hr-button-price-check' />
+                            </>
+                            : <></>
+                    }
                 </div>
                 <div className='group'>
                     <button type='button' className='btn-cart'><IconShoppingCartFilled /> Add to cart</button>

@@ -37,50 +37,48 @@ function App() {
                     <Route element={<MainLayout />}>
                         <Route index element={<HomeIndex />} />
 
-                        <Route path='/shop' element={<ShopIndex />} />
-                        <Route path='/collective/:id' element={<CollectiveIndex />} />
-
                         {/* Auth */}
                         <Route path="/login" element={<LoginIndex />} />
+                        <Route path="/register" element={<RegisterIndex />} />
+                        <Route path='/email-verification' element={<EmailVerificationIndex />} />
                         {/* End of Auth */}
 
                         {/* POS */}
+                        <Route path='/shop' element={<ShopIndex />} />
+                        <Route path="/shop/:id" element={<ShopShow />} />
+                        <Route path='/collective/:id' element={<CollectiveIndex />} />
+                        <Route path="/designers/:id" element={<DesignerIndex />} />
                         <Route path='/shopping'>
                             <Route path="cart" element={<ShoppingCart />} />
                             <Route path="checkout" element={<ShoppingCheckout />} />
                         </Route>
                         {/* End of POS */}
 
+                        {/* Basic Nav & Footer Page */}
+                        <Route path='/about-us' element={<AboutUsIndex />} />
+                        <Route path='/contact' element={<ContactIndex />} />
+                        <Route path='/return-police' element={<ReturnPolicyIndex />} />
+                        <Route path='/privacy-police' element={<PrivacyPoliceIndex />} />
+                        <Route path='/delivery-and-shipping' element={<DeliveryAndShippingIndex />} />
+                        <Route path='/customer-care' element={<CustomerCareIndex />} />
+                        <Route path='/term-and-conditions' element={<TermAndConditionIndex />} />
+                        {/* Event */}
+
+                        {/* End of Event */}
+                        <Route path='/event' element={<EventIndex />} />
+                        <Route path='/event/:id' element={<EventShow />} />
+                        <Route path='/event/:id/:ticket' element={<EventBooking />} />
+                        {/* End of Basic Nav & Footer Page */}
+
+                        {/* Account */}
                         <Route path='/account' element={<AuthenticateMiddleware />}>
                             <Route index element={<AccountIndex />} />
                             <Route path='orders' element={<AccountOrder />} />
                             <Route path='wishlist' element={<AccountWishlist />} />
                             <Route path='address' element={<AddressIndex />} />
                         </Route>
-
+                        {/* End of Account */}
                     </Route>
-
-
-                    {/*                     
-                    <Route path="/register" element={<RegisterIndex />} />
-                    <Route path="/" element={<HomeIndex />} />
-                    <Route path="/collective/:id" element={<CollectiveIndex />} />
-                    <Route path="/designers/:id" element={<DesignerIndex />} />
-                    <Route path='/about-us' element={<AboutUsIndex />} />
-                    <Route path='/contact' element={<ContactIndex />} />
-                    <Route path='/event' element={<EventIndex />} />
-                    <Route path='/event/:id' element={<EventShow />} />
-                    <Route path='/event/:id/:ticket' element={<EventBooking />} />
-                    <Route path="/shop" element={<ShopIndex />} />
-                    <Route path="/verify/:id" element={<VerificationPage />} />
-                    <Route path="/shop/:id" element={<ShopShow />} />
-                    <Route path='/account' element={<AccountIndex />} />
-                    <Route path='/email-verification' element={<EmailVerificationIndex />} />
-                    <Route path='/return-police' element={<ReturnPolicyIndex />} />
-                    <Route path='/privacy-police' element={<PrivacyPoliceIndex />} />
-                    <Route path='/delivery-and-shipping' element={<DeliveryAndShippingIndex />} />
-                    <Route path='/customer-care' element={<CustomerCareIndex />} />
-                    <Route path='/term-and-conditions' element={<TermAndConditionIndex />} /> */}
                 </Routes>
             </BrowserRouter>
         </>

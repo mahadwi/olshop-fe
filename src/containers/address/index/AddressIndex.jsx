@@ -1,8 +1,20 @@
 import { useEffect, useState } from "react";
 import AccountOrderLayoutComponent from "../../../components/general/account-order-layout/AccountOrderLayoutComponent";
 import './address.scoped.scss'
+import { useLocation } from 'react-router-dom'
 
 export default function AddressIndex() {
+
+    /**
+     * Hooks
+     * 
+     */
+    const { pathname } = useLocation();
+
+    /**
+     * Main State
+     * 
+     */
     const [breadcrumb, setBreadcrumb] = useState([])
 
     useEffect(() => {
@@ -20,6 +32,11 @@ export default function AddressIndex() {
             }
         ])
     }
+
+    // Automatically scrolls to top whenever pathname changes
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [pathname]);
 
     return (
         <AccountOrderLayoutComponent breadcrumb={breadcrumb} position={'Address'} title={'Address'} buttonAddress={true}>

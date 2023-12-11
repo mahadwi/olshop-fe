@@ -1,26 +1,28 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import BreadCrumb from "../../../components/general/breadcrumb/BreadCrumbComponent";
 import ContainerComponent from "../../../components/general/container/ContainerComponent";
 import BannerComponent from "../../../components/pages/event/show/banner/BannerComponent";
 import EventDescriptionComponent from "../../../components/pages/event/show/event-description/EventDescriptionComponent";
 import TicketPurchaseComponent from "../../../components/pages/event/show/ticket-purchase/TicketPurchaseComponent";
 import AdditionalDetailComponent from "../../../components/pages/event/show/additional-detail/AdditionalDetailComponent";
-import NavbarComponent from "../../../components/general/navbar/NavbarComponent";
 import './event-show.scss'
-import FooterComponent from "../../../components/footer/FooterComponent";
-import ScreenContainerComponent from "../../../components/general/screen-container/ScreenContainerComponent";
 import Api from "../../../utils/Api";
 import { useParams, useLocation } from "react-router-dom";
-import LoadingComponent from "../../../components/general/loading/LoadingComponent";
+import { LoadingContext } from "../../../context/LoadingContext";
 
 export default function EventShow() {
 
     const { pathname } = useLocation();
     const { id } = useParams();
-    const [loading, setLoading] = useState(true)
 
     /**
-     * Redundant States
+     * Context
+     * 
+     */
+    const { setLoading } = useContext(LoadingContext)
+
+    /**
+     * Main States
      * 
      */
     const [breadcrumbs, setBreadcrumbs] = useState([])
@@ -64,30 +66,21 @@ export default function EventShow() {
     }
 
     return (
-        <div>
-            <LoadingComponent loading={loading} />
+        <div className="event-show-container">
 
-            <ScreenContainerComponent>
-                <div className="event-show-container">
+            <ContainerComponent>
+                <BreadCrumb lists={breadcrumbs} />
+            </ContainerComponent>
 
-                    <NavbarComponent />
+            <BannerComponent eventDetailObj={eventDetailObj} />
 
-                    <ContainerComponent>
-                        <BreadCrumb lists={breadcrumbs} />
-                    </ContainerComponent>
+            <ContainerComponent>
+                <EventDescriptionComponent eventDetailObj={eventDetailObj} />
+            </ContainerComponent>
 
-                    <BannerComponent eventDetailObj={eventDetailObj} />
+            <TicketPurchaseComponent eventDetailObj={eventDetailObj} />
 
-                    <ContainerComponent>
-                        <EventDescriptionComponent eventDetailObj={eventDetailObj} />
-                    </ContainerComponent>
-
-                    <TicketPurchaseComponent eventDetailObj={eventDetailObj} />
-
-                    <AdditionalDetailComponent />
-                </div>
-            </ScreenContainerComponent>
-            <FooterComponent />
+            <AdditionalDetailComponent />
         </div>
     )
 }

@@ -1,10 +1,17 @@
 import { IconStarFilled, IconHeart, IconHeartFilled } from '@tabler/icons-react';
 import './product-item.scoped.scss'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import NoPhotoProduct from './../../../images/product-item/no-photo-product.png'
 import StringUtil from '../../../utils/StringUtil';
 
 export default function ProductItemComponent({ product, className, blur }) {
+
+    /**
+     * Hooks
+     * 
+     */
+    const navigate = useNavigate();
+
     return (
         <div className={`product-item ${className ? className : ''}`}>
             <div className="product-image">
@@ -30,7 +37,17 @@ export default function ProductItemComponent({ product, className, blur }) {
                 <h3>
                     <Link to={'/shop/' + product.id}>{product.name}</Link>
                 </h3>
-                <h4 className={`${blur ? 'blur' : ''}`}>{StringUtil.rupiahFormat(`${product.sale_price}`)}</h4>
+                <div className='price-area'>
+                    <h4 className={`${blur ? 'blur' : ''}`}>{blur ? 'Rpxxx.xxx' : StringUtil.rupiahFormat(`${product.sale_price}`)}</h4>
+
+                    {
+                        blur ?
+                            <button onClick={() => {
+                                navigate('/login')
+                            }}>Cek Harga</button>
+                            : <></>
+                    }
+                </div>
                 <div className="recap">
                     <div className="rate">
                         <span>{5}</span>

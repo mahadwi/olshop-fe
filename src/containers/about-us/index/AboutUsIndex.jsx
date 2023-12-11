@@ -1,23 +1,19 @@
-import axios from 'axios'
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import './about-us-index.scoped.scss'
-import { GetBrand, GetCategory } from '../../../config/api';
 import ContainerComponent from '../../../components/general/container/ContainerComponent';
 import HeroComponent from '../../../components/pages/about-us-components/hero/HeroComponent';
 import DescriptionComponent from '../../../components/pages/about-us-components/description/DescriptionComponent';
 import FormBoxComponent from '../../../components/pages/about-us-components/form-box/FormBoxComponent';
 import HighlightTitleComponent from '../../../components/general/highlight-title/HighlightTitleComponent';
-import NavbarComponent from '../../../components/general/navbar/NavbarComponent';
-import FooterComponent from '../../../components/footer/FooterComponent';
 import { useLocation } from 'react-router-dom';
 import Api from '../../../utils/Api';
-import LoadingComponent from '../../../components/general/loading/LoadingComponent';
+import { LoadingContext } from '../../../context/LoadingContext';
 
 export default function AboutUsIndex() {
 
     const { pathname } = useLocation();
     const [aboutUsObject, setAboutUsObject] = useState({})
-    const [loading, setLoading] = useState(true)
+    const { setLoading } = useContext(LoadingContext)
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -41,26 +37,18 @@ export default function AboutUsIndex() {
     }
 
     return (
-        <div>
-            <LoadingComponent loading={loading} />
-
-            <div className='about-us-section'>
-                <NavbarComponent />
-
-                <div className='container-about-us'>
-                    <div className='top-highlight-wrapper'>
-                        <HighlightTitleComponent title={'About Us'} background={'linear-gradient(90deg, #E4A951 0%, #E4E4EA 50.62%, #FFF 98.93%)'} />
-                    </div>
-                    <ContainerComponent>
-                        <HeroComponent aboutUsObject={aboutUsObject} />
-
-                        <DescriptionComponent aboutUsObject={aboutUsObject} />
-                    </ContainerComponent>
-
-                    <FormBoxComponent />
+        <div className='about-us-section'>
+            <div className='container-about-us'>
+                <div className='top-highlight-wrapper'>
+                    <HighlightTitleComponent title={'About Us'} background={'linear-gradient(90deg, #E4A951 0%, #E4E4EA 50.62%, #FFF 98.93%)'} />
                 </div>
+                <ContainerComponent>
+                    <HeroComponent aboutUsObject={aboutUsObject} />
+
+                    <DescriptionComponent aboutUsObject={aboutUsObject} />
+                </ContainerComponent>
+                <FormBoxComponent />
             </div>
-            <FooterComponent />
         </div>
     )
 

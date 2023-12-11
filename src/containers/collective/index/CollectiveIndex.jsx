@@ -1,28 +1,40 @@
 import { useContext, useEffect, useState } from "react";
-import FooterComponent from "../../../components/footer/FooterComponent";
 import BreadCrumbComponent from "../../../components/general/breadcrumb/BreadCrumbComponent";
 import ContainerComponent from "../../../components/general/container/ContainerComponent";
-import ScreenContainerComponent from "../../../components/general/screen-container/ScreenContainerComponent";
-import NavbarComponent from "../../../components/general/navbar/NavbarComponent";
 import BannerComponent from "../../../components/pages/collective/index/banner/BannerComponent";
 import TopFilterComponent from "../../../components/pages/collective/index/top-filter/TopFilterComponent";
 import ProductsWrapperComponent from "../../../components/pages/collective/index/products-wrapper/ProductsWrapperComponent";
 import { useParams, useSearchParams } from "react-router-dom";
 import Api from "../../../utils/Api";
-import LoadingComponent from "../../../components/general/loading/LoadingComponent";
 import { LoadingContext } from "../../../context/LoadingContext";
+import { AuthUserContext } from "../../../context/AuthUserContext";
 
 export default function CollectiveIndex() {
-    const [searchParams, setSearchParams] = useSearchParams();
-    const { id } = useParams();
-    const { setLoading } = useContext(LoadingContext)
 
+    /**
+     * Hooks
+     * 
+     */
+    const [searchParams] = useSearchParams();
+    const { id } = useParams();
+    const currentPage = searchParams.get('page');
+
+    /**
+     * Context
+     * 
+     */
+    const { setLoading } = useContext(LoadingContext)
+    const { user } = useContext(AuthUserContext)
+
+    /**
+     * Page State
+     * 
+     */
     const [brands, setBrands] = useState([])
     const [selectedBrands, setSelectedBrands] = useState([])
     const [searchNameProduct, setSearchNameProduct] = useState(null)
     const [selectedSortOption, setSelectedSortOption] = useState({ value: 'name_asc', label: 'ALphabetical, A - Z' })
     const [products, setProducts] = useState([])
-    const currentPage = searchParams.get('page');
     const [metaPagination, setMetaPagination] = useState({})
     const [breadcrumbs, setBreadcrumbs] = useState([])
     const sortOptions = [
@@ -35,13 +47,11 @@ export default function CollectiveIndex() {
         { value: 'date_asc', label: 'Date, new to old' },
     ];
     const [bannerObj, setBannerObj] = useState({})
-    const [user, setUser] = useState(null)
 
     useEffect(() => {
         loadBannerObj()
         loadBreadcrumbs()
         loadBrands()
-        loadUser()
     }, [])
 
     useEffect(() => {
@@ -93,20 +103,6 @@ export default function CollectiveIndex() {
             .then((res) => {
                 setBannerObj(res.data.data.find((e) => e.section == 'Collective'))
             })
-    }
-
-    const loadUser = () => {
-        Api.get('/user', {
-            headers: {
-                Authorization: 'Bearer ' + localStorage.getItem('apiToken')
-            }
-        }).then((res) => {
-            if (res) {
-                setUser(res.data.data)
-            }
-        }).catch((err) => {
-
-        })
     }
 
     return (

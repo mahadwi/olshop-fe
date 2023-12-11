@@ -84,7 +84,6 @@ function HomeIndex() {
     return (
         <div style={{ maxWidth: '100vw', overflowX: 'hidden' }}>
             <div style={{ background: loading ? 'rgba(0, 0, 0, 0.8)' : 'unset' }}>
-                <NavbarHome />
                 <Section1Component item={objSection1} />
                 <Fragment>
                     <Section2Component item={objSection2} />

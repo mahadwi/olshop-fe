@@ -1,9 +1,6 @@
 import { useContext, useEffect, useState } from "react";
-import FooterComponent from "../../../components/footer/FooterComponent";
 import BreadCrumb from "../../../components/general/breadcrumb/BreadCrumbComponent";
 import ContainerComponent from "../../../components/general/container/ContainerComponent";
-import NavbarComponent from "../../../components/general/navbar/NavbarComponent";
-import ScreenContainerComponent from "../../../components/general/screen-container/ScreenContainerComponent";
 import BannerComponent from "../../../components/pages/shop/index/banner/BannerComponent";
 import TopFilterComponent from "../../../components/pages/shop/index/top-filter/TopFilterComponent";
 import './shop-index.scoped.scss'
@@ -12,15 +9,17 @@ import ProductsWrapperComponent from "../../../components/pages/shop/index/produ
 import Api from "../../../utils/Api";
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { LoadingContext } from "../../../context/LoadingContext";
+import { AuthUserContext } from "../../../context/AuthUserContext";
 
 export default function ShopIndex() {
 
-    const [searchParams, setSearchParams] = useSearchParams();
-
+    const [searchParams] = useSearchParams();
     const currentPage = searchParams.get('page');
-    const { setLoading } = useContext(LoadingContext)
-
     const { pathname } = useLocation();
+
+    const { setLoading } = useContext(LoadingContext)
+    const { user } = useContext(AuthUserContext)
+
     const [breadcrumbs, setBreadcrumbs] = useState([])
     const [products, setProducts] = useState([])
     const [productCategories, setProductCategories] = useState([])
@@ -45,7 +44,6 @@ export default function ShopIndex() {
         { value: 'date_asc', label: 'Date, new to old' },
     ];
     const [selectedSortOption, setSelectedSortOption] = useState({ value: 'name_asc', label: 'ALphabetical, A - Z' })
-    const [user, setUser] = useState(null)
 
     // Automatically scrolls to top whenever pathname changes
     useEffect(() => {
@@ -74,7 +72,6 @@ export default function ShopIndex() {
         loadProductCategories()
         loadProductColors()
         loadBanners()
-        loadUser()
     }, [])
 
     useEffect(() => {
@@ -129,20 +126,6 @@ export default function ShopIndex() {
             .then((res) => {
                 setBannerObj(res.data.data.find((e) => e.section == 'Shop'))
             })
-    }
-
-    const loadUser = () => {
-        Api.get('/user', {
-            headers: {
-                Authorization: 'Bearer ' + localStorage.getItem('apiToken')
-            }
-        }).then((res) => {
-            if (res) {
-                setUser(res.data.data)
-            }
-        }).catch((err) => {
-
-        })
     }
 
     return (

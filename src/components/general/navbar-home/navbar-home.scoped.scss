@@ -245,9 +245,9 @@
                         border: 0px;
                         outline: 0px;
                         font-size: 14px;
-                        border: 2px solid #000000;
+                        border: 2px solid #FFF;
                         font-family: 'Nunito Sans', sans-serif;
-                        color: #000000;
+                        color: #FFF;
                         font-weight: 700;
                         padding: .3rem 1rem;
                     }
@@ -307,6 +307,12 @@
                         background: #000000;
                         color: #E4A951;
                     }
+                }
+
+                a.btn-login {
+                    text-decoration: none;
+                    color: #000;
+                    border-color: #000;
                 }
             }
         }

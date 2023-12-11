@@ -116,19 +116,39 @@
             }
         }
 
-        h4 {
-            color: #FFAC33;
-            font-family: 'Cambay', sans-serif;
-            font-size: 14px;
-            font-style: normal;
-            font-weight: 700;
-            line-height: 16px;
-            margin-top: .4rem;
-            margin-bottom: 0;
+        .price-area {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: .25rem;
 
-            &.blur {
-                color: transparent;
-                text-shadow: 0 0 8px #FFAC33;
+            h4 {
+                color: #FFAC33;
+                font-family: 'Cambay', sans-serif;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: 16px;
+                margin-top: .4rem;
+                margin-bottom: 0;
+
+                &.blur {
+                    color: transparent;
+                    text-shadow: 0 0 8px #FFAC33;
+                }
+            }
+
+            button {
+                color: white;
+                font-family: 'Cambay', sans-serif;
+                background: #151B4F;
+                font-size: 11px;
+                border: 0px;
+                outline: 0px;
+                font-weight: 600;
+                border-radius: 3px;
+                padding: .2rem .45rem;
+                transform: translateY(2px);
             }
         }
 

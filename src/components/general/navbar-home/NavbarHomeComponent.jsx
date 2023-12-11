@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react'
 import { Dropdown } from 'react-bootstrap';
 import { changeLanguage } from '../../../translations/i18n'
 import { withTranslation } from 'react-i18next';
-import './navbar.scoped.scss'
+import './navbar-home.scoped.scss'
 import ContainerComponent from '../container/ContainerComponent';
 import BrandLogo from './../../../images/brands/logo.png'
 import { NavLink, useLocation, Link } from 'react-router-dom';
@@ -31,7 +31,7 @@ const useReactPath = () => {
     return path;
 };
 
-function NavbarComponent({ t }) {
+function NavbarHomeComponent({ t }) {
 
     /**
      * Hooks
@@ -233,4 +233,4 @@ function NavbarComponent({ t }) {
     )
 }
 
-export default withTranslation()(NavbarComponent);
+export default withTranslation()(NavbarHomeComponent);
