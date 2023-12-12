@@ -3,8 +3,49 @@ import ContainerComponent from '../../general/container/ContainerComponent'
 import './section-9.scoped.scss'
 import './section-9.css'
 import Slider from 'react-slick'
+import { useEffect, useState } from 'react';
+import Api from '../../../utils/Api';
 
 export default function Section9Component() {
+
+    /**
+     * Main State
+     * 
+     */
+    const [reviews, setReviews] = useState([])
+    const [stars, setStars] = useState([])
+
+    useEffect(() => {
+        loadReviews()
+    }, [])
+
+    useEffect(() => {
+        let tempStars = []
+        reviews.forEach((reviewObj, reviewObjIndex) => {
+            tempStars.push({
+                stars: [],
+                disabled: []
+            })
+            for (let indexStar = 0; indexStar < reviewObj.rating; indexStar++) {
+                tempStars[reviewObjIndex].stars.push(indexStar + 1)
+            }
+
+            for (let indexStar = 0; indexStar < 5 - reviewObj.rating; indexStar++) {
+                tempStars[reviewObjIndex].disabled.push(indexStar + 1)
+            }
+        })
+
+        setStars(tempStars)
+    }, [reviews])
+
+    const loadReviews = () => {
+        Api.get('/review')
+            .then((res) => {
+                if (res) {
+                    setReviews(res.data.data)
+                }
+            })
+    }
 
     const settings = {
         dots: true,
@@ -31,106 +72,45 @@ export default function Section9Component() {
 
     return (
         <ContainerComponent>
-            <div className='section-9'>
-                <Slider {...settings}>
-                    <div className="box-wrapper">
-                        <div className='testi' >
-                            <div className='top'>
-                                <div className='profile-pict'>
-                                    <img src={require('./../../../images/testi-pp.png')} alt="" />
-                                </div>
-                                <div className='detail'>
-                                    <h3>Hiroshi Takamoto</h3>
-                                    <div className='stars'>
-                                        <IconStarFilled className='active' />
-                                        <IconStarFilled className='active' />
-                                        <IconStarFilled className='active' />
-                                        <IconStarFilled className='active' />
-                                        <IconStarFilled />
+            {
+                reviews.length > 0 && stars.length > 0 ?
+                    <div className='section-9'>
+                        <Slider {...settings}>
+                            {
+                                reviews.filter((e) => e.is_display).map((reviewObj, reviewObjIndex) => (
+                                    <div className="box-wrapper">
+                                        <div className='testi' >
+                                            <div className='top'>
+                                                <div className='profile-pict'>
+                                                    <img src={reviewObj.image_url} alt="" />
+                                                </div>
+                                                <div className='detail'>
+                                                    <h3>{reviewObj.name}</h3>
+                                                    <div className='stars'>
+                                                        {
+                                                            stars[reviewObjIndex].stars.map(() => (
+                                                                <IconStarFilled className='active' />
+                                                            ))
+                                                        }
+
+                                                        {
+                                                            stars[reviewObjIndex].disabled.map(() => (
+                                                                <IconStarFilled />
+                                                            ))
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className='bottom'>
+                                                <p>{reviewObj.review}</p>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div className='bottom'>
-                                <p>I really like shopping here, because
-                                    the goods offered are very high quality
-                                    with extraordinary service</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="box-wrapper">
-                        <div className='testi' >
-                            <div className='top'>
-                                <div className='profile-pict'>
-                                    <img src={require('./../../../images/testi-pp.png')} alt="" />
-                                </div>
-                                <div className='detail'>
-                                    <h3>Hiroshi Takamoto</h3>
-                                    <div className='stars'>
-                                        <IconStarFilled className='active' />
-                                        <IconStarFilled className='active' />
-                                        <IconStarFilled className='active' />
-                                        <IconStarFilled className='active' />
-                                        <IconStarFilled />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='bottom'>
-                                <p>I really like shopping here, because
-                                    the goods offered are very high quality
-                                    with extraordinary service</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="box-wrapper">
-                        <div className='testi' >
-                            <div className='top'>
-                                <div className='profile-pict'>
-                                    <img src={require('./../../../images/testi-pp.png')} alt="" />
-                                </div>
-                                <div className='detail'>
-                                    <h3>Hiroshi Takamoto</h3>
-                                    <div className='stars'>
-                                        <IconStarFilled className='active' />
-                                        <IconStarFilled className='active' />
-                                        <IconStarFilled className='active' />
-                                        <IconStarFilled className='active' />
-                                        <IconStarFilled />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='bottom'>
-                                <p>I really like shopping here, because
-                                    the goods offered are very high quality
-                                    with extraordinary service</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="box-wrapper">
-                        <div className='testi' >
-                            <div className='top'>
-                                <div className='profile-pict'>
-                                    <img src={require('./../../../images/testi-pp.png')} alt="" />
-                                </div>
-                                <div className='detail'>
-                                    <h3>Hiroshi Takamoto</h3>
-                                    <div className='stars'>
-                                        <IconStarFilled className='active' />
-                                        <IconStarFilled className='active' />
-                                        <IconStarFilled className='active' />
-                                        <IconStarFilled className='active' />
-                                        <IconStarFilled />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='bottom'>
-                                <p>I really like shopping here, because
-                                    the goods offered are very high quality
-                                    with extraordinary service</p>
-                            </div>
-                        </div>
-                    </div>
-                </Slider>
-            </div>
+                                ))
+                            }
+                        </Slider>
+                    </div> : <></>
+            }
         </ContainerComponent>
     )
 }
