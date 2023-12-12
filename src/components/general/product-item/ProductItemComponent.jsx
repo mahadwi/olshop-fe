@@ -37,24 +37,26 @@ export default function ProductItemComponent({ product, className, blur }) {
                 <h3>
                     <Link to={'/shop/' + product.id}>{product.name}</Link>
                 </h3>
-                <div className='price-area'>
-                    <h4 className={`${blur ? 'blur' : ''}`}>{blur ? 'Rpxxx.xxx' : StringUtil.rupiahFormat(`${product.sale_price}`)}</h4>
+                <div>
+                    <div className='price-area'>
+                        <h4 className={`${blur ? 'blur' : ''}`}>{blur ? 'Rpxxx.xxx' : StringUtil.rupiahFormat(`${product.sale_price}`)}</h4>
 
-                    {
-                        blur ?
-                            <button onClick={() => {
-                                navigate('/login')
-                            }}>Cek Harga</button>
-                            : <></>
-                    }
-                </div>
-                <div className="recap">
-                    <div className="rate">
-                        <span>{5}</span>
-                        <IconStarFilled style={{ color: '#FFAC33' }} size={12} />
+                        {
+                            blur ?
+                                <button onClick={() => {
+                                    navigate('/login')
+                                }}>Cek Harga</button>
+                                : <></>
+                        }
                     </div>
-                    <div className='selled'>
-                        <span>({10}) Terjual</span>
+                    <div className="recap">
+                        <div className="rate">
+                            <span>{5}</span>
+                            <IconStarFilled style={{ color: '#FFAC33' }} size={12} />
+                        </div>
+                        <div className='selled'>
+                            <span>({10}) Terjual</span>
+                        </div>
                     </div>
                 </div>
             </div>

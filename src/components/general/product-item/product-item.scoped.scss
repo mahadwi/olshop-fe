@@ -1,6 +1,8 @@
 .product-item {
     width: calc(calc(100% - 4rem) / 5);
     aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
 
     /* For Collection & Designers */
     &.product-item-collective-designers-index {
@@ -99,7 +101,11 @@
     }
 
     .product-body {
+        flex: 1;
         padding-top: 1rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
 
         h3 {
             color: #000;
