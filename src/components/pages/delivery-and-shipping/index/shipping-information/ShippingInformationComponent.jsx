@@ -1,7 +1,7 @@
 import './shipping-information.scoped.scss'
 import DeliveryAndShoppingIllustration from './../../../../../images/delivery-and-shipping/DeliveryAndShoppingIllustration.png'
 
-export default function ShippingInformationComponent() {
+export default function ShippingInformationComponent({ deliveryShippingObject }) {
 
     const toggleDropdown = (evt) => {
         evt.target.parentElement.classList.toggle('show')
@@ -11,7 +11,7 @@ export default function ShippingInformationComponent() {
         <div className="shipping-information">
             <div className='left'>
                 <div className="inner">
-                    <img src={DeliveryAndShoppingIllustration} alt="" />
+                    <img src={deliveryShippingObject.image_url} alt="" />
                 </div>
             </div>
             <div className="right">

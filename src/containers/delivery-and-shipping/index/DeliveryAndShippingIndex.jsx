@@ -5,6 +5,7 @@ import ShippingInformationComponent from "../../../components/pages/delivery-and
 import CardComponent from "../../../components/pages/delivery-and-shipping/index/card-component/CardComponent";
 import ReturnPoliceComponent from "../../../components/pages/delivery-and-shipping/index/return-police/ReturnPoliceComponent";
 import { useLocation } from "react-router-dom";
+import Api from "../../../utils/Api";
 
 export default function DeliveryAndShippingIndex() {
 
@@ -19,15 +20,26 @@ export default function DeliveryAndShippingIndex() {
      * 
      */
     const [breadcrumb, setBreadcrumb] = useState([])
+    const [deliveryShippingObject, setDeliveryShippingObject] = useState({})
 
     useEffect(() => {
         loadBreadcrumb()
+        loadDeliveryShippingObject()
     }, [])
 
     // Automatically scrolls to top whenever pathname changes
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [pathname]);
+
+    const loadDeliveryShippingObject = () => {
+        Api.get('/delivery-shipping')
+            .then((res) => {
+                if (res) {
+                    setDeliveryShippingObject(res.data.data[0])
+                }
+            })
+    }
 
     const loadBreadcrumb = () => {
         setBreadcrumb([
@@ -46,7 +58,7 @@ export default function DeliveryAndShippingIndex() {
             <ContainerComponent>
                 <BreadCrumbComponent lists={breadcrumb} />
 
-                <ShippingInformationComponent />
+                <ShippingInformationComponent deliveryShippingObject={deliveryShippingObject} />
                 <CardComponent />
                 <ReturnPoliceComponent />
             </ContainerComponent>

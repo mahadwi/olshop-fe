@@ -1,13 +1,10 @@
 import { useContext, useEffect, useState } from "react";
-import FooterComponent from "../../../components/footer/FooterComponent";
 import BreadCrumbComponent from "../../../components/general/breadcrumb/BreadCrumbComponent";
 import ContainerComponent from "../../../components/general/container/ContainerComponent";
-import NavbarComponent from "../../../components/general/navbar/NavbarComponent";
-import ScreenContainerComponent from "../../../components/general/screen-container/ScreenContainerComponent";
 import TermAndConditionIllustration from './../../../images/term-and-condition/TermAndConditionIllustration.png'
 import './term-and-condition.scoped.scss'
+import './term-and-confition.css'
 import Api from "../../../utils/Api";
-import LoadingComponent from "../../../components/general/loading/LoadingComponent";
 import { useLocation } from 'react-router-dom';
 import { LoadingContext } from "../../../context/LoadingContext";
 
@@ -31,6 +28,7 @@ export default function TermAndConditionIndex() {
      */
     const [breadcrumb, setBreadcrumb] = useState([])
     const [contactObj, setContactObj] = useState({})
+    const [termConditionObject, setTermConditionObject] = useState({})
 
     // Automatically scrolls to top whenever pathname changes
     useEffect(() => {
@@ -40,7 +38,17 @@ export default function TermAndConditionIndex() {
     useEffect(() => {
         loadBreadcrumb()
         loadContact()
+        loadTermCondition()
     }, [])
+
+    const loadTermCondition = () => {
+        Api.get('/term-condition')
+            .then((res) => {
+                if (res) {
+                    setTermConditionObject(res.data.data[0])
+                }
+            })
+    }
 
     const loadContact = () => {
         setLoading(true)
@@ -59,14 +67,14 @@ export default function TermAndConditionIndex() {
                 url: '/'
             },
             {
-                label: 'Privacy Police',
+                label: 'Term and Conditions',
             }
         ])
     }
 
     return (
         <div>
-            <div className="privacy-police">
+            <div className="term-and-conditions" data-id="gkgdnv">
                 <ContainerComponent>
                     <BreadCrumbComponent lists={breadcrumb} />
                 </ContainerComponent>
@@ -76,7 +84,7 @@ export default function TermAndConditionIndex() {
                         <h3>TERM AND</h3>
                         <h3>CONDITION</h3>
                     </div>
-                    <img src={TermAndConditionIllustration} alt="" />
+                    <img src={termConditionObject.image_url} alt="" />
                 </div>
                 <ContainerComponent>
                     <div className='follow-us-wrap'>
@@ -117,322 +125,7 @@ export default function TermAndConditionIndex() {
                 </ContainerComponent>
                 <ContainerComponent>
                     <div className="body">
-                        <h3>TERMS AND CONDITIONS PT LUXI KNOWN AS LUXI</h3>
-                        <h3>INTRODUCTION</h3>
-
-                        <p>
-                            Welcome to PT Luxi (“Company”, “we”, “our”, “us”)! These Terms of Service (“Terms”, “Terms of Service”) govern your use of our website located at belleandkate.com (together or individually “Service”) operated by PT Berkah Nusantara Kayana. Our Privacy Policy also governs your use of our Service and explains how we collect, safeguard and disclose information that results from your use of our web pages.
-                        </p>
-
-                        <p>
-                            Your agreement with us includes these Terms and our Privacy Policy (“Agreements”). You acknowledge that you have read and understood Agreements, and agree to be bound of them. If you do not agree with (or cannot comply with) Agreements, then you may not use the Service, but please let us know by emailing at berkahnusantarakayana@gmail.com so we can try to find a solution. These Terms apply to all visitors, users and others who wish to access or use Service.
-                        </p>
-
-                        <h3>
-                            COMMUNICATIONS
-                        </h3>
-
-                        <p>
-                            By using our Service, you agree to subscribe to newsletters, marketing or promotional materials and other information we may send. However, you may opt out of receiving any, or all, of these communications from us by following the unsubscribe link or by emailing at berkahnusantarakayana@gmail.com.
-                        </p>
-
-                        <h3>
-                            PURCHASES
-                        </h3>
-
-                        <p>
-                            If you wish to purchase any product or service made available through Service (“Purchase”), you may be asked to supply certain information relevant to your Purchase including but not limited to, your credit or debit card number, the expiration date of your card, your billing address, and your shipping information.
-                        </p>
-
-                        <p>
-                            You represent and warrant that: (i) you have the legal right to use any card(s) or other payment method(s) in connection with any Purchase; and that (ii) the information you supply to us is true, correct and complete.
-                        </p>
-
-                        <p>
-                            We may employ the use of third party services for the purpose of facilitating payment and the completion of Purchases. By submitting your information, you grant us the right to provide the information to these third parties subject to our Privacy Policy.
-                        </p>
-
-                        <p>
-                            We reserve the right to refuse or cancel your order at any time for reasons including but not limited to: product or service availability, errors in the description or price of the product or service, error in your order or other reasons.
-                        </p>
-
-                        <p>
-                            We reserve the right to refuse or cancel your order if fraud or an unauthorized or illegal transaction is suspected.
-                        </p>
-
-                        <h3>
-                            CONTESTS, SWEEPSTAKES AND PROMOTIONS
-                        </h3>
-
-
-                        <p>
-                            Any contests, sweepstakes or other promotions (collectively, “Promotions”) made available through Service may be governed by rules that are separate from these Terms of Service. If you participate in any Promotions, please review the applicable rules as well as our Privacy Policy. If the rules for a Promotion conflict with these Terms of Service, Promotion rules will apply.
-                        </p>
-
-                        <h3>
-                            REFUNDS
-                        </h3>
-
-                        <p>
-                            We issue refunds for Contracts within 60 days of the original purchase of the Contract.
-                        </p>
-
-                        <h3>
-                            CONTENT
-                        </h3>
-
-                        <p>
-                            Our Service allows you to post, link, store, share and otherwise make available certain information, text, graphics, videos, or other material (“Content”). You are responsible for Content that you post on or through Service, including its legality, reliability, and appropriateness.
-                        </p>
-
-                        <p>
-                            By posting Content on or through Service, You represent and warrant that: (i) Content is yours (you own it) and/or you have the right to use it and the right to grant us the rights and license as provided in these Terms, and (ii) that the posting of your Content on or through Service does not violate the privacy rights, publicity rights, copyrights, contract rights or any other rights of any person or entity. We reserve the right to terminate the account of anyone found to be infringing on a copyright.
-                        </p>
-
-                        <h3>
-                            You retain any and all of your rights to any Content you submit, post or display on or through Service and you are responsible for protecting those rights. We take no responsibility and assume no liability for Content you or any third party posts on or through Service. However, by posting Content using Service you grant us the right and license to use, modify, publicly perform, publicly display, reproduce, and distribute such Content on and through Service. You agree that this license includes the right for us to make your Content available to other users of Service, who may also use your Content subject to these Terms.
-                        </h3>
-
-                        <p>
-                            PT Luxi has the right but not the obligation to monitor and edit all Content provided by users.
-                        </p>
-
-                        <p>
-                            In addition, Content found on or through this Service are the property of PT Luxi or used with permission. You may not distribute, modify, transmit, reuse, download, repost, copy, or use said Content, whether in whole or in part, for commercial purposes or for personal gain, without express advance written permission from us.
-                        </p>
-
-                        <h3>
-                            DELIVERY POLICY
-                        </h3>
-
-                        <ol>
-                            <li>
-                                Your order will be delivered within 1 (one) day after we receive the payment.
-                            </li>
-                            <li>
-                                Belle&Kate will check the condition and inclusion of your items before we proceed with delivery.
-                            </li>
-                            <li>
-                                Private Courier Delivery is only available in Jakarta and Tangerang
-                            </li>
-                            <li>
-                                Customers MUST keep the record of their unboxing video in 1x24 hours after the item has arrived to file a complaint
-                            </li>
-                        </ol>
-
-                        <h3>
-                            PROHIBITED USES
-                        </h3>
-
-                        <p>
-                            You may use Service only for lawful purposes and in accordance with Terms. You agree not to use Service:
-                        </p>
-
-                        <ol>
-                            <li>
-                                In any way that violates any applicable national or international law or regulation.
-                            </li>
-                            <li>
-                                For the purpose of exploiting, harming, or attempting to exploit or harm minors in any way by exposing them to inappropriate content or otherwise.
-                            </li>
-                            <li>
-                                To transmit, or procure the sending of, any advertising or promotional material, including any “junk mail”, “chain letter,” “spam,” or any other similar solicitation.
-                            </li>
-                            <li>
-                                To impersonate or attempt to impersonate Company, a Company employee, another user, or any other person or entity.
-                            </li>
-                            <li>
-                                In any way that infringes upon the rights of others, or in any way is illegal, threatening, fraudulent, or harmful, or in connection with any unlawful, illegal, fraudulent, or harmful purpose or activity.
-                            </li>
-                            <li>
-                                To engage in any other conduct that restricts or inhibits anyone’s use or enjoyment of Service, or which, as determined by us, may harm or offend Company or users of Service or expose them to liability.
-                            </li>
-                        </ol>
-
-                        <p>
-                            Additionally, you agree not to:
-                        </p>
-
-                        <ol>
-                            <li>
-                                Use Service in any manner that could disable, overburden, damage, or impair Service or interfere with any other party’s use of Service, including their ability to engage in real time activities through Service.
-                            </li>
-                            <li>
-                                Use any robot, spider, or other automatic device, process, or means to access Service for any purpose, including monitoring or copying any of the material on Service.
-                            </li>
-                            <li>
-                                Use any manual process to monitor or copy any of the material on Service or for any other unauthorized purpose without our prior written consent.
-                            </li>
-                            <li>
-                                Use any device, software, or routine that interferes with the proper working of Service.
-                            </li>
-                            <li>
-                                Introduce any viruses, trojan horses, worms, logic bombs, or other material which is malicious or technologically harmful.
-                            </li>
-                            <li>
-                                Attempt to gain unauthorized access to, interfere with, damage, or disrupt any parts of Service, the server on which Service is stored, or any server, computer, or database connected to Service.
-                            </li>
-                            <li>
-                                Attack Service via a denial-of-service attack or a distributed denial-of-service attack.
-                            </li>
-                            <li>
-                                Take any action that may damage or falsify Company rating.
-                            </li>
-                            <li>
-                                Otherwise attempt to interfere with the proper working of Service.
-                            </li>
-                        </ol>
-
-                        <h3>
-                            ANALYTICS
-                        </h3>
-
-                        <p>
-                            We may use third-party Service Providers to monitor and analyze the use of our Service.
-                        </p>
-
-                        <h3>
-                            NO USE BY MINORS
-                        </h3>
-
-                        <p>
-                            Service is intended only for access and use by individuals at least eighteen (18) years old. By accessing or using Service, you warrant and represent that you are at least eighteen (18) years of age and with the full authority, right, and capacity to enter into this agreement and abide by all of the terms and conditions of Terms. If you are not at least eighteen (18) years old, you are prohibited from both the access and usage of Service.
-                        </p>
-
-                        <h3>
-                            ACCOUNTS
-                        </h3>
-
-                        <p>
-                            When you create an account with us, you guarantee that you are above the age of 18, and that the information you provide us is accurate, complete, and current at all times. Inaccurate, incomplete, or obsolete information may result in the immediate termination of your account on Service.
-                        </p>
-                        <p>
-                            You are responsible for maintaining the confidentiality of your account and password, including but not limited to the restriction of access to your computer and/or account. You agree to accept responsibility for any and all activities or actions that occur under your account and/or password, whether your password is with our Service or a third-party service. You must notify us immediately upon becoming aware of any breach of security or unauthorized use of your account.
-                        </p>
-
-                        <p>
-                            You may not use as a username the name of another person or entity or that is not lawfully available for use, a name or trademark that is subject to any rights of another person or entity other than you, without appropriate authorization. You may not use as a username any name that is offensive, vulgar or obscene.
-                        </p>
-
-                        <p>
-                            We reserve the right to refuse service, terminate accounts, remove or edit content, or cancel orders in our sole discretion.
-                        </p>
-
-                        <p>
-                            Service and its original content (excluding Content provided by users), features and functionality are and will remain the exclusive property of PT Luxi and its licensors. Service is protected by copyright, trademark, and other laws of and foreign countries. Our trademarks may not be used in connection with any product or service without the prior written consent of PT Luxi.
-                        </p>
-
-                        <h3>
-                            COPYRIGHT POLICY
-                        </h3>
-
-                        <p>
-                            We respect the intellectual property rights of others. It is our policy to respond to any claim that Content posted on Service infringes on the copyright or other intellectual property rights (“Infringement”) of any person or entity.
-                        </p>
-                        <p>
-                            If you are a copyright owner, or authorized on behalf of one, and you believe that the copyrighted work has been copied in a way that constitutes copyright infringement, please submit your claim via email to berkahnusantarakayana@gmail.com, with the subject line: “Copyright Infringement” and include in your claim a detailed description of the alleged Infringement as detailed below, under “DMCA Notice and Procedure for Copyright Infringement Claims”
-                        </p>
-
-                        <p>
-                            You may be held accountable for damages (including costs and attorneys’ fees) for misrepresentation or bad-faith claims on the infringement of any Content found on and/or through Service on your copyright.
-                        </p>
-
-                        <h3>
-                            ERROR REPORTING AND FEEDBACK
-                        </h3>
-
-                        <p>
-                            You may provide us either directly at berkahnusantarakayana@gmail.com or via third party sites and tools with information and feedback concerning errors, suggestions for improvements, ideas, problems, complaints, and other matters related to our Service (“Feedback”). You acknowledge and agree that: (i) you shall not retain, acquire or assert any intellectual property right or other right, title or interest in or to the Feedback; (ii) Company may have development ideas similar to the Feedback; (iii) Feedback does not contain confidential information or proprietary information from you or any third party; and (iv) Company is not under any obligation of confidentiality with respect to the Feedback. In the event the transfer of the ownership to the Feedback is not possible due to applicable mandatory laws, you grant Company and its affiliates an exclusive, transferable, irrevocable, free-of-charge, sub-licensable, unlimited and perpetual right to use (including copy, modify, create derivative works, publish, distribute and commercialize) Feedback in any manner and for any purpose.
-                        </p>
-
-                        <h3>
-                            LINKS TO OTHER WEB SITES
-                        </h3>
-
-                        <p>
-                            Our Service may contain links to third party web sites or services that are not owned or controlled by PT Luxi.
-                        </p>
-                        <p>
-                            PT Luxi has no control over, and assumes no responsibility for the content, privacy policies, or practices of any third party web sites or services. We do not warrant the offerings of any of these entities/individuals or their websites.
-                        </p>
-
-                        <p>
-                            For example, the outlined Terms of Use have been created using PolicyMaker.io, a free web application for generating high-quality legal documents. PolicyMaker’s Terms and Conditions generator is an easy-to-use free tool for creating an excellent standard Terms of Service template for a website, blog, e-commerce store or app.
-                        </p>
-
-                        <p>
-                            YOU ACKNOWLEDGE AND AGREE THAT COMPANY SHALL NOT BE RESPONSIBLE OR LIABLE, DIRECTLY OR INDIRECTLY, FOR ANY DAMAGE OR LOSS CAUSED OR ALLEGED TO BE CAUSED BY OR IN CONNECTION WITH USE OF OR RELIANCE ON ANY SUCH CONTENT, GOODS OR SERVICES AVAILABLE ON OR THROUGH ANY SUCH THIRD PARTY WEB SITES OR SERVICES.
-                        </p>
-                        <p>
-                            WE STRONGLY ADVISE YOU TO READ THE TERMS OF SERVICE AND PRIVACY POLICIES OF ANY THIRD PARTY WEB SITES OR SERVICES THAT YOU VISIT.
-                        </p>
-
-                        <h3>
-                            DISCLAIMER OF WARRANTY
-                        </h3>
-
-                        <p>
-                            These services are provided by company on an “as is” and “as available” basis. company makes no representations or warranties of any kind, express or implied, as to the operation of their services, or the information, content or materials included therein. you expressly agree that your use of these services, their content, and any services or items obtained from us is at your sole risk.
-                        </p>
-
-                        <p>
-                            Neither company nor any person associated with company makes any warranty or representation with respect to the completeness, security, reliability, quality, accuracy, or availability of the services. without limiting the foregoing, neither company nor anyone associated with company represents or warrants that the services, their content, or any services or items obtained through the services will be accurate, reliable, error-free, or uninterrupted, that defects will be corrected, that the services or the server that makes it available are free of viruses or other harmful components or that the services or any services or items obtained through the services will otherwise meet your needs or expectations.
-                        </p>
-
-                        <p>
-                            Company hereby disclaims all warranties of any kind, whether express or implied, statutory, or otherwise, including but not limited to any warranties of merchantability, non-infringement, and fitness for particular purpose.
-                        </p>
-
-                        <p>
-                            The foregoing does not affect any warranties which cannot be excluded or limited under applicable law.
-                        </p>
-
-                        <h3>
-                            CHANGES TO SERVICE
-                        </h3>
-
-                        <p>
-                            We reserve the right to withdraw or amend our Service, and any service or material we provide via Service, in our sole discretion without notice. We will not be liable if for any reason all or any part of Service is unavailable at any time or for any period. From time to time, we may restrict access to some parts of Service, or the entire Service, to users, including registered users.
-                        </p>
-
-                        <h3>
-                            AMENDMENTS TO TERMS
-                        </h3>
-
-                        <p>
-                            We may amend Terms at any time by posting the amended terms on this site. It is your responsibility to review these Terms periodically.
-                        </p>
-                        <p>
-                            Your continued use of the Platform following the posting of revised Terms means that you accept and agree to the changes. You are expected to check this page frequently so you are aware of any changes, as they are binding on you.
-                        </p>
-
-
-                        <p>
-                            By continuing to access or use our Service after any revisions become effective, you agree to be bound by the revised terms. If you do not agree to the new terms, you are no longer authorized to use Service.
-                        </p>
-
-                        <h3>
-                            WAIVER AND SEVERABILITY
-                        </h3>
-                        <p>
-                            No waiver by Company of any term or condition set forth in Terms shall be deemed a further or continuing waiver of such term or condition or a waiver of any other term or condition, and any failure of Company to assert a right or provision under Terms shall not constitute a waiver of such right or provision.
-                        </p>
-                        <p>
-                            If any provision of Terms is held by a court or other tribunal of competent jurisdiction to be invalid, illegal or unenforceable for any reason, such provision shall be eliminated or limited to the minimum extent such that the remaining provisions of Terms will continue in full force and effect.
-                        </p>
-                        <h3>
-                            ACKNOWLEDGEMENT
-                        </h3>
-
-                        <p>
-                            By using service or other services provided by us, you acknowledge that you have read these terms of service and agree to be bound by them.
-                        </p>
-                        <h3>
-                            CONTACT US
-                        </h3>
-                        <p>
-                            Please send your feedback, comments, requests for technical support by email : customerservice@luxi.com
-                        </p>
+                        <p dangerouslySetInnerHTML={{ __html: termConditionObject.description }} />
                     </div>
                 </ContainerComponent>
             </div>
