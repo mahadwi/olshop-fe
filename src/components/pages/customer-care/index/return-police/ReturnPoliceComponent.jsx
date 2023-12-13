@@ -1,4 +1,5 @@
 import './return-police.scoped.scss'
+import './return-police.css'
 
 export default function ReturnPoliceComponent({ returnPoliceObject }) {
     return (

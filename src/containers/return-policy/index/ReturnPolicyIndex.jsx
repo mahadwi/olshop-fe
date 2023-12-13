@@ -4,6 +4,7 @@ import ContainerComponent from "../../../components/general/container/ContainerC
 import { useLocation } from "react-router-dom";
 import { IconBrandWhatsapp } from "@tabler/icons-react";
 import './return-policy.scoped.scss'
+import './return-police.css'
 import Api from "../../../utils/Api";
 import { LoadingContext } from "../../../context/LoadingContext";
 

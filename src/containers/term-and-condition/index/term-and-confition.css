@@ -3,3 +3,7 @@
     font-weight: 700;
     display: block;
 }
+
+.term-and-conditions[data-id="gkgdnv"] .body p {
+    margin-bottom: 0;
+}

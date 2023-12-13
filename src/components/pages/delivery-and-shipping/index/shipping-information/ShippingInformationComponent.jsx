@@ -1,4 +1,5 @@
 import './shipping-information.scoped.scss'
+import './shipping-information.css'
 
 export default function ShippingInformationComponent({ deliveryShippingObject }) {
 
