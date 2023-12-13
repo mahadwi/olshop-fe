@@ -3,13 +3,64 @@ import BagCurrentOrder from './../../../images/temp/5c855532d5cc981711da2cd9d3b2
 import { IconMinus, IconPlus, IconTrash } from "@tabler/icons-react";
 import './shopping-cart.scoped.scss'
 import ContainerComponent from "../../../components/general/container/ContainerComponent";
+import { useContext, useEffect, useState } from "react";
+import { LoadingContext } from "../../../context/LoadingContext";
+import Api from "../../../utils/Api";
+import StringUtil from "../../../utils/StringUtil";
 
 export default function ShoppingCart() {
+
+    /**
+     * Context
+     * 
+     */
+    const { setLoading } = useContext(LoadingContext)
+
+    /**
+     * Main State
+     * 
+     */
+    const [arrCarts, setArrCarts] = useState([])
+
+    useEffect(() => {
+        setLoading(true)
+
+        loadCarts()
+    }, [])
+
+    const loadCarts = () => {
+        Api.get('/cart', {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('apiToken')
+            }
+        }).then((res) => {
+            if (res) {
+                setArrCarts(res.data.data)
+            }
+        }).finally(() => {
+            setLoading(false)
+        })
+    }
+
+    const doDeleteCart = (cartObj) => {
+        setLoading(true)
+
+        Api.delete(`/cart/${cartObj.id}`, {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('apiToken')
+            }
+        }).then((res) => {
+            if (res) {
+                loadCarts()
+            }
+        })
+    }
+
     return (
         <ContainerComponent>
             <div className="shopping-cart-container">
                 <h2 className="title-page">My Shopping Cart</h2>
-                <h4 className="desc-page">10 items in your cart</h4>
+                <h4 className="desc-page">{arrCarts.length} items in your cart</h4>
 
                 <div className="carts-head">
                     <div className="checkbox-head">
@@ -23,62 +74,42 @@ export default function ShoppingCart() {
                 </div>
 
                 <div className="carts-wrapper">
-                    <div className="cart-item">
-                        <div className="checkbox-col">
-                            <Checkbox borderColor={'#DADADA'} />
-                        </div>
-                        <div className="product-col">
-                            <img src={BagCurrentOrder} alt="" />
-                            <div className="product-desc">
-                                <h4 className="product-name">Prada Re-Edition 2005 Re-Nylon  mini bag</h4>
-                                <span className="product-weight">1 pcs (500 gr)</span>
+                    {
+                        arrCarts.map((cartObj) => (
+                            <div className="cart-item">
+                                <div className="checkbox-col">
+                                    <Checkbox borderColor={'#DADADA'} />
+                                </div>
+                                <div className="product-col">
+                                    <img src={cartObj.product.images[0]} alt="" />
+                                    <div className="product-desc">
+                                        <h4 className="product-name">{cartObj.product.name}</h4>
+                                        <span className="product-weight">{cartObj.qty} pcs ({StringUtil.numberingWithDotFormat(cartObj.product.weight * cartObj.qty)} gr)</span>
+                                    </div>
+                                </div>
+                                <div className="item-price-col">
+                                    <h4 className="item-price">{StringUtil.rupiahFormat(cartObj.price)}</h4>
+                                </div>
+                                <div className="qty-col">
+                                    <div>
+                                        <button><IconMinus size={16} /></button>
+                                        <input type="text" name="" value={cartObj.qty} id="" />
+                                        <button><IconPlus size={16} /></button>
+                                    </div>
+                                </div>
+                                <div className="price-col">
+                                    <h4 className="price">{StringUtil.rupiahFormat(cartObj.total_price)}</h4>
+                                </div>
+                                <div className="delete-col">
+                                    <button type="button" onClick={() => {
+                                        if (window.confirm('Are you sure?')) {
+                                            doDeleteCart(cartObj)
+                                        }
+                                    }}><IconTrash size={20} color="#F24E1E" /></button>
+                                </div>
                             </div>
-                        </div>
-                        <div className="item-price-col">
-                            <h4 className="item-price">Rp. 19.631.312</h4>
-                        </div>
-                        <div className="qty-col">
-                            <div>
-                                <button><IconMinus size={16} /></button>
-                                <input type="text" name="" value={1} id="" />
-                                <button><IconPlus size={16} /></button>
-                            </div>
-                        </div>
-                        <div className="price-col">
-                            <h4 className="price">Rp. 19.631.312</h4>
-                        </div>
-                        <div className="delete-col">
-                            <button><IconTrash size={20} color="#F24E1E" /></button>
-                        </div>
-                    </div>
-                    <div className="cart-item">
-                        <div className="checkbox-col">
-                            <Checkbox borderColor={'#DADADA'} />
-                        </div>
-                        <div className="product-col">
-                            <img src={BagCurrentOrder} alt="" />
-                            <div className="product-desc">
-                                <h4 className="product-name">Prada Re-Edition 2005 Re-Nylon  mini bag</h4>
-                                <span className="product-weight">1 pcs (500 gr)</span>
-                            </div>
-                        </div>
-                        <div className="item-price-col">
-                            <h4 className="item-price">Rp. 19.631.312</h4>
-                        </div>
-                        <div className="qty-col">
-                            <div>
-                                <button><IconMinus size={16} /></button>
-                                <input type="text" name="" value={1} id="" />
-                                <button><IconPlus size={16} /></button>
-                            </div>
-                        </div>
-                        <div className="price-col">
-                            <h4 className="price">Rp. 19.631.312</h4>
-                        </div>
-                        <div className="delete-col">
-                            <button><IconTrash size={20} color="#F24E1E" /></button>
-                        </div>
-                    </div>
+                        ))
+                    }
                 </div>
 
                 <div className="box-bottom-checkout">
@@ -97,16 +128,16 @@ export default function ShoppingCart() {
                         <div className="top-desc">
                             <div className="left-select">
                                 <Checkbox />
-                                <span>Select all (10)</span>
+                                <span>Select all ({arrCarts.length})</span>
                             </div>
                             <div className="right-price">
                                 <div className="left-select-text">
                                     <h4>CART SUB TOTAL</h4>
-                                    <span>Items (2)</span>
+                                    <span>Items ({arrCarts.length})</span>
                                 </div>
                                 <div className="right-price-text">
                                     <h4>
-                                        Rp. 39.262.624
+                                        {StringUtil.rupiahFormat(arrCarts.reduce((total, cartObj) => total + cartObj.total_price, 0))}
                                     </h4>
                                 </div>
                             </div>

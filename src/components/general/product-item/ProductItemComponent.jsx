@@ -4,8 +4,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import NoPhotoProduct from './../../../images/product-item/no-photo-product.png'
 import StringUtil from '../../../utils/StringUtil';
 import Api from '../../../utils/Api';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { AuthUserContext } from '../../../context/AuthUserContext';
+import { LoadingContext } from '../../../context/LoadingContext';
 
 export default function ProductItemComponent({ product, className, blur }) {
 
@@ -14,6 +15,7 @@ export default function ProductItemComponent({ product, className, blur }) {
      * 
      */
     const { user } = useContext(AuthUserContext)
+    const { setLoading } = useContext(LoadingContext)
 
     /**
      * State
@@ -26,6 +28,10 @@ export default function ProductItemComponent({ product, className, blur }) {
      * 
      */
     const navigate = useNavigate();
+
+    useEffect(() => {
+        setTempProduct(product)
+    }, [product])
 
     const toggleWishlist = () => {
         if (!user) {
@@ -62,13 +68,35 @@ export default function ProductItemComponent({ product, className, blur }) {
 
     }
 
+    const doAddToCart = () => {
+        if (user) {
+            setLoading(true)
+            Api.post('/cart', {
+                product_id: tempProduct.id,
+                qty: 1
+            }, {
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('apiToken')
+                }
+            }).then((res) => {
+                if (res) {
+                    alert('Berhasil dimasukan cart')
+                }
+            }).finally(() => {
+                setLoading(false)
+            })
+        }
+    }
+
     return (
         <div className={`product-item ${className ? className : ''}`}>
             <div className="product-image">
                 <img src={tempProduct.images.length > 0 ? tempProduct.images[0] : NoPhotoProduct} alt="" />
 
                 <div className='product-action'>
-                    <button className='btn-cart'>Add to cart</button>
+                    <button type='button' className='btn-cart' onClick={() => {
+                        doAddToCart()
+                    }}>Add to cart</button>
                     <button className='btn-buy'>Buy Now</button>
                 </div>
 

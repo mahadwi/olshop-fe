@@ -3,7 +3,7 @@ const StringUtil = {
         return string.charAt(0).toUpperCase() + string.slice(1);
     },
     rupiahFormat(string, prefix) {
-        let number_string = string.replace(/[^,\d]/g, '').toString(),
+        let number_string = string.toString().replace(/[^,\d]/g, '').toString(),
             split = number_string.split(','),
             sisa = split[0].length % 3,
             rupiah = split[0].substr(0, sisa),
@@ -18,6 +18,23 @@ const StringUtil = {
         rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
 
         return 'Rp' + rupiah
+    },
+    numberingWithDotFormat(string, prefix) {
+        let number_string = string.toString().replace(/[^,\d]/g, '').toString(),
+            split = number_string.split(','),
+            sisa = split[0].length % 3,
+            rupiah = split[0].substr(0, sisa),
+            ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+        // tambahkan titik jika yang di input sudah menjadi angka ribuan
+        if (ribuan) {
+            let separator = sisa ? '.' : '';
+            rupiah += separator + ribuan.join('.');
+        }
+
+        rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+
+        return rupiah
     },
     googleMapsURLToEmbedURL: (GoogleMapsURL) => {
         var coords = /\@([0-9\.\,\-a-zA-Z]*)/.exec(GoogleMapsURL);
