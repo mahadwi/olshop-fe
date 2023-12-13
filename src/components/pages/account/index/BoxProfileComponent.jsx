@@ -59,17 +59,6 @@ export default function BoxProfileComponent() {
                             </div>
                             <div className="form-group">
                                 <div className="left-form-group">
-                                    <label className='form-label' htmlFor="shop_name">Shop Name</label>
-                                </div>
-                                <div className="center-form-group">
-                                    <span>:</span>
-                                </div>
-                                <div className="right-form-group">
-                                    <input type="text" className='form-control' name="shop_name" id="shop_name" value={'Inon_471'} />
-                                </div>
-                            </div>
-                            <div className="form-group">
-                                <div className="left-form-group">
                                     <label className='form-label' htmlFor="shop_name">Gender</label>
                                 </div>
                                 <div className="center-form-group">

@@ -3,8 +3,23 @@ import './product-item.scoped.scss'
 import { Link, useNavigate } from 'react-router-dom';
 import NoPhotoProduct from './../../../images/product-item/no-photo-product.png'
 import StringUtil from '../../../utils/StringUtil';
+import Api from '../../../utils/Api';
+import { useContext, useState } from 'react';
+import { AuthUserContext } from '../../../context/AuthUserContext';
 
 export default function ProductItemComponent({ product, className, blur }) {
+
+    /**
+     * Context
+     * 
+     */
+    const { user } = useContext(AuthUserContext)
+
+    /**
+     * State
+     * 
+     */
+    const [tempProduct, setTempProduct] = useState(product)
 
     /**
      * Hooks
@@ -12,19 +27,54 @@ export default function ProductItemComponent({ product, className, blur }) {
      */
     const navigate = useNavigate();
 
+    const toggleWishlist = () => {
+        if (!user) {
+            navigate('/login')
+        } else {
+            if (!product.is_wishlist) {
+                Api.post('/wishlist', {
+                    product_id: product.id
+                }, {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem('apiToken')
+                    }
+                })
+                    .then((res) => {
+                        if (res) {
+                            setTempProduct(res.data.data.product)
+                            alert('Berhasil dimasukan wishlist')
+                        }
+                    })
+            } else {
+                Api.delete('/wishlist/' + product.id, {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem('apiToken')
+                    }
+                })
+                    .then((res) => {
+                        if (res) {
+                            setTempProduct(res.data.data.product)
+                            alert('Berhasil dihapus dari wishlist')
+                        }
+                    })
+            }
+        }
+
+    }
+
     return (
         <div className={`product-item ${className ? className : ''}`}>
             <div className="product-image">
-                <img src={product.images.length > 0 ? product.images[0] : NoPhotoProduct} alt="" />
+                <img src={tempProduct.images.length > 0 ? tempProduct.images[0] : NoPhotoProduct} alt="" />
 
                 <div className='product-action'>
                     <button className='btn-cart'>Add to cart</button>
                     <button className='btn-buy'>Buy Now</button>
                 </div>
 
-                <span className='love-wrap'>
+                <span className='love-wrap' onClick={toggleWishlist}>
                     {
-                        product.is_wishlist ?
+                        tempProduct.is_wishlist ?
                             <IconHeartFilled style={{ color: '#F44336' }} />
                             :
                             <IconHeart />
@@ -35,11 +85,11 @@ export default function ProductItemComponent({ product, className, blur }) {
             </div>
             <div className="product-body">
                 <h3>
-                    <Link to={'/shop/' + product.id}>{product.name}</Link>
+                    <Link to={'/shop/' + tempProduct.id}>{tempProduct.name}</Link>
                 </h3>
                 <div>
                     <div className='price-area'>
-                        <h4 className={`${blur ? 'blur' : ''}`}>{blur ? 'Rpxxx.xxx' : StringUtil.rupiahFormat(`${product.sale_price}`)}</h4>
+                        <h4 className={`${blur ? 'blur' : ''}`}>{blur ? 'Rpxxx.xxx' : StringUtil.rupiahFormat(`${tempProduct.sale_price}`)}</h4>
 
                         {
                             blur ?

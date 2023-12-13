@@ -6,7 +6,7 @@ import { IconPlus } from "@tabler/icons-react";
 import { useContext } from "react";
 import { AuthUserContext } from "../../../context/AuthUserContext";
 
-export default function AccountOrderLayoutComponent({ children, breadcrumb, title, description, buttonAddress, position }) {
+export default function AccountOrderLayoutComponent({ children, breadcrumb, title, description, buttonAddress, position, setShowButtonAddress }) {
     const { doLogout } = useContext(AuthUserContext)
 
     return (
@@ -48,7 +48,9 @@ export default function AccountOrderLayoutComponent({ children, breadcrumb, titl
 
                                 {
                                     buttonAddress ?
-                                        <button type="button"><span>Add New Address</span> <IconPlus /></button>
+                                        <button type="button" onClick={() => {
+                                            setShowButtonAddress(true)
+                                        }}><span>Add New Address</span> <IconPlus /></button>
                                         : <></>
                                 }
                             </div>
