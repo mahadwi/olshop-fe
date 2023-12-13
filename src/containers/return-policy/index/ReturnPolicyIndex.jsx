@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import BreadCrumbComponent from "../../../components/general/breadcrumb/BreadCrumbComponent";
 import ContainerComponent from "../../../components/general/container/ContainerComponent";
 import { useLocation } from "react-router-dom";
 import { IconBrandWhatsapp } from "@tabler/icons-react";
 import './return-policy.scoped.scss'
 import Api from "../../../utils/Api";
+import { LoadingContext } from "../../../context/LoadingContext";
 
 export default function ReturnPolicyIndex() {
 
@@ -13,6 +14,12 @@ export default function ReturnPolicyIndex() {
      * 
      */
     const { pathname } = useLocation();
+
+    /**
+     * Context
+     * 
+     */
+    const { setLoading } = useContext(LoadingContext)
 
     /**
      * Main State
@@ -32,11 +39,14 @@ export default function ReturnPolicyIndex() {
     }, [pathname]);
 
     const loadReturnPoliceObject = () => {
+        setLoading(true)
         Api.get('/return-police')
             .then((res) => {
                 if (res) {
                     setReturnPoliceObject(res.data.data[0])
                 }
+            }).finally(() => {
+                setLoading(false)
             })
     }
 

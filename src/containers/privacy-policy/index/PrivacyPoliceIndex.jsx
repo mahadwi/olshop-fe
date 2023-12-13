@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import BreadCrumbComponent from "../../../components/general/breadcrumb/BreadCrumbComponent";
 import ContainerComponent from "../../../components/general/container/ContainerComponent";
 import './privacy-police.scoped.scss'
 import './privacy-police.css'
 import { useLocation } from "react-router-dom";
 import Api from "../../../utils/Api";
+import { LoadingContext } from "../../../context/LoadingContext";
 
 export default function PrivacyPoliceIndex() {
 
@@ -13,6 +14,12 @@ export default function PrivacyPoliceIndex() {
      * 
      */
     const { pathname } = useLocation();
+
+    /**
+     * Context
+     * 
+     */
+    const { setLoading } = useContext(LoadingContext)
 
     /**
      * Main State
@@ -32,12 +39,14 @@ export default function PrivacyPoliceIndex() {
     }, [pathname]);
 
     const loadPrivacyPoliceObject = () => {
+        setLoading(true)
         Api.get('/privacy-police')
             .then((res) => {
                 if (res) {
-                    console.log(res.data.data[0])
                     setPrivacyPoliceObject(res.data.data[0])
                 }
+            }).finally(() => {
+                setLoading(false)
             })
     }
 

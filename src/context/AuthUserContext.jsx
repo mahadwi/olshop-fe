@@ -14,7 +14,7 @@ const AuthUserContextProvider = ({ children }) => {
             try {
                 const response = await Api.get('/user', {
                     headers: {
-                        Authorization: 'Bearer ' + localStorage.getItem('apiToken')
+                        Authorization: 'Bearer ' + '156|ynVEnXhn0OqBZGX2dl5DqAmdoAgYhid8nNUKSqgm33ee889e'
                     }
                 })
 

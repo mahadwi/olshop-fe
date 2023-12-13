@@ -36,27 +36,33 @@ export default function TermAndConditionIndex() {
     }, [pathname]);
 
     useEffect(() => {
+        setLoading(true)
+
         loadBreadcrumb()
         loadContact()
         loadTermCondition()
     }, [])
 
+    useEffect(() => {
+        if (Object.keys(contactObj).length > 0 && Object.keys(termConditionObject).length > 0) {
+            setLoading(false)
+        }
+    }, [termConditionObject, contactObj])
+
     const loadTermCondition = () => {
         Api.get('/term-condition')
             .then((res) => {
                 if (res) {
+                    console.log(res.data.data[0])
                     setTermConditionObject(res.data.data[0])
                 }
             })
     }
 
     const loadContact = () => {
-        setLoading(true)
         Api.get('/contact')
             .then((res) => {
                 setContactObj(res.data.data[0])
-
-                setLoading(false)
             })
     }
 
@@ -81,8 +87,7 @@ export default function TermAndConditionIndex() {
 
                 <div className="hero">
                     <div className="inner-bg">
-                        <h3>TERM AND</h3>
-                        <h3>CONDITION</h3>
+                        <h3>{termConditionObject.title}</h3>
                     </div>
                     <img src={termConditionObject.image_url} alt="" />
                 </div>

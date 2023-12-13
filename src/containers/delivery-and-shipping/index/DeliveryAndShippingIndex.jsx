@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import BreadCrumbComponent from "../../../components/general/breadcrumb/BreadCrumbComponent";
 import ContainerComponent from "../../../components/general/container/ContainerComponent";
 import ShippingInformationComponent from "../../../components/pages/delivery-and-shipping/index/shipping-information/ShippingInformationComponent";
@@ -6,6 +6,7 @@ import CardComponent from "../../../components/pages/delivery-and-shipping/index
 import ReturnPoliceComponent from "../../../components/pages/delivery-and-shipping/index/return-police/ReturnPoliceComponent";
 import { useLocation } from "react-router-dom";
 import Api from "../../../utils/Api";
+import { LoadingContext } from "../../../context/LoadingContext";
 
 export default function DeliveryAndShippingIndex() {
 
@@ -16,16 +17,32 @@ export default function DeliveryAndShippingIndex() {
     const { pathname } = useLocation();
 
     /**
+     * Context
+     * 
+     */
+    const { setLoading } = useContext(LoadingContext)
+
+    /**
      * Main State
      * 
      */
     const [breadcrumb, setBreadcrumb] = useState([])
     const [deliveryShippingObject, setDeliveryShippingObject] = useState({})
+    const [returnPoliceObject, setSeturnPoliceObject] = useState({})
 
     useEffect(() => {
+        setLoading(true)
+
         loadBreadcrumb()
         loadDeliveryShippingObject()
+        loadReturnPoliceObject()
     }, [])
+
+    useEffect(() => {
+        if (Object.keys(deliveryShippingObject).length > 0 && Object.keys(returnPoliceObject).length > 0) {
+            setLoading(false)
+        }
+    }, [deliveryShippingObject, returnPoliceObject])
 
     // Automatically scrolls to top whenever pathname changes
     useEffect(() => {
@@ -37,6 +54,15 @@ export default function DeliveryAndShippingIndex() {
             .then((res) => {
                 if (res) {
                     setDeliveryShippingObject(res.data.data[0])
+                }
+            })
+    }
+
+    const loadReturnPoliceObject = () => {
+        Api.get('/return-police')
+            .then((res) => {
+                if (res) {
+                    setSeturnPoliceObject(res.data.data[0])
                 }
             })
     }
@@ -60,7 +86,7 @@ export default function DeliveryAndShippingIndex() {
 
                 <ShippingInformationComponent deliveryShippingObject={deliveryShippingObject} />
                 <CardComponent />
-                <ReturnPoliceComponent />
+                <ReturnPoliceComponent returnPoliceObject={returnPoliceObject} />
             </ContainerComponent>
         </div>
     )

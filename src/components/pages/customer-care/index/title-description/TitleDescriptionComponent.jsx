@@ -1,10 +1,10 @@
 import './title-description.scoped.scss'
 
-export default function TitleDescriptionComponent() {
+export default function TitleDescriptionComponent({ customerCareObject }) {
     return (
         <div className='title-desc'>
-            <h2>CUSTOMER CARE</h2>
-            <p>All items sold on our platform are guaranteed authentic. We take our authentication process thoroughly to make sure all our luxury items are certified authentic.</p>
+            <h2>{customerCareObject.title}</h2>
+            <p dangerouslySetInnerHTML={{ __html: customerCareObject.description }}></p>
         </div>
     )
 }

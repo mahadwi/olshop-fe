@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css';
 import LoadingContextProvider from './context/LoadingContext';
 import AuthUserContextProvider from './context/AuthUserContext';
-
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
@@ -15,11 +15,13 @@ const root = createRoot(container);
 root.render(
     <React.StrictMode>
         <Provider store={store}>
-            <LoadingContextProvider>
-                <AuthUserContextProvider>
-                    <App />
-                </AuthUserContextProvider>
-            </LoadingContextProvider>
+            <GoogleOAuthProvider clientId="947119922402-enroefn9rrlsqpf2baji9qrqp3vigb4f.apps.googleusercontent.com">
+                <LoadingContextProvider>
+                    <AuthUserContextProvider>
+                        <App />
+                    </AuthUserContextProvider>
+                </LoadingContextProvider>
+            </GoogleOAuthProvider>
         </Provider>
     </React.StrictMode>
 );

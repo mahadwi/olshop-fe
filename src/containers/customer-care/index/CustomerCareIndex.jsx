@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import BreadCrumbComponent from "../../../components/general/breadcrumb/BreadCrumbComponent";
 import ContainerComponent from "../../../components/general/container/ContainerComponent";
 import CardComponent from "../../../components/pages/customer-care/index/card-component/CardComponent";
@@ -7,6 +7,7 @@ import ShippingInformationComponent from "../../../components/pages/customer-car
 import TitleDescriptionComponent from "../../../components/pages/customer-care/index/title-description/TitleDescriptionComponent";
 import { useLocation } from "react-router-dom";
 import Api from "../../../utils/Api";
+import { LoadingContext } from "../../../context/LoadingContext";
 
 export default function CustomerCareIndex() {
 
@@ -17,15 +18,25 @@ export default function CustomerCareIndex() {
     const { pathname } = useLocation();
 
     /**
+     * Context
+     * 
+     */
+    const { setLoading } = useContext(LoadingContext)
+
+    /**
      * Main State
      * 
      */
     const [breadcrumb, setBreadcrumb] = useState([])
     const [customerCareObject, setCustomerCareObject] = useState({})
+    const [returnPoliceObject, setReturnPoliceObject] = useState({})
 
     useEffect(() => {
+        setLoading(true)
+
         loadBreadcrumb()
         loadCustomerCareObject()
+        loadReturnPoliceObject()
     }, [])
 
     // Automatically scrolls to top whenever pathname changes
@@ -33,11 +44,26 @@ export default function CustomerCareIndex() {
         window.scrollTo(0, 0);
     }, [pathname]);
 
+    useEffect(() => {
+        if (Object.keys(customerCareObject).length > 0 && Object.keys(returnPoliceObject).length > 0) {
+            setLoading(false)
+        }
+    }, [customerCareObject, returnPoliceObject])
+
     const loadCustomerCareObject = () => {
         Api.get('/customer-care')
             .then((res) => {
                 if (res) {
                     setCustomerCareObject(res.data.data[0])
+                }
+            })
+    }
+
+    const loadReturnPoliceObject = () => {
+        Api.get('/return-police')
+            .then((res) => {
+                if (res) {
+                    setReturnPoliceObject(res.data.data[0])
                 }
             })
     }
@@ -59,10 +85,9 @@ export default function CustomerCareIndex() {
             <ContainerComponent>
                 <BreadCrumbComponent lists={breadcrumb} />
 
-                <TitleDescriptionComponent />
-                <ShippingInformationComponent />
+                <TitleDescriptionComponent customerCareObject={customerCareObject} />
                 <CardComponent />
-                <ReturnPoliceComponent />
+                <ReturnPoliceComponent returnPoliceObject={returnPoliceObject} />
             </ContainerComponent>
         </div>
     )

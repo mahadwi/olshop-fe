@@ -10,6 +10,7 @@ import { useContext, useEffect, useRef, useState } from 'react'
 import ApiErrorHandling from '../../../utils/ApiErrorHandling'
 import { AuthUserContext } from '../../../context/AuthUserContext'
 import { LoadingContext } from '../../../context/LoadingContext'
+import { GoogleLogin } from '@react-oauth/google';
 
 export default function LoginIndex() {
 
@@ -82,7 +83,16 @@ export default function LoginIndex() {
                         <div className='inner'>
                             <div className='sign-is-socmed'>
                                 <div className='button-wrap'>
-                                    <button><img src={GoogleIcon} alt="" /> Sign in with Google</button>
+                                    <GoogleLogin
+                                        onSuccess={credentialResponse => {
+                                            console.log(credentialResponse);
+                                        }}
+                                        onError={() => {
+                                            console.log('Login Failed');
+                                        }}
+                                        useOneTap
+                                    />
+                                    {/* <button><img src={GoogleIcon} alt="" /> Sign in with Google</button> */}
                                     <button><img src={FacebookIcon} alt="" /> Sign in with Facebook</button>
                                 </div>
                                 <p>- OR -</p>

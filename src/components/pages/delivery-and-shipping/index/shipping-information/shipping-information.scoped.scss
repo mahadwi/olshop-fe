@@ -25,72 +25,13 @@
                 margin-bottom: 0;
             }
 
-            ul.shop-dropdown-lists {
-                padding-left: 0px;
-
-                li.shop-dropdown-item {
-                    display: flex;
-                    flex-direction: column;
-                    padding: 1rem 0;
-                    border-bottom: 1px solid #000;
-
-                    &.show {
-
-                        .shop-dropdown-item-content {
-                            visibility: visible;
-                            max-height: 100rem;
-                            padding-top: 1rem;
-                        }
-
-                        span.shop-dropdown-item-title {
-
-                            &::after {
-                                transform: rotate(90deg) translateX(-.5rem);
-                            }
-
-                        }
-                    }
-
-                    span.shop-dropdown-item-title {
-                        position: relative;
-                        color: #000;
-                        text-align: justify;
-                        font-family: 'Inter', sans-serif;
-                        font-size: 14px;
-                        font-style: normal;
-                        font-weight: 400;
-                        line-height: 20px;
-                        cursor: pointer;
-
-                        &::after {
-                            content: '\003E';
-                            position: absolute;
-                            right: 0;
-                            top: 50%;
-                            transform: translateY(-50%);
-                            transition: all 300ms ease-in-out;
-                        }
-                    }
-
-                    .shop-dropdown-item-content {
-                        color: #000;
-                        text-align: justify;
-                        font-family: 'Inter', sans-serif;
-                        font-size: 14px;
-                        font-style: normal;
-                        font-weight: 400;
-                        line-height: 23px;
-                        max-height: 0px;
-                        visibility: hidden;
-                        transition: all 500ms ease-in-out;
-
-                        p {}
-
-                        ul {}
-
-                        li {}
-                    }
-                }
+            div {
+                text-align: justify;
+                font-family: 'Inter', sans-serif;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 23px;
             }
         }
     }
