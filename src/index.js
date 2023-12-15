@@ -8,6 +8,7 @@ import 'react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css';
 import LoadingContextProvider from './context/LoadingContext';
 import AuthUserContextProvider from './context/AuthUserContext';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import CartContextProvider from './context/CartContext';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
@@ -18,7 +19,9 @@ root.render(
             <GoogleOAuthProvider clientId="947119922402-enroefn9rrlsqpf2baji9qrqp3vigb4f.apps.googleusercontent.com">
                 <LoadingContextProvider>
                     <AuthUserContextProvider>
-                        <App />
+                        <CartContextProvider>
+                            <App />
+                        </CartContextProvider>
                     </AuthUserContextProvider>
                 </LoadingContextProvider>
             </GoogleOAuthProvider>

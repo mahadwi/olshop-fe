@@ -7,6 +7,7 @@ import Api from '../../../utils/Api';
 import { useContext, useEffect, useState } from 'react';
 import { AuthUserContext } from '../../../context/AuthUserContext';
 import { LoadingContext } from '../../../context/LoadingContext';
+import { CartContext } from '../../../context/CartContext';
 
 export default function ProductItemComponent({ product, className, blur }) {
 
@@ -16,6 +17,7 @@ export default function ProductItemComponent({ product, className, blur }) {
      */
     const { user } = useContext(AuthUserContext)
     const { setLoading } = useContext(LoadingContext)
+    const { refreshCarts } = useContext(CartContext)
 
     /**
      * State
@@ -89,6 +91,7 @@ export default function ProductItemComponent({ product, className, blur }) {
                 }
             }).then((res) => {
                 if (res) {
+                    refreshCarts()
                     alert('Berhasil dimasukan cart')
                 }
             }).finally(() => {

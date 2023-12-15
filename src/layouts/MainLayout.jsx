@@ -7,17 +7,27 @@ import LoadingComponent from "../components/general/loading/LoadingComponent";
 import { LoadingContext } from "../context/LoadingContext";
 import { AuthUserContext } from "../context/AuthUserContext";
 import NavbarHomeComponent from "../components/general/navbar-home/NavbarHomeComponent";
+import { CartContext } from "../context/CartContext";
 
 export default function MainLayout() {
 
     const { pathname } = useLocation()
 
     const { loading } = useContext(LoadingContext)
-    const { getUser } = useContext(AuthUserContext)
+    const { getUser, user } = useContext(AuthUserContext)
+    const { refreshCarts, setCarts } = useContext(CartContext)
 
     useEffect(() => {
         getUser()
     }, [])
+
+    useEffect(() => {
+        if (user) {
+            refreshCarts()
+        } else {
+            setCarts([])
+        }
+    }, [user])
 
     return (
         <div>
