@@ -213,7 +213,7 @@ function NavbarComponent({ t }) {
                                     {
                                         user ?
                                             <NavLink to={user ? '/account' : '/login'}>
-                                                <img className='photo-profile' src={NoPhoto} />
+                                                <img className='photo-profile' src={user.image ? user.image : NoPhoto} />
                                             </NavLink>
                                             : <Link to={'/login'} className='btn-login'>Login</Link>
                                     }

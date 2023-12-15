@@ -1,13 +1,15 @@
 // import Checkbox from 'react-custom-checkbox'
 import './box-profile.scoped.scss'
-import PhotoProfilePict from './../../../../images/temp/2d3944dc8e5acaa7d442d2a2427fc553.jpeg'
 import { useContext, useEffect, useRef, useState } from 'react'
 import { DateUtil } from '../../../../utils/DateUtil'
 import { LoadingContext } from '../../../../context/LoadingContext'
 import Api from '../../../../utils/Api'
 import Checkbox from 'rc-checkbox';
 import ApiErrorHandling from '../../../../utils/ApiErrorHandling'
+import NoPhotoImage from './../../../../images/icons/no-photo.png'
+
 require('rc-checkbox/assets/index.css');
+
 export default function BoxProfileComponent({ user }) {
 
     /**
@@ -80,7 +82,7 @@ export default function BoxProfileComponent({ user }) {
         formData.append('user_name', tempUser.userName)
         formData.append('name', tempUser.name)
         formData.append('no_hp', tempUser.phone)
-        formData.append('gender', tempUser.gender)
+        formData.append('gender', tempUser.gender ? tempUser.gender.toLowerCase() : '')
         formData.append('birth_date', `${selectedYear}-${selectedMonth.value}-${selectedDateMonth}`)
         formData.append('email', tempUser.email)
 
@@ -275,7 +277,7 @@ export default function BoxProfileComponent({ user }) {
                             tempUpdatePhoto ?
                                 <img src={window.URL.createObjectURL(tempUpdatePhoto)} alt="" />
                                 :
-                                <img src={PhotoProfilePict} alt="" />
+                                <img src={tempUser.image ? tempUser.image : NoPhotoImage} alt="" />
                         }
                         <input type="file" name="photo" id="photo" accept='image/*' className='d-none' onChange={(e) => {
                             if (e.target.files.length !== 0) {
