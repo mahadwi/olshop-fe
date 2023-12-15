@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import HighlightTitleComponent from "../../../components/general/highlight-title/HighlightTitleComponent";
 import './email-verification.scoped.scss'
 import ContainerComponent from "../../../components/general/container/ContainerComponent";
@@ -19,7 +19,7 @@ export default function EmailVerificationIndex() {
      * Context
      * 
      */
-    const { setLoading } = useState(LoadingContext)
+    const { setLoading } = useContext(LoadingContext)
 
     /**
      * Main State

@@ -37,9 +37,9 @@ export default function ProductItemComponent({ product, className, blur }) {
         if (!user) {
             navigate('/login')
         } else {
-            if (!product.is_wishlist) {
+            if (!tempProduct.is_wishlist) {
                 Api.post('/wishlist', {
-                    product_id: product.id
+                    product_id: tempProduct.id
                 }, {
                     headers: {
                         Authorization: 'Bearer ' + localStorage.getItem('apiToken')
@@ -47,19 +47,28 @@ export default function ProductItemComponent({ product, className, blur }) {
                 })
                     .then((res) => {
                         if (res) {
-                            setTempProduct(res.data.data.product)
+                            let objProduct = Object.assign({}, tempProduct)
+                            objProduct.is_wishlist = true
+                            objProduct.wishlist = {
+                                id: res.data.data.id
+                            }
+
+                            setTempProduct(objProduct)
                             alert('Berhasil dimasukan wishlist')
                         }
                     })
             } else {
-                Api.delete('/wishlist/' + product.id, {
+                Api.delete('/wishlist/' + tempProduct.wishlist.id, {
                     headers: {
                         Authorization: 'Bearer ' + localStorage.getItem('apiToken')
                     }
                 })
                     .then((res) => {
                         if (res) {
-                            setTempProduct(res.data.data.product)
+                            let objProduct = Object.assign({}, tempProduct)
+                            objProduct.is_wishlist = false
+
+                            setTempProduct(objProduct)
                             alert('Berhasil dihapus dari wishlist')
                         }
                     })

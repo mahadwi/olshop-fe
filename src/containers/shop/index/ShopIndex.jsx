@@ -76,28 +76,31 @@ export default function ShopIndex() {
 
     useEffect(() => {
         loadProducts()
-    }, [selectedBrands, selectedProductCategories, selectedPriceMinAndMax, selectedFilterColor, searchParams, selectedSortOption])
+    }, [selectedBrands, selectedProductCategories, selectedPriceMinAndMax, selectedFilterColor, searchParams, selectedSortOption, user])
 
     const loadProducts = () => {
-        setLoading(true)
-        Api.get('/product', {
-            params: {
-                brand_id: selectedBrands,
-                category_id: selectedProductCategories,
-                price_min: selectedPriceMinAndMax.price_min,
-                price_max: selectedPriceMinAndMax.price_max,
-                color_id: selectedFilterColor,
-                itemPerpage: 10,
-                page: currentPage ? currentPage : 1,
-                is_new_arrival: selectedSortOption.value == 'is_new_arrival' ? 1 : 0,
-                sort_by: selectedSortOption.value != 'is_new_arrival' ? selectedSortOption.value : null
-            }
-        })
-            .then((res) => {
-                setProducts(res.data.data)
-                setMetaPagination(res.data.meta)
-                setLoading(false)
+        if (user !== false) {
+            setLoading(true)
+            Api.get('/product', {
+                params: {
+                    user_id: user ? user.id : null,
+                    brand_id: selectedBrands,
+                    category_id: selectedProductCategories,
+                    price_min: selectedPriceMinAndMax.price_min,
+                    price_max: selectedPriceMinAndMax.price_max,
+                    color_id: selectedFilterColor,
+                    itemPerpage: 10,
+                    page: currentPage ? currentPage : 1,
+                    is_new_arrival: selectedSortOption.value == 'is_new_arrival' ? 1 : 0,
+                    sort_by: selectedSortOption.value != 'is_new_arrival' ? selectedSortOption.value : null
+                }
             })
+                .then((res) => {
+                    setProducts(res.data.data)
+                    setMetaPagination(res.data.meta)
+                    setLoading(false)
+                })
+        }
     }
 
     const loadBrands = () => {

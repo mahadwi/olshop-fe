@@ -28,6 +28,7 @@ import AccountOrder from './containers/account/order/AccountOrder';
 import AccountWishlist from './containers/account/wishlist/AccountWishlist';
 import ShoppingCart from './containers/shopping/cart/ShoppingCart';
 import ShoppingCheckout from './containers/shopping/checkout/ShoppingCheckout';
+import FaqIndex from './containers/faq/FaqIndex';
 
 function App() {
     return (
@@ -62,6 +63,7 @@ function App() {
                         <Route path='/delivery-and-shipping' element={<DeliveryAndShippingIndex />} />
                         <Route path='/customer-care' element={<CustomerCareIndex />} />
                         <Route path='/term-and-conditions' element={<TermAndConditionIndex />} />
+                        <Route path='/faq' element={<FaqIndex />} />
                         {/* Event */}
 
                         {/* End of Event */}

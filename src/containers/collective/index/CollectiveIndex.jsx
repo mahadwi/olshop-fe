@@ -56,27 +56,30 @@ export default function CollectiveIndex() {
 
     useEffect(() => {
         loadProducts()
-    }, [id, selectedSortOption, searchNameProduct, selectedBrands])
+    }, [id, selectedSortOption, searchNameProduct, selectedBrands, user])
 
     const loadProducts = () => {
-        setLoading(true)
+        if (user !== false) {
+            setLoading(true)
 
-        Api.get('/product', {
-            params: {
-                search: searchNameProduct,
-                brand_id: selectedBrands,
-                category_id: [id],
-                is_new_arrival: selectedSortOption.value == 'is_new_arrival' ? 1 : 0,
-                sort_by: selectedSortOption.value != 'is_new_arrival' ? selectedSortOption.value : null,
-                itemPerpage: 10,
-                page: currentPage ? currentPage : 1,
-            }
-        })
-            .then((res) => {
-                setProducts(res.data.data)
-                setMetaPagination(res.data.meta)
-                setLoading(false)
+            Api.get('/product', {
+                params: {
+                    user_id: user ? user.id : null,
+                    search: searchNameProduct,
+                    brand_id: selectedBrands,
+                    category_id: [id],
+                    is_new_arrival: selectedSortOption.value == 'is_new_arrival' ? 1 : 0,
+                    sort_by: selectedSortOption.value != 'is_new_arrival' ? selectedSortOption.value : null,
+                    itemPerpage: 10,
+                    page: currentPage ? currentPage : 1,
+                }
             })
+                .then((res) => {
+                    setProducts(res.data.data)
+                    setMetaPagination(res.data.meta)
+                    setLoading(false)
+                })
+        }
     }
 
     const loadBreadcrumbs = () => {

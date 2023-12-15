@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import AccountOrderLayoutComponent from "../../../components/general/account-order-layout/AccountOrderLayoutComponent";
 import BoxProfileComponent from "../../../components/pages/account/index/BoxProfileComponent";
 import { useLocation } from 'react-router-dom'
+import { AuthUserContext } from "../../../context/AuthUserContext";
 
 export default function AccountIndex() {
 
@@ -10,6 +11,12 @@ export default function AccountIndex() {
      * 
      */
     const { pathname } = useLocation();
+
+    /**
+     * Context
+     * 
+     */
+    const { user } = useContext(AuthUserContext)
 
     /**
      * Main State
@@ -40,7 +47,7 @@ export default function AccountIndex() {
 
     return (
         <AccountOrderLayoutComponent position={'My Account'} breadcrumb={breadcrumb} title={'My Account'} description={'Manage and protect your account'}>
-            <BoxProfileComponent />
+            <BoxProfileComponent user={user} />
         </AccountOrderLayoutComponent>
     )
 }

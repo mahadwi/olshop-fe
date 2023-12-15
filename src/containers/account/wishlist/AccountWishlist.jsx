@@ -60,6 +60,7 @@ export default function AccountWishlist() {
             }
         }).then((res) => {
             if (res) {
+                console.log(res.data.data)
                 setArrWishlists(res.data.data)
             }
         }).finally(() => {

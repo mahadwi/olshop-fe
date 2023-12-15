@@ -1,10 +1,114 @@
-import Checkbox from 'react-custom-checkbox'
+// import Checkbox from 'react-custom-checkbox'
 import './box-profile.scoped.scss'
 import PhotoProfilePict from './../../../../images/temp/2d3944dc8e5acaa7d442d2a2427fc553.jpeg'
+import { useContext, useEffect, useRef, useState } from 'react'
+import { DateUtil } from '../../../../utils/DateUtil'
+import { LoadingContext } from '../../../../context/LoadingContext'
+import Api from '../../../../utils/Api'
+import Checkbox from 'rc-checkbox';
+import ApiErrorHandling from '../../../../utils/ApiErrorHandling'
+require('rc-checkbox/assets/index.css');
+export default function BoxProfileComponent({ user }) {
 
-export default function BoxProfileComponent() {
+    /**
+     * Context
+     * 
+     */
+    const { setLoading } = useContext(LoadingContext)
+
+    /**
+     * Refs
+     * 
+     */
+    const inputPhotoRef = useRef()
+
+    /**
+     * Main State
+     * 
+     */
+    const [availableYears, setAvailableYears] = useState([])
+    const [availableMonths, setAvailableMonths] = useState([])
+    const [availableDatesInMonth, setAvailableDatesInMonth] = useState([])
+    const [tempUser, setTempUser] = useState(user)
+    const [selectedMonth, setSelectedMonth] = useState({})
+    const [selectedYear, setSelectedYear] = useState(null)
+    const [selectedDateMonth, setSelectedDateMonth] = useState(null)
+    const [tempUpdatePhoto, setTempUpdatePhoto] = useState(null)
+    const [errorObj422, setErrorObj422] = useState({})
+
+    useEffect(() => {
+        loadAvailableYear()
+        loadAvailableMonths()
+    }, [])
+
+    useEffect(() => {
+        loadAvailableDatesInMonth()
+    }, [selectedMonth, selectedYear])
+
+    useEffect(() => {
+        setSelectedDateMonth(availableDatesInMonth[0])
+    }, [availableDatesInMonth])
+
+    useEffect(() => {
+        setTempUser(user)
+    }, [user])
+
+    const loadAvailableYear = () => {
+        let tempAvailableYears = []
+        for (let i = 1980; i <= DateUtil.getCurrentYear(); i++) {
+            tempAvailableYears.push(i)
+        }
+
+        setAvailableYears(tempAvailableYears)
+        setSelectedYear(tempAvailableYears[tempAvailableYears.length - 1])
+    }
+
+    const loadAvailableMonths = () => {
+        setAvailableMonths(DateUtil.getAllMonthsWithNameAndIndex())
+        setSelectedMonth(DateUtil.getAllMonthsWithNameAndIndex()[0])
+    }
+
+    const loadAvailableDatesInMonth = () => {
+        setAvailableDatesInMonth(DateUtil.getDateFromMonthByYearAndIndex(selectedYear, selectedMonth.value))
+    }
+
+    const doUpdateProfile = () => {
+        setErrorObj422({})
+        setLoading(true)
+
+        const formData = new FormData()
+        formData.append('user_name', tempUser.userName)
+        formData.append('name', tempUser.name)
+        formData.append('no_hp', tempUser.phone)
+        formData.append('gender', tempUser.gender)
+        formData.append('birth_date', `${selectedYear}-${selectedMonth.value}-${selectedDateMonth}`)
+        formData.append('email', tempUser.email)
+
+        if (tempUpdatePhoto) {
+            formData.append('image', tempUpdatePhoto)
+        }
+
+        Api.post('/user/update', formData, {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('apiToken')
+            }
+        }).then((res) => {
+            if (res) {
+                alert('Profile updated successfully')
+            }
+        }).catch((err) => {
+            ApiErrorHandling.handlingErr(err, [setErrorObj422])
+        }).finally(() => {
+            setLoading(false)
+        })
+    }
+
     return (
         <div className='box'>
+            {
+                Object.keys(errorObj422).length > 0 ?
+                    alert(errorObj422[Object.keys(errorObj422)[0]]) : <></>
+            }
             <div className='inner-box'>
                 <div className="left">
                     <form action="">
@@ -17,7 +121,14 @@ export default function BoxProfileComponent() {
                                     <span>:</span>
                                 </div>
                                 <div className="right-form-group">
-                                    <input type="text" className='form-control disabled' readOnly name="username" id="username" value={'Inon_471'} />
+                                    <input type="text" className='form-control disabled' name="username" id="username" value={tempUser.userName} onChange={(e) => {
+                                        setTempUser(() => {
+                                            let obj = Object.assign({}, tempUser)
+                                            obj.userName = e.target.value
+
+                                            return obj
+                                        })
+                                    }} />
                                 </div>
                             </div>
                             <div className="form-group">
@@ -28,7 +139,14 @@ export default function BoxProfileComponent() {
                                     <span>:</span>
                                 </div>
                                 <div className='right-form-group'>
-                                    <input type="text" className='form-control' name="name" id="name" value={'Noni'} />
+                                    <input type="text" className='form-control' name="name" id="name" value={tempUser.name} onChange={(e) => {
+                                        setTempUser(() => {
+                                            let obj = Object.assign({}, tempUser)
+                                            obj.name = e.target.value
+
+                                            return obj
+                                        })
+                                    }} />
                                 </div>
                             </div>
                             <div className="form-group">
@@ -39,22 +157,32 @@ export default function BoxProfileComponent() {
                                     <span>:</span>
                                 </div>
                                 <div className='right-form-group'>
-                                    <input type="email" className='form-control' name="email" id="email" value={'Noni@gmail.com'} />
+                                    <input type="email" className='form-control' name="email" id="email" value={tempUser.email} onChange={(e) => {
+                                        setTempUser(() => {
+                                            let obj = Object.assign({}, tempUser)
+                                            obj.email = e.target.value
+
+                                            return obj
+                                        })
+                                    }} />
                                 </div>
                             </div>
-                            <div className="form-group form-group__phone-number-wrap">
+                            <div className="form-group">
                                 <div className="left-form-group">
                                     <label className='form-label' htmlFor="username">Phone Number</label>
                                 </div>
                                 <div className="center-form-group">
                                     <span>:</span>
                                 </div>
-                                <div className="right-form-group form-group__phone-number">
-                                    <label htmlFor="phone_code" className='any-code'>Any Code*</label>
-                                    <select name="phone_code" id="phone_code" className="form-control form-control__phone-code">
-                                        <option value="+62">+62</option>
-                                    </select>
-                                    <input type="text" className="form-control" name='phone_number' id='phone_number' placeholder="Phone Number" />
+                                <div className="right-form-group">
+                                    <input type="number" className="form-control" name='phone_number' id='phone_number' value={tempUser.phone} placeholder="Phone Number" onChange={(e) => {
+                                        setTempUser(() => {
+                                            let obj = Object.assign({}, tempUser)
+                                            obj.phone = e.target.value
+
+                                            return obj
+                                        })
+                                    }} />
                                 </div>
                             </div>
                             <div className="form-group">
@@ -67,11 +195,25 @@ export default function BoxProfileComponent() {
                                 <div className="right-form-group">
                                     <div className='form-check-wrap'>
                                         <div className='form-check-item'>
-                                            <Checkbox borderColor={'#DADADA'} name={'gender_female'} />
+                                            <Checkbox checked={tempUser.gender == 'Female'} onChange={(evt) => {
+                                                if (evt.target.checked) {
+                                                    let obj = Object.assign({}, tempUser)
+
+                                                    obj.gender = 'Female'
+                                                    setTempUser(obj)
+                                                }
+                                            }} />
                                             <label className='form-label' htmlFor="gender_female">Female</label>
                                         </div>
                                         <div className='form-check-item'>
-                                            <Checkbox borderColor={'#DADADA'} name={'gender_male'} />
+                                            <Checkbox checked={tempUser.gender == 'Male'} onChange={(evt) => {
+                                                if (evt.target.checked) {
+                                                    let obj = Object.assign({}, tempUser)
+
+                                                    obj.gender = 'Male'
+                                                    setTempUser(obj)
+                                                }
+                                            }} />
                                             <label className='form-label' htmlFor="gender_male">Male</label>
                                         </div>
                                     </div>
@@ -86,38 +228,63 @@ export default function BoxProfileComponent() {
                                 </div>
                                 <div className="right-form-group">
                                     <div className='input-dob-wrap'>
-                                        <select className='form-control' name="date" id="date">
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
+                                        <select className='form-control' name="date" id="date" value={selectedDateMonth} onChange={(e) => {
+                                            setSelectedDateMonth(e.target.value)
+                                        }}>
+                                            {
+                                                availableDatesInMonth.map((date) => (
+                                                    <option value={date}>{date}</option>
+                                                ))
+                                            }
                                         </select>
-                                        <select className='form-control' name="month" id="month">
-                                            <option value="January">January</option>
-                                            <option value="February">February</option>
-                                            <option value="March">March</option>
-                                            <option value="April">April</option>
+                                        <select className='form-control' name="month" id="month" value={selectedMonth.value} onChange={(e) => {
+                                            const selectedOption = e.target.children[e.target.selectedIndex]
+
+                                            setSelectedMonth({
+                                                value: selectedOption.getAttribute('value'),
+                                                label: selectedOption.innerHTML
+                                            })
+                                        }}>
+                                            {
+                                                availableMonths.map((availableMonth) => (
+                                                    <option value={availableMonth.value}>{availableMonth.label}</option>
+                                                ))
+                                            }
                                         </select>
-                                        <select className='form-control' name="year" id="year">
-                                            <option value="1995">1995</option>
-                                            <option value="1996">1996</option>
-                                            <option value="1997">1997</option>
-                                            <option value="1998">1998</option>
-                                            <option value="1999">1999</option>
+                                        <select className='form-control' name="year" id="year" value={selectedYear} onChange={(e) => {
+                                            setSelectedYear(e.target.value);
+                                        }}>
+                                            {
+                                                availableYears.map((availableYear) => (
+                                                    <option value={availableYear}>{availableYear}</option>
+                                                ))
+                                            }
                                         </select>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div className="form-group__btn-save">
-                            <button className='btn-save'>Save</button>
+                            <button type='button' onClick={doUpdateProfile} className='btn-save'>Save</button>
                         </div>
                     </form>
                 </div>
                 <div className="right">
                     <div className="inner">
-                        <img src={PhotoProfilePict} alt="" />
-                        <button>Select Image</button>
+                        {
+                            tempUpdatePhoto ?
+                                <img src={window.URL.createObjectURL(tempUpdatePhoto)} alt="" />
+                                :
+                                <img src={PhotoProfilePict} alt="" />
+                        }
+                        <input type="file" name="photo" id="photo" accept='image/*' className='d-none' onChange={(e) => {
+                            if (e.target.files.length !== 0) {
+                                setTempUpdatePhoto(e.target.files[0])
+                            }
+                        }} ref={inputPhotoRef} />
+                        <button type='button' onClick={() => {
+                            inputPhotoRef.current.click()
+                        }}>Select Image</button>
                         <input type="file" name="photo" className='d-none' id="" />
                         <p className='input-file-desc'>File size: maximum 1 MB
                             File extension: .JPEG, .PNG</p>

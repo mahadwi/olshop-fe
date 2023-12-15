@@ -39,6 +39,7 @@ export default function AddressIndex() {
     const [tagCreateAddress, setTagCreateAddress] = useState('')
     const [errorObj422, setErrorObj422] = useState({})
     const [objEditAddress, setObjEditAddress] = useState({})
+    const [selectedSubDistrictEdit, setSelectedSubDistrictEdit] = useState({ value: '', label: '' })
 
     useEffect(() => {
         loadBreadcrumb()
@@ -117,7 +118,7 @@ export default function AddressIndex() {
             name: objEditAddress.name,
             phone: objEditAddress.phone,
             address: objEditAddress.phone,
-            // subdistrict_id: subDistrictCreateAddress.value,
+            subdistrict_id: selectedSubDistrictEdit.value,
             tag: objEditAddress.tag,
             is_primary: objEditAddress.is_primary
         }, {
@@ -127,8 +128,10 @@ export default function AddressIndex() {
         }).then((res) => {
             if (res) {
                 setObjEditAddress({})
+                setSelectedSubDistrictEdit({ value: '', label: '' })
 
                 refreshUser()
+                setModalEditAddress(false)
             }
         }).catch((err) => {
             ApiErrorHandling.handlingErr(err, [setErrorObj422])
@@ -210,10 +213,13 @@ export default function AddressIndex() {
                             </div>
                             <div className="form-group mb-1">
                                 <label htmlFor="tag">Tag</label>
-                                <input type="text" name="tag" id="tag" className={`form-control ${errorObj422.tag ? 'is-invalid' : ''}`} placeholder="Tag" value={tagCreateAddress} onChange={(e) => {
+                                <select name="tag" id="tag" className={`form-control ${errorObj422.tag ? 'is-invalid' : ''}`} value={tagCreateAddress} onChange={(e) => {
                                     setTagCreateAddress(e.target.value)
-                                }} />
-
+                                }}>
+                                    <option value="" disabled selected>Choose Tag</option>
+                                    <option value="Home">Home</option>
+                                    <option value="Office">Office</option>
+                                </select>
                                 {
                                     errorObj422.tag ?
                                         <div className="invalid-feedback">
@@ -297,10 +303,10 @@ export default function AddressIndex() {
                                         </div> : <></>
                                 }
                             </div>
-                            {/* <div className="form-group mb-1">
+                            <div className="form-group mb-1">
                                 <label htmlFor="sub_district">Sub District</label>
-                                <AsyncSelect cacheOptions loadOptions={loadDistricts} defaultOptions value={{value: '', label: ''}} onChange={(val) => {
-                                    setSubDistrictCreateAddress(val)
+                                <AsyncSelect cacheOptions loadOptions={loadDistricts} defaultOptions value={selectedSubDistrictEdit} onChange={(val) => {
+                                    setSelectedSubDistrictEdit(val)
                                 }} />
 
                                 {
@@ -309,18 +315,22 @@ export default function AddressIndex() {
                                             {errorObj422.subdistrict_id}
                                         </div> : <></>
                                 }
-                            </div> */}
+                            </div>
                             <div className="form-group mb-1">
                                 <label htmlFor="tag">Tag</label>
-                                <input type="text" name="tag" id="tag" className={`form-control ${errorObj422.tag ? 'is-invalid' : ''}`} placeholder="Tag" value={objEditAddress.tag} onChange={(e) => {
+                                <select name="tag" id="tag" className={`form-control ${errorObj422.tag ? 'is-invalid' : ''}`} value={objEditAddress.tag} onChange={(e) => {
                                     setObjEditAddress(() => {
                                         let obj = Object.assign({}, objEditAddress)
+
                                         obj.tag = e.target.value
 
                                         return obj
                                     })
-                                }} />
-
+                                }}>
+                                    <option value="" disabled selected>Choose Tag</option>
+                                    <option value="Home" selected={objEditAddress.tag == 'Home'}>Home</option>
+                                    <option value="Office" selected={objEditAddress.tag == 'Office'}>Office</option>
+                                </select>
                                 {
                                     errorObj422.tag ?
                                         <div className="invalid-feedback">
@@ -349,6 +359,7 @@ export default function AddressIndex() {
                                     <h4 className="place-text">{addressObj.tag}</h4>
                                     <div className="list-button">
                                         <button className="edit" type="button" onClick={() => {
+                                            setSelectedSubDistrictEdit({ value: addressObj.subdistrict_id, label: addressObj.subdistrict })
                                             setObjEditAddress(addressObj)
                                             setModalEditAddress(true)
                                         }}>Edit</button>

@@ -29,7 +29,7 @@ export default function FooterComponent() {
                                     <Link to={'/delivery-and-shipping'}>Delivery & Shipping</Link>
                                 </li>
                                 <li>
-                                    <Link>FAQ</Link>
+                                    <Link to={'/faq'}>FAQ</Link>
                                 </li>
                                 <li>
                                     <Link to={'/contact'}>Contact</Link>

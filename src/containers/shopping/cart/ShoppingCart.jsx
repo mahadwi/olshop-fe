@@ -56,6 +56,26 @@ export default function ShoppingCart() {
         })
     }
 
+    const changeQtyCart = (cartObj, qty) => {
+        if (qty > 0) {
+            let copyArrCarts = []
+
+            arrCarts.forEach((cartObjState) => {
+                if (cartObjState === cartObj) {
+                    cartObjState.qty = qty
+                    cartObjState.total_price = cartObjState.qty * cartObjState.price
+
+                    copyArrCarts.push(cartObjState)
+
+                } else {
+                    copyArrCarts.push(cartObjState)
+                }
+            })
+
+            setArrCarts(copyArrCarts)
+        }
+    }
+
     return (
         <ContainerComponent>
             <div className="shopping-cart-container">
@@ -92,9 +112,13 @@ export default function ShoppingCart() {
                                 </div>
                                 <div className="qty-col">
                                     <div>
-                                        <button><IconMinus size={16} /></button>
+                                        <button onClick={() => {
+                                            changeQtyCart(cartObj, cartObj.qty - 1)
+                                        }}><IconMinus size={16} /></button>
                                         <input type="text" name="" value={cartObj.qty} id="" />
-                                        <button><IconPlus size={16} /></button>
+                                        <button type="button" onClick={() => {
+                                            changeQtyCart(cartObj, cartObj.qty + 1)
+                                        }}><IconPlus size={16} /></button>
                                     </div>
                                 </div>
                                 <div className="price-col">
