@@ -24,6 +24,8 @@ export default function AboutUsIndex() {
     }, [])
 
     const loadAboutUs = () => {
+        setLoading(true)
+
         Api.get('/about-us')
             .then((res) => {
                 if (res) {
