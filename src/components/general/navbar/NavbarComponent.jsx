@@ -6,13 +6,14 @@ import './navbar.scoped.scss'
 import ContainerComponent from '../container/ContainerComponent';
 import BrandLogo from './../../../images/brands/logo.png'
 import { NavLink, useLocation, Link } from 'react-router-dom';
-import { IconAlignLeft, IconMapPin, IconSearch, IconShoppingCartFilled, IconUserCircle, IconX } from '@tabler/icons-react';
+import { IconAlignLeft, IconArrowRight, IconMapPin, IconSearch, IconShoppingCartFilled, IconUserCircle, IconX } from '@tabler/icons-react';
 import StringUtil from '../../../utils/StringUtil';
 import "/node_modules/flag-icons/css/flag-icons.min.css";
 import Api from '../../../utils/Api';
 import SidebarComponent from '../sidebar/SidebarComponent';
 import { AuthUserContext } from '../../../context/AuthUserContext';
 import NoPhoto from './../../../images/icons/no-photo.png'
+import TempBag from './../../../images/temp/5c855532d5cc981711da2cd9d3b2c062.png'
 
 const storedLanguage = localStorage.getItem('selectedLanguage');
 
@@ -223,6 +224,40 @@ function NavbarComponent({ t }) {
                                 window.location.href = '/shopping/cart'
                             }}>
                                 <IconShoppingCartFilled />
+
+                                <div className='floating-cart'>
+                                    <div className="top">
+                                        <h3 className='title-float-cart'><span>Cart</span> (10)</h3>
+                                        <Link className='float-cart-link' to={'/cart'}>
+                                            View All
+                                            <IconArrowRight size={15} />
+                                        </Link>
+                                    </div>
+                                    <div className="body">
+                                        <div className="carts">
+                                            <div className="cart-item">
+                                                <div className="left">
+                                                    <img src={TempBag} alt="" />
+                                                </div>
+                                                <div className="right">
+                                                    <h4 className='cart-product-title'>Prada Re-Edition 2005 Re-Nylon  mini bag</h4>
+                                                    <h4 className='cart-product-price'>Rp. 19.631.312</h4>
+                                                    <span className='cart-weight'>1 pcs (500 gr)</span>
+                                                </div>
+                                            </div>
+                                            <div className="cart-item">
+                                                <div className="left">
+                                                    <img src={TempBag} alt="" />
+                                                </div>
+                                                <div className="right">
+                                                    <h4 className='cart-product-title'>Prada Re-Edition 2005 Re-Nylon  mini bag</h4>
+                                                    <h4 className='cart-product-price'>Rp. 19.631.312</h4>
+                                                    <span className='cart-weight'>1 pcs (500 gr)</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </button>
                         </div>
                     </nav>
