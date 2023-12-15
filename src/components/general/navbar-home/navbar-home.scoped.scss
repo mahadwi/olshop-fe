@@ -180,6 +180,7 @@
         }
 
         .actions-wrapper {
+            position: relative;
             flex: 1;
             display: flex;
             align-items: center;
@@ -279,7 +280,133 @@
                     height: 100%;
                     transform: unset;
                 }
+
+                &:hover {
+                    .floating-cart {
+                        visibility: visible;
+                        transform: translateY(0);
+                    }
+                }
+
+                .floating-cart {
+                    &::before {
+                        content: '';
+                        width: 0;
+                        height: 0;
+                        position: absolute;
+                        top: -.5rem;
+                        right: 2rem;
+                        transform: translateX(-50%);
+                        border-left: .6rem solid transparent;
+                        border-right: .6rem solid transparent;
+                        border-bottom: .6rem solid #E4A951;
+                        z-index: 999999;
+                    }
+
+                    transition: all 100ms ease-in-out;
+                    visibility: hidden;
+                    transform: translateY(-1rem);
+                    position: absolute;
+                    right: 1rem;
+                    background: white;
+                    top: 9vh;
+                    padding: 1.5rem;
+                    border: 1px solid #828181;
+                    min-width: 400px;
+
+                    .top {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        border-bottom: 1px solid #C4C4C4;
+                        padding-bottom: .5rem;
+
+                        h3.title-float-cart {
+                            color: #000;
+                            font-family: 'Cambay', sans-serif;
+                            font-size: 14px;
+                            font-style: normal;
+                            font-weight: 700;
+                            line-height: 16px;
+                            margin-bottom: 0;
+                            /* 114.286% */
+                        }
+
+                        a.float-cart-link {
+                            color: #151B4F;
+                            font-family: 'Cambay', sans-serif;
+                            font-size: 12px;
+                            font-style: normal;
+                            font-weight: 700;
+                            line-height: 16px;
+                            display: flex;
+                            gap: .5rem;
+                            text-decoration: none;
+                            /* 133.333% */
+                        }
+                    }
+
+                    .body {
+                        .carts {
+
+                            .cart-item {
+                                display: flex;
+                                border-bottom: 1px solid #C4C4C4;
+                                padding-top: 1rem;
+                                padding-bottom: 1rem;
+                                gap: .75rem;
+
+                                .left {
+                                    img {
+                                        width: 40px;
+                                    }
+                                }
+
+                                .right {
+                                    display: flex;
+                                    flex-direction: column;
+                                    justify-content: flex-start;
+                                    align-items: flex-start;
+
+                                    h4.cart-product-title {
+                                        color: #000;
+                                        font-family: 'Cambay', sans-serif;
+                                        font-size: 12px;
+                                        font-style: normal;
+                                        font-weight: 700;
+                                        line-height: 16px;
+                                        margin-bottom: 0;
+                                        /* 133.333% */
+                                    }
+
+                                    h4.cart-product-price {
+                                        color: #FFAC33;
+                                        font-family: 'Cambay', sans-serif;
+                                        font-size: 12px;
+                                        font-style: normal;
+                                        font-weight: 700;
+                                        line-height: 16px;
+                                        margin-bottom: 0;
+                                        /* 133.333% */
+                                    }
+
+                                    span.cart-weight {
+                                        color: #C4C4C4;
+                                        font-family: 'Cambay', sans-serif;
+                                        font-size: 8px;
+                                        font-style: normal;
+                                        font-weight: 400;
+                                        line-height: 16px;
+                                        /* 200% */
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
+
+
         }
     }
 
@@ -299,6 +426,7 @@
             }
 
             .actions-wrapper {
+                position: relative;
 
                 button.cart-box-btn {
                     color: #000;
