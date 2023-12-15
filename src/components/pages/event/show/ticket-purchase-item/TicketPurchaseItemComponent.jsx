@@ -1,10 +1,83 @@
-import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import './ticket-purchase-item.scoped.scss'
 import StringUtil from "../../../../../utils/StringUtil";
+import Modal from 'react-bootstrap/Modal';
+import { useState } from "react";
+import { IconCalendar, IconChevronDown, IconPhone, IconReceiptRefund, IconUsers } from "@tabler/icons-react";
+import { IconClock } from "@tabler/icons-react";
 
 export default function TicketPurchaseItemComponent({ ticket }) {
+
+    /**
+     * Hooks
+     * 
+     */
+    const navigate = useNavigate()
+
+    const [showModal, setShowModal] = useState(false)
+
     return (
         <div className="card-ticket-purchase-item">
+
+            <Modal centered show={showModal} onHide={() => {
+                setShowModal(false)
+            }}>
+                <Modal.Header closeButton>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className="modal-ticket" data-id="ufsdfnsdfn">
+                        <div className="top">
+                            <h3 className="title">[Pre-Sale] Admission Ticket - 1 Day Access</h3>
+                        </div>
+                        <div className="body">
+                            <div className="left">
+                                <ul>
+                                    <li>
+                                        <IconCalendar size={17} />
+                                        Use on selected visit date
+                                    </li>
+                                    <li>
+                                        <IconClock size={17} />
+                                        Event Time : 3 - 6 PM
+                                    </li>
+                                    <li>
+                                        <IconPhone size={17} />
+                                        Need to Reserve
+                                    </li>
+                                    <li>
+                                        <IconReceiptRefund size={17} />
+                                        Non - refunable
+                                    </li>
+                                </ul>
+                            </div>
+                            <div className="right">
+                                <h3 className="price">Rp. 500.000</h3>
+                            </div>
+                        </div>
+                        <hr style={{ color: '#CEC9C1' }} />
+                        <div className="bottom">
+                            <div className="left">
+                                <div className="icon-left">
+                                    <IconUsers />
+                                </div>
+                                <div className="text">
+                                    <h5>Total Visitor</h5>
+                                    <span>1 Pax</span>
+                                </div>
+                                <div className="icon-right">
+                                    <IconChevronDown color="#063BC1" />
+                                </div>
+                            </div>
+                            <div className="right">
+                                <button type="button" onClick={() => {
+                                    navigate('/event/fashion-week-2023/booking')
+                                }}>Book</button>
+                            </div>
+                        </div>
+                    </div>
+                </Modal.Body>
+            </Modal>
+
             <h3 className="card-title">{ticket.name}</h3>
             <div className="card-detail">
                 <ul>
@@ -54,9 +127,11 @@ export default function TicketPurchaseItemComponent({ ticket }) {
                 </div>
             </div>
             <div className="card-action">
-                <NavLink to={'/event/fashion-week-2023/booking'} className={'select-btn'}>
+                <button to={'/event/fashion-week-2023/booking'} onClick={() => {
+                    setShowModal(true)
+                }} className={'select-btn'}>
                     Select
-                </NavLink>
+                </button>
             </div>
         </div>
     )
