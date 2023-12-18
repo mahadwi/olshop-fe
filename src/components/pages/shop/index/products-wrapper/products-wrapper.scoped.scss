@@ -1,11 +1,17 @@
+@use './../../../../../styles/func.scoped.scss' as *;
+
 .products-wrapper {
     flex: 4;
 
     .inner-products-wrapper {
         display: flex;
+        flex-direction: row;
         flex-wrap: wrap;
         column-gap: 1rem;
         row-gap: 2.35rem;
-        padding-left: 4rem;
+
+        @include lg {
+            padding-left: 4rem;
+        }
     }
 }

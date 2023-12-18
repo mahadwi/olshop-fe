@@ -1,4 +1,5 @@
 import './top-filter.scoped.scss'
+import './top-filter.css'
 import { IconAdjustmentsHorizontal } from '@tabler/icons-react';
 import Select from 'react-select';
 
@@ -12,7 +13,7 @@ export default function TopFilterComponent({ productResultAmount, sortOptions, s
         <div className='top-filter'>
             <div className='left'>
                 <div>
-                    <p>Hide Filter</p>
+                    <p>Filter</p>
                     <IconAdjustmentsHorizontal />
                 </div>
             </div>

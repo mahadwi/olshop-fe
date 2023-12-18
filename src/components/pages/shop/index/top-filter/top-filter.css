@@ -1,0 +1,9 @@
+.shop-index-page .css-saygod-Input {
+    font-size: 10px !important;
+}
+
+@media screen and (min-width: 992px) {
+    .shop-index-page .css-saygod-Input {
+        font-size: 12px !important;
+    }
+}
