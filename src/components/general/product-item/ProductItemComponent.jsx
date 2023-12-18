@@ -4,12 +4,18 @@ import { Link, useNavigate } from 'react-router-dom';
 import NoPhotoProduct from './../../../images/product-item/no-photo-product.png'
 import StringUtil from '../../../utils/StringUtil';
 import Api from '../../../utils/Api';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { AuthUserContext } from '../../../context/AuthUserContext';
 import { LoadingContext } from '../../../context/LoadingContext';
 import { CartContext } from '../../../context/CartContext';
 
-export default function ProductItemComponent({ product, className, blur }) {
+export default function ProductItemComponent({ product, className, blur, wishlistId }) {
+
+    /**
+     * Refs
+     * 
+     */
+    const productItemRef = useRef()
 
     /**
      * Context
@@ -39,7 +45,23 @@ export default function ProductItemComponent({ product, className, blur }) {
         if (!user) {
             navigate('/login')
         } else {
-            if (!tempProduct.is_wishlist) {
+            if (wishlistId) {
+                Api.delete('/wishlist/' + wishlistId, {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem('apiToken')
+                    }
+                })
+                    .then((res) => {
+                        if (res) {
+                            let objProduct = Object.assign({}, tempProduct)
+                            objProduct.is_wishlist = false
+
+                            setTempProduct(objProduct)
+                            alert('Berhasil dihapus dari wishlist')
+                            productItemRef.current.remove()
+                        }
+                    })
+            } else if (!tempProduct.is_wishlist) {
                 Api.post('/wishlist', {
                     product_id: tempProduct.id
                 }, {
@@ -101,7 +123,7 @@ export default function ProductItemComponent({ product, className, blur }) {
     }
 
     return (
-        <div className={`product-item ${className ? className : ''}`}>
+        <div className={`product-item ${className ? className : ''}`} ref={productItemRef}>
             <div className="product-image">
                 <img src={tempProduct.images.length > 0 ? tempProduct.images[0] : NoPhotoProduct} alt="" />
 
@@ -114,7 +136,7 @@ export default function ProductItemComponent({ product, className, blur }) {
 
                 <span className='love-wrap' onClick={toggleWishlist}>
                     {
-                        tempProduct.is_wishlist ?
+                        wishlistId ? <IconHeartFilled style={{ color: '#F44336' }} /> : tempProduct.is_wishlist ?
                             <IconHeartFilled style={{ color: '#F44336' }} />
                             :
                             <IconHeart />

@@ -94,7 +94,7 @@ export default function AccountWishlist() {
                 <div className="products-wishlists">
                     {
                         arrWishlists.map((wishlistObj) => (
-                            <ProductItemComponent product={wishlistObj.product} className={'product-item-wishlist'} />
+                            <ProductItemComponent wishlistId={wishlistObj.id} product={wishlistObj.product} className={'product-item-wishlist'} />
                         ))
                     }
                 </div>
