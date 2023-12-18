@@ -22,6 +22,20 @@
 
         &:hover .product-action {
             opacity: 1;
+
+            .btn-cart {
+
+                &:hover {
+                    background: #EEE;
+                }
+            }
+
+            .btn-buy {
+                &:hover {
+                    border: 1.5px solid #000000;
+                    background: #000000;
+                }
+            }
         }
 
         img {

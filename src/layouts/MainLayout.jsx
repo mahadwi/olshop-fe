@@ -8,6 +8,7 @@ import { LoadingContext } from "../context/LoadingContext";
 import { AuthUserContext } from "../context/AuthUserContext";
 import NavbarHomeComponent from "../components/general/navbar-home/NavbarHomeComponent";
 import { CartContext } from "../context/CartContext";
+import { Toaster } from 'react-hot-toast';
 
 export default function MainLayout() {
 
@@ -31,6 +32,11 @@ export default function MainLayout() {
 
     return (
         <div>
+            <Toaster containerStyle={{
+                top: '50%',
+                left: 0,
+                right: 0,
+            }} />
             <LoadingComponent loading={loading} />
             {
                 pathname == '/' ?
