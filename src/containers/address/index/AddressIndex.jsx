@@ -110,6 +110,31 @@ export default function AddressIndex() {
         })
     }
 
+    const doSetDefault = (objAddress) => {
+        setLoading(true)
+
+        Api.put(`/address/${objAddress.id}`, {
+            name: objAddress.name,
+            phone: objAddress.phone,
+            address: objAddress.phone,
+            subdistrict_id: objAddress.subdistrict_id,
+            tag: objAddress.tag,
+            is_primary: true
+        }, {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('apiToken')
+            }
+        }).then((res) => {
+            if (res) {
+                refreshUser()
+            }
+        }).catch((err) => {
+
+        }).finally(() => {
+            setLoading(false)
+        })
+    }
+
     const doUpdateAddress = () => {
         setErrorObj422({})
         setLoading(true)
@@ -364,7 +389,7 @@ export default function AddressIndex() {
                                             setModalEditAddress(true)
                                         }}>Edit</button>
                                         <button type="button" onClick={() => {
-                                            // doSetDefault
+                                            doSetDefault(addressObj)
                                         }} className="set-default" style={{ color: addressObj.is_primary ? '#A2A3B1' : '#FFAC33', cursor: addressObj.is_primary ? 'default' : 'pointer' }}>Set as default</button>
                                         {
                                             !addressObj.is_primary ?
@@ -379,6 +404,12 @@ export default function AddressIndex() {
                                 <div className="bottom">
                                     <p>{addressObj.address}, {addressObj.full_address}</p>
                                 </div>
+                                {
+                                    addressObj.is_primary ?
+                                        <div className="bottom-bottom">
+                                            <p>Default</p>
+                                        </div> : <></>
+                                }
                             </div>
                         </div>
                     ))
