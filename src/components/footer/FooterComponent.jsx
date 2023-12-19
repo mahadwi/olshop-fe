@@ -44,10 +44,7 @@ export default function FooterComponent() {
                                     <Link>Consignment</Link>
                                 </li>
                                 <li>
-                                    <Link>Trade - In</Link>
-                                </li>
-                                <li>
-                                    <Link>Direct Selling</Link>
+                                    <Link>Authentication</Link>
                                 </li>
                             </ul>
                             <ul>
@@ -60,9 +57,6 @@ export default function FooterComponent() {
                                 </li>
                                 <li>
                                     <Link to={'/return-police'}>Return Policy</Link>
-                                </li>
-                                <li>
-                                    <Link>Authentication</Link>
                                 </li>
                             </ul>
                             <ul>
