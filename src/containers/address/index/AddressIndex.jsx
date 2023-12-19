@@ -140,6 +140,24 @@ export default function AddressIndex() {
         })
     }
 
+    const doDeleteAddress = (id) => {
+        if(window.confirm("Are you sure ?")) {
+            setLoading(true)
+
+            Api.delete(`/address/${id}`, {
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('apiToken')
+                }
+            }).then(() => {
+                refreshUser();
+            }).catch((err) => {
+                console.error(err);
+            }).finally(() => {
+                setLoading(false)
+            });
+        }
+    };
+
     // Automatically scrolls to top whenever pathname changes
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -368,7 +386,7 @@ export default function AddressIndex() {
                                         }} className="set-default" style={{ color: addressObj.is_primary ? '#A2A3B1' : '#FFAC33', cursor: addressObj.is_primary ? 'default' : 'pointer' }}>Set as default</button>
                                         {
                                             !addressObj.is_primary ?
-                                                <button className="delete">Delete</button> : <></>
+                                                <button className="delete" onClick={() => doDeleteAddress(addressObj.id)}>Delete</button> : <></>
                                         }
                                     </div>
                                 </div>
