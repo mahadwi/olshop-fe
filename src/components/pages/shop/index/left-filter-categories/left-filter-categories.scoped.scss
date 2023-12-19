@@ -1,5 +1,14 @@
+@use './../../../../../styles/func.scoped.scss' as *;
+
 .left-filter-categories {
-    border-top: 1px solid #C4C4C4;
+    border-top: 2px solid #000;
+    margin: 1rem 2rem 0 2rem;
+    padding-top:1rem;
+    @include md {
+        margin: 0;
+        padding-top: 0;
+        border-top: 1px solid #C4C4C4;
+    }
 
     .inner-left-filter-categories {
         display: flex;

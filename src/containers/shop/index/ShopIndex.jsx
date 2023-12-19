@@ -44,6 +44,7 @@ export default function ShopIndex() {
         { value: 'date_asc', label: 'Date, new to old' },
     ];
     const [selectedSortOption, setSelectedSortOption] = useState({ value: 'name_asc', label: 'ALphabetical, A - Z' })
+    const [showMobileFilter, setShowMobileFilter] = useState(false);
 
     // Automatically scrolls to top whenever pathname changes
     useEffect(() => {
@@ -137,9 +138,11 @@ export default function ShopIndex() {
             <ContainerComponent>
                 <BreadCrumb lists={breadcrumbs} />
                 <BannerComponent bannerObj={bannerObj} />
-                <TopFilterComponent productResultAmount={products.length} sortOptions={sortOptions} selectedSortOption={selectedSortOption} setSelectedSortOption={setSelectedSortOption} />
+                <TopFilterComponent productResultAmount={products.length} sortOptions={sortOptions} selectedSortOption={selectedSortOption} setSelectedSortOption={setSelectedSortOption} setShowMobileFilter={setShowMobileFilter} />
                 <div className="content-wrapper">
                     <LeftFilterComponent
+                        showMobileFilter={showMobileFilter}
+                        setShowMobileFilter={setShowMobileFilter}
                         brands={brands}
                         productCategories={productCategories}
                         productColors={productColors}

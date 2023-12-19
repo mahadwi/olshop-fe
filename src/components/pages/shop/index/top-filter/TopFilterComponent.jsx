@@ -3,16 +3,20 @@ import './top-filter.css'
 import { IconAdjustmentsHorizontal } from '@tabler/icons-react';
 import Select from 'react-select';
 
-export default function TopFilterComponent({ productResultAmount, sortOptions, selectedSortOption, setSelectedSortOption }) {
+export default function TopFilterComponent({ productResultAmount, sortOptions, selectedSortOption, setSelectedSortOption, setShowMobileFilter }) {
 
     const handleChange = (selectedOption) => {
         setSelectedSortOption(selectedOption)
     };
 
+    const toggleMobileFilter = () => {
+        setShowMobileFilter((current) => !current);
+    };
+
     return (
         <div className='top-filter'>
             <div className='left'>
-                <div>
+                <div onClick={toggleMobileFilter}>
                     <p>Filter</p>
                     <IconAdjustmentsHorizontal />
                 </div>

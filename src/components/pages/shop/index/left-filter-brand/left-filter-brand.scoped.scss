@@ -1,5 +1,11 @@
+@use './../../../../../styles/func.scoped.scss' as *;
+
 .left-filter-brand {
-    border-top: 1px solid #C4C4C4;
+    margin: 2rem 2rem 0 2rem;
+    @include md {
+        margin: 0;
+        border-top: 1px solid #C4C4C4;
+    }
 
     .inner-left-filter-brand {
         display: flex;

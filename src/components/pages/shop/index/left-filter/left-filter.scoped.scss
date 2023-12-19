@@ -1,14 +1,68 @@
 @use './../../../../../styles/func.scoped.scss' as *;
 
+@keyframes mobileShowAnimation {
+    from {
+        transform: translateY(100%)
+    }
+
+    to {
+        transform: translateY(0)
+    }
+}
+
 .left-filter {
     flex: 1;
     display: flex;
     flex-direction: column;
     position: fixed;
     left: -100rem;
+    transition: transform 300ms ease-in-out;
+
+    &.mobile-show {
+        left: 0;
+        width: 100vw;
+        background: rgba(226, 226, 226, 0.85);
+        bottom:0;
+        height: 80vh;
+        overflow-y: auto;
+        z-index: 1;
+        animation: 300ms mobileShowAnimation ease-in-out;
+    }
+    &.mobile-hide {
+        @media (max-width: 575px) {
+            left: 0;
+            width: 100vw;
+            background: rgba(226, 226, 226, 0.85);
+            bottom:0;
+            height: 80vh;
+            overflow-y: auto;
+            z-index: 1;
+            transform: translateY(100%)
+        }
+    }
 
     @include lg {
         position: relative;
         left: unset;
+        z-index: unset;
+    }
+
+    .left-filter-close {
+        display: block;
+        position: sticky;
+        top: 0;
+        height:0;
+        text-align:right;
+
+        @include md {
+            display: none;
+        }
+
+        button {
+          all: unset;
+          cursor: pointer;
+          pointer-events: all;
+          transform: translate(-1rem, 1rem);
+        }
     }
 }

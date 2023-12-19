@@ -19,6 +19,7 @@ export default function LeftFilterBrandComponent({ brands, selectedBrands, setSe
                             <li>
                                 <Checkbox
                                     icon={<div style={{ backgroundColor: "#E4A951", borderRadius: 5, padding: 5 }} />}
+                                    style={{ backgroundColor: "#fff" }}
                                     borderWidth={1}
                                     borderRadius={3}
                                     borderColor={'#DDD'}

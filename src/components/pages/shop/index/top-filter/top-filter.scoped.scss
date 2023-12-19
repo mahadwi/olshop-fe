@@ -20,6 +20,12 @@
             justify-content: space-between;
             height: 100%;
             padding: 0 1rem;
+            pointer-events: all;
+            cursor: pointer;
+            @include md {
+                pointer-events: none;
+                cursor: auto;
+            }
 
             p {
                 color: #545454;
