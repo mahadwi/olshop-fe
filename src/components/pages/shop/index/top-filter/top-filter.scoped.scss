@@ -22,7 +22,7 @@
             padding: 0 1rem;
             pointer-events: all;
             cursor: pointer;
-            @include md {
+            @include lg {
                 pointer-events: none;
                 cursor: auto;
             }
