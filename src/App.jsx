@@ -17,6 +17,7 @@ import AccountIndex from './containers/account/index/AccountIndex';
 import RegisterIndex from './containers/register/index/RegisterIndex';
 import EmailVerificationIndex from './containers/email-verification/index/EmailVerificationIndex';
 import ReturnPolicyIndex from './containers/return-policy/index/ReturnPolicyIndex';
+import AuthenticationIndex from './containers/authentication/index/AuthenticationIndex.jsx';
 import PrivacyPoliceIndex from './containers/privacy-policy/index/PrivacyPoliceIndex';
 import DeliveryAndShippingIndex from './containers/delivery-and-shipping/index/DeliveryAndShippingIndex';
 import CustomerCareIndex from './containers/customer-care/index/CustomerCareIndex';
@@ -59,6 +60,7 @@ function App() {
                         <Route path='/about-us' element={<AboutUsIndex />} />
                         <Route path='/contact' element={<ContactIndex />} />
                         <Route path='/return-police' element={<ReturnPolicyIndex />} />
+                        <Route path='/authentication' element={<AuthenticationIndex />} />
                         <Route path='/privacy-police' element={<PrivacyPoliceIndex />} />
                         <Route path='/delivery-and-shipping' element={<DeliveryAndShippingIndex />} />
                         <Route path='/customer-care' element={<CustomerCareIndex />} />

@@ -44,7 +44,7 @@ export default function FooterComponent() {
                                     <Link>Consignment</Link>
                                 </li>
                                 <li>
-                                    <Link>Authentication</Link>
+                                    <Link to={'/authentication'}>Authentication</Link>
                                 </li>
                             </ul>
                             <ul>

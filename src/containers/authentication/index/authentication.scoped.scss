@@ -1,0 +1,143 @@
+@use './../../../styles/func.scoped.scss' as *;
+
+.authentication-wrapper {
+    .title {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        padding:1rem 2rem;
+        margin-bottom: 1rem;
+    }
+
+    .title0 {
+        color: #000;
+        text-align: center;
+        font-family: Poppins;
+        font-size: 32px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+    }
+
+    .title1 {
+        color: #545454;
+        text-align: center;
+        font-family: Inter;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal; 
+    }
+
+    .video {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 2.5rem;
+        padding:1rem 0;
+        margin-bottom: 2rem;
+    }
+
+    .video-youtube {
+        align-self: center;
+
+        iframe {
+            width:560px;
+            max-width: 100%;
+            height:315px;
+            max-height: 100%;
+        }
+    }
+
+    .video-title,.processes-title {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        color: #6A6A6A;
+        font-family: Cambay;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+
+        &::before,&::after {
+            content: '';
+            display: block;
+            flex: 1 0;
+            height:1px;
+            background: #C6C6C6;
+            margin-bottom: 6px;
+        }
+    }
+
+    .processes {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 2.5rem;
+        padding:1rem 0;
+        margin-bottom: 2rem;
+    }
+
+    .processes-list {
+        display: flex;
+        flex-direction: column;
+        gap: 2.5rem;
+    }
+
+    .process-div {
+        height: 1px;
+        background: #C6C6C6;
+    }
+    
+    .process {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+
+        @include lg {
+            flex-direction: row;
+            align-items: center;
+        }
+    }
+
+    .process-image {
+        flex: 1 0;
+        display: flex;
+
+        img {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+        }
+    }
+
+    .process-detail {
+        flex: 1 0;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .process-title {
+        color: #000;
+        text-align: center;
+        font-family: Poppins;
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+    }
+
+    .process-content {
+        color: #000;
+        font-family: Inter;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 25px;
+        white-space: pre-line;
+    }
+}
