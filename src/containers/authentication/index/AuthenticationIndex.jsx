@@ -102,10 +102,10 @@ export default function AuthenticationIndex() {
                         <div className='processes-title'>OUR AUTHENTICATION PROCESS</div>
                         <div className='processes-list'>
                         {authenticationObject.processes?.map(({image, title, content}, i) => {
-                            const even = i % 2 === 0;
+                            const flip = i % 2 != 0;
                             return <>
                                 {i!=0? <div className='process-div'/> :null}
-                                <div className='process'>
+                                <div className={`process ${flip ? 'flip' : ''}`}>
                                     <div className='process-image'>
                                         <img src={image} alt={title} />
                                     </div>
