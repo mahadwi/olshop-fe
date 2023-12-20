@@ -2,7 +2,7 @@
 
 .left-filter-brand {
     margin: 2rem 2rem 0 2rem;
-    @include md {
+    @include lg {
         margin: 0;
         border-top: 1px solid #C4C4C4;
     }
