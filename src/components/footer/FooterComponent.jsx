@@ -68,7 +68,7 @@ export default function FooterComponent() {
                                     <Link to={'/about-us'}>About Us</Link>
                                 </li>
                                 <li>
-                                    <Link>Work With Us</Link>
+                                    <Link to={'/work-with-us'}>Work With Us</Link>
                                 </li>
                                 <li>
                                     <Link>Review</Link>
