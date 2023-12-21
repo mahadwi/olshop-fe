@@ -1,16 +1,26 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import './sidebar.scoped.scss'
 import { IconX } from '@tabler/icons-react'
 import { useRef } from 'react'
 
 export default function SidebarComponent({ toggleSidebar, sidebarOpen, categories, brands }) {
+    /**
+     * Hooks
+     * 
+     */
+    const { pathname } = useLocation()
+
     const sidebarRef = useRef()
 
     return (
         <aside className={`${sidebarOpen ? 'show' : ''}`} ref={sidebarRef}>
             <ul className='side-links-wrapper'>
                 <li className='side-link-item'>
-                    <Link to={'/'} className='side-link-item-a'>HOME</Link>
+                    <Link to={'/'} onClick={() => {
+                        if (pathname == '/') {
+                            window.location.reload()
+                        }
+                    }} className='side-link-item-a'>HOME</Link>
                 </li>
                 <li className='side-link-item'>
                     <Link to={'/shop'} className='side-link-item-a'>SHOP</Link>

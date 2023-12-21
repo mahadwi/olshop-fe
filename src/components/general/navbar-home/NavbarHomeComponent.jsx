@@ -153,7 +153,9 @@ function NavbarHomeComponent({ t }) {
             <div className='nav-container' ref={navRef}>
                 <ContainerComponent>
                     <nav className='navbar-olshop'>
-                        <NavLink to={'/'} className='brand-wrapper'>
+                        <NavLink to={'/'} onClick={() => {
+                            window.location.reload()
+                        }} className='brand-wrapper'>
                             <img src={BrandLogo} alt="brand-logo" />
                         </NavLink>
                         <div className='hamburger' onClick={() => {
