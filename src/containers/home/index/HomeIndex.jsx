@@ -9,6 +9,7 @@ import Section7Component from '../../../components/homeComponents/section-7/Sect
 import Section8Component from '../../../components/homeComponents/section-8/Section8Component';
 import Section9Component from '../../../components/homeComponents/section-9/Section9Component';
 import SubscriptionComponent from '../../../components/general/subscription/SubscriptionComponent';
+import LanguageComponent from '../../../components/general/language/LanguageComponent';
 import Section1Component from '../../../components/homeComponents/section-1/Section1Component';
 import Api from '../../../utils/Api';
 import Section2Component from '../../../components/homeComponents/section-2/Section2Component';
@@ -95,6 +96,7 @@ function HomeIndex() {
                     <Section8Component />
                     <Section9Component />
                     <SubscriptionComponent loading={loading} />
+                    <LanguageComponent loading={loading} />
                 </Fragment>
             </div>
         </div>

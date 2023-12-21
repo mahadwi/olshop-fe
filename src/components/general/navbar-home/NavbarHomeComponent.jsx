@@ -12,10 +12,9 @@ import "/node_modules/flag-icons/css/flag-icons.min.css";
 import Api from '../../../utils/Api';
 import SidebarComponent from '../sidebar/SidebarComponent';
 import { AuthUserContext } from '../../../context/AuthUserContext';
+import { LanguageContext } from '../../../context/LanguageContext';
 import NoPhoto from './../../../images/icons/no-photo.png'
 import FloatingCartComponent from '../floating-cart/FloatingCartComponent';
-
-const storedLanguage = localStorage.getItem('selectedLanguage');
 
 const useReactPath = () => {
     const [path, setPath] = useState(window.location.pathname);
@@ -61,7 +60,7 @@ function NavbarHomeComponent({ t }) {
     const [categories, setCategories] = useState([])
     const [sidebarOpen, setSidebarOpen] = useState(false)
     const [aboutUs, setAboutUs] = useState({})
-    const [language, setLanguage] = useState(storedLanguage)
+    const {language, setLanguage} = useContext(LanguageContext)
 
     useEffect(() => {
         loadBrands()
