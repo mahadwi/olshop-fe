@@ -41,7 +41,7 @@ export default function FooterComponent() {
                                     <span>Consign & Sell</span>
                                 </li>
                                 <li>
-                                    <Link>Consignment</Link>
+                                    <Link to={'/consignment'}>Consignment</Link>
                                 </li>
                                 <li>
                                     <Link to={'/authentication'}>Authentication</Link>

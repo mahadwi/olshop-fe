@@ -1,0 +1,401 @@
+@use './../../../styles/func.scoped.scss' as *;
+
+.consignment-wrapper {
+    .title {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        padding:1rem 2rem;
+        margin-bottom: 1rem;
+    }
+
+    .title0 {
+        color: #000;
+        text-align: center;
+        font-family: Poppins;
+        font-size: 32px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+    }
+
+    .title1 {
+        color: #545454;
+        text-align: center;
+        font-family: Inter;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal; 
+    }
+
+    .consignment-first-hero {
+        display: flex;
+        direction: row;
+        margin-top: 3rem;
+        position: relative;
+    }
+
+    .consignment-first-hero-image {
+        z-index: -1;
+        position: absolute;
+        top:0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+
+        @include lg {
+            position: relative;
+            flex: 1 0 50%;
+            width: unset;
+            height: unset;
+        }
+
+        img {
+            position: absolute;
+            top:0;
+            left:0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+    .consignment-first-hero-detail {
+        flex: 1 0 50%;
+        background: rgba($color: #000, $alpha: 0.8);
+        display: flex;
+        padding:3.5rem 3rem;
+        gap:0.5rem;
+        flex-direction: column;
+        @include lg {
+            background:#000;
+        }
+
+        ._title0 {
+            color: #FFF;
+            text-align: center;
+            font-family: Cambay;
+            font-size: 21px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;
+        }
+
+        ._title1 {
+            margin-top: 1.5rem;
+            color: #FFF;
+            text-align: center;
+            font-family: Cambay;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+        }
+
+        ._buttons {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap:1.5rem;
+
+            ._button:first-child {
+                border-radius: 4px;
+                border: 1px solid #FFF;
+                background: #FFF;
+                color: #000;
+                text-align: center;
+                font-family: Inter;
+                font-size: 13px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+                text-decoration: none;
+                margin-top: 1rem;
+                padding:0.75rem 1rem;
+            }
+
+            ._button:last-child {
+                border-radius: 4px;
+                border: 1px solid #FFF;
+                background: #000;
+                color: #fff;
+                text-align: center;
+                font-family: Inter;
+                font-size: 13px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+                text-decoration: none;
+                margin-top: 1rem;
+                padding:0.75rem 1rem;
+            }
+        }
+    }
+
+    .consignment-about {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+
+        @include lg {
+            flex-direction: row;
+            align-items: center;
+            gap: 3.25rem;
+            flex-direction: row-reverse;
+        }
+    }
+
+    .consignment-about-video {
+        flex: 1 0;
+        display: flex;
+
+        iframe {
+            width: 100%;
+            aspect-ratio: 1.77;
+            object-fit: cover;
+        }
+    }
+
+    .consignment-about-detail {
+        flex: 1 0;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+
+        ._title0 {
+            color: #000;
+            text-align: center;
+            font-family: Poppins;
+            font-size: 24px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;
+        }
+
+        ._title1 {
+            color: #000;
+            font-family: Inter;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 25px;
+        }
+    }
+
+    .consignment-div-title {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        color: #6A6A6A;
+        font-family: Cambay;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+
+        &::before,&::after {
+            content: '';
+            display: block;
+            flex: 1 0;
+            height:1px;
+            background: #C6C6C6;
+            margin-bottom: 6px;
+        }
+    }
+
+    .consignment-brands {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .consignment-brand {
+      flex: 1 0 100%;
+      position: relative;
+      aspect-ratio: 1.8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #FFF;
+      text-align: center;
+      font-family: Inconsolata;
+      font-size: 40px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+
+      @include lg {
+          flex: 1 0 50%;
+      }
+
+      &::before {
+          content: '';
+          position: absolute;
+          top:0;
+          left:0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0, 0, 0, 0.33);
+          z-index: -1;
+      }
+
+      img {
+          z-index: -2;
+          position: absolute;
+          object-fit: cover;
+          top:0;
+          left:0;
+          width: 100%;
+          height: 100%;
+      }
+    }
+
+    .programs {
+        display: flex;
+        flex-direction: column;
+        margin: 4rem 0;
+        gap: 4rem;
+    }
+
+    .consignment-div {
+        height:1px;
+        background: #C6C6C6;
+    }
+
+    .program-step {
+        display: flex;
+        flex-direction: row-reverse;
+        align-items: center;
+        gap:2.5rem
+    }
+
+    .program-step-image {
+        display: none;
+        flex:1 0;
+        aspect-ratio: 0.6;
+        object-fit: cover;
+        border-radius: 8px;
+
+        @include lg {
+            display: block;
+        }
+    }
+
+    .program-step-content {
+        display: flex;
+        flex: 1 0;
+        flex-direction: column;
+        gap:2rem
+    }
+
+    .program-step-title {
+        color: #000;
+        text-align: center;
+        font-family: Poppins;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+    }
+
+    .program-step-grid {
+        display: flex;
+        flex-direction: column;
+        gap:2rem;
+        flex-wrap: wrap;
+
+        @include lg {
+            flex-direction: row;
+        }
+    }
+
+    .program-step-card {
+        display: flex;
+        flex-direction: column;
+        gap:0.5rem;
+        border-radius: 8px;
+        border: 1px solid #D7D7D7;
+        padding: 2rem;
+        background: #FFF;
+        justify-content: start;
+        align-items: start;
+
+        @include lg {
+            flex: 0 0 calc(50% - 1rem);
+        }
+    }
+
+    .program-step-card-icon {
+        color: #555;
+    }
+
+    .program-step-card-name {
+        color: #222;
+        font-family: Cambay;
+        font-size: 15px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+    }
+
+    .program-step-card-description {
+        color: #444;
+        font-family: Inter;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 25px;
+    }
+}
+
+.consignment-second-hero {
+    background: #1E1E1E;
+    color:#fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding:3.5rem 2rem;
+    flex-direction: column;
+    margin-bottom:1px;
+    gap:0.75rem;
+
+    ._title0 {
+        color: #FFF;
+        text-align: center;
+        font-family: Cambay;
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+    }
+
+    ._title1 {
+        color: #FFF;
+        text-align: center;
+        font-family: Cambay;
+        font-size: 15px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
+
+    ._button {
+        border-radius: 4px;
+        border: 1px solid #FFF;
+        background: #FFF;
+        color: #000;
+        text-align: center;
+        font-family: Inter;
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        text-decoration: none;
+        margin-top: 1rem;
+        padding:0.75rem 1rem;
+    }
+}

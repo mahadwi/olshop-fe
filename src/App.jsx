@@ -19,6 +19,7 @@ import EmailVerificationIndex from './containers/email-verification/index/EmailV
 import ReturnPolicyIndex from './containers/return-policy/index/ReturnPolicyIndex';
 import AuthenticationIndex from './containers/authentication/index/AuthenticationIndex.jsx';
 import WorkWithUsIndex from './containers/work-with-us/index/WorkWithUsIndex.jsx';
+import ConsignmentIndex from './containers/consignment/index/ConsignmentIndex.jsx';
 import PrivacyPoliceIndex from './containers/privacy-policy/index/PrivacyPoliceIndex';
 import DeliveryAndShippingIndex from './containers/delivery-and-shipping/index/DeliveryAndShippingIndex';
 import CustomerCareIndex from './containers/customer-care/index/CustomerCareIndex';
@@ -68,6 +69,7 @@ function App() {
                         <Route path='/term-and-conditions' element={<TermAndConditionIndex />} />
                         <Route path='/faq' element={<FaqIndex />} />
                         <Route path='/work-with-us' element={<WorkWithUsIndex />} />
+                        <Route path='/consignment' element={<ConsignmentIndex />} />
                         {/* Event */}
 
                         {/* End of Event */}
