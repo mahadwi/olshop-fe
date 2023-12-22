@@ -1,9 +1,14 @@
+import { useContext } from 'react';
 import './banner.scoped.scss'
 import './banner.css'
 import Flickity from 'react-flickity-component'
 import ContainerComponent from '../../../../general/container/ContainerComponent'
+import { LanguageContext } from '../../../../../context/LanguageContext';
 
 export default function BannerComponent({ bannerObj }) {
+    const { language } = useContext(LanguageContext)
+    const suffix = language == 'id' ? '' : '_en';
+
     const flickityOptions = {
         autoPlay: 4500,
         wrapAround: true,
@@ -35,9 +40,9 @@ export default function BannerComponent({ bannerObj }) {
             <div className="content-banner-text">
                 <ContainerComponent>
                     <div className="inner">
-                        <h1>{bannerObj.title}</h1>
+                        <h1>{bannerObj['title'+suffix]}</h1>
 
-                        <p>{bannerObj.description}</p>
+                        <p>{bannerObj['description'+suffix]}</p>
                     </div>
                 </ContainerComponent>
             </div>
