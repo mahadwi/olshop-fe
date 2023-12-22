@@ -44,7 +44,7 @@ i18n
       },
       // Add other language translations here
     },
-    lng: storedLanguage || 'en', // Set default language
+    lng: storedLanguage || 'id', // Set default language
     fallbackLng: 'en', // Fallback to English if translation not found
     interpolation: {
       escapeValue: false, // React already does escaping
