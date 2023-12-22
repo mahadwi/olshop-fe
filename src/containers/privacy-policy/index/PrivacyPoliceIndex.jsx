@@ -6,6 +6,7 @@ import './privacy-police.css'
 import { useLocation } from "react-router-dom";
 import Api from "../../../utils/Api";
 import { LoadingContext } from "../../../context/LoadingContext";
+import { LanguageContext } from "../../../context/LanguageContext";
 
 export default function PrivacyPoliceIndex() {
 
@@ -20,6 +21,8 @@ export default function PrivacyPoliceIndex() {
      * 
      */
     const { setLoading } = useContext(LoadingContext)
+    const { language } = useContext(LanguageContext)
+    const suffix = language == 'id' ? '' : '_en';
 
     /**
      * Main State
@@ -32,6 +35,18 @@ export default function PrivacyPoliceIndex() {
         loadBreadcrumb()
         loadPrivacyPoliceObject()
     }, [])
+
+    useEffect(() => {
+        setBreadcrumb([
+            {
+                label: 'Home',
+                url: '/'
+            },
+            {
+                label: privacyPoliceObject['title' + suffix]
+            }
+        ])
+    }, [language, privacyPoliceObject]);
 
     // Automatically scrolls to top whenever pathname changes
     useEffect(() => {
@@ -76,7 +91,7 @@ export default function PrivacyPoliceIndex() {
                     <div className="body">
                         <h3>PRIVACY POLICY PT LUXI AS LUXI</h3>
 
-                        <p dangerouslySetInnerHTML={{ __html: privacyPoliceObject.description }}>
+                        <p dangerouslySetInnerHTML={{ __html: privacyPoliceObject['description'+suffix] }}>
                         </p>
                     </div>
                 </ContainerComponent>

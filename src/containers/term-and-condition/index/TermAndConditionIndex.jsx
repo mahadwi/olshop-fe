@@ -7,6 +7,7 @@ import './term-and-confition.css'
 import Api from "../../../utils/Api";
 import { useLocation } from 'react-router-dom';
 import { LoadingContext } from "../../../context/LoadingContext";
+import { LanguageContext } from "../../../context/LanguageContext";
 
 export default function TermAndConditionIndex() {
 
@@ -21,6 +22,8 @@ export default function TermAndConditionIndex() {
      * 
      */
     const { setLoading } = useContext(LoadingContext)
+    const { language } = useContext(LanguageContext)
+    const suffix = language == 'id' ? '' : '_en';
 
     /**
      * Main State
@@ -47,7 +50,28 @@ export default function TermAndConditionIndex() {
         if (Object.keys(contactObj).length > 0 && Object.keys(termConditionObject).length > 0) {
             setLoading(false)
         }
+        setBreadcrumb([
+            {
+                label: 'Home',
+                url: '/'
+            },
+            {
+                label: termConditionObject['title' + suffix]
+            }
+        ])
     }, [termConditionObject, contactObj])
+
+    useEffect(() => {
+        setBreadcrumb([
+            {
+                label: 'Home',
+                url: '/'
+            },
+            {
+                label: termConditionObject['title' + suffix]
+            }
+        ])
+    }, [language]);
 
     const loadTermCondition = () => {
         Api.get('/term-condition')
@@ -87,7 +111,7 @@ export default function TermAndConditionIndex() {
 
                 <div className="hero">
                     <div className="inner-bg">
-                        <h3>{termConditionObject.title}</h3>
+                        <h3>{termConditionObject['title'+suffix]}</h3>
                     </div>
                     <img src={termConditionObject.image_url} alt="" />
                 </div>
@@ -130,7 +154,7 @@ export default function TermAndConditionIndex() {
                 </ContainerComponent>
                 <ContainerComponent>
                     <div className="body">
-                        <p dangerouslySetInnerHTML={{ __html: termConditionObject.description }} />
+                        <p dangerouslySetInnerHTML={{ __html: termConditionObject['description'+suffix] }} />
                     </div>
                 </ContainerComponent>
             </div>

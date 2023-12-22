@@ -7,6 +7,7 @@ import ReturnPoliceComponent from "../../../components/pages/delivery-and-shippi
 import { useLocation } from "react-router-dom";
 import Api from "../../../utils/Api";
 import { LoadingContext } from "../../../context/LoadingContext";
+import { LanguageContext } from "../../../context/LanguageContext";
 
 export default function DeliveryAndShippingIndex() {
 
@@ -21,6 +22,8 @@ export default function DeliveryAndShippingIndex() {
      * 
      */
     const { setLoading } = useContext(LoadingContext)
+    const { language } = useContext(LanguageContext)
+    const suffix = language == 'id' ? '' : '_en';
 
     /**
      * Main State
@@ -42,7 +45,28 @@ export default function DeliveryAndShippingIndex() {
         if (Object.keys(deliveryShippingObject).length > 0 && Object.keys(returnPoliceObject).length > 0) {
             setLoading(false)
         }
+        setBreadcrumb([
+            {
+                label: 'Home',
+                url: '/'
+            },
+            {
+                label: deliveryShippingObject['title' + suffix]
+            }
+        ])
     }, [deliveryShippingObject, returnPoliceObject])
+
+    useEffect(() => {
+        setBreadcrumb([
+            {
+                label: 'Home',
+                url: '/'
+            },
+            {
+                label: deliveryShippingObject['title' + suffix]
+            }
+        ])
+    }, [language]);
 
     // Automatically scrolls to top whenever pathname changes
     useEffect(() => {

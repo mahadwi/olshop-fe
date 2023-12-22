@@ -7,6 +7,7 @@ import './return-policy.scoped.scss'
 import './return-police.css'
 import Api from "../../../utils/Api";
 import { LoadingContext } from "../../../context/LoadingContext";
+import { LanguageContext } from "../../../context/LanguageContext";
 
 export default function ReturnPolicyIndex() {
 
@@ -21,6 +22,8 @@ export default function ReturnPolicyIndex() {
      * 
      */
     const { setLoading } = useContext(LoadingContext)
+    const { language } = useContext(LanguageContext)
+    const suffix = language == 'id' ? '' : '_en';
 
     /**
      * Main State
@@ -33,6 +36,18 @@ export default function ReturnPolicyIndex() {
         loadBreadcrumb()
         loadReturnPoliceObject()
     }, [])
+
+    useEffect(() => {
+        setBreadcrumb([
+            {
+                label: 'Home',
+                url: '/'
+            },
+            {
+                label: returnPoliceObject['title' + suffix]
+            }
+        ])
+    }, [language, returnPoliceObject]);
 
     // Automatically scrolls to top whenever pathname changes
     useEffect(() => {
@@ -77,7 +92,7 @@ export default function ReturnPolicyIndex() {
                     <div className="right">
                         <div className="inner">
                             <div className="box">
-                                <p dangerouslySetInnerHTML={{ __html: returnPoliceObject.description }}>
+                                <p dangerouslySetInnerHTML={{ __html: returnPoliceObject['description' + suffix] }}>
                                 </p>
                             </div>
                             <a target="_blank" href={`https://wa.me/${returnPoliceObject.cp}`} className="btn-action"><IconBrandWhatsapp /> <span>Contact Us</span></a>

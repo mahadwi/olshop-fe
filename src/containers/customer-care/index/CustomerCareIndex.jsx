@@ -8,6 +8,7 @@ import TitleDescriptionComponent from "../../../components/pages/customer-care/i
 import { useLocation } from "react-router-dom";
 import Api from "../../../utils/Api";
 import { LoadingContext } from "../../../context/LoadingContext";
+import { LanguageContext } from "../../../context/LanguageContext";
 
 export default function CustomerCareIndex() {
 
@@ -22,6 +23,8 @@ export default function CustomerCareIndex() {
      * 
      */
     const { setLoading } = useContext(LoadingContext)
+    const { language } = useContext(LanguageContext)
+    const suffix = language == 'id' ? '' : '_en';
 
     /**
      * Main State
@@ -48,7 +51,28 @@ export default function CustomerCareIndex() {
         if (Object.keys(customerCareObject).length > 0 && Object.keys(returnPoliceObject).length > 0) {
             setLoading(false)
         }
+        setBreadcrumb([
+            {
+                label: 'Home',
+                url: '/'
+            },
+            {
+                label: customerCareObject['title' + suffix]
+            }
+        ])
     }, [customerCareObject, returnPoliceObject])
+
+    useEffect(() => {
+        setBreadcrumb([
+            {
+                label: 'Home',
+                url: '/'
+            },
+            {
+                label: customerCareObject['title' + suffix]
+            }
+        ])
+    }, [language]);
 
     const loadCustomerCareObject = () => {
         Api.get('/customer-care')
