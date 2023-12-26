@@ -16,6 +16,7 @@ import LoginIndex from './containers/login/index/LoginIndex';
 import AccountIndex from './containers/account/index/AccountIndex';
 import RegisterIndex from './containers/register/index/RegisterIndex';
 import EmailVerificationIndex from './containers/email-verification/index/EmailVerificationIndex';
+import AuthGoogleIndex from './containers/auth-google/index/AuthGoogleIndex';
 import ReturnPolicyIndex from './containers/return-policy/index/ReturnPolicyIndex';
 import AuthenticationIndex from './containers/authentication/index/AuthenticationIndex.jsx';
 import WorkWithUsIndex from './containers/work-with-us/index/WorkWithUsIndex.jsx';
@@ -45,6 +46,7 @@ function App() {
                         <Route path="/login" element={<LoginIndex />} />
                         <Route path="/register" element={<RegisterIndex />} />
                         <Route path='/email-verification' element={<EmailVerificationIndex />} />
+                        <Route path='/auth/google' element={<AuthGoogleIndex />} />
                         {/* End of Auth */}
 
                         {/* POS */}

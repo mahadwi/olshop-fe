@@ -7,6 +7,7 @@ import GoogleIcon from './../../../images/icons/google-icon.png'
 import FacebookIcon from './../../../images/icons/facebook-icon.png'
 import { IconEye, IconEyeOff } from '@tabler/icons-react'
 import { useContext, useEffect, useRef, useState } from 'react'
+import Api from '../../../utils/Api'
 import ApiErrorHandling from '../../../utils/ApiErrorHandling'
 import { AuthUserContext } from '../../../context/AuthUserContext'
 import { LoadingContext } from '../../../context/LoadingContext'
@@ -35,7 +36,25 @@ export default function LoginIndex() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [errorObj422, setErrorObj422] = useState({})
+    const [googleLoginUrl, setGoogleLoginUrl] = useState("")
     const inputPasswordRef = useRef()
+
+    useEffect(() => {
+        setLoading(true);
+        Api.get('/auth?provider=google', {
+            provider: 'google',
+            headers : {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        })
+            .then((response) => {
+                return response.data;
+            })
+            .then((data) => setGoogleLoginUrl( data.url ))
+            .catch((error) => console.error(error))
+            .finally(() => setLoading(false));
+    }, []);
 
     // Automatically scrolls to top whenever pathname changes
     useEffect(() => {
@@ -83,7 +102,7 @@ export default function LoginIndex() {
                         <div className='inner'>
                             <div className='sign-is-socmed'>
                                 <div className='button-wrap'>
-                                    <GoogleLogin
+                                    {/*<GoogleLogin
                                         onSuccess={credentialResponse => {
                                             console.log(credentialResponse);
                                         }}
@@ -91,8 +110,8 @@ export default function LoginIndex() {
                                             console.log('Login Failed');
                                         }}
                                         useOneTap
-                                    />
-                                    {/* <button><img src={GoogleIcon} alt="" /> Sign in with Google</button> */}
+                                    /> */}
+                                    <a href={googleLoginUrl}><button><img src={GoogleIcon} alt="" /> Sign in with Google</button></a>
                                     <button><img src={FacebookIcon} alt="" /> Sign in with Facebook</button>
                                 </div>
                                 <p>- OR -</p>
