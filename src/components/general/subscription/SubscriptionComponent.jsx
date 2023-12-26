@@ -75,6 +75,10 @@ export default function SubscriptionComponent({ loading }) {
         }
     }
 
+    if (user?.is_subscribe) {
+        return <></>
+    }
+
     return (
         <div className={`subscription-component ${showSubscription ? 'show' : ''}`}>
             <div className={`subscribtion-content ${showSubscription ? 'show' : ''}`}>
