@@ -1,8 +1,29 @@
+@use './../../../../../styles/func.scoped.scss' as *;
+
 .product-description-wrapper {
     flex: 4.6;
 
     .inner-product-description {
         padding-top: .4rem;
+
+        .product-name-wrapper {
+            display: flex;
+            flex-direction: row;
+            align-items: start;
+            gap:1rem;
+
+            .product-name-icons {
+                display: flex;
+                flex-direction: row;
+                gap:0;
+
+                button {
+                    background: transparent;
+                    border:0;
+                    color: #000
+                }
+            }
+        }
 
         h2.product-name {
             color: #000;
@@ -10,7 +31,7 @@
             font-size: 24px;
             font-style: normal;
             font-weight: 700;
-            line-height: 16px;
+            line-height: 2rem;
             margin-bottom: 0;
             /* 66.667% */
         }
@@ -59,9 +80,13 @@
                 display: flex;
                 align-items: center;
                 padding: 0 .75rem;
-                border-right: 2px solid #DDD;
+                border-right: 0;
                 border-left: 2px solid #DDD;
                 gap: .3rem;
+
+                @include lg {
+                    border-right: 2px solid #DDD;
+                }
 
                 .amount-rate {
                     color: #000;
@@ -84,10 +109,14 @@
             }
 
             .wishlists {
-                display: flex;
+                display: none;
                 align-items: center;
                 padding-left: .75rem;
                 gap: .3rem;
+
+                @include lg {
+                    display: flex;
+                }
 
                 .wishlist-text {
                     color: #000;
@@ -105,8 +134,23 @@
             }
         }
 
+        .product-price {
+            color: #FFAC33;
+            font-family: Cambay;
+            font-size: 15px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 16px; /* 106.667% */
+            margin-top: 1rem;
+        }
+
         .product-description-body {
+            display: none;
             padding-top: 2rem;
+
+            @include lg {
+                display: unset;
+            }
 
             .product-detail {
 

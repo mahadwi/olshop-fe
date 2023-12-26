@@ -7,7 +7,7 @@ import { IconChevronDown, IconChevronUp, IconMinus, IconPlus, IconShoppingCartFi
 import { useNavigate } from 'react-router-dom'
 import { AuthUserContext } from '../../../../../context/AuthUserContext';
 
-export default function ProductCartComponent() {
+export default function ProductCartComponent({onlyDesktop, onlyMobile}) {
 
     /**
      * Hooks
@@ -38,7 +38,7 @@ export default function ProductCartComponent() {
     ];
 
     return (
-        <div className="product-cart-wrapper">
+        <div className={`product-cart-wrapper ${onlyDesktop ? 'only-desktop' : ''} ${onlyMobile ? 'only-mobile': ''}`}>
             <form action="">
                 <div className='group'>
                     <label htmlFor="shipping_option">Shipping Option</label>
@@ -126,7 +126,7 @@ export default function ProductCartComponent() {
                         value={selectedShippingToOption}
                         options={shippingToOptions} />
                 </div>
-                <div className='group'>
+                <div className='group only-desktop'>
                     <label htmlFor="weight">Weight</label>
                     <input type="text" name="weight" className='form-text' id="weight" value={'1,25'} readOnly />
                     <span className='unit'>Kg</span>
@@ -142,7 +142,7 @@ export default function ProductCartComponent() {
                         <div className='collapse-content'>Random content</div>
                     </Collapse>
                 </div>
-                <div className="group">
+                <div className="group only-desktop">
                     <label>Total Stock : 30</label>
                     <div className='stock-increase-decrease'>
                         <button type='button'><IconMinus size={15} style={{ color: '#FFF' }} /></button>
@@ -150,7 +150,7 @@ export default function ProductCartComponent() {
                         <button type='button'><IconPlus size={15} style={{ color: '#FFF' }} /></button>
                     </div>
                 </div>
-                <div className='group'>
+                <div className='group only-desktop'>
                     <div className='price-row-item'>
                         <span className='label'>Price</span>
                         <span className={`val ${user ? '' : 'blur'}`}>Rp. 19.631.312</span>
@@ -172,11 +172,28 @@ export default function ProductCartComponent() {
                             : <></>
                     }
                 </div>
-                <div className='group'>
+                <div className='group only-desktop'>
                     <button type='button' className='btn-cart'><IconShoppingCartFilled /> Add to cart</button>
                     <button type='button' className='btn-buy'>Buy Now</button>
                 </div>
             </form>
+            <div className='product-cart-mobile'>
+                <div className='product-cart-mobile-wrapper'>
+                    <div className='product-cart-mobile-input'>
+                        <button><IconMinus size={14} /></button>
+                        <input type={'number'} value={0} />
+                        <button><IconPlus size={14} /></button>
+                        <div className='total-stock'>Total Stock: 30</div>
+                    </div>
+                    <div className='line-div' />
+                    <div className='product-cart-mobile-cart'>
+                        <button>
+                            <IconShoppingCartFilled />
+                        </button>
+                    </div>
+                </div>
+                <button className='buy-now'>Buy Now</button>
+            </div>
         </div>
     )
 }

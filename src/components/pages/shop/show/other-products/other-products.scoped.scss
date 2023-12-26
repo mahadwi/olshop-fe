@@ -1,3 +1,5 @@
+@use './../../../../../styles/func.scoped.scss' as *;
+
 .other-products-section {
     margin-top: -1.5rem;
 
@@ -43,6 +45,19 @@
 }
 
 .products {
+    display: none;
+    gap: 1rem;
+
+    @include lg {
+        display: flex;
+    }
+}
+
+.products-mobile {
     display: flex;
     gap: 1rem;
+
+    @include lg {
+        display: none;
+    }
 }

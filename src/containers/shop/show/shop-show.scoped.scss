@@ -1,7 +1,14 @@
+@use './../../../styles/func.scoped.scss' as *;
+
 .product-item-detail {
     display: flex;
+    flex-direction: column;
     gap: 1.7rem;
     padding-top: 1rem;
+
+    @include lg {
+        flex-direction: row;
+    }
 }
 
 hr {
@@ -12,4 +19,11 @@ hr {
     opacity: 1;
     background: #DDDDDD;
     margin: 3.15rem 0;
+
+    &.only-mobile {
+        display: block;
+        @include lg {
+            display: none;
+        }
+    }
 }

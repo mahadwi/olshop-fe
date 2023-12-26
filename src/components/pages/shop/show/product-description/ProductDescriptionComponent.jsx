@@ -1,4 +1,4 @@
-import { IconStarFilled, IconHeart, IconHeartFilled } from '@tabler/icons-react';
+import { IconStarFilled, IconHeart, IconHeartFilled, IconShare } from '@tabler/icons-react';
 import './product-description.scoped.scss'
 import parse from 'html-react-parser';
 
@@ -6,7 +6,13 @@ export default function ProductDescriptionComponent({ productObj }) {
     return (
         <div className="product-description-wrapper">
             <div className="inner-product-description">
-                <h2 className='product-name'>{productObj.name}</h2>
+                <div className='product-name-wrapper'>
+                    <h2 className='product-name'>{productObj.name}</h2>
+                    <div className='product-name-icons'>
+                      <button><IconHeart /></button>
+                      <button><IconShare /></button>
+                    </div>
+                </div>
                 <div className="actions-wrap">
                     <div className="sold">
                         <span className="text-sold">Sold</span>
@@ -34,6 +40,7 @@ export default function ProductDescriptionComponent({ productObj }) {
                         <span className='wishlist-text'>Whislist</span>
                     </div>
                 </div>
+                <div className='product-price'>Rp. {productObj.sale_price}</div>
                 <div className='product-description-body'>
                     <div className='product-detail'>
                         <h3 className='product-detail-title'>Product Detail</h3>

@@ -22,6 +22,13 @@ export default function OtherProductsComponent({ productsByCategory, user }) {
                     ))
                 }
             </div>
+            <div className='products-mobile'>
+                {
+                    productsByCategory?.slice(0, 2)?.map((product) => (
+                        <ProductItemComponent blur={!user} product={product} />
+                    ))
+                }
+            </div>
         </div>
     )
 }

@@ -4,6 +4,7 @@ import ContainerComponent from "../../../components/general/container/ContainerC
 import OtherProductsComponent from "../../../components/pages/shop/show/other-products/OtherProductsComponent";
 import ProductCartComponent from "../../../components/pages/shop/show/product-cart/ProductCartComponent";
 import ProductDescriptionComponent from "../../../components/pages/shop/show/product-description/ProductDescriptionComponent";
+import ProductDescriptionMobileComponent from "../../../components/pages/shop/show/product-description-mobile/ProductDescriptionMobileComponent";
 import ProductImageComponent from "../../../components/pages/shop/show/product-images/ProductImageComponent";
 import ReviewSectionComponent from "../../../components/pages/shop/show/review-section/ReviewSectionComponent";
 import './shop-show.scoped.scss'
@@ -102,10 +103,14 @@ export default function ShopShow() {
                 <div className="product-item-detail">
                     <ProductImageComponent productImages={productObj.images ? productObj.images : []} />
                     <ProductDescriptionComponent productObj={productObj} />
-                    <ProductCartComponent />
+                    <ProductCartComponent onlyDesktop={true} />
                 </div>
                 <hr />
                 <OtherProductsComponent user={user} productsByCategory={productsByCategory} />
+                <hr className='only-mobile' />
+                <ProductCartComponent onlyMobile={true} />
+                <hr className='only-mobile' />
+                <ProductDescriptionMobileComponent productObj={productObj} />
                 <hr />
                 <ReviewSectionComponent />
             </ContainerComponent>

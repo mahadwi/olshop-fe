@@ -1,17 +1,43 @@
+@use './../../../../../styles/func.scoped.scss' as *;
+
 .product-cart-wrapper {
     flex: 2.5;
 
+    &.only-desktop {
+        display: none;
+        @include lg {
+            display: unset;
+        }
+    }
+
+    &.only-mobile {
+        display: unset;
+        @include lg {
+            display: none;
+        }
+    }
+
     form {
-        border-radius: 3px;
-        border: 1px solid #C4C4C4;
         background: #FFF;
-        padding: .85rem 1.35rem;
         display: flex;
         flex-direction: column;
         gap: .75rem;
 
+        @include lg {
+            border-radius: 3px;
+            border: 1px solid #C4C4C4;
+            padding: .85rem 1.35rem;
+        }
+
         .group {
             position: relative;
+
+            &.only-desktop {
+                display: none;
+                @include lg {
+                    display: unset;
+                }
+            }
 
             label {
                 color: #000;
@@ -206,6 +232,101 @@
                 padding: .3rem 0;
                 margin-top: .6rem;
             }
+        }
+    }
+
+    .product-cart-mobile {
+        display: flex;
+        flex-direction: row;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1;
+        border-top: 1px solid #C4C4C4;
+        align-items: center;
+        background: #fff;
+        
+
+        @include lg {
+            display: none;
+        }
+
+        .product-cart-mobile-wrapper {
+            display: flex;
+            flex-direction: row;
+            padding: 1rem;
+            gap: 1rem;
+
+            .product-cart-mobile-input {
+                flex: 1 0;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 0.5rem;
+
+                button {
+                    display: flex;
+                    padding: 0 0.5rem;
+                    border-radius: 5px;
+                    color: #fff;
+                    border: 1px solid #151B4F;
+                    background: #151B4F;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+
+                input {
+                    width: 4rem;
+                }
+
+                .total-stock {
+                    flex: 1 0 100%;
+                    color: #A2A3B1;
+                    font-family: Cambay;
+                    font-size: 12px;
+                    font-style: normal;
+                    text-align: center;
+                    font-weight: 700;
+                    line-height: 16px; /* 200% */
+                }
+            }
+
+            .line-div {
+                width: 1px;
+                background: #C4C4C4;
+            }
+
+            .product-cart-mobile-cart {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                button {
+                    background: transparent;
+                    border: 0;
+                }
+            }
+        }
+
+        .buy-now {
+            flex: 1 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #151B4F;
+            box-shadow: 4px 10px 4px 0px rgba(0, 0, 0, 0.25);
+            border:0;
+            color: #FFF;
+            text-align: justify;
+            font-family: Cambay;
+            padding: 2.5rem;
+            font-size: 18px;
+            font-style: normal;
+            white-space: nowrap;
+            font-weight: 700;
+            line-height: 16px; /* 114.286% */
         }
     }
 }

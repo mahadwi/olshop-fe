@@ -12,6 +12,16 @@
         .breadcrumb-list-item {
             display: flex;
             align-items: center;
+            white-space: nowrap;
+
+            &:last-child {
+                overflow: hidden;
+
+                span {
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+            }
 
             a {
                 color: #FFAC33;

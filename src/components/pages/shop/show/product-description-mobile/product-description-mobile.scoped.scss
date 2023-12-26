@@ -1,0 +1,96 @@
+@use './../../../../../styles/func.scoped.scss' as *;
+
+.product-description-body {
+    display: block;
+
+    @include lg {
+        display: none;
+    }
+
+    .product-detail {
+
+        h3.product-detail-title {
+            color: #000;
+            font-family: 'Cambay', sans-serif;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 16px;
+            margin-bottom: 0;
+
+            @media screen and (min-width: 1200px) {
+                font-size: 16px;
+                line-height: 20px;
+            }
+        }
+
+        p.product-description-text {
+            color: #000;
+            text-align: justify;
+            font-family: 'Cabin', sans-serif;
+            font-size: 12px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 16px;
+            /* 133.333% */
+
+            @media screen and (min-width: 1200px) {
+                font-size: 14px;
+                line-height: 20px;
+            }
+        }
+
+        ul.product-list-details {
+            li {
+                color: #000;
+                text-align: justify;
+                font-family: 'Cabin', sans-serif;
+                font-size: 12px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 16px;
+                /* 133.333% */
+
+                @media screen and (min-width: 1200px) {
+                    font-size: 14px;
+                    line-height: 20px;
+                }
+            }
+        }
+    }
+}
+
+.product-materials {
+
+    h3.product-material-title {
+        color: #000;
+        font-family: 'Cambay', sans-serif;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 16px;
+        margin-bottom: 0;
+
+
+        @media screen and (min-width: 1200px) {
+            font-size: 16px;
+            line-height: 20px;
+        }
+    }
+
+    p.product-material-text {
+        color: #000;
+        text-align: justify;
+        font-family: 'Cabin', sans-serif;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 16px;
+        /* 133.333% */
+
+        @media screen and (min-width: 1200px) {
+            font-size: 14px;
+            line-height: 20px;
+        }
+    }
+}
