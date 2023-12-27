@@ -5,7 +5,7 @@ import { withTranslation } from 'react-i18next';
 import './navbar.scoped.scss'
 import ContainerComponent from '../container/ContainerComponent';
 import BrandLogo from './../../../images/brands/logo.png'
-import { NavLink, useLocation, Link } from 'react-router-dom';
+import { NavLink, useNavigate, useLocation, Link } from 'react-router-dom';
 import { IconAlignLeft, IconArrowRight, IconMapPin, IconSearch, IconShoppingCartFilled, IconUserCircle, IconX } from '@tabler/icons-react';
 import StringUtil from '../../../utils/StringUtil';
 import "/node_modules/flag-icons/css/flag-icons.min.css";
@@ -39,6 +39,7 @@ function NavbarComponent({ t }) {
      * 
      */
     const path = useReactPath();
+    const navigate = useNavigate();
 
     /**
      * Refs
@@ -72,6 +73,10 @@ function NavbarComponent({ t }) {
     useEffect(() => {
         startFuncNavbarDynamicStyle()
     }, [])
+
+    useEffect(() => {
+        setSidebarOpen(false);
+    }, [navigate]);
 
     const loadBrands = () => {
         Api.get('/brand')
