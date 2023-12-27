@@ -104,7 +104,7 @@ export default function ShoppingCart() {
                                     <img src={cartObj.product.images[0]} alt="" />
                                     <div className="product-desc">
                                         <h4 className="product-name">{cartObj.product.name}</h4>
-                                        <span className="product-weight">{cartObj.qty} pcs ({StringUtil.numberingWithDotFormat(cartObj.product.weight * cartObj.qty)} gr)</span>
+                                        <span className="product-weight">{cartObj.qty} pcs ({StringUtil.numberingWithDotFormat(Math.ceil(cartObj.product.weight * cartObj.qty))} gr)</span>
                                     </div>
                                 </div>
                                 <div className="item-price-col">

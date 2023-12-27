@@ -35,7 +35,7 @@ export default function FloatingCartComponent() {
                                     <div className="right">
                                         <h4 className='cart-product-title'>{cartObj.product.name}</h4>
                                         <h4 className='cart-product-price'>{StringUtil.rupiahFormat(cartObj.price)}</h4>
-                                        <span className='cart-weight'>{StringUtil.numberingWithDotFormat(cartObj.qty)} pcs ({StringUtil.numberingWithDotFormat(cartObj.product.weight)} gr)</span>
+                                        <span className='cart-weight'>{StringUtil.numberingWithDotFormat(cartObj.qty)} pcs ({StringUtil.numberingWithDotFormat(Math.ceil(cartObj.product.weight))} gr)</span>
                                     </div>
                                 </div>
                             ))
