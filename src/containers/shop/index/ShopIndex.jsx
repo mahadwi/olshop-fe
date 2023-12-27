@@ -15,7 +15,7 @@ export default function ShopIndex() {
 
     const [searchParams] = useSearchParams();
     const currentPage = searchParams.get('page');
-    const { pathname } = useLocation();
+    const { pathname, search } = useLocation();
 
     const { setLoading } = useContext(LoadingContext)
     const { user } = useContext(AuthUserContext)
@@ -46,10 +46,10 @@ export default function ShopIndex() {
     const [selectedSortOption, setSelectedSortOption] = useState({ value: 'name_asc', label: 'ALphabetical, A - Z' })
     const [showMobileFilter, setShowMobileFilter] = useState(false);
 
-    // Automatically scrolls to top whenever pathname changes
+    // Automatically scrolls to top whenever pathname or search changes
     useEffect(() => {
         window.scrollTo(0, 0);
-    }, [pathname]);
+    }, [pathname, search]);
 
     useEffect(() => {
         loadBreadcrumbs()

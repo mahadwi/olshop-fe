@@ -4,7 +4,7 @@ import ContainerComponent from "../../../components/general/container/ContainerC
 import BannerComponent from "../../../components/pages/collective/index/banner/BannerComponent";
 import TopFilterComponent from "../../../components/pages/collective/index/top-filter/TopFilterComponent";
 import ProductsWrapperComponent from "../../../components/pages/collective/index/products-wrapper/ProductsWrapperComponent";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useLocation, useParams, useSearchParams } from "react-router-dom";
 import Api from "../../../utils/Api";
 import { LoadingContext } from "../../../context/LoadingContext";
 import { AuthUserContext } from "../../../context/AuthUserContext";
@@ -18,6 +18,7 @@ export default function CollectiveIndex() {
     const [searchParams] = useSearchParams();
     const { id } = useParams();
     const currentPage = searchParams.get('page');
+    const { pathname, search } = useLocation();
 
     /**
      * Context
@@ -53,6 +54,11 @@ export default function CollectiveIndex() {
         loadBreadcrumbs()
         loadBrands()
     }, [])
+
+    // Automatically scrolls to top whenever pathname or search changes
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [pathname, search]);
 
     useEffect(() => {
         loadProducts()

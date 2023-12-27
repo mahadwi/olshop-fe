@@ -1,4 +1,4 @@
-import { useSearchParams, useParams } from "react-router-dom";
+import { useLocation, useSearchParams, useParams } from "react-router-dom";
 import FooterComponent from "../../../components/footer/FooterComponent";
 import BreadCrumbComponent from "../../../components/general/breadcrumb/BreadCrumbComponent";
 import ContainerComponent from "../../../components/general/container/ContainerComponent";
@@ -22,6 +22,7 @@ export default function DesignerIndex() {
     const [searchParams] = useSearchParams();
     const { id } = useParams();
     const currentPage = searchParams.get('page');
+    const { pathname, search } = useLocation();
 
     /**
      * Context
@@ -57,6 +58,11 @@ export default function DesignerIndex() {
         loadCategories()
         loadBannerObj()
     }, [])
+
+    // Automatically scrolls to top whenever pathname or search changes
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [pathname, search]);
 
     useEffect(() => {
         loadProducts()
