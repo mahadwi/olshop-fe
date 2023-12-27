@@ -1,7 +1,13 @@
+@use './../../../../../styles/func.scoped.scss' as *;
+
 .form-payment-container {
     border: 1px solid #C4C4C4;
-    width: 70%;
+    width: 100%;
     margin: auto;
+
+    @include lg {
+        width:70%;
+    }
 
     .box-item {
         padding: 1.5rem 2.25rem;
@@ -45,11 +51,15 @@
             h3 {
                 color: #000;
                 font-family: 'Cambay', sans-serif;
-                font-size: 21px;
+                font-size: 12px;
                 font-style: normal;
                 font-weight: 700;
                 line-height: 16px;
                 margin-bottom: 0;
+
+                @include lg {
+                    font-size: 21px;
+                }
             }
 
             h4 {
@@ -108,6 +118,7 @@
                 border: 0px;
                 outline: 0px;
                 text-align: right;
+                width: 100%;
             }
 
             input::placeholder {

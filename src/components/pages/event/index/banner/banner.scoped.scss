@@ -1,3 +1,5 @@
+@use './../../../../../styles/func.scoped.scss' as *;
+
 .banner-container {
     background-size: cover;
     height: 775px;
@@ -6,20 +8,26 @@
 
     @media screen and (max-width: 991px) {
         height: unset;
-        padding: 3rem 0;
+        // padding: 3rem 0;
     }
 
     .inner {
         background: linear-gradient(90deg, rgba(84, 84, 84, 0.30) 31.02%, rgba(217, 217, 217, 0.00) 68.77%);
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         align-items: flex-start;
         justify-content: center;
         height: 100%;
         padding: 12rem 6rem 0;
+        gap:1rem;
+
+        @include lg {
+            gap:0rem;
+            flex-direction: column;
+        }
 
         @media screen and (max-width: 991px) {
-            padding: 0 1rem;
+            padding: 3rem 1rem;
         }
 
         h2 {
@@ -33,6 +41,12 @@
             line-height: 52px;
             text-align: center;
             margin-left: 5.5rem;
+            align-self: end;
+
+
+            @include lg {
+                align-self: unset;
+            }
 
             @media screen and (max-width: 991px) {
                 margin-left: 0rem;
@@ -70,7 +84,8 @@
 
             a {
                 display: flex;
-                padding: .55rem 5.5rem;
+                white-space: nowrap;
+                padding: .55rem 1.5rem;
                 justify-content: center;
                 align-items: center;
                 gap: 16px;
@@ -85,6 +100,10 @@
                 line-height: 20px;
                 letter-spacing: 0.1px;
                 text-decoration: none;
+
+                @include lg {
+                    padding: .55rem 5.5rem;
+                }
             }
         }
     }

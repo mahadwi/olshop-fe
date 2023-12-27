@@ -1,3 +1,5 @@
+@use './../../../../../styles/func.scoped.scss' as *;
+
 .our-journals-section {
     margin-top: 2.7rem;
 
@@ -8,12 +10,6 @@
         align-items: center;
         justify-content: space-between;
         padding-left: 0;
-
-        @media screen and (max-width: 991px) {
-            flex-direction: column;
-            padding: 0 1rem;
-            gap: 1rem;
-        }
 
         li {
             overflow: hidden;
@@ -43,10 +39,6 @@
 
             &.divide-journal-item {
                 width: 33.333333333%;
-
-                @media screen and (max-width: 991px) {
-                    width: 100%;
-                }
             }
         }
     }
