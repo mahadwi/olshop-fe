@@ -1,10 +1,16 @@
+@use './../../../../../styles/func.scoped.scss' as *;
+
 .hero {
-    height: 400px;
+    height: 170px;
     background-position-x: 50%;
     background-position-y: 20%;
     display: flex;
     align-items: center;
     justify-content: center;
+
+    @include lg {
+        height: 400px;
+    }
 
     h1 {
         color: #FFF;

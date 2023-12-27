@@ -1,5 +1,11 @@
+@use './../../../../../styles/func.scoped.scss' as *;
+
 .form-container {
-    width: 70%;
+    width: 100%;
+
+    @include lg {
+        width: 70%;
+    }
 
     .paragraph-question {
         margin-top: 2.2rem;

@@ -1,6 +1,12 @@
+@use './../../../../../styles/func.scoped.scss' as *;
+
 .contact-wrap-box {
-    width: 30%;
+    width: 100%;
     margin-top: 3.5rem;
+
+    @include lg {
+        width: 30%;
+    }
 
     .title-contact-us {
         color: #000;
