@@ -18,7 +18,7 @@ export default function FloatingCartComponent() {
         <div>
             <div className='floating-cart-content'>
                 <div className="top">
-                    <h3 className='title-float-cart'><span>Cart</span> (10)</h3>
+                    <h3 className='title-float-cart'><span>Cart</span> ({carts.length})</h3>
                     <Link className='float-cart-link' to={'/cart'}>
                         View All
                         <IconArrowRight size={15} />
