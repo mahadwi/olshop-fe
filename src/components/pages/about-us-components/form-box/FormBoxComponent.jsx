@@ -57,7 +57,7 @@ export default function FormBoxComponent() {
             <div
                 style={{ display: 'flex', justifyContent: 'center' }}
             >
-                <form action="" style={{ width: '38%' }}>
+                <form action="">
                     <div className='form-group'>
                         <label className='form-label' htmlFor="name">Name</label>
                         <input type="text" className={`form-control ${objError422.name ? 'is-invalid' : ''}`} name="name" id="name" placeholder='Input your name' value={name} onChange={(e) => {

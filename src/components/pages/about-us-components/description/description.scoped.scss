@@ -1,3 +1,5 @@
+@use './../../../../styles/func.scoped.scss' as *;
+
 .description-container {
     margin-top: 30px;
 
@@ -28,9 +30,16 @@
 
         .location-wrapper {
             display: flex;
+            flex-direction: column;
             width: 100%;
             column-gap: 2.35rem;
             margin-top: 23px;
+            gap:1rem;
+
+            @include lg {
+                gap:0;
+                flex-direction: row;
+            }
 
             .map-box {
                 flex: 1.5;

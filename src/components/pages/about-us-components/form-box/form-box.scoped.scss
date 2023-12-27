@@ -1,3 +1,5 @@
+@use './../../../../styles/func.scoped.scss' as *;
+
 .container-form {
     margin-top: 2rem;
 
@@ -7,9 +9,20 @@
         font-family: 'Inter', sans-serif;
         font-size: 15px;
         font-style: normal;
+        padding: 0 1rem;
         font-weight: 300;
         line-height: 16px;
         text-align: center;
+    }
+
+    form {
+      padding: 0 1rem;
+      width: 100%;
+
+      @include lg {
+          padding: 0;
+          width: 38%;
+      }
     }
 
     .form-group {
