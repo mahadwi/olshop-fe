@@ -5,6 +5,7 @@ import './faq.scoped.scss'
 import FaqImage from './../../images/temp/faq.6084f9fb9d2b8e0ccc3b.png'
 import Api from "../../utils/Api";
 import { LoadingContext } from "../../context/LoadingContext";
+import { LanguageContext } from "../../context/LanguageContext";
 
 export default function FaqIndex() {
 
@@ -13,6 +14,8 @@ export default function FaqIndex() {
      * 
      */
     const { setLoading } = useContext(LoadingContext)
+    const { language } = useContext(LanguageContext)
+    const suffix = language == 'id' ? '' : '_en';
 
     /**
      * Main State
@@ -20,6 +23,7 @@ export default function FaqIndex() {
      */
     const [breadcrumb, setBreadcrumb] = useState([])
     const [arrFaqPerSection, setArrFaqPerSection] = useState([])
+    const [faqImage, setFaqImage] = useState(FaqImage);
 
     useEffect(() => {
         setLoading(true)
@@ -44,18 +48,8 @@ export default function FaqIndex() {
         Api.get('/faq')
             .then((res) => {
                 if (res) {
-                    let arr = res.data.data
-                    let tempArrFaqSection = []
-
-                    const availableSections = arr.filter((value, index, self) =>
-                        self.findIndex(v => v.section === value.section) === index
-                    );
-
-                    availableSections.map((availableSection) => {
-                        tempArrFaqSection.push(arr.filter((val) => val.section == availableSection.section))
-                    })
-
-                    setArrFaqPerSection(tempArrFaqSection)
+                    setFaqImage(res.data.data.image)
+                    setArrFaqPerSection(res.data.data.faq_section)
                 }
             }).finally(() => {
                 setLoading(false)
@@ -74,26 +68,26 @@ export default function FaqIndex() {
                 <div className="faq-container">
                     <div className='left'>
                         <div className="inner">
-                            <img src={FaqImage} alt="" />
+                            <img src={faqImage} alt="" />
                         </div>
                     </div>
                     <div className="right">
                         <div className="inner">
                             {
-                                arrFaqPerSection.map((faqPerSectionItems) => (
+                                arrFaqPerSection.map((a) => (
                                     <div>
-                                        <h3 className="title-h3">{faqPerSectionItems.length > 0 ? faqPerSectionItems[0].section : ''}</h3>
+                                        <h3 className="title-h3">{a['section'+suffix]}</h3>
 
                                         <ul className='shop-dropdown-lists'>
                                             {
-                                                faqPerSectionItems.map((faqPerSectionItem) => (
+                                                a.faqs.map((b) => (
                                                     <li className='shop-dropdown-item'>
                                                         <span className='shop-dropdown-item-title' onClick={(e) => {
                                                             toggleDropdown(e)
-                                                        }}>{faqPerSectionItem.title}</span>
+                                                        }}>{b['question'+suffix]}</span>
 
                                                         <div className='shop-dropdown-item-content'>
-                                                            <p dangerouslySetInnerHTML={{ __html: faqPerSectionItem.description }} />
+                                                            <p dangerouslySetInnerHTML={{ __html: b['answer'+suffix] }} />
                                                         </div>
                                                     </li>
                                                 ))
