@@ -312,7 +312,13 @@
                     top: 9vh;
                     padding: 1.5rem;
                     border: 1px solid #828181;
-                    min-width: 400px;
+                    min-width: unset;
+                    width: calc(100vw - 4rem);
+
+                    @include lg {
+                        min-width: 400px;
+                        width: unset;
+                    }
                 }
             }
 

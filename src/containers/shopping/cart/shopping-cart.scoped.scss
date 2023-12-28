@@ -1,26 +1,60 @@
+@use './../../../styles/func.scoped.scss' as *;
+
 .shopping-cart-container {
     padding-top: 3rem;
     padding-bottom: 5rem;
 
+    .only-desktop {
+        display: none;
+        @include lg {
+            display: unset;
+        }
+    }
+
+    .only-mobile {
+        display: unset;
+        @include lg {
+            display: none;
+        }
+    }
+
     .title-page {
         color: #000;
-        font-family: 'Cambay', sans-serif;
-        font-size: 32px;
+        font-family: Cambay;
+        font-size: 14px;
         font-style: normal;
         font-weight: 700;
-        line-height: 16px;
-        /* 50% */
+        line-height: 16px; /* 114.286% */
+
+        @include lg {
+            color: #000;
+            font-family: 'Cambay', sans-serif;
+            font-size: 32px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 16px;
+            /* 50% */
+        }
     }
 
     .desc-page {
         color: #828181;
-        font-family: 'Cambay', sans-serif;
-        font-size: 20px;
+        font-family: Cambay;
+        font-size: 10px;
         font-style: normal;
         font-weight: 700;
-        line-height: 16px;
-        margin-top: 1.75rem;
-        /* 80% */
+        line-height: 16px; /* 160% */
+
+        @include lg {
+            color: #828181;
+            font-family: 'Cambay', sans-serif;
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 16px;
+            margin-top: 1.75rem;
+            /* 80% */
+        }
     }
 
     .carts-head {
@@ -47,7 +81,22 @@
         }
 
         .checkbox-head {
-            flex: .1;
+            flex: 1;
+            display: flex;
+            flex-direction: row;
+            gap:1rem;
+            color: #000;
+            align-items: center;
+            font-family: Cambay;
+            font-size: 12px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 16px;
+            
+            @include lg {
+                display: unset;
+                flex: .1;
+            }
         }
 
         .item-head {
@@ -93,8 +142,12 @@
                 flex: 3;
 
                 display: flex;
-                align-items: center;
+                align-items: start;
                 gap: 1.35rem;
+
+                @include lg {
+                    align-items: center;
+                }
 
                 img {
                     width: 77px;
@@ -124,6 +177,23 @@
                         line-height: 16px;
                         margin-bottom: 0;
                         /* 145.455% */
+                    }
+
+                    .price-col h4 {
+                        text-align: left;
+                        margin: 0.5rem 0;
+                    }
+
+                    .qty-col {
+                        div {
+                            justify-content: start;
+                        }
+
+                        .delete {
+                            margin-left: 1rem;
+                            background: #F44336;
+                            border-color: #F44336;
+                        }
                     }
                 }
             }
@@ -371,6 +441,103 @@
                     /* 125% */
                     letter-spacing: 0.1px;
                 }
+            }
+        }
+    }
+
+    .box-bottom-checkout-mobile {
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: #fff;
+        border-top: 1px solid #C4C4C4;
+        z-index: 1;
+        flex-direction: column;
+
+        @include lg {
+            display: none;
+        }
+
+        .top-voucher {
+            flex: 1;
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            padding: 1rem 2rem;
+            gap:1rem;
+
+            .inner {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap:0.5rem;
+                color: #000;
+                font-family: Cambay;
+                font-size: 12px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: 16px; /* 133.333% */
+            }
+
+            input {
+                flex: 1;
+                width: 100%;
+                border:0;
+                color: #A2A3B1;
+                font-family: Cambay;
+                font-size: 12px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 16px; /* 133.333% */
+                text-align: right;
+            }
+        }
+
+        .body-price {
+            display: flex;
+            flex-direction: row;
+            border-top: 1px solid #C4C4C4;
+
+            .top-desc {
+                flex: 1;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 0 2rem;
+
+                span:first-child {
+                    color: #A2A3B1;
+                    font-family: Cambay;
+                    font-size: 12px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 16px; /* 133.333% */
+                }
+
+                span:last-child {
+                    color: #FFAC33;
+                    font-family: Cambay;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 700;
+                    line-height: 16px; /* 114.286% */
+                }
+            }
+
+            button {
+                background: #151B4F;
+                border:0;
+                padding: 1.75rem 2.5rem;
+                box-shadow: 4px 10px 4px 0px rgba(0, 0, 0, 0.25);
+                color: #FFF;
+                text-align: justify;
+                font-family: Cambay;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: 16px; /* 114.286% */
             }
         }
     }
