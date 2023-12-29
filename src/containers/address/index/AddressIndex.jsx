@@ -202,9 +202,9 @@ export default function AddressIndex() {
                     </Modal.Header>
                     <Modal.Body>
                         <div>
-                            <div className='row'>
-                                <div className="col form-group mb-1">
-                                    <label htmlFor="name">Name</label>
+                            <div className='row gx-3'>
+                                <div className="col form-group mb-3">
+                                    <label htmlFor="name" className="d-none">Name</label>
                                     <input type="text" name="name" id="name" className={`form-control ${errorObj422.name ? 'is-invalid' : ''}`} placeholder="Name" value={nameCreateAddress} onChange={(e) => {
                                         setNameCreateAddress(e.target.value)
                                     }} />
@@ -216,8 +216,8 @@ export default function AddressIndex() {
                                             </div> : <></>
                                     }
                                 </div>
-                                <div className="col form-group mb-1">
-                                    <label htmlFor="phone">Phone</label>
+                                <div className="col form-group mb-3">
+                                    <label htmlFor="phone" className="d-none">Phone</label>
                                     <input type="number" name="phone" id="phone" className={`form-control ${errorObj422.phone ? 'is-invalid' : ''}`} placeholder="Phone" value={phoneCreateAddress} onChange={(e) => {
                                         setPhoneCreateAddress(e.target.value)
                                     }} />
@@ -230,8 +230,8 @@ export default function AddressIndex() {
                                     }
                                 </div>
                             </div>
-                            <div className="form-group mb-1">
-                                <label htmlFor="address">Address</label>
+                            <div className="form-group mb-3">
+                                <label htmlFor="address" className="d-none">Address</label>
                                 <textarea name="address" style={{ height: '200px' }} id="address" className={`form-control ${errorObj422.address ? 'is-invalid' : ''}`} placeholder="Address" cols="30" rows="10" value={addressCreateAddress} onChange={(e) => {
                                     setAddressCreateAddress(e.target.value)
                                 }}></textarea>
@@ -243,8 +243,8 @@ export default function AddressIndex() {
                                         </div> : <></>
                                 }
                             </div>
-                            <div className="form-group mb-1">
-                                <label htmlFor="sub_district">Sub District</label>
+                            <div className="form-group mb-3">
+                                <label htmlFor="sub_district" className="d-none">Sub District</label>
                                 <AsyncSelect cacheOptions loadOptions={loadDistricts} defaultOptions value={subDistrictCreateAddress} onChange={(val) => {
                                     setSubDistrictCreateAddress(val)
                                 }} />
@@ -256,15 +256,18 @@ export default function AddressIndex() {
                                         </div> : <></>
                                 }
                             </div>
-                            <div className="form-group mb-1">
-                                <label htmlFor="tag">Mark as</label>
-                                <select name="tag" id="tag" className={`form-control ${errorObj422.tag ? 'is-invalid' : ''}`} value={tagCreateAddress} onChange={(e) => {
-                                    setTagCreateAddress(e.target.value)
-                                }}>
-                                    <option value="" disabled selected>Choose Tag</option>
-                                    <option value="Home">Home</option>
-                                    <option value="Office">Office</option>
-                                </select>
+                            <div className="form-group">
+                                <div className="row justify-content-between align-items-center">
+                                    <div className="col address-label">Mark as:</div>
+                                    <div className="col text-end">
+                                        <button className={`address-mark-as ${tagCreateAddress == "Office" ? "active":""}`} onClick={() => setTagCreateAddress('Office')}>
+                                            Office
+                                        </button>
+                                        <button className={`address-mark-as ${tagCreateAddress == "Home" ? "active":""}`} onClick={() => setTagCreateAddress('Home')}>
+                                            Home
+                                        </button>
+                                    </div>
+                                </div>
                                 {
                                     errorObj422.tag ?
                                         <div className="invalid-feedback">
@@ -277,10 +280,10 @@ export default function AddressIndex() {
                     <Modal.Footer>
                         <button type="button" onClick={() => {
                             setModalCreateAddress(false)
-                        }} className="btn btn-secondary">Close</button>
-                        <button type="button" className="btn btn-primary" onClick={() => {
+                        }} className="cancel-button">Cancel</button>
+                        <button type="button" className="send-button" onClick={() => {
                             doSaveAddress()
-                        }}>Add Address</button>
+                        }}>Send</button>
                     </Modal.Footer>
                 </Modal>
                 {/* End of Modal Create */}
@@ -294,9 +297,9 @@ export default function AddressIndex() {
                     </Modal.Header>
                     <Modal.Body>
                         <div>
-                            <div className="row">
-                                <div className="col form-group mb-1">
-                                    <label htmlFor="name">Name</label>
+                            <div className="row gx-3">
+                                <div className="col form-group mb-3">
+                                    <label htmlFor="name" className="d-none">Name</label>
                                     <input type="text" name="name" id="name" className={`form-control ${errorObj422.name ? 'is-invalid' : ''}`} placeholder="Name" value={objEditAddress.name} onChange={(e) => {
                                         setObjEditAddress(() => {
                                             let obj = Object.assign({}, objEditAddress)
@@ -313,8 +316,8 @@ export default function AddressIndex() {
                                             </div> : <></>
                                     }
                                 </div>
-                                <div className="col form-group mb-1">
-                                    <label htmlFor="phone">Phone</label>
+                                <div className="col form-group mb-3">
+                                    <label htmlFor="phone" className="d-none">Phone</label>
                                     <input type="number" name="phone" id="phone" className={`form-control ${errorObj422.phone ? 'is-invalid' : ''}`} placeholder="Phone" value={objEditAddress.phone} onChange={(e) => {
                                         setObjEditAddress(() => {
                                             let obj = Object.assign({}, objEditAddress)
@@ -332,8 +335,8 @@ export default function AddressIndex() {
                                     }
                                 </div>
                             </div>
-                            <div className="form-group mb-1">
-                                <label htmlFor="address">Address</label>
+                            <div className="form-group mb-3">
+                                <label htmlFor="address" className="d-none">Address</label>
                                 <textarea name="address" style={{ height: '200px' }} id="address" className={`form-control ${errorObj422.address ? 'is-invalid' : ''}`} placeholder="Address" cols="30" rows="10" value={objEditAddress.address} onChange={(e) => {
                                     setObjEditAddress(() => {
                                         let obj = Object.assign({}, objEditAddress)
@@ -350,8 +353,8 @@ export default function AddressIndex() {
                                         </div> : <></>
                                 }
                             </div>
-                            <div className="form-group mb-1">
-                                <label htmlFor="sub_district">Sub District</label>
+                            <div className="form-group mb-3">
+                                <label htmlFor="sub_district" className="d-none">Sub District</label>
                                 <AsyncSelect cacheOptions loadOptions={loadDistricts} defaultOptions value={selectedSubDistrictEdit} onChange={(val) => {
                                     setSelectedSubDistrictEdit(val)
                                 }} />
@@ -363,21 +366,34 @@ export default function AddressIndex() {
                                         </div> : <></>
                                 }
                             </div>
-                            <div className="form-group mb-1">
-                                <label htmlFor="tag">Mark as</label>
-                                <select name="tag" id="tag" className={`form-control ${errorObj422.tag ? 'is-invalid' : ''}`} value={objEditAddress.tag} onChange={(e) => {
-                                    setObjEditAddress(() => {
-                                        let obj = Object.assign({}, objEditAddress)
+                            <div className="form-group">
+                                <div className="row justify-content-between align-items-center">
+                                    <div className="col address-label">Mark as:</div>
+                                    <div className="col text-end">
+                                        <button className={`address-mark-as ${objEditAddress.tag == "Office" ? "active":""}`} onClick={() => {
+                                            setObjEditAddress(() => {
+                                                let obj = Object.assign({}, objEditAddress)
 
-                                        obj.tag = e.target.value
+                                                obj.tag = "Office"
 
-                                        return obj
-                                    })
-                                }}>
-                                    <option value="" disabled selected>Choose Tag</option>
-                                    <option value="Home" selected={objEditAddress.tag == 'Home'}>Home</option>
-                                    <option value="Office" selected={objEditAddress.tag == 'Office'}>Office</option>
-                                </select>
+                                                return obj
+                                            })
+                                        }}>
+                                            Office
+                                        </button>
+                                        <button className={`address-mark-as ${objEditAddress.tag == "Home" ? "active":""}`} onClick={() => {
+                                            setObjEditAddress(() => {
+                                                let obj = Object.assign({}, objEditAddress)
+
+                                                obj.tag = "Home"
+
+                                                return obj
+                                            })
+                                        }}>
+                                            Home
+                                        </button>
+                                    </div>
+                                </div>
                                 {
                                     errorObj422.tag ?
                                         <div className="invalid-feedback">
@@ -390,10 +406,10 @@ export default function AddressIndex() {
                     <Modal.Footer>
                         <button type="button" onClick={() => {
                             setModalEditAddress(false)
-                        }} className="btn btn-secondary">Close</button>
-                        <button type="button" className="btn btn-primary" onClick={() => {
+                        }} className="cancel-button">Cancel</button>
+                        <button type="button" className="send-button" onClick={() => {
                             doUpdateAddress()
-                        }}>Update Address</button>
+                        }}>Send</button>
                     </Modal.Footer>
                 </Modal>
                 {/* End of Modal Edit Address */}
