@@ -198,35 +198,37 @@ export default function AddressIndex() {
                     setModalCreateAddress(false)
                 }}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Modal Create Address</Modal.Title>
+                        <Modal.Title>Create Address</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <div>
-                            <div className="form-group mb-1">
-                                <label htmlFor="name">Name</label>
-                                <input type="text" name="name" id="name" className={`form-control ${errorObj422.name ? 'is-invalid' : ''}`} placeholder="Name" value={nameCreateAddress} onChange={(e) => {
-                                    setNameCreateAddress(e.target.value)
-                                }} />
+                            <div className='row'>
+                                <div className="col form-group mb-1">
+                                    <label htmlFor="name">Name</label>
+                                    <input type="text" name="name" id="name" className={`form-control ${errorObj422.name ? 'is-invalid' : ''}`} placeholder="Name" value={nameCreateAddress} onChange={(e) => {
+                                        setNameCreateAddress(e.target.value)
+                                    }} />
 
-                                {
-                                    errorObj422.name ?
-                                        <div className="invalid-feedback">
-                                            {errorObj422.name}
-                                        </div> : <></>
-                                }
-                            </div>
-                            <div className="form-group mb-1">
-                                <label htmlFor="phone">Phone</label>
-                                <input type="number" name="phone" id="phone" className={`form-control ${errorObj422.phone ? 'is-invalid' : ''}`} placeholder="Phone" value={phoneCreateAddress} onChange={(e) => {
-                                    setPhoneCreateAddress(e.target.value)
-                                }} />
+                                    {
+                                        errorObj422.name ?
+                                            <div className="invalid-feedback">
+                                                {errorObj422.name}
+                                            </div> : <></>
+                                    }
+                                </div>
+                                <div className="col form-group mb-1">
+                                    <label htmlFor="phone">Phone</label>
+                                    <input type="number" name="phone" id="phone" className={`form-control ${errorObj422.phone ? 'is-invalid' : ''}`} placeholder="Phone" value={phoneCreateAddress} onChange={(e) => {
+                                        setPhoneCreateAddress(e.target.value)
+                                    }} />
 
-                                {
-                                    errorObj422.phone ?
-                                        <div className="invalid-feedback">
-                                            {errorObj422.phone}
-                                        </div> : <></>
-                                }
+                                    {
+                                        errorObj422.phone ?
+                                            <div className="invalid-feedback">
+                                                {errorObj422.phone}
+                                            </div> : <></>
+                                    }
+                                </div>
                             </div>
                             <div className="form-group mb-1">
                                 <label htmlFor="address">Address</label>
@@ -255,7 +257,7 @@ export default function AddressIndex() {
                                 }
                             </div>
                             <div className="form-group mb-1">
-                                <label htmlFor="tag">Tag</label>
+                                <label htmlFor="tag">Mark as</label>
                                 <select name="tag" id="tag" className={`form-control ${errorObj422.tag ? 'is-invalid' : ''}`} value={tagCreateAddress} onChange={(e) => {
                                     setTagCreateAddress(e.target.value)
                                 }}>
@@ -288,45 +290,47 @@ export default function AddressIndex() {
                     setModalEditAddress(false)
                 }}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Modal Edit Address</Modal.Title>
+                        <Modal.Title>Edit Address</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <div>
-                            <div className="form-group mb-1">
-                                <label htmlFor="name">Name</label>
-                                <input type="text" name="name" id="name" className={`form-control ${errorObj422.name ? 'is-invalid' : ''}`} placeholder="Name" value={objEditAddress.name} onChange={(e) => {
-                                    setObjEditAddress(() => {
-                                        let obj = Object.assign({}, objEditAddress)
-                                        obj.name = e.target.value
+                            <div className="row">
+                                <div className="col form-group mb-1">
+                                    <label htmlFor="name">Name</label>
+                                    <input type="text" name="name" id="name" className={`form-control ${errorObj422.name ? 'is-invalid' : ''}`} placeholder="Name" value={objEditAddress.name} onChange={(e) => {
+                                        setObjEditAddress(() => {
+                                            let obj = Object.assign({}, objEditAddress)
+                                            obj.name = e.target.value
 
-                                        return obj
-                                    })
-                                }} />
+                                            return obj
+                                        })
+                                    }} />
 
-                                {
-                                    errorObj422.name ?
-                                        <div className="invalid-feedback">
-                                            {errorObj422.name}
-                                        </div> : <></>
-                                }
-                            </div>
-                            <div className="form-group mb-1">
-                                <label htmlFor="phone">Phone</label>
-                                <input type="number" name="phone" id="phone" className={`form-control ${errorObj422.phone ? 'is-invalid' : ''}`} placeholder="Phone" value={objEditAddress.phone} onChange={(e) => {
-                                    setObjEditAddress(() => {
-                                        let obj = Object.assign({}, objEditAddress)
-                                        obj.phone = e.target.value
+                                    {
+                                        errorObj422.name ?
+                                            <div className="invalid-feedback">
+                                                {errorObj422.name}
+                                            </div> : <></>
+                                    }
+                                </div>
+                                <div className="col form-group mb-1">
+                                    <label htmlFor="phone">Phone</label>
+                                    <input type="number" name="phone" id="phone" className={`form-control ${errorObj422.phone ? 'is-invalid' : ''}`} placeholder="Phone" value={objEditAddress.phone} onChange={(e) => {
+                                        setObjEditAddress(() => {
+                                            let obj = Object.assign({}, objEditAddress)
+                                            obj.phone = e.target.value
 
-                                        return obj
-                                    })
-                                }} />
+                                            return obj
+                                        })
+                                    }} />
 
-                                {
-                                    errorObj422.phone ?
-                                        <div className="invalid-feedback">
-                                            {errorObj422.phone}
-                                        </div> : <></>
-                                }
+                                    {
+                                        errorObj422.phone ?
+                                            <div className="invalid-feedback">
+                                                {errorObj422.phone}
+                                            </div> : <></>
+                                    }
+                                </div>
                             </div>
                             <div className="form-group mb-1">
                                 <label htmlFor="address">Address</label>
@@ -360,7 +364,7 @@ export default function AddressIndex() {
                                 }
                             </div>
                             <div className="form-group mb-1">
-                                <label htmlFor="tag">Tag</label>
+                                <label htmlFor="tag">Mark as</label>
                                 <select name="tag" id="tag" className={`form-control ${errorObj422.tag ? 'is-invalid' : ''}`} value={objEditAddress.tag} onChange={(e) => {
                                     setObjEditAddress(() => {
                                         let obj = Object.assign({}, objEditAddress)
