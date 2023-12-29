@@ -49,9 +49,13 @@ export default function AccountOrder() {
             <AccountOrderLayoutComponent position={'Orders'} breadcrumb={breadcrumb} title={'My Orders'}>
                 <Tabs selectedIndex={tabIndex} onSelect={(index) => setTabIndex(index)}>
                     <TabList>
-                        <Tab>Current Order</Tab>
-                        <Tab>Order History</Tab>
-                        <Tab>Canceled Order</Tab>
+                        <Tab>All</Tab>
+                        <Tab>Unpaid</Tab>
+                        <Tab>On Process</Tab>
+                        <Tab>On Going</Tab>
+                        <Tab>Completed</Tab>
+                        <Tab>Cancel</Tab>
+                        <Tab>Return</Tab>
                     </TabList>
                     <TabPanel>
                         <CurrentOrderTabContentComponent />
