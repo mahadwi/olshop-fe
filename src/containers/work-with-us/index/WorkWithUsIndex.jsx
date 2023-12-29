@@ -5,6 +5,7 @@ import { useLocation } from "react-router-dom";
 import './work-with-us.scoped.scss'
 import Api from "../../../utils/Api";
 import { LoadingContext } from "../../../context/LoadingContext";
+import { LanguageContext } from "../../../context/LanguageContext";
 import { IconArrowRight, IconWallet, IconDiamond } from "@tabler/icons-react";
 
 const icons = {
@@ -116,6 +117,8 @@ export default function WorkWithUsIndex() {
      * 
      */
     const { setLoading } = useContext(LoadingContext)
+    const { language } = useContext(LanguageContext)
+    const suffix = language == 'id' ? '' : '_en';
 
     /**
      * Main State
@@ -136,17 +139,16 @@ export default function WorkWithUsIndex() {
 
     const loadAuthenticationObject = () => {
         setLoading(true)
-        // TODO: connect API
-        // Api.get('/work-with-us')
-        //     .then((res) => {
-        //         if (res) {
-        //             setAuthenticatioObject(res.data.data[0])
-        //         }
-        //     }).finally(() => {
-        //         setLoading(false)
-        //     })
+        Api.get('/work-with-us')
+            .then((res) => {
+                if (res) {
+                    setWorkWithUsObject({...DATA_DUMMY, ...res.data.data[0]})
+                }
+            }).finally(() => {
+                setLoading(false)
+            })
         setWorkWithUsObject(DATA_DUMMY);
-        setLoading(false)
+        // setLoading(false)
     }
 
     const loadBreadcrumb = () => {
@@ -168,23 +170,28 @@ export default function WorkWithUsIndex() {
 
                 <div className="work-with-us-wrapper">
                     <div className='title'>
-                        <div className='title0'>{workWithUsObject.title0}</div>
-                        <div className='title1'>{workWithUsObject.title1}</div>
+                        <div className='title0'>{workWithUsObject['title'+suffix]}</div>
+                        <div className='title1' dangerouslySetInnerHTML={{__html: workWithUsObject['description'+suffix]}}></div>
                     </div>
                     <div className='programs-summary'>
-                        {workWithUsObject.programs?.map(({image, name}, i) => {
-                            return <>
-                                <div className="program-summary-card">
-                                    <img src={image} alt={name} />
-                                    <button className='program-summary-button' onClick={() => {
-                                        document.getElementById(`program-${i}`).scrollIntoView();
-                                    }}>
-                                        <span>{name}</span>
-                                        <span>Learn more <IconArrowRight /></span>
-                                    </button>
-                                </div>
-                            </>;
-                        })}
+                        <div className="program-summary-card">
+                            <img src={workWithUsObject.sections?.at(0).image} alt={workWithUsObject.sections?.at(0)['title'+suffix]} />
+                            <button className='program-summary-button' onClick={() => {
+                                document.getElementById(`program-0`).scrollIntoView();
+                            }}>
+                                <span>{workWithUsObject.sections?.at(0)['title'+suffix]}</span>
+                                <span>Learn more <IconArrowRight /></span>
+                            </button>
+                        </div>
+                        <div className="program-summary-card">
+                            <img src={workWithUsObject.sections?.at(1).image} alt={workWithUsObject.sections?.at(1)['title'+suffix]} />
+                            <button className='program-summary-button' onClick={() => {
+                                document.getElementById(`program-1`).scrollIntoView();
+                            }}>
+                                <span>{workWithUsObject.sections?.at(1)['title'+suffix]}</span>
+                                <span>Learn more <IconArrowRight /></span>
+                            </button>
+                        </div>
                     </div>
                     <div className='programs'>
                         {workWithUsObject.programs?.map(({image, name, description, benefits, step}, i) => {
