@@ -30,6 +30,8 @@ import MainLayout from './layouts/MainLayout';
 import AuthenticateMiddleware from './middleware/AuthenticateMiddleware';
 import AccountOrder from './containers/account/order/AccountOrder';
 import AccountWishlist from './containers/account/wishlist/AccountWishlist';
+import ProfileIndex from './containers/profile/index/ProfileIndex';
+import ProfileAccount from './containers/profile/account/ProfileAccount';
 import ShoppingCart from './containers/shopping/cart/ShoppingCart';
 import ShoppingCheckout from './containers/shopping/checkout/ShoppingCheckout';
 import FaqIndex from './containers/faq/FaqIndex';
@@ -88,6 +90,13 @@ function App() {
                             <Route path='address' element={<AddressIndex />} />
                         </Route>
                         {/* End of Account */}
+
+                        {/* Profile */}
+                        <Route path='/profile' element={<AuthenticateMiddleware />}>
+                            <Route index element={<ProfileIndex />} />
+                            <Route path='account' element={<ProfileAccount />} />
+                        </Route>
+                        {/* End of Profile */}
                     </Route>
                 </Routes>
             </BrowserRouter>

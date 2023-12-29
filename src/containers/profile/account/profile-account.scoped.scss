@@ -1,0 +1,185 @@
+.profile-account-page {
+    .profile-avatar {
+        background: #000;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 1.5rem 1rem;
+        align-items: center;
+        color: #F9F9F9;
+        font-family: Inter;
+        gap:1rem;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 800;
+        line-height: normal;
+    
+        img {
+            width: 80px;
+            aspect-ratio: 1;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        span {
+            visibility: hidden;
+        }
+    }
+
+    form {
+
+        .form-input {
+            display: flex;
+            flex-direction: column;
+            gap: .5rem;
+            border-right: 1px solid #C4C4C4;
+            padding: 1rem;
+
+            .form-group {
+                display: flex;
+                align-items: center;
+
+                .left-form-group {
+                    flex: 1;
+
+                    label.form-label {
+                        margin-bottom: 0;
+                        color: #000;
+                        font-family: 'Inter', sans-serif;
+                        font-size: 12px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: normal;
+                    }
+                }
+
+                .center-form-group {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin: 0 1.25rem;
+
+                    span {
+                        color: #000;
+                        font-family: 'Inter', sans-serif;
+                        font-size: 12px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: normal;
+                    }
+                }
+
+                .right-form-group {
+                    flex: 2.5;
+
+                    select.form-control {
+                        color: #000;
+                        font-family: 'Cabin', sans-serif;
+                        font-size: 12px;
+                        font-style: normal;
+                        font-weight: 500;
+                        line-height: normal;
+                    }
+
+                    input.form-control {
+                        color: #000;
+                        font-family: 'Cabin', sans-serif;
+                        font-size: 12px;
+                        font-style: normal;
+                        font-weight: 500;
+                        line-height: normal;
+                    }
+
+
+                    .form-check-wrap {
+                        display: flex;
+                        gap: 1rem;
+
+                        .form-check-item {
+                            display: flex;
+                            align-items: center;
+                            gap: .3rem;
+
+                            label.form-label {
+                                margin-bottom: 0;
+                                color: #000;
+                                font-family: 'Cabin', sans-serif;
+                                font-size: 12px;
+                                font-style: normal;
+                                font-weight: 500;
+                                line-height: normal;
+                            }
+                        }
+                    }
+
+
+                    &.form-group__phone-number {
+                        display: flex;
+                        position: relative;
+
+                        label.any-code {
+                            position: absolute;
+                            top: -.9rem;
+                            left: .35rem;
+                            z-index: 20;
+                            color: #000;
+                            font-family: 'Cabin', sans-serif;
+                            font-size: 10px;
+                            font-style: normal;
+                            font-weight: 500;
+                            line-height: normal;
+                        }
+
+                        select.form-control__phone-code {
+                            width: 4rem;
+                            z-index: 10;
+                        }
+
+                        input {
+                            transform: translateX(-10px);
+                            padding-left: 1rem;
+                        }
+                    }
+                }
+
+                &.form-group__phone-number-wrap {
+                    margin-top: .75rem;
+                }
+
+                .input-dob-wrap {
+                    display: flex;
+                    gap: .85rem;
+
+                    select {
+                        flex: 1;
+                    }
+                }
+
+            }
+        }
+
+        .form-group__btn-save {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 2.15rem;
+            padding-bottom: 2rem;
+
+            button {
+                border: 0px;
+                outline: 0px;
+                border-radius: 4px;
+                background: #151B4F;
+                color: #FFF;
+                font-family: 'Cambay', sans-serif;
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: 20px;
+                /* 125% */
+                letter-spacing: 0.1px;
+                padding: .3rem 3.5rem;
+            }
+        }
+    }
+}

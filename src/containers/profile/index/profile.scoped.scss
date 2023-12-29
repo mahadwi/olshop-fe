@@ -1,0 +1,111 @@
+.profile-index-page {
+    .profile-wrapper {
+        display: flex;
+        flex-direction: column;
+        background: #DADADA;
+        gap:3px;
+
+        > div {
+            background: #fff;
+            padding:0.75rem 1rem;
+
+            .link {
+                color: #545454;
+                text-decoration: none;
+                font-family: Inter;
+                font-size: 12px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+                display: flex;
+                flex-direction: row;
+                justify-content: start;
+                align-items: center;
+                gap: 0.5rem;
+
+                &.inline {
+                    display: inline-flex;
+                }
+            }
+        }
+
+        .order {
+            display: flex;
+            flex-direction: row;
+            color: #000;
+            font-family: Inter;
+            font-size: 12px;
+            font-style: normal;
+            font-weight: 400;
+            justify-content: start;
+            align-items: center;
+            gap:0.5rem;
+            line-height: normal;
+
+            a {
+                gap:0.5rem;
+                display: flex;
+                flex-direction: row;
+                text-decoration: none;
+                justify-content: center;
+                align-items: center;
+                margin-left: auto;
+                color: #FFAC33;
+                font-family: Cambay;
+                font-size: 12px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: 16px; /* 133.333% */
+            }
+        }
+
+        .icon-menu {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: start;
+            padding: 2rem 3rem;
+            text-align: center;
+            font-family: Inter;
+            font-size: 10px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+
+            a {
+                color: #666;
+                display: flex;
+                flex-direction: column;
+                gap:1rem;
+                justify-content: center;
+                align-items: center;
+                text-decoration: none;
+            }
+        }
+
+        .links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+
+            a {
+                display: flex;
+                flex-direction: row;
+                font-family: Inter;
+                font-size: 12px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+                text-decoration: none;
+                gap:0.5rem;
+                justify-content: start;
+                align-items: center;
+                color: #545454;
+
+                svg:last-child {
+                    margin-left: auto;
+                }
+            }
+        }
+    }
+}
