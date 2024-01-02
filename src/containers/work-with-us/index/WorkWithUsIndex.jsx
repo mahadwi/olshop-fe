@@ -8,100 +8,8 @@ import { LoadingContext } from "../../../context/LoadingContext";
 import { LanguageContext } from "../../../context/LanguageContext";
 import { IconArrowRight, IconWallet, IconDiamond } from "@tabler/icons-react";
 
-const icons = {
-    'wallet': IconWallet,
-    'diamond': IconDiamond,
-};
-
 const DATA_DUMMY = {
-    title0: 'WORK WITH US',
-    title1: 'Get additional income without capital as part of our tribe and receive outstanding benefits!',
     image: 'https://i.ibb.co/YbJpfzj/image.png',
-    programs: [
-        {
-            image: 'https://i.ibb.co/zZ197PT/image.png',
-            name: 'Belle & Kate Clique',
-            description: 'Our Belle&Kate Clique program is suitable for you who have significant social media following and would like to share a special promo code for your followers.',
-            benefits: [
-                {
-                    icon: 'wallet',
-                    name: 'COMMISION',
-                    description: 'Get commission on each item',
-                },
-                {
-                    icon: 'diamond',
-                    name: 'VIP EVENTS',
-                    description: 'Get invited to our VIP events and latest product promotions',
-                },
-            ],
-            step: [
-                {
-                    icon: 'wallet',
-                    name: 'FILL IN FORM',
-                    description: 'Fill in our application to list yourself as Belle&Kate Clique Program',
-                },
-                {
-                    icon: 'wallet',
-                    name: 'WAIT FOR OUR REVIEW',
-                    description: 'Our team will review your date and process your approval',
-                },
-                {
-                    icon: 'wallet',
-                    name: 'Fill In Form',
-                    description: 'We will activate and notify your promo code to give special promotion to your audience and viewers',
-                },
-                {
-                    icon: 'wallet',
-                    name: 'Commision',
-                    description: 'Our team will review your date and process your approval',
-                },
-            ]
-        },
-        {
-            image: 'https://i.ibb.co/xLZ2M2m/image.png',
-            name: 'Belle & Kate Agents',
-            description: 'Our Belle&Kate Agent program is fitting for individuals who would like to receive extra income with no requirements of a significant social media following nor Instagram business account.',
-            benefits: [
-                {
-                    icon: 'wallet',
-                    name: 'COMMISION',
-                    description: 'Get commission on each item',
-                },
-                {
-                    icon: 'wallet',
-                    name: 'COMMISION',
-                    description: 'Get commission on each item',
-                },
-                {
-                    icon: 'diamond',
-                    name: 'VIP EVENTS',
-                    description: 'Get invited to our VIP events and latest product promotions',
-                },
-            ],
-            step: [
-                {
-                    icon: 'wallet',
-                    name: 'FILL IN FORM',
-                    description: 'Fill in our application to list yourself as Belle&Kate Clique Program',
-                },
-                {
-                    icon: 'wallet',
-                    name: 'WAIT FOR OUR REVIEW',
-                    description: 'Our team will review your date and process your approval',
-                },
-                {
-                    icon: 'wallet',
-                    name: 'Fill In Form',
-                    description: 'We will activate and notify your promo code to give special promotion to your audience and viewers',
-                },
-                {
-                    icon: 'wallet',
-                    name: 'Commision',
-                    description: 'Our team will review your date and process your approval',
-                },
-            ]
-        }
-    ],
 };
 
 export default function WorkWithUsIndex() {
@@ -126,10 +34,11 @@ export default function WorkWithUsIndex() {
      */
     const [breadcrumb, setBreadcrumb] = useState([])
     const [workWithUsObject, setWorkWithUsObject] = useState({})
+    const [sections, setSections] = useState({})
 
     useEffect(() => {
         loadBreadcrumb()
-        loadAuthenticationObject()
+        loadWorkWithUsObject()
     }, [])
 
     // Automatically scrolls to top whenever pathname changes
@@ -137,18 +46,20 @@ export default function WorkWithUsIndex() {
         window.scrollTo(0, 0);
     }, [pathname]);
 
-    const loadAuthenticationObject = () => {
+    const loadWorkWithUsObject = () => {
         setLoading(true)
         Api.get('/work-with-us')
             .then((res) => {
                 if (res) {
                     setWorkWithUsObject({...DATA_DUMMY, ...res.data.data[0]})
+                    setSections(res.data.data[0].sections.reduce((p, c) => {
+                        p[c.section] = c;
+                        return p;
+                    },{}));
                 }
             }).finally(() => {
                 setLoading(false)
             })
-        setWorkWithUsObject(DATA_DUMMY);
-        // setLoading(false)
     }
 
     const loadBreadcrumb = () => {
@@ -174,47 +85,43 @@ export default function WorkWithUsIndex() {
                         <div className='title1' dangerouslySetInnerHTML={{__html: workWithUsObject['description'+suffix]}}></div>
                     </div>
                     <div className='programs-summary'>
-                        <div className="program-summary-card">
-                            <img src={workWithUsObject.sections?.at(0).image} alt={workWithUsObject.sections?.at(0)['title'+suffix]} />
-                            <button className='program-summary-button' onClick={() => {
-                                document.getElementById(`program-0`).scrollIntoView();
-                            }}>
-                                <span>{workWithUsObject.sections?.at(0)['title'+suffix]}</span>
-                                <span>Learn more <IconArrowRight /></span>
-                            </button>
-                        </div>
-                        <div className="program-summary-card">
-                            <img src={workWithUsObject.sections?.at(1).image} alt={workWithUsObject.sections?.at(1)['title'+suffix]} />
-                            <button className='program-summary-button' onClick={() => {
-                                document.getElementById(`program-1`).scrollIntoView();
-                            }}>
-                                <span>{workWithUsObject.sections?.at(1)['title'+suffix]}</span>
-                                <span>Learn more <IconArrowRight /></span>
-                            </button>
-                        </div>
+                        {[sections[1], sections[4]].map((s, i) => {
+                            if (s == undefined) return <></>;
+                            return <>
+                                <div className="program-summary-card">
+                                    <img src={s?.image} alt={s?.['title'+suffix]} />
+                                    <button className='program-summary-button' onClick={() => {
+                                        document.getElementById(`program-${i}`).scrollIntoView();
+                                    }}>
+                                        <span>{s?.['title'+suffix]}</span>
+                                        <span>Learn more <IconArrowRight /></span>
+                                    </button>
+                                </div>
+                            </>;
+                        })}
                     </div>
                     <div className='programs'>
-                        {workWithUsObject.programs?.map(({image, name, description, benefits, step}, i) => {
+                        {[{program: sections[1], benefit: sections[2], step: sections[3]}, {program: sections[4], benefit: sections[5], step: sections[6]}]?.map(({program, benefit, step}, i) => {
+                            if (program == undefined) return <></>;
                             return <>
                                 {i!=0?<div className='program-div' />:null}
                                 <div className='program' id={`program-${i}`}>
                                     <div className='program-image'>
-                                        <img src={image} alt={name} />
+                                        <img src={program.image} alt={program['title'+suffix]} />
                                     </div>
                                     <div className='program-detail'>
-                                        <div className='program-title'>{name}</div>
-                                        <div className='program-description'>{description}</div>
-                                        <button className='program-button'>Join Us Now</button>
+                                        <div className='program-title'>{program['title'+suffix]}</div>
+                                        <div className='program-description' dangerouslySetInnerHTML={{__html: program['description'+suffix]}} ></div>
+                                        <a href={program.link} className='program-button'>Join Us Now</a>
                                     </div>
                                 </div>
-                                <div className='program-benefits-title'>WHY YOU SHOULD JOIN</div>
+                                <div className='program-benefits-title'>{benefit['title'+suffix]}</div>
                                 <div className='program-benefits'>
-                                    {benefits.map(({icon, name, description}) => {
-                                        const Icon = icons[icon];
+                                    {benefit.card.map((s) => {
                                         return <div className='program-benefit'>
-                                            <div className='program-benefit-icon'><Icon size={48} /></div>
-                                            <div className='program-benefit-name'>{name}</div>
-                                            <div className='program-benefit-description'>{description}</div>
+                                            <div className='program-benefit-icon'><img src={s.image} alt={'icon'} width={42}/></div>
+                                            <div className='program-benefit-name'>{s['title'+suffix]}</div>
+                                            <div className='program-benefit-description' dangerouslySetInnerHTML={{__html:s['description'+suffix]}}></div>
                                         </div>
                                     })}
                                 </div>
@@ -222,14 +129,13 @@ export default function WorkWithUsIndex() {
                                 <div className='program-step'>
                                     <img className='program-step-image' src={workWithUsObject.image} alt='brand' />
                                     <div className='program-step-content'>
-                                        <div className='program-step-title'>How to join {name} Program</div>
+                                        <div className='program-step-title'>{step?.['title'+suffix]}</div>
                                         <div className='program-step-grid'>
-                                            {step.map(({icon, name, description}, i) => {
-                                                const Icon = icons[icon];
+                                            {step.card.map((s) => {
                                                 return <div className='program-step-card'>
-                                                    <div className='program-step-card-icon'><Icon size={48} /></div>
-                                                    <div className='program-step-card-name'>{i+1}. {name}</div>
-                                                    <div className='program-step-card-description'>{description}</div>
+                                                    <div className='program-step-card-icon'><img src={s.image} alt={'icon'} width={42}/></div>
+                                                    <div className='program-step-card-name'>{s['title'+suffix]}</div>
+                                                    <div className='program-step-card-description' dangerouslySetInnerHTML={{__html: s['description'+suffix]}}></div>
                                                 </div>
                                             })}
                                         </div>
