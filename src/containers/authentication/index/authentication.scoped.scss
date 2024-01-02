@@ -5,7 +5,7 @@
         display: flex;
         flex-direction: column;
         gap: 1.5rem;
-        padding:1rem 2rem;
+        padding: 1rem 2rem;
         margin-bottom: 1rem;
     }
 
@@ -26,7 +26,7 @@
         font-size: 20px;
         font-style: normal;
         font-weight: 600;
-        line-height: normal; 
+        line-height: normal;
     }
 
     .video {
@@ -34,7 +34,7 @@
         flex-direction: column;
         justify-content: center;
         gap: 2.5rem;
-        padding:1rem 0;
+        padding: 1rem 0;
         margin-bottom: 2rem;
     }
 
@@ -42,14 +42,15 @@
         align-self: center;
 
         iframe {
-            width:560px;
+            width: 560px;
             max-width: 100%;
-            height:315px;
+            height: 315px;
             max-height: 100%;
         }
     }
 
-    .video-title,.processes-title {
+    .video-title,
+    .processes-title {
         display: flex;
         flex-direction: row;
         justify-content: center;
@@ -62,11 +63,12 @@
         font-weight: 700;
         line-height: normal;
 
-        &::before,&::after {
+        &::before,
+        &::after {
             content: '';
             display: block;
             flex: 1 0;
-            height:1px;
+            height: 1px;
             background: #C6C6C6;
             margin-bottom: 6px;
         }
@@ -77,7 +79,7 @@
         flex-direction: column;
         justify-content: center;
         gap: 2.5rem;
-        padding:1rem 0;
+        padding: 1rem 0;
         margin-bottom: 2rem;
     }
 
@@ -91,7 +93,7 @@
         height: 1px;
         background: #C6C6C6;
     }
-    
+
     .process {
         display: flex;
         flex-direction: column;
@@ -124,6 +126,29 @@
         display: flex;
         flex-direction: column;
         gap: 1.5rem;
+
+        .program-button {
+            background: #000;
+            align-self: start;
+            border: 0;
+            color: #fff;
+            color: #FFF;
+            font-family: Cambay;
+            font-size: 15px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;
+            padding: 0.5em 1.5rem;
+            text-transform: uppercase;
+            text-decoration: none;
+            gap: .5rem;
+            display: flex;
+            align-items: center;
+
+            svg {
+                transform: translateY(-.1rem);
+            }
+        }
     }
 
     .process-title {
