@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { IconHeadset, IconInfoCircleFilled, IconShoppingBag, IconTag } from '@tabler/icons-react';
-import { Link } from 'react-router-dom';
 import ContainerComponent from '../general/container/ContainerComponent';
 import './footer.scoped.scss'
 
@@ -26,13 +25,13 @@ export default function FooterComponent() {
                                     <span>Client Service</span>
                                 </li>
                                 <li>
-                                    <Link to={'/delivery-and-shipping'}>Delivery & Shipping</Link>
+                                    <a href={'/delivery-and-shipping'}>Delivery & Shipping</a>
                                 </li>
                                 <li>
-                                    <Link to={'/faq'}>FAQ</Link>
+                                    <a href={'/faq'}>FAQ</a>
                                 </li>
                                 <li>
-                                    <Link to={'/contact'}>Contact</Link>
+                                    <a href={'/contact'}>Contact</a>
                                 </li>
                             </ul>
                             <ul>
@@ -41,10 +40,10 @@ export default function FooterComponent() {
                                     <span>Consign & Sell</span>
                                 </li>
                                 <li>
-                                    <Link to={'/consignment'}>Consignment</Link>
+                                    <a href={'/consignment'}>Consignment</a>
                                 </li>
                                 <li>
-                                    <Link to={'/authentication'}>Authentication</Link>
+                                    <a href={'/authentication'}>Authentication</a>
                                 </li>
                             </ul>
                             <ul>
@@ -53,10 +52,10 @@ export default function FooterComponent() {
                                     <span>Buy</span>
                                 </li>
                                 <li>
-                                    <Link>Order Tracking</Link>
+                                    <a href='#'>Order Tracking</a>
                                 </li>
                                 <li>
-                                    <Link to={'/return-police'}>Return Policy</Link>
+                                    <a href={'/return-police'}>Return Policy</a>
                                 </li>
                             </ul>
                             <ul>
@@ -65,32 +64,32 @@ export default function FooterComponent() {
                                     <span>Luxi</span>
                                 </li>
                                 <li>
-                                    <Link to={'/about-us'}>About Us</Link>
+                                    <a href={'/about-us'}>About Us</a>
                                 </li>
                                 <li>
-                                    <Link to={'/work-with-us'}>Work With Us</Link>
+                                    <a href={'/work-with-us'}>Work With Us</a>
                                 </li>
                                 <li>
-                                    <Link>Review</Link>
+                                    <a href='#'>Review</a>
                                 </li>
                             </ul>
                         </div>
                         <hr />
                         <ul className='footer-foot-list'>
                             <li>
-                                <Link to={'/customer-care'}>Customer Care</Link>
+                                <a href={'/customer-care'}>Customer Care</a>
                             </li>
                             <li>
-                                <Link to={'/term-and-conditions'}>Term & conditions</Link>
+                                <a href={'/term-and-conditions'}>Term & conditions</a>
                             </li>
                             <li>
-                                <Link to={'/privacy-police'}>Privacy Policy</Link>
+                                <a href={'/privacy-police'}>Privacy Policy</a>
                             </li>
                             <li>
-                                <Link>Your Privacy Choize</Link>
+                                <a href='#'>Your Privacy Choize</a>
                             </li>
                         </ul>
-                        <p>© 2023 LUXI All rights Reserved. | <Link to={'/contact'}>Follow Our Social Media</Link></p>
+                        <p>© 2023 LUXI All rights Reserved. | <a href={'/contact'}>Follow Our Social Media</a></p>
                     </div>
                 </div>
             </ContainerComponent>
