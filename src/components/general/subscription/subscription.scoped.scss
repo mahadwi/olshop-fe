@@ -31,17 +31,21 @@
         transform: scale(0.8);
         width: calc(100%);
 
-        @include lg {
+        @include md {
             width: unset;
         }
 
-        @include lg {
+        @include md {
             flex-direction: row;
         }
 
         &.show {
             opacity: 1;
             visibility: visible;
+        }
+
+        @include md {
+            transform: scale(0.8);
         }
 
         @include lg {
@@ -58,7 +62,7 @@
             align-items: flex-end;
             justify-content: center;
 
-            @include lg {
+            @include md {
                 justify-content: unset;
             }
 
@@ -91,7 +95,7 @@
                 position: relative;
                 transform: scale(1.15) translateY(-1.65rem);
 
-                @include lg {
+                @include md {
                     height: 31rem;
                     transform: scale(1.075) translateY(-1rem);
                 }
@@ -108,7 +112,7 @@
             position: relative;
             padding: 2.5rem 1.5rem;
 
-            @include lg {
+            @include md {
                 padding: 4rem 5rem;
             }
 
@@ -129,7 +133,7 @@
                     align-self: flex-start;
                     font-size: 24px;
 
-                    @include lg {
+                    @include md {
                         font-size: 32px;
                     }
                 }
@@ -145,7 +149,7 @@
 
                     font-size: 16px;
 
-                    @include lg {
+                    @include md {
                         font-size: 20px;
                     }
                 }
@@ -162,11 +166,11 @@
                     gap: 1.25rem;
                     margin-top: 1.5rem;
 
-                    @include lg {
+                    @include md {
                         margin-top: 3rem;
                     }
 
-                    @include lg {
+                    @include md {
                         gap: 1.75rem;
                     }
 
@@ -186,7 +190,7 @@
                             padding: .5rem 1rem;
                             width: 100%;
 
-                            @include lg {
+                            @include md {
                                 width: 400px;
                             }
 
@@ -222,7 +226,7 @@
                             justify-content: center;
                             margin-top: 1rem;
 
-                            @include lg {
+                            @include md {
                                 margin-top: 2rem;
                             }
 

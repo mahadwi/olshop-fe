@@ -73,7 +73,7 @@ export default function ReturnPolicyIndex() {
                 url: '/'
             },
             {
-                label: 'Return Police'
+                label: 'Return Policy'
             }
         ])
     }

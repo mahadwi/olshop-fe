@@ -1,7 +1,14 @@
+@use './../../../../../styles/func.scoped.scss' as *;
+
 .shipping-information {
     display: flex;
     gap: 2.25rem;
     padding-top: 1rem;
+    flex-direction: column;
+
+    @include lg {
+        flex-direction: row;
+    }
 
     .left {
         flex: 1;

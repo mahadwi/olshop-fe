@@ -1,8 +1,15 @@
+@use './../../../../../styles/func.scoped.scss' as *;
+
 .return-police-information {
     display: flex;
     gap: 2.25rem;
     padding-top: 3rem;
     margin-bottom: 7rem;
+    flex-direction: column;
+
+    @include lg {
+        flex-direction: row;
+    }
 
     .left {
         flex: 1;

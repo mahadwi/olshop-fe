@@ -1,8 +1,15 @@
+@use './../../../styles/func.scoped.scss' as *;
+
 .return-policy-wrapper {
     display: flex;
     padding-top: 1.75rem;
-    padding-bottom: 10rem;
+    padding-bottom: 5rem;
     gap: 2.5rem;
+    flex-direction: column;
+
+    @include lg {
+        flex-direction: row;
+    }
 
     .left {
         flex: 1;
