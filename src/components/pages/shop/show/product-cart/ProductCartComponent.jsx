@@ -6,8 +6,9 @@ import Select from 'react-select';
 import { IconChevronDown, IconChevronUp, IconMinus, IconPlus, IconShoppingCartFilled } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom'
 import { AuthUserContext } from '../../../../../context/AuthUserContext';
+import { LanguageContext } from '../../../../../context/LanguageContext';
 
-export default function ProductCartComponent({onlyDesktop, onlyMobile}) {
+export default function ProductCartComponent({onlyDesktop, onlyMobile, productObj}) {
 
     /**
      * Hooks
@@ -20,6 +21,8 @@ export default function ProductCartComponent({onlyDesktop, onlyMobile}) {
      * 
      */
     const { user } = useContext(AuthUserContext)
+    const { language } = useContext(LanguageContext)
+    const formater = new Intl.NumberFormat( language == 'id' ? 'id-ID' : 'en-EN', { style: 'currency', currency: language == 'id' ? 'IDR' : 'USD', minimumFractionDigits: 0, maximumFractionDigits: 2 })
 
     /**
      * Main State
@@ -153,11 +156,11 @@ export default function ProductCartComponent({onlyDesktop, onlyMobile}) {
                 <div className='group only-desktop'>
                     <div className='price-row-item'>
                         <span className='label'>Price</span>
-                        <span className={`val ${user ? '' : 'blur'}`}>Rp. 19.631.312</span>
+                        <span className={`val ${user ? '' : 'blur'}`}>{user ? formater.format(language == 'id' ? productObj.sale_price : productObj.sale_usd ) : 'Rp. 19.631.312'}</span>
                     </div>
                     <div className='price-row-item'>
                         <span className='label'>Sub Total</span>
-                        <span className={`val ${user ? '' : 'blur'}`}>Rp. 19.631.312</span>
+                        <span className={`val ${user ? '' : 'blur'}`}>{user ? formater.format(Number(language == 'id' ? productObj.sale_price : productObj.sale_usd) * 1 ) : 'Rp. 19.631.312'}</span>
                     </div>
                     {
                         !user ?

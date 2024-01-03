@@ -103,12 +103,12 @@ export default function ShopShow() {
                 <div className="product-item-detail">
                     <ProductImageComponent productImages={productObj.images ? productObj.images : []} />
                     <ProductDescriptionComponent productObj={productObj} />
-                    <ProductCartComponent onlyDesktop={true} />
+                    <ProductCartComponent onlyDesktop={true} productObj={productObj} />
                 </div>
                 <hr />
                 <OtherProductsComponent user={user} productsByCategory={productsByCategory} />
                 <hr className='only-mobile' />
-                <ProductCartComponent onlyMobile={true} />
+                <ProductCartComponent onlyMobile={true} productObj={productObj} />
                 <hr className='only-mobile' />
                 <ProductDescriptionMobileComponent productObj={productObj} />
                 <hr />

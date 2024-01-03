@@ -4,11 +4,14 @@ import { Link } from 'react-router-dom'
 import './floating-cart.scoped.scss'
 import { useContext, useEffect } from 'react'
 import { CartContext } from '../../../context/CartContext'
+import { LanguageContext } from '../../../context/LanguageContext'
 import StringUtil from '../../../utils/StringUtil'
 
 export default function FloatingCartComponent() {
 
     const { carts } = useContext(CartContext)
+    const { language } = useContext(LanguageContext)
+    const formater = new Intl.NumberFormat( language == 'id' ? 'id-ID' : 'en-EN', { style: 'currency', currency: language == 'id' ? 'IDR' : 'USD', minimumFractionDigits: 0, maximumFractionDigits: 2 })
 
     useEffect(() => {
         console.log(carts)
@@ -34,7 +37,7 @@ export default function FloatingCartComponent() {
                                     </div>
                                     <div className="right">
                                         <h4 className='cart-product-title'>{cartObj.product.name}</h4>
-                                        <h4 className='cart-product-price'>{StringUtil.rupiahFormat(cartObj.price)}</h4>
+                                        <h4 className='cart-product-price'>{formater.format(language == 'id' ? cartObj.product.sale_price : cartObj.product.sale_usd )}</h4>
                                         <span className='cart-weight'>{StringUtil.numberingWithDotFormat(cartObj.qty)} pcs ({StringUtil.numberingWithDotFormat(Math.ceil(cartObj.product.weight))} gr)</span>
                                     </div>
                                 </div>

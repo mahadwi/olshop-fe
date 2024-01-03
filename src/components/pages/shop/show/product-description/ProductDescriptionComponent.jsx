@@ -1,8 +1,13 @@
+import { useContext } from 'react';
 import { IconStarFilled, IconHeart, IconHeartFilled, IconShare } from '@tabler/icons-react';
 import './product-description.scoped.scss'
 import parse from 'html-react-parser';
+import { LanguageContext } from '../../../../../context/LanguageContext';
 
 export default function ProductDescriptionComponent({ productObj }) {
+    const { language } = useContext(LanguageContext)
+    const formater = new Intl.NumberFormat( language == 'id' ? 'id-ID' : 'en-EN', { style: 'currency', currency: language == 'id' ? 'IDR' : 'USD', minimumFractionDigits: 0, maximumFractionDigits: 2 })
+
     return (
         <div className="product-description-wrapper">
             <div className="inner-product-description">
@@ -40,7 +45,7 @@ export default function ProductDescriptionComponent({ productObj }) {
                         <span className='wishlist-text'>Whislist</span>
                     </div>
                 </div>
-                <div className='product-price'>Rp. {productObj.sale_price}</div>
+                <div className='product-price'>{formater.format(language == 'id' ? productObj.sale_price : productObj.sale_usd )}</div>
                 <div className='product-description-body'>
                     <div className='product-detail'>
                         <h3 className='product-detail-title'>Product Detail</h3>

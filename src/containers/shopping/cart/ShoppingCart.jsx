@@ -5,6 +5,7 @@ import './shopping-cart.scoped.scss'
 import ContainerComponent from "../../../components/general/container/ContainerComponent";
 import { useContext, useEffect, useState } from "react";
 import { LoadingContext } from "../../../context/LoadingContext";
+import { LanguageContext } from "../../../context/LanguageContext";
 import Api from "../../../utils/Api";
 import StringUtil from "../../../utils/StringUtil";
 
@@ -15,6 +16,8 @@ export default function ShoppingCart() {
      * 
      */
     const { setLoading } = useContext(LoadingContext)
+    const { language } = useContext(LanguageContext)
+    const formater = new Intl.NumberFormat( language == 'id' ? 'id-ID' : 'en-EN', { style: 'currency', currency: language == 'id' ? 'IDR' : 'USD', minimumFractionDigits: 0, maximumFractionDigits: 2 })
 
     /**
      * Main State
@@ -107,7 +110,7 @@ export default function ShoppingCart() {
                                         <h4 className="product-name">{cartObj.product.name}</h4>
                                         <span className="product-weight only-desktop">{cartObj.qty} pcs ({StringUtil.numberingWithDotFormat(Math.ceil(cartObj.product.weight * cartObj.qty))} gr)</span>
                                         <div className="price-col only-mobile">
-                                            <h4 className="price">{StringUtil.rupiahFormat(cartObj.total_price)}</h4>
+                                            <h4 className="price">{formater.format((language == 'id' ? Number(cartObj.product.sale_price) : Number(cartObj.product.sale_usd)) * cartObj.qty )}</h4>
                                         </div>
                                         <div className="qty-col only-mobile">
                                             <div>
@@ -128,7 +131,7 @@ export default function ShoppingCart() {
                                     </div>
                                 </div>
                                 <div className="item-price-col only-desktop">
-                                    <h4 className="item-price">{StringUtil.rupiahFormat(cartObj.price)}</h4>
+                                    <h4 className="item-price">{formater.format(language == 'id' ? cartObj.product.sale_price : cartObj.product.sale_usd )}</h4>
                                 </div>
                                 <div className="qty-col only-desktop">
                                     <div>
@@ -142,7 +145,7 @@ export default function ShoppingCart() {
                                     </div>
                                 </div>
                                 <div className="price-col only-desktop">
-                                    <h4 className="price">{StringUtil.rupiahFormat(cartObj.total_price)}</h4>
+                                    <h4 className="price">{formater.format((language == 'id' ? Number(cartObj.product.sale_price) : Number(cartObj.product.sale_usd)) * cartObj.qty )}</h4>
                                 </div>
                                 <div className="delete-col only-desktop">
                                     <button type="button" onClick={() => {
@@ -181,7 +184,7 @@ export default function ShoppingCart() {
                                 </div>
                                 <div className="right-price-text">
                                     <h4>
-                                        {StringUtil.rupiahFormat(arrCarts.reduce((total, cartObj) => total + cartObj.total_price, 0))}
+                                        {formater.format(arrCarts.reduce((total, cartObj) => Number(language == 'id' ? cartObj.product.sale_price : cartObj.product.sale_usd) * cartObj.qty + total , 0))}
                                     </h4>
                                 </div>
                             </div>
@@ -207,7 +210,7 @@ export default function ShoppingCart() {
                         <div className="top-desc">
                             <span>Total</span>
                             <span>
-                                {StringUtil.rupiahFormat(arrCarts.reduce((total, cartObj) => total + cartObj.total_price, 0))}
+                                {formater.format(arrCarts.reduce((total, cartObj) => Number(language == 'id' ? cartObj.product.sale_price : cartObj.product.sale_usd) * cartObj.qty + total , 0))}
                             </span>
                         </div>
                         <button type="button" onClick={() => {
