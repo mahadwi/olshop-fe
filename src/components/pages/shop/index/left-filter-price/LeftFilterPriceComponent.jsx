@@ -5,16 +5,19 @@ import Slider, { Range } from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import StringUtil from '../../../../../utils/StringUtil';
 import { useState } from 'react';
+import { useTranslation } from "react-i18next";
 
 export default function LeftFilterPriceComponent({ selectedPriceMinAndMax, setSelectedPriceMinAndMax, minRangeValue, maxRangeValue, step }) {
     const [localPriceMin, setLocalPriceMin] = useState(selectedPriceMinAndMax.price_min)
     const [localPriceMax, setLocalPriceMax] = useState(selectedPriceMinAndMax.price_max)
 
+    const { t } = useTranslation();
+
     return (
         <div className="left-filter-price">
             <div className="inner-left-filter-price">
                 <div className="sec-title">
-                    <h3>Price</h3>
+                    <h3>{t('price')}</h3>
                     <IconMinus color="#111" size={19} stroke={1.5} />
                 </div>
                 <div className='range-slider'>

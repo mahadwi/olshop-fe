@@ -4,12 +4,14 @@ import { useEffect, useRef, useState } from 'react';
 import Select from 'react-select';
 import { IconMinus } from '@tabler/icons-react';
 import Checkbox from "react-custom-checkbox";
+import { useTranslation } from "react-i18next";
 
 export default function TopFilterComponent({ searchNameProduct, setSearchNameProduct, productResultAmount, sortOptions, selectedSortOption, setSelectedSortOption, brands, selectedBrands, setSelectedBrands }) {
     const [tempSearchNameProduct, setTempSearchNameProduct] = useState(searchNameProduct)
     const dropdownFilterBrand = useRef()
     const [showMobileBrandFilter, setShowMobileBrandFilter] = useState(false)
     const [showMobileRelevance, setShowMobileRelevance] = useState(false);
+    const { t } = useTranslation();
 
     const handleChange = (selectedOption) => {
         setSelectedSortOption(selectedOption)
@@ -23,7 +25,7 @@ export default function TopFilterComponent({ searchNameProduct, setSearchNamePro
         <div className='top-filter'>
             <div className='left'>
                 <div>
-                    <input type="text" name="search" id="search" placeholder="Search" value={tempSearchNameProduct} onChange={(e) => {
+                    <input type="text" name="search" id="search" placeholder={t('search')} value={tempSearchNameProduct} onChange={(e) => {
                         setTempSearchNameProduct(e.target.value)
                     }} />
                     <button type="button" onClick={() => {
@@ -35,15 +37,15 @@ export default function TopFilterComponent({ searchNameProduct, setSearchNamePro
             </div>
             <div className='left-center'>
                 <div>
-                    <p>{productResultAmount} Result</p>
+                    <p>{productResultAmount} {t('result')}</p>
                 </div>
             </div>
             <div className='right-center'>
-                <button className='filter-mobile-button' onClick={()=>{setShowMobileBrandFilter((current) => !current)}}>Filter</button>
+                <button className='filter-mobile-button' onClick={()=>{setShowMobileBrandFilter((current) => !current)}}>{t('filter')}</button>
                 <div className='inner-right-center' onClick={() => {
                     dropdownFilterBrand.current.classList.toggle('show')
                 }}>
-                    <p>Filter By Brand</p>
+                    <p>{t('filterbybrand')}</p>
                     <IconAlignCenter />
                 </div>
 
@@ -160,7 +162,7 @@ export default function TopFilterComponent({ searchNameProduct, setSearchNamePro
             </div>
             <div className={`relevance-filter ${showMobileRelevance ? 'mobile-show': 'mobile-hide'}`}>
                 <div className='relevance-filter-close'><button onClick={() => setShowMobileRelevance(false)}><IconX size={32} /></button></div>
-                <div className='relevance-filter-title'>Relevance</div>
+                <div className='relevance-filter-title'>{t('relevance')}</div>
                 <ul>
                     {sortOptions.map(({value, label}) => <li><button onClick={() => {setSelectedSortOption({value, label});setShowMobileRelevance(false)}}>{label}</button></li>)}
                 </ul>

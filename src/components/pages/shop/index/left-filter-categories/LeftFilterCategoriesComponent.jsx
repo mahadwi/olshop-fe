@@ -3,14 +3,16 @@ import { IconMinus } from '@tabler/icons-react';
 import './left-filter-categories.scoped.scss'
 import Checkbox from "react-custom-checkbox";
 import { IconArrowRight } from '@tabler/icons-react';
+import { useTranslation } from "react-i18next";
 
 export default function LeftFilterCategoriesComponent({ productCategories, selectedProductCategories, setSelectedProductCategories }) {
+    const { t } = useTranslation();
 
     return (
         <div className="left-filter-categories">
             <div className="inner-left-filter-categories">
                 <div className="sec-title">
-                    <h3>Categories</h3>
+                    <h3>{t('categories')}</h3>
                     <IconMinus color="#111" size={19} stroke={1.5} />
                 </div>
                 <ul>
@@ -35,13 +37,13 @@ export default function LeftFilterCategoriesComponent({ productCategories, selec
                                         }
                                     }}
                                 />
-                                <span>{productCategory.name}</span>
+                                <span>{t(productCategory.name)}</span>
                             </li>
                         ))
                     }
                 </ul>
                 <Link>
-                    <span>More</span>
+                    <span>{t('more')}</span>
                     <IconArrowRight color="#151B4F" size={12} />
                 </Link>
             </div>

@@ -9,6 +9,7 @@ import { AuthUserContext } from '../../../context/AuthUserContext';
 import { LoadingContext } from '../../../context/LoadingContext';
 import { CartContext } from '../../../context/CartContext';
 import { LanguageContext } from '../../../context/LanguageContext';
+import { useTranslation } from "react-i18next";
 
 export default function ProductItemComponent({ product, className, blur, wishlistId }) {
 
@@ -39,6 +40,7 @@ export default function ProductItemComponent({ product, className, blur, wishlis
      * 
      */
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     useEffect(() => {
         setTempProduct(product)
@@ -133,8 +135,8 @@ export default function ProductItemComponent({ product, className, blur, wishlis
                 <div className='product-action'>
                     <button type='button' className='btn-cart' onClick={() => {
                         doAddToCart()
-                    }}>Add to cart</button>
-                    <button className='btn-buy'>Buy Now</button>
+                    }}>{t('addtocart')}</button>
+                    <button className='btn-buy'>{t('buynow')}</button>
                 </div>
 
                 <span className='love-wrap' onClick={toggleWishlist}>
@@ -160,7 +162,7 @@ export default function ProductItemComponent({ product, className, blur, wishlis
                             blur ?
                                 <button onClick={() => {
                                     navigate('/login')
-                                }}>Cek Harga</button>
+                                }}>{t('checkprices')}</button>
                                 : <></>
                         }
                     </div>
@@ -170,7 +172,7 @@ export default function ProductItemComponent({ product, className, blur, wishlis
                             <IconStarFilled style={{ color: '#FFAC33' }} size={12} />
                         </div>
                         <div className='selled'>
-                            <span>({10}) Terjual</span>
+                            <span>({10}) {t('sold')}</span>
                         </div>
                     </div>
                 </div>

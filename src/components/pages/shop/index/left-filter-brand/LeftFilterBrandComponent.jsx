@@ -3,8 +3,10 @@ import { IconMinus } from '@tabler/icons-react';
 import './left-filter-brand.scoped.scss'
 import Checkbox from "react-custom-checkbox";
 import { IconArrowRight } from '@tabler/icons-react';
+import { useTranslation } from "react-i18next";
 
 export default function LeftFilterBrandComponent({ brands, selectedBrands, setSelectedBrands }) {
+    const { t } = useTranslation();
 
     return (
         <div className="left-filter-brand">
@@ -41,7 +43,7 @@ export default function LeftFilterBrandComponent({ brands, selectedBrands, setSe
                     }
                 </ul>
                 <Link>
-                    <span>More</span>
+                    <span>{t('more')}</span>
                     <IconArrowRight color="#151B4F" size={12} />
                 </Link>
             </div>

@@ -8,6 +8,7 @@ import { useLocation, useParams, useSearchParams } from "react-router-dom";
 import Api from "../../../utils/Api";
 import { LoadingContext } from "../../../context/LoadingContext";
 import { AuthUserContext } from "../../../context/AuthUserContext";
+import { useTranslation } from "react-i18next";
 
 export default function CollectiveIndex() {
 
@@ -19,6 +20,7 @@ export default function CollectiveIndex() {
     const { id } = useParams();
     const currentPage = searchParams.get('page');
     const { pathname, search } = useLocation();
+    const { t } = useTranslation();
 
     /**
      * Context
@@ -34,7 +36,7 @@ export default function CollectiveIndex() {
     const [brands, setBrands] = useState([])
     const [selectedBrands, setSelectedBrands] = useState([])
     const [searchNameProduct, setSearchNameProduct] = useState(null)
-    const [selectedSortOption, setSelectedSortOption] = useState({ value: 'name_asc', label: 'ALphabetical, A - Z' })
+    const [selectedSortOption, setSelectedSortOption] = useState({ value: 'name_asc', label: t('ALphabetical, A - Z') })
     const [products, setProducts] = useState([])
     const [metaPagination, setMetaPagination] = useState({})
     const [breadcrumbs, setBreadcrumbs] = useState([])
@@ -46,7 +48,7 @@ export default function CollectiveIndex() {
         { value: 'name_desc', label: 'ALphabetical, Z - A' },
         { value: 'date_desc', label: 'Date, old to new' },
         { value: 'date_asc', label: 'Date, new to old' },
-    ];
+    ].map(({value, label}) => ({value, label: t(label)}));
     const [bannerObj, setBannerObj] = useState({})
 
     useEffect(() => {

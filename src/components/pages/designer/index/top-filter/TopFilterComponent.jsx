@@ -4,12 +4,14 @@ import { useEffect, useRef, useState } from 'react';
 import Select from 'react-select';
 import { IconMinus } from '@tabler/icons-react';
 import Checkbox from "react-custom-checkbox";
+import { useTranslation } from "react-i18next";
 
 export default function TopFilterComponent({ searchNameProduct, setSearchNameProduct, productResultAmount, sortOptions, selectedSortOption, setSelectedSortOption, categories, selectedCategories, setSelectedCategories }) {
     const [tempSearchNameProduct, setTempSearchNameProduct] = useState(searchNameProduct)
     const dropdownFilterBrand = useRef()
     const [showMobileCategoriesFilter, setShowMobileCategoriesFilter] = useState(false)
     const [showMobileRelevance, setShowMobileRelevance] = useState(false);
+    const { t } = useTranslation();
 
     const handleChange = (selectedOption) => {
         setSelectedSortOption(selectedOption)
@@ -23,7 +25,7 @@ export default function TopFilterComponent({ searchNameProduct, setSearchNamePro
         <div className='top-filter'>
             <div className='left'>
                 <div>
-                    <input type="text" name="search" id="search" placeholder="Search" value={tempSearchNameProduct} onChange={(e) => {
+                    <input type="text" name="search" id="search" placeholder={t('search')} value={tempSearchNameProduct} onChange={(e) => {
                         setTempSearchNameProduct(e.target.value)
                     }} />
                     <button type="button" onClick={() => {
@@ -35,7 +37,7 @@ export default function TopFilterComponent({ searchNameProduct, setSearchNamePro
             </div>
             <div className='left-center'>
                 <div>
-                    <p>{productResultAmount} Result</p>
+                    <p>{productResultAmount} {t('result')}</p>
                 </div>
             </div>
             <div className='right-center'>
@@ -43,7 +45,7 @@ export default function TopFilterComponent({ searchNameProduct, setSearchNamePro
                 <div className='inner-right-center' onClick={() => {
                     dropdownFilterBrand.current.classList.toggle('show')
                 }}>
-                    <p>Filter By Categories</p>
+                    <p>{t('filterbycategories')}</p>
                     <IconAlignCenter />
                 </div>
 

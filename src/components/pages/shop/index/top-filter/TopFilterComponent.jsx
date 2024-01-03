@@ -3,9 +3,11 @@ import './top-filter.css'
 import { IconAdjustmentsHorizontal, IconChevronDown, IconX } from '@tabler/icons-react';
 import Select from 'react-select';
 import { useState } from 'react';
+import { useTranslation } from "react-i18next";
 
 export default function TopFilterComponent({ productResultAmount, sortOptions, selectedSortOption, setSelectedSortOption, setShowMobileFilter }) {
     const [showMobileRelevance, setShowMobileRelevance] = useState(false);
+    const { t } = useTranslation();
 
     const handleChange = (selectedOption) => {
         setSelectedSortOption(selectedOption)
@@ -24,13 +26,13 @@ export default function TopFilterComponent({ productResultAmount, sortOptions, s
         <div className='top-filter'>
             <div className='left'>
                 <div onClick={toggleMobileFilter}>
-                    <p>Filter</p>
+                    <p>{t('filter')}</p>
                     <IconAdjustmentsHorizontal />
                 </div>
             </div>
             <div className='center'>
                 <div>
-                    <p>{productResultAmount} Result</p>
+                    <p>{productResultAmount} {t('result')}</p>
                 </div>
             </div>
             <div className='right'>
@@ -82,7 +84,7 @@ export default function TopFilterComponent({ productResultAmount, sortOptions, s
             </div>
             <div className={`relevance-filter ${showMobileRelevance ? 'mobile-show': 'mobile-hide'}`}>
                 <div className='relevance-filter-close'><button onClick={() => setShowMobileRelevance(false)}><IconX size={32} /></button></div>
-                <div className='relevance-filter-title'>Relevance</div>
+                <div className='relevance-filter-title'>{t('relevance')}</div>
                 <ul>
                     {sortOptions.map(({value, label}) => <li><button onClick={() => {setSelectedSortOption({value, label});setShowMobileRelevance(false)}}>{label}</button></li>)}
                 </ul>

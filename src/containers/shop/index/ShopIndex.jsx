@@ -10,6 +10,7 @@ import Api from "../../../utils/Api";
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { LoadingContext } from "../../../context/LoadingContext";
 import { AuthUserContext } from "../../../context/AuthUserContext";
+import { useTranslation } from "react-i18next";
 
 export default function ShopIndex() {
 
@@ -19,6 +20,7 @@ export default function ShopIndex() {
 
     const { setLoading } = useContext(LoadingContext)
     const { user } = useContext(AuthUserContext)
+    const { t } = useTranslation();
 
     const [breadcrumbs, setBreadcrumbs] = useState([])
     const [products, setProducts] = useState([])
@@ -42,8 +44,8 @@ export default function ShopIndex() {
         { value: 'name_desc', label: 'ALphabetical, Z - A' },
         { value: 'date_desc', label: 'Date, old to new' },
         { value: 'date_asc', label: 'Date, new to old' },
-    ];
-    const [selectedSortOption, setSelectedSortOption] = useState({ value: 'name_asc', label: 'ALphabetical, A - Z' })
+    ].map(({value, label}) => ({value, label: t(label)}));
+    const [selectedSortOption, setSelectedSortOption] = useState({ value: 'name_asc', label: t('ALphabetical, A - Z') })
     const [showMobileFilter, setShowMobileFilter] = useState(false);
 
     // Automatically scrolls to top whenever pathname or search changes
