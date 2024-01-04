@@ -32,6 +32,7 @@ import AccountOrder from './containers/account/order/AccountOrder';
 import AccountWishlist from './containers/account/wishlist/AccountWishlist';
 import ProfileIndex from './containers/profile/index/ProfileIndex';
 import ProfileAccount from './containers/profile/account/ProfileAccount';
+import ProfileWishlist from './containers/profile/wishlist/ProfileWishlist';
 import ShoppingCart from './containers/shopping/cart/ShoppingCart';
 import ShoppingCheckout from './containers/shopping/checkout/ShoppingCheckout';
 import FaqIndex from './containers/faq/FaqIndex';
@@ -95,6 +96,7 @@ function App() {
                         <Route path='/profile' element={<AuthenticateMiddleware />}>
                             <Route index element={<ProfileIndex />} />
                             <Route path='account' element={<ProfileAccount />} />
+                            <Route path='wishlist' element={<ProfileWishlist />} />
                         </Route>
                         {/* End of Profile */}
                     </Route>
