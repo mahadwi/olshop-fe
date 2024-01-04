@@ -9,6 +9,7 @@ import { AuthUserContext } from "../context/AuthUserContext";
 import NavbarHomeComponent from "../components/general/navbar-home/NavbarHomeComponent";
 import { CartContext } from "../context/CartContext";
 import { Toaster } from 'react-hot-toast';
+import LanguageComponent from '../components/general/language/LanguageComponent';
 
 export default function MainLayout() {
 
@@ -49,6 +50,7 @@ export default function MainLayout() {
                         <Outlet />
                     </ScreenContainerComponent> : <Outlet />
             }
+            <LanguageComponent loading={loading} />
             <FooterComponent />
         </div>
     )
