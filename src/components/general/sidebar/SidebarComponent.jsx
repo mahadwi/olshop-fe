@@ -5,7 +5,7 @@ import { useRef, useContext } from 'react'
 import { LanguageContext } from '../../../context/LanguageContext'
 import { changeLanguage } from '../../../translations/i18n'
 
-export default function SidebarComponent({ toggleSidebar, sidebarOpen, categories, brands }) {
+export default function SidebarComponent({ toggleSidebar, sidebarOpen, categories, brands, aboutUs }) {
     /**
      * Hooks
      * 
@@ -69,7 +69,7 @@ export default function SidebarComponent({ toggleSidebar, sidebarOpen, categorie
                     <Link to={'/profile'} className='side-link-item-a'>PROFILE</Link>
                 </li>
                 <li className='side-link-item'>
-                    <Link className='side-link-item-a'>LOCATION STORE</Link>
+                    <a href={aboutUs.maps} className='side-link-item-a'>LOCATION STORE</a>
                 </li>
                 <li className='side-link-item dropdown'>
                     <Link className='side-link-item-a' onClick={(e) => e.currentTarget.parentElement.classList.toggle('show-dropdown')}>LANGUAGE <span className='flag'><span className={`circle-flag fi fi-${language == 'id' ? 'id' : 'us' }`}></span> {language == 'id' ? 'ID' : 'ENGLISH (US)'}</span></Link>

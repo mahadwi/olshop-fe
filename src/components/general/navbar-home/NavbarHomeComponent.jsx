@@ -235,7 +235,7 @@ function NavbarHomeComponent({ t }) {
                     </nav>
                 </ContainerComponent>
             </div>
-            <SidebarComponent sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} categories={categories} brands={brands} />
+            <SidebarComponent sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} categories={categories} brands={brands} aboutUs={aboutUs} />
         </div>
     )
 }
