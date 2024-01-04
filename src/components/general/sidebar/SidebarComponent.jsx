@@ -72,7 +72,11 @@ export default function SidebarComponent({ toggleSidebar, sidebarOpen, categorie
                     <Link to={'/event'} className='side-link-item-a'>EVENT</Link>
                 </li>
                 <li className='side-link-item'>
-                    <Link to={'/profile'} className='side-link-item-a'>PROFILE</Link>
+                    { user ?
+                        <Link to={'/profile'} className='side-link-item-a'>PROFILE</Link>
+                    :
+                        <Link to={'/login'} className='side-link-item-a'>SIGN IN</Link>
+                    }
                 </li>
                 <li className='side-link-item'>
                     <a href={aboutUs.maps} className='side-link-item-a'>LOCATION STORE</a>
