@@ -2,6 +2,7 @@ import { Link, useLocation } from 'react-router-dom'
 import './sidebar.scoped.scss'
 import { IconX } from '@tabler/icons-react'
 import { useRef, useContext } from 'react'
+import { AuthUserContext } from '../../../context/AuthUserContext'
 import { LanguageContext } from '../../../context/LanguageContext'
 import { changeLanguage } from '../../../translations/i18n'
 
@@ -12,6 +13,11 @@ export default function SidebarComponent({ toggleSidebar, sidebarOpen, categorie
      */
     const { pathname } = useLocation()
 
+    /**
+     * Context
+     * 
+     */
+    const { user, doLogout } = useContext(AuthUserContext)
     const { language, setLanguage } = useContext(LanguageContext)
 
     const sidebarRef = useRef()
@@ -78,9 +84,16 @@ export default function SidebarComponent({ toggleSidebar, sidebarOpen, categorie
                         <li><a href={`javascript:void(0)`} className={`${language != 'id' ? 'active' : ''}`} onClick={() => handleLanguageChange('en')}><span className='circle-flag fi fi-us'></span> ENGLISH (US)</a></li>
                     </ul>
                 </li>
-                <li className='side-link-item'>
-                    <Link className='side-link-item-a'>LOG OUT</Link>
-                </li>
+                { user ?
+                    <li className='side-link-item'>
+                        <Link className='side-link-item-a' onClick={(e) => {
+                            e.preventDefault()
+                            doLogout(() => {
+                                window.location.href = '/login'
+                            })
+                        }}>LOG OUT</Link>
+                    </li>
+                : null }
             </ul>
             <button className='close-sidebar-btn' onClick={() => {
                 toggleSidebar()
