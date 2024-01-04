@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import './profile-account.scoped.scss';
 import { DateUtil } from '../../../utils/DateUtil'
 import Api from '../../../utils/Api'
@@ -285,6 +285,7 @@ export default function ProfileAccount() {
                     </div>
                 </div>
                 <div className="form-group__btn-save">
+                    <Link to={'..'} className='btn-back'>Back</Link>
                     <button type='button' onClick={doUpdateProfile} className='btn-save'>Save</button>
                 </div>
             </form>

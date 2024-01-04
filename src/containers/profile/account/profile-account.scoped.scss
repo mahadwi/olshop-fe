@@ -164,8 +164,9 @@
             justify-content: center;
             margin-top: 2.15rem;
             padding-bottom: 2rem;
+            gap:1rem;
 
-            button {
+            button, a {
                 border: 0px;
                 outline: 0px;
                 border-radius: 4px;
@@ -178,7 +179,14 @@
                 line-height: 20px;
                 /* 125% */
                 letter-spacing: 0.1px;
+                text-decoration: none;
                 padding: .3rem 3.5rem;
+
+                &:is(a) {
+                    border: 1px solid #151B4F;
+                    background: #FFF;
+                    color: #151B4F;
+                }
             }
         }
     }
