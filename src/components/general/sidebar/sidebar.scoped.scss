@@ -63,6 +63,16 @@ aside {
                     visibility: hidden;
                     max-height: 0;
                     transition: all 400ms ease-in-out;
+
+                    &.languages {
+                        list-style: none;
+
+                        a {
+                            &.active {
+                                font-weight: 700;
+                            }
+                        }
+                    }
                 }
             }
 
@@ -81,6 +91,19 @@ aside {
                 /* 133.333% */
             }
         }
+    }
+
+    .flag {
+        float: right;
+        margin-right: 18px;
+    }
+
+    .circle-flag {
+        width: 16px;
+        height: 16px;
+        background-size: cover;
+        border-radius: 50%;
+        margin-right: 4px;
     }
 
     button.close-sidebar-btn {

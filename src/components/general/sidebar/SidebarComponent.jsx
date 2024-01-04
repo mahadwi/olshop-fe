@@ -1,7 +1,9 @@
 import { Link, useLocation } from 'react-router-dom'
 import './sidebar.scoped.scss'
 import { IconX } from '@tabler/icons-react'
-import { useRef } from 'react'
+import { useRef, useContext } from 'react'
+import { LanguageContext } from '../../../context/LanguageContext'
+import { changeLanguage } from '../../../translations/i18n'
 
 export default function SidebarComponent({ toggleSidebar, sidebarOpen, categories, brands }) {
     /**
@@ -10,7 +12,14 @@ export default function SidebarComponent({ toggleSidebar, sidebarOpen, categorie
      */
     const { pathname } = useLocation()
 
+    const { language, setLanguage } = useContext(LanguageContext)
+
     const sidebarRef = useRef()
+
+    const handleLanguageChange = (lng) => {
+        changeLanguage(lng);
+        setLanguage(lng)
+    };
 
     return (
         <aside className={`${sidebarOpen ? 'show' : ''}`} ref={sidebarRef}>
@@ -62,8 +71,12 @@ export default function SidebarComponent({ toggleSidebar, sidebarOpen, categorie
                 <li className='side-link-item'>
                     <Link className='side-link-item-a'>LOCATION STORE</Link>
                 </li>
-                <li className='side-link-item'>
-                    <Link className='side-link-item-a'>LANGUAGE</Link>
+                <li className='side-link-item dropdown'>
+                    <Link className='side-link-item-a' onClick={(e) => e.currentTarget.parentElement.classList.toggle('show-dropdown')}>LANGUAGE <span className='flag'><span className={`circle-flag fi fi-${language == 'id' ? 'id' : 'us' }`}></span> {language == 'id' ? 'ID' : 'ENGLISH (US)'}</span></Link>
+                    <ul className='dropdown-content languages'>
+                        <li><a href={`javascript:void(0)`} className={`${language == 'id' ? 'active' : ''}`} onClick={() => handleLanguageChange('id')}><span className='circle-flag fi fi-id'></span> ID</a></li>
+                        <li><a href={`javascript:void(0)`} className={`${language != 'id' ? 'active' : ''}`} onClick={() => handleLanguageChange('en')}><span className='circle-flag fi fi-us'></span> ENGLISH (US)</a></li>
+                    </ul>
                 </li>
                 <li className='side-link-item'>
                     <Link className='side-link-item-a'>LOG OUT</Link>
