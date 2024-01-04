@@ -130,11 +130,20 @@
                     padding:0.5rem 0;
                     width: 220px;
 
+                    &:hover {
+                        background: #EEE;
+                    }
+
                     &.secondary {
                           border-radius: 4px;
                           background: #151B4F;
                           border: 1px solid #151B4F;
                           color: #fff;
+
+                        &:hover {
+                            border: 1.5px solid #000000;
+                            background: #000000;
+                        }
                     }
                 }
             }
