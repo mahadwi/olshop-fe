@@ -3,6 +3,7 @@ import { IconX } from '@tabler/icons-react'
 import {LanguageContext} from '../../../context/LanguageContext';
 import './language.scoped.scss'
 import { changeLanguage } from '../../../translations/i18n'
+import Api from '../../../utils/Api'
 
 export default function LanguageComponent({ loading }) {
     /**
@@ -11,8 +12,10 @@ export default function LanguageComponent({ loading }) {
      */
     const [showLanguage, setShowLanguage] = useState(false)
     const { setLanguage } = useContext(LanguageContext)
+    const [ ipCountry, setIpCountry ] = useState(null)
 
     useEffect(() => {
+        Api.get('/location').then((res) => setIpCountry(res.data.data.country_name)).catch((e) => console.log(e));
         if (!loading && !localStorage.getItem("popupLanguage")) {
             setTimeout(() => {
                 setShowLanguage(true)
@@ -26,7 +29,7 @@ export default function LanguageComponent({ loading }) {
                 <button className='close-modal' type='button' onClick={() => {
                     setShowLanguage(false);
                 }}><IconX /></button>
-                <div className='title'>Looks like you’re shopping {!Intl.DateTimeFormat().resolvedOptions().locale.includes('id') ? 'not ' : null }from Indonesia</div>
+                <div className='title'>Looks like you’re shopping {ipCountry != null && ipCountry != 'Indonesia' ? 'not ' : null }from Indonesia</div>
                 <div className='languages'>
                     <div className='language'>
                         <img src='https://flagicons.lipis.dev/flags/4x3/id.svg' alt='Indonesia flag' />
