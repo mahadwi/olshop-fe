@@ -24,6 +24,7 @@ export default function ShoppingCart() {
      * 
      */
     const [arrCarts, setArrCarts] = useState([])
+    const [selectAll, setSelectAll] = useState(false)
 
     useEffect(() => {
         setLoading(true)
@@ -59,6 +60,21 @@ export default function ShoppingCart() {
         })
     }
 
+    const changeSelectedCart = (cartObj, value) => {
+        const copyArrCarts = []
+        for (const cartObjState of arrCarts){
+            if (cartObjState === cartObj) {
+                cartObjState.selected = value;
+
+                if(!value){
+                    setSelectAll(false);
+                }
+            }
+            copyArrCarts.push(cartObjState);
+        }
+        setArrCarts(copyArrCarts)
+    }
+
     const changeQtyCart = (cartObj, qty) => {
         if (qty > 0) {
             let copyArrCarts = []
@@ -87,7 +103,15 @@ export default function ShoppingCart() {
 
                 <div className="carts-head">
                     <div className="checkbox-head">
-                        <Checkbox borderColor={'#DADADA'} />
+                        <Checkbox borderColor={'#DADADA'} checked={selectAll} onChange={(value) => {
+                            const copyArrCarts = []
+                            for (const cartObj of arrCarts){
+                                cartObj.selected = value;
+                                copyArrCarts.push(cartObj);
+                            }
+                            setArrCarts(copyArrCarts);
+                            setSelectAll(value);
+                        }} />
                         <span className="only-mobile">Select All</span>
                     </div>
                     <div className="item-head only-desktop"><h4>Item</h4></div>
@@ -102,7 +126,7 @@ export default function ShoppingCart() {
                         arrCarts.map((cartObj) => (
                             <div className="cart-item">
                                 <div className="checkbox-col">
-                                    <Checkbox borderColor={'#DADADA'} />
+                                    <Checkbox borderColor={'#DADADA'} checked={!!cartObj.selected} onChange={(value) => changeSelectedCart(cartObj, value)} />
                                 </div>
                                 <div className="product-col">
                                     <img src={cartObj.product.images[0]} alt="" />
@@ -182,7 +206,10 @@ export default function ShoppingCart() {
                                 </div>
                                 <div className="right-price-text">
                                     <h4>
-                                        {formater.format(arrCarts.reduce((total, cartObj) => Number(language == 'id' ? cartObj.product.sale_price : cartObj.product.sale_usd) * cartObj.qty + total, 0))}
+                                        {formater.format(arrCarts.reduce((total, cartObj) => {
+                                            if (!cartObj.selected) return total;
+                                            return Number(language == 'id' ? cartObj.product.sale_price : cartObj.product.sale_usd) * cartObj.qty + total
+                                        }, 0))}
                                     </h4>
                                 </div>
                             </div>
@@ -208,7 +235,10 @@ export default function ShoppingCart() {
                         <div className="top-desc">
                             <span>Total</span>
                             <span>
-                                {formater.format(arrCarts.reduce((total, cartObj) => Number(language == 'id' ? cartObj.product.sale_price : cartObj.product.sale_usd) * cartObj.qty + total, 0))}
+                                {formater.format(arrCarts.reduce((total, cartObj) => {
+                                    if (!cartObj.selected) return total;
+                                    return Number(language == 'id' ? cartObj.product.sale_price : cartObj.product.sale_usd) * cartObj.qty + total
+                                }, 0))}
                             </span>
                         </div>
                         <button type="button" onClick={() => {
