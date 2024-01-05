@@ -1,12 +1,18 @@
+@use './../../../styles/func.scoped.scss' as *;
+
 .privacy-police[data-id="sdfsdf"] {
     .hero {
         padding-top: 1rem;
 
         img {
             width: 100%;
-            height: 80vh;
+            height: unset;
             object-fit: cover;
             object-position: center;
+        }
+
+        @include lg {
+            height: 80vh;
         }
     }
 

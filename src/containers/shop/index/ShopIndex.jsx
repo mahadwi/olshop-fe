@@ -44,7 +44,7 @@ export default function ShopIndex() {
         { value: 'name_desc', label: 'ALphabetical, Z - A' },
         { value: 'date_desc', label: 'Date, old to new' },
         { value: 'date_asc', label: 'Date, new to old' },
-    ].map(({value, label}) => ({value, label: t(label)}));
+    ].map(({ value, label }) => ({ value, label: t(label) }));
     const [selectedSortOption, setSelectedSortOption] = useState({ value: 'name_asc', label: t('ALphabetical, A - Z') })
     const [showMobileFilter, setShowMobileFilter] = useState(false);
 
@@ -55,7 +55,15 @@ export default function ShopIndex() {
 
     useEffect(() => {
         loadBreadcrumbs()
+        loadFirstTimeSelectedSortOption()
     }, [])
+
+    const loadFirstTimeSelectedSortOption = () => {
+        const sortOption = sortOptions.find((sortOption) => sortOption.value == searchParams.get('sort_option'));
+        if (sortOption) {
+            setSelectedSortOption({ value: searchParams.get('sort_option'), label: t(sortOption.label) })
+        }
+    }
 
     const loadBreadcrumbs = () => {
         setBreadcrumbs([

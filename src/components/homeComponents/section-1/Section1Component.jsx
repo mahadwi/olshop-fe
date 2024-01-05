@@ -47,7 +47,7 @@ export default function Section1Component({ item }) {
             <div className='hero-content'>
                 <div className='inner'>
                     <h2>{item.title}</h2>
-                    <Link to={'/shop'}>Find Here</Link>
+                    <Link to={'/shop?sort_option=is_new_arrival'}>Find Here</Link>
                 </div>
             </div>
             {/* Hero Content */}

@@ -1,6 +1,7 @@
 import './section-3.scoped.scss'
 import { Link } from 'react-router-dom'
 import ContainerComponent from '../../general/container/ContainerComponent'
+import { useEffect } from 'react'
 
 export default function Section3Component({ item }) {
 
@@ -9,7 +10,7 @@ export default function Section3Component({ item }) {
             <ContainerComponent>
                 <div className='inner'>
                     <h2>{item.title}</h2>
-                    <Link to={`/shop/${item.product ? item.product.id : ''}`}>Shop Now</Link>
+                    <Link to={`/shop`}>Shop Now</Link>
                 </div>
             </ContainerComponent>
         </div>
