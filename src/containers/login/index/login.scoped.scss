@@ -223,4 +223,122 @@
             }
         }
     }
+
+}
+
+.modal-forget-password {
+    display: flex;
+    flex-direction: column;
+    gap:1rem;
+
+    .description {
+        color: #545454;
+        font-family: Cabin;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+    }
+
+    .warning {
+        color: #FFAC33;
+        font-family: Roboto;
+        font-size: 10px;
+        font-style: normal;
+        font-weight: 500;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap:0.25rem
+    }
+
+    .input-gs {
+        display: flex;
+        flex-direction: column;
+        gap:1rem;
+    }
+
+    .input-g {
+        display: flex;
+        flex-direction: column;
+        gap:0.5rem;
+
+        label {
+            color: #000;
+            font-family: Cabin;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+        }
+
+        input[type='text']{
+            border-radius: 5px;
+            border: 1px solid #DADADA;
+            background: #FFF;
+            color: #000;
+            font-family: Cabin;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+            padding: 0.5rem 1rem;
+        }
+    }
+
+    .input-otps {
+        display: flex;
+        flex-direction: row;
+        gap:0.75rem;
+        margin: 2rem 0;
+
+        input {
+            flex: 1 0;
+            width: calc(100% - 0.75rem);
+            aspect-ratio: 1;
+            text-align: center;
+            border-radius: 6px;
+            border: 1.5px solid #C4C4C4;
+        }
+    }
+
+    .btn-forget-password-resend {
+        color: #474A56;
+        font-family: Inter;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        text-decoration-line: underline;
+        background: transparent;
+        border:0
+    }
+
+    .btn-forget-password {
+        border-radius: 15px;
+        background: #000;
+        color: #FFF;
+        text-align: center;
+        font-family: 'Roboto', sans-serif;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 0px;
+        letter-spacing: 2.7px;
+        width: 100%;
+        padding: 1.75rem 0;
+        outline: 0px;
+        border: 0px;
+
+        &:disabled {
+            background: #DDDDDD;
+            color: #A2A3B1;
+        }
+    }
+
+    .bottom {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
 }

@@ -8,10 +8,17 @@ import FacebookIcon from './../../../images/icons/facebook-icon.png'
 import { IconEye, IconEyeOff } from '@tabler/icons-react'
 import { useContext, useEffect, useRef, useState } from 'react'
 import Api from '../../../utils/Api'
+import Modal from 'react-bootstrap/Modal';
 import ApiErrorHandling from '../../../utils/ApiErrorHandling'
 import { AuthUserContext } from '../../../context/AuthUserContext'
 import { LoadingContext } from '../../../context/LoadingContext'
 import { GoogleLogin } from '@react-oauth/google';
+
+const FORGOT_PASSWORD_TITLE = [
+    'Find your LUXI account',
+    'Verification',
+    'Reset Password',
+];
 
 export default function LoginIndex() {
 
@@ -38,6 +45,8 @@ export default function LoginIndex() {
     const [errorObj422, setErrorObj422] = useState({})
     const [googleLoginUrl, setGoogleLoginUrl] = useState("")
     const inputPasswordRef = useRef()
+    const [modalForgotPassword, setModalForgotPassword] = useState(false)
+    const [forgotPasswordStep, setForgotPasswordStep] = useState(0)
 
     useEffect(() => {
         setLoading(true);
@@ -89,8 +98,110 @@ export default function LoginIndex() {
             '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-eye" width="30" height="30" viewBox="0 0 24 24" stroke-width="2" stroke="#999999" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>'
     }
 
+    const otpKeyUp = function (e) {
+        const target = e.target;
+        const key = e.key.toLowerCase();
+
+        if (key == "backspace" || key == "delete") {
+            target.value = "";
+            const prev = target.previousElementSibling;
+            if (prev) {
+                prev.focus();
+            }
+            return;
+        }
+
+      if (key.length == 1){
+          target.value = e.key;
+          const next = target.nextElementSibling;
+          if (next) {
+              next.focus();
+          }
+      }
+    }
+
     return (
         <div>
+            {/* Modal Create */}
+            <Modal show={modalForgotPassword} centered onHide={() => {
+                setModalForgotPassword(false)
+            }}>
+                <Modal.Header closeButton>
+                    <Modal.Title>{FORGOT_PASSWORD_TITLE[forgotPasswordStep]}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    { forgotPasswordStep == 0 ?
+                        <div className='modal-forget-password'>
+                            <div className='description'>
+                                Enter the email associated with your account to change the password.
+                            </div>
+                            <div>
+                                <div className='input-g'>
+                                    <label>
+                                        Email
+                                    </label>
+                                    <input type={'text'} />
+                                    <div className='warning'>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-info-circle" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" /><path d="M12 9h.01" /><path d="M11 12h1v4h1" /></svg>
+                                        Sorry we couldn't find your account !
+                                    </div>
+                                </div>
+                            </div>
+                            <div className='bottom'>
+                                <button className='btn-forget-password' onClick={() => setForgotPasswordStep((c) => c+1)}>Next</button>
+                            </div>
+                        </div>
+                    : null }
+                    { forgotPasswordStep == 1 ?
+                        <div className='modal-forget-password'>
+                            <div className='description'>
+                                Input your code verification. The verification code has been sent via e-mail to No*****@g****.***
+                            </div>
+                            <div className='input-otps'>
+                                <input className='otp' type={'text'} onKeyUp={otpKeyUp} />
+                                <input className='otp' type={'text'} onKeyUp={otpKeyUp} />
+                                <input className='otp' type={'text'} onKeyUp={otpKeyUp} />
+                                <input className='otp' type={'text'} onKeyUp={otpKeyUp} />
+                                <input className='otp' type={'text'} onKeyUp={otpKeyUp} />
+                                <input className='otp' type={'text'} onKeyUp={otpKeyUp} />
+                            </div>
+                            <div className='bottom'>
+                                <button className='btn-forget-password-resend'>Resend</button>
+                                <button className='btn-forget-password' onClick={() => setForgotPasswordStep((c) => c+1)}>Next</button>
+                            </div>
+                        </div>
+                    : null }
+                    { forgotPasswordStep == 2 ?
+                        <div className='modal-forget-password'>
+                            <div className='description'>
+                                Enter the email associated with your account to change the password.
+                            </div>
+                            <div className='input-gs'>
+                                <div className='input-g'>
+                                    <label>
+                                        New Password
+                                    </label>
+                                    <input type={'text'} />
+                                </div>
+                                <div className='input-g'>
+                                    <label>
+                                        Confirm New Password
+                                    </label>
+                                    <input type={'text'} />
+                                    <div className='warning'>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-info-circle" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" /><path d="M12 9h.01" /><path d="M11 12h1v4h1" /></svg>
+                                        Password does not match
+                                    </div>
+                                </div>
+                            </div>
+                            <div className='bottom'>
+                                <button className='btn-forget-password' onClick={() => setModalForgotPassword(false)}>Save</button>
+                            </div>
+                        </div>
+                    : null }
+                </Modal.Body>
+            </Modal>
+            {/* End of Modal Create */}
             <ContainerComponent>
                 <div className='login-section'>
                     <div className="left">
@@ -147,7 +258,7 @@ export default function LoginIndex() {
                                         <Checkbox borderColor={'#DADADA'} />
                                         <label className='remember-me-label' htmlFor="remember_me">Remember Me</label>
                                     </div>
-                                    <Link to={'/forgot-password'}>Forgot Password?</Link>
+                                    <Link onClick={(e) => {e.preventDefault();setModalForgotPassword(true)}}>Forgot Password?</Link>
                                 </div>
                                 <div className='form-group form-group__button'>
                                     <button className='button-submit' type='button' onClick={doLoginActionPage}>Login</button>
