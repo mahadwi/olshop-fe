@@ -1,10 +1,11 @@
 import HighlightTitleComponent from '../../../general/highlight-title/HighlightTitleComponent'
 import './form-box.scoped.scss'
-import { useContext, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Api from '../../../../utils/Api'
 import ApiErrorHandling from '../../../../utils/ApiErrorHandling'
 import toast from 'react-hot-toast';
 import { LoadingContext } from '../../../../context/LoadingContext'
+import ReCAPTCHA from 'react-google-recaptcha'
 
 export default function FormBoxComponent() {
 
@@ -22,15 +23,19 @@ export default function FormBoxComponent() {
     const [email, setEmail] = useState('')
     const [suggestion, setSuggestion] = useState('')
     const [objError422, setObjError422] = useState({})
+    const recaptchaRef = React.createRef()
 
     const submitSuggestion = () => {
+        const recaptchaValue = recaptchaRef.current.getValue();
+
         setObjError422({})
         setLoading(true)
 
         Api.post('/suggestion', {
             name: name,
             email: email,
-            suggestion: suggestion
+            suggestion: suggestion,
+            recapcha: recaptchaValue
         })
             .then((res) => {
                 toast.success('Suggestion, sent successfully.')
@@ -44,6 +49,7 @@ export default function FormBoxComponent() {
             }).finally(() => {
                 setLoading(false)
             })
+        
     }
 
     return (
@@ -92,6 +98,18 @@ export default function FormBoxComponent() {
                             objError422.suggestion ?
                                 <div className='invalid-feedback'>{objError422.suggestion}</div>
                                 : <></>
+                        }
+                    </div>
+                    <div className='d-flex flex-column text-center align-items-center'>
+                        <ReCAPTCHA
+                            className={`${objError422.recapcha ? 'is-invalid' : ''}`}
+                            sitekey={process.env.REACT_APP_SITE_KEY}
+                            ref={recaptchaRef}
+                        />
+                        {
+                            objError422.recapcha ?
+                            <div className='invalid-feedback'>{objError422.recapcha}</div>
+                            : <></>
                         }
                     </div>
                     <div className='form-group form-group-button'>
