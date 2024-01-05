@@ -1,0 +1,177 @@
+.profile-orders-page {
+    background: #DADADA;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+
+    .tabs {
+        background: #fff;
+        display: flex;
+        flex-direction: row;
+        overflow: auto;
+        gap: 0.25rem;
+        padding: 1rem;
+
+        button {
+            border: 0;
+            background: transparent;
+            white-space: nowrap;
+            color: #666;
+            text-align: center;
+            font-family: Inter;
+            font-size: 10px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+            position: relative;
+            padding: 0 0.5rem 0.5rem;
+
+            &.active {
+                color: #FFAC33;
+                font-weight: 700;
+
+                &::after {
+                    content: '';
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    width:100%;
+                    height: 2px;
+                    background: currentColor;
+                }
+            }
+        }
+    }
+
+    .orders-empty {
+        display: flex;
+        flex-direction: column;
+        background: #fff;
+        gap:0.75rem;
+        padding: 4rem 0 8rem;
+        justify-content: center;
+        text-align: center;
+        color: #545454;
+        text-align: center;
+        font-family: Poppins;
+        font-size: 10px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 16px; /* 160% */
+        align-items: center;
+    }
+
+    .orders {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        margin-bottom: 2rem;
+
+        .order {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+            position: relative;
+
+            .status {
+                position: absolute;
+                top:0;
+                right: 0;
+                color: #FFF;
+                font-family: Inter;
+                font-size: 8px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: normal;
+                letter-spacing: 0.32px;
+                padding: 0.2rem 0; 
+                width: 6rem;
+                text-align: center;
+
+                &[data-status='On Going'] {
+                    background: #FFAC33;
+                }
+                &[data-status='Completed'] {
+                    background: #00AE65;
+                }
+            }
+
+            >.top {
+                background: #fff;
+                padding:1.25rem 1rem 1rem;
+                display: flex;
+                flex-direction: row;
+                gap: 1rem;
+
+                >img {
+                    width: 60px;
+                    height: 60px;
+                    object-fit: cover;
+                }
+
+                .detail {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.25rem;
+
+                    .top {
+                        color: #000;
+                        font-family: Cambay;
+                        font-size: 12px;
+                        font-style: normal;
+                        font-weight: 700;
+                        line-height: 16px; /* 133.333% */
+                    }
+
+                    .bottom {
+                        display: flex;
+                        flex-direction: row;
+                        gap: 0.5rem;
+
+                        .price {
+                            color: #FFAC33;
+                            font-family: Cambay;
+                            font-size: 12px;
+                            font-style: normal;
+                            font-weight: 700;
+                            line-height: 16px; /* 133.333% */
+                        }
+                        .qty {
+                            color: #828181;
+                            font-family: Cambay;
+                            font-size: 10px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: 16px; /* 160% */
+                        }
+                    }
+                }
+            }
+
+            >.bottom {
+                background: #fff;
+                padding: 0.5rem 1rem;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                color: #545454;
+                font-family: Cambay;
+                font-size: 12px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 16px; /* 133.333% */
+
+                .total {
+                    color: #FFAC33;
+                    text-align: right;
+                    font-family: Cambay;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 700;
+                    line-height: 16px; /* 114.286% */
+                }
+            }
+        }
+    }
+}
