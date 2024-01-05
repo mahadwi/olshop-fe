@@ -33,6 +33,7 @@ import AccountWishlist from './containers/account/wishlist/AccountWishlist';
 import ProfileIndex from './containers/profile/index/ProfileIndex';
 import ProfileAccount from './containers/profile/account/ProfileAccount';
 import ProfileWishlist from './containers/profile/wishlist/ProfileWishlist';
+import ProfileOrders from './containers/profile/orders/ProfileOrders';
 import ProfileAddress from './containers/profile/address/ProfileAddress';
 import ShoppingCart from './containers/shopping/cart/ShoppingCart';
 import ShoppingCheckout from './containers/shopping/checkout/ShoppingCheckout';
@@ -98,6 +99,7 @@ function App() {
                             <Route index element={<ProfileIndex />} />
                             <Route path='account' element={<ProfileAccount />} />
                             <Route path='wishlist' element={<ProfileWishlist />} />
+                            <Route path='orders' element={<ProfileOrders />} />
                             <Route path='address' element={<ProfileAddress />} />
                         </Route>
                         {/* End of Profile */}
