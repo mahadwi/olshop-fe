@@ -1,9 +1,10 @@
-import { useContext, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import './form.scoped.scss'
 import Api from '../../../../../utils/Api'
 import { LoadingContext } from '../../../../../context/LoadingContext'
 import ApiErrorHandling from '../../../../../utils/ApiErrorHandling'
 import toast from 'react-hot-toast';
+import ReCAPTCHA from 'react-google-recaptcha'
 
 export default function FormComponent() {
 
@@ -24,8 +25,11 @@ export default function FormComponent() {
     const [subject, setSubject] = useState('')
     const [message, setMessage] = useState('')
     const [objError422, setObjError422] = useState({})
+    const recaptchaRef = React.createRef()
 
     const doSubmitForm = () => {
+        const recaptchaValue = recaptchaRef.current.getValue();
+
         setObjError422({})
         setLoading(true)
 
@@ -35,7 +39,8 @@ export default function FormComponent() {
             email: email,
             handphone: phone,
             subject: subject,
-            message: message
+            message: message,
+            recapcha: recaptchaValue
         })
             .then((res) => {
                 toast.success('Message, sent successfully.')
@@ -135,6 +140,18 @@ export default function FormComponent() {
                         objError422.message ?
                             <div className='invalid-feedback'>{objError422.message}</div>
                             : <></>
+                    }
+                </div>
+                <div className='mt-3 d-flex flex-column text-center align-items-center'>
+                    <ReCAPTCHA
+                        className={`${objError422.recapcha ? 'is-invalid' : ''}`}
+                        sitekey={process.env.REACT_APP_SITE_KEY}
+                        ref={recaptchaRef}
+                    />
+                    {
+                        objError422.recapcha ?
+                        <div className='invalid-feedback'>{objError422.recapcha}</div>
+                        : <></>
                     }
                 </div>
                 <div className="form-group form-group__bottom">
