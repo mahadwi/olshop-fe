@@ -124,6 +124,15 @@ export default function ProductItemComponent({ product, className, blur, wishlis
             }).finally(() => {
                 setLoading(false)
             })
+        } else {
+            navigate('/login');
+        }
+    }
+
+    const doBuyNow = () => {
+        if (user) {
+        } else {
+            navigate('/login');
         }
     }
 
@@ -136,7 +145,7 @@ export default function ProductItemComponent({ product, className, blur, wishlis
                     <button type='button' className='btn-cart' onClick={() => {
                         doAddToCart()
                     }}>{t('addtocart')}</button>
-                    <button className='btn-buy'>{t('buynow')}</button>
+                    <button className='btn-buy' onClick={() => doBuyNow()}>{t('buynow')}</button>
                 </div>
 
                 <span className='love-wrap' onClick={toggleWishlist}>
