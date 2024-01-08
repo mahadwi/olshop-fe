@@ -19,6 +19,8 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            cursor: pointer;
+            pointer-events: all;
 
             h3 {
                 color: #000;
@@ -33,7 +35,15 @@
         }
 
         .list-colors-wrap {
-            padding-top: 1.5rem;
+            padding-top: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 300ms ease-in, padding-top 300ms ease-in;
+
+            &.open {
+                max-height: 100rem;
+                padding-top: 1.35rem;
+            }
 
             ul {
                 display: flex;

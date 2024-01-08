@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from "react-router-dom"
 import { IconMinus } from '@tabler/icons-react';
 import './left-filter-categories.scoped.scss'
@@ -7,15 +8,20 @@ import { useTranslation } from "react-i18next";
 
 export default function LeftFilterCategoriesComponent({ productCategories, selectedProductCategories, setSelectedProductCategories }) {
     const { t } = useTranslation();
+    const [ open, setOpen ] = useState(true);
 
     return (
         <div className="left-filter-categories">
             <div className="inner-left-filter-categories">
-                <div className="sec-title">
+                <div className="sec-title" onClick={(e) => {e.currentTarget.parentElement.querySelectorAll('ul,button').forEach((el) => el.classList.toggle('open')); setOpen((c) => !c)}}>
                     <h3>{t('categories')}</h3>
-                    <IconMinus color="#111" size={19} stroke={1.5} />
+                    { open ?
+                        <IconMinus color="#111" size={19} stroke={1.5} />
+                    :
+                        <IconPlus color="#111" size={19} stroke={1.5} />
+                    }
                 </div>
-                <ul>
+                <ul className='open'>
                     {
                         productCategories.map((productCategory) => (
                             <li>
@@ -43,7 +49,7 @@ export default function LeftFilterCategoriesComponent({ productCategories, selec
                     }
                 </ul>
                 { productCategories.length > 5 ?
-                    <button onClick={(e) => {const t = e.currentTarget; t.parentElement.querySelector('ul').classList.toggle('show'); t.remove()}}>
+                    <button className='open' onClick={(e) => {const t = e.currentTarget; t.parentElement.querySelector('ul').classList.toggle('show'); t.remove()}}>
                         <span>{t('more')}</span>
                         <IconPlus color="#151B4F" size={12} />
                     </button>
