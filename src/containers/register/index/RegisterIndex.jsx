@@ -11,6 +11,7 @@ import { useContext, useEffect, useRef, useState } from 'react'
 import ApiErrorHandling from '../../../utils/ApiErrorHandling'
 import ModalConfirmRegisterComponent from '../../../components/pages/register/index/ModalConfirmRegisterComponent'
 import { LoadingContext } from '../../../context/LoadingContext'
+import { useTranslation } from "react-i18next";
 
 export default function RegisterIndex() {
 
@@ -20,6 +21,7 @@ export default function RegisterIndex() {
      */
     const navigate = useNavigate();
     const { pathname } = useLocation();
+    const { t } = useTranslation();
 
     /**
      * Context
@@ -163,7 +165,7 @@ export default function RegisterIndex() {
                                         <Checkbox style={{ cursor: 'pointer' }} checked={buttonEnabledMode} onChange={(value) => {
                                             setButtonEnabledMode(value)
                                         }} borderColor={'#DADADA'} />
-                                        <p className='remember-me-label' htmlFor="remember_me">By clicking Register, you agree to our <Link>Terms</Link>, <Link>Privacy Policy</Link> and <Link>Cookie Policy</Link></p>
+                                        <p className='remember-me-label' htmlFor="remember_me">By clicking Register, you agree to our <Link to={'/term-and-conditions'}>{t('termconditions')}</Link> and <Link to={'/privacy-policy'}>{t('privacypolicy')}</Link></p>
                                     </div>
                                 </div>
                                 <div className='form-group form-group__button'>
