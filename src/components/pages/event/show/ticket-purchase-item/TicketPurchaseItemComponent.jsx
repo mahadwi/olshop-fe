@@ -2,17 +2,19 @@ import { useNavigate } from "react-router-dom";
 import './ticket-purchase-item.scoped.scss'
 import StringUtil from "../../../../../utils/StringUtil";
 import Modal from 'react-bootstrap/Modal';
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { IconCalendar, IconChevronDown, IconPhone, IconReceiptRefund, IconUsers } from "@tabler/icons-react";
 import { IconClock } from "@tabler/icons-react";
+import { LanguageContext } from '../../../../../context/LanguageContext'
 
 export default function TicketPurchaseItemComponent({ ticket }) {
-
     /**
      * Hooks
      * 
      */
     const navigate = useNavigate()
+    const { language } = useContext(LanguageContext)
+    const formater = new Intl.NumberFormat( language == 'id' ? 'id-ID' : 'en-EN', { style: 'currency', currency: language == 'id' ? 'IDR' : 'USD', minimumFractionDigits: 0, maximumFractionDigits: 2 })
 
     const [showModal, setShowModal] = useState(false)
 
@@ -27,7 +29,7 @@ export default function TicketPurchaseItemComponent({ ticket }) {
                 <Modal.Body>
                     <div className="modal-ticket" data-id="ufsdfnsdfn">
                         <div className="top">
-                            <h3 className="title">[Pre-Sale] Admission Ticket - 1 Day Access</h3>
+                            <h3 className="title">{ticket.name}</h3>
                         </div>
                         <div className="body">
                             <div className="left">
@@ -38,7 +40,7 @@ export default function TicketPurchaseItemComponent({ ticket }) {
                                     </li>
                                     <li>
                                         <IconClock size={17} />
-                                        Event Time : 3 - 6 PM
+                                        Event Time : {ticket.time_start} - {ticket.time_end}
                                     </li>
                                     <li>
                                         <IconPhone size={17} />
@@ -46,12 +48,14 @@ export default function TicketPurchaseItemComponent({ ticket }) {
                                     </li>
                                     <li>
                                         <IconReceiptRefund size={17} />
-                                        Non - refunable
+                                        {
+                                            ticket.is_refundable ? 'Refundable' : 'Non - Refundable'
+                                        }
                                     </li>
                                 </ul>
                             </div>
                             <div className="right">
-                                <h3 className="price">Rp. 500.000</h3>
+                                <h3 className="price">{formater.format(ticket.price)}</h3>
                             </div>
                         </div>
                         <hr style={{ color: '#CEC9C1' }} />
@@ -123,7 +127,7 @@ export default function TicketPurchaseItemComponent({ ticket }) {
                     </li>
                 </ul>
                 <div>
-                    <h2>{StringUtil.rupiahFormat(ticket.price)}</h2>
+                    <h2>{formater.format(ticket.price)}</h2>
                 </div>
             </div>
             <div className="card-action">
