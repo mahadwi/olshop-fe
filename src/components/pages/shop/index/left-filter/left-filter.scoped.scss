@@ -43,9 +43,13 @@
     }
 
     @include lg {
-        position: relative;
+        position: sticky;
+        top: 10rem;
         left: unset;
         z-index: unset;
+        align-self: start;
+        max-height: calc(100vh - 10rem);
+        overflow: auto;
     }
 
     .left-filter-close {
