@@ -1,10 +1,12 @@
-import React, { Component } from 'react'
+import React, { Component, useContext } from 'react'
 import { IconHeadset, IconInfoCircleFilled, IconShoppingBag, IconTag } from '@tabler/icons-react';
 import ContainerComponent from '../general/container/ContainerComponent';
 import './footer.scoped.scss'
+import { AuthUserContext } from '../../context/AuthUserContext'
 import { useTranslation } from "react-i18next";
 
 export default function FooterComponent() {
+    const { user } = useContext(AuthUserContext)
     const { t } = useTranslation();
 
     return (
@@ -55,7 +57,14 @@ export default function FooterComponent() {
                                     <span>{t('buy')}</span>
                                 </li>
                                 <li>
-                                    <a href='#'>{t('ordertracking')}</a>
+                                    { user ? 
+                                        <>
+                                            <a className='only-desktop' href='/account/orders'>{t('ordertracking')}</a>
+                                            <a className='only-mobile' href='/profile/orders'>{t('ordertracking')}</a>
+                                        </>
+                                    :
+                                        <a href='/login'>{t('ordertracking')}</a>
+                                    }
                                 </li>
                                 <li>
                                     <a href={'/return-police'}>{t('returnpolicy')}</a>

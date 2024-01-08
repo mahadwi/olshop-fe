@@ -8,6 +8,20 @@ footer {
         padding: 3rem 0;
     }
 
+    .only-mobile {
+        display: unset;
+        @include lg {
+            display: none;
+        }
+    }
+
+    .only-desktop {
+        display: none;
+        @include lg {
+            display: unset;
+        }
+    }
+
     .inner-footer {
         display: flex;
         flex-direction: column;
