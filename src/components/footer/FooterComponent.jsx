@@ -82,7 +82,7 @@ export default function FooterComponent() {
                                     <a href={'/work-with-us'}>{t('workwithus')}</a>
                                 </li>
                                 <li>
-                                    <a href='#'>{t('review')}</a>
+                                    <a href='/#review'>{t('review')}</a>
                                 </li>
                             </ul>
                         </div>

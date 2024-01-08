@@ -74,7 +74,7 @@ export default function Section9Component() {
         <ContainerComponent>
             {
                 reviews.length > 0 && stars.length > 0 ?
-                    <div className='section-9'>
+                    <div className='section-9' id='review'>
                         <Slider {...settings}>
                             {
                                 reviews.filter((e) => e.is_display).map((reviewObj, reviewObjIndex) => (
