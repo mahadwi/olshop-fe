@@ -13,6 +13,15 @@ export default function LeftFilterComponent({ showMobileFilter, setShowMobileFil
             <LeftFilterCategoriesComponent productCategories={productCategories} selectedProductCategories={selectedProductCategories} setSelectedProductCategories={setSelectedProductCategories} />
             <LeftFilterPriceComponent selectedPriceMinAndMax={selectedPriceMinAndMax} setSelectedPriceMinAndMax={setSelectedPriceMinAndMax} minRangeValue={1000000} maxRangeValue={150000000} step={500000} />
             <LeftFilterColorComponent productColors={productColors} selectedFilterColor={selectedFilterColor} setSelectedFilterColor={setSelectedFilterColor} />
+            <button className='reset' onClick={() => {
+                setSelectedBrands([]);
+                setSelectedProductCategories([]);
+                setSelectedPriceMinAndMax({
+                    price_min: 1000000,
+                    price_max: 150000000
+                });
+                setSelectedFilterColor([]);
+            }}>Reset</button>
         </div>
     )
 }
