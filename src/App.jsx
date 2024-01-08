@@ -70,7 +70,7 @@ function App() {
                         <Route path='/contact' element={<ContactIndex />} />
                         <Route path='/policy' element={<ReturnPolicyIndex />} />
                         <Route path='/authentication' element={<AuthenticationIndex />} />
-                        <Route path='/privacy-police' element={<PrivacyPoliceIndex />} />
+                        <Route path='/privacy-policy' element={<PrivacyPoliceIndex />} />
                         <Route path='/delivery-and-shipping' element={<DeliveryAndShippingIndex />} />
                         <Route path='/customer-care' element={<CustomerCareIndex />} />
                         <Route path='/term-and-conditions' element={<TermAndConditionIndex />} />

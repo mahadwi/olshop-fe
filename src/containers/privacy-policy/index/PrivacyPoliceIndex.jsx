@@ -89,8 +89,6 @@ export default function PrivacyPoliceIndex() {
                 </div>
                 <ContainerComponent>
                     <div className="body">
-                        <h3>PRIVACY POLICY PT LUXI AS LUXI</h3>
-
                         <p dangerouslySetInnerHTML={{ __html: privacyPoliceObject['description'+suffix] }}>
                         </p>
                     </div>

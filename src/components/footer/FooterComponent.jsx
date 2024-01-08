@@ -95,7 +95,7 @@ export default function FooterComponent() {
                                 <a href={'/term-and-conditions'}>{t('termconditions')}</a>
                             </li>
                             <li>
-                                <a href={'/privacy-police'}>{t('privacypolicy')}</a>
+                                <a href={'/privacy-policy'}>{t('privacypolicy')}</a>
                             </li>
                             <li>
                                 <a href='#'>{t('yourprivacychoize')}</a>
