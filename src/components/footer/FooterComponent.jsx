@@ -67,7 +67,7 @@ export default function FooterComponent() {
                                     }
                                 </li>
                                 <li>
-                                    <a href={'/return-police'}>{t('returnpolicy')}</a>
+                                    <a href={'/policy'}>{t('returnpolicy')}</a>
                                 </li>
                             </ul>
                             <ul>

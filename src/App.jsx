@@ -68,7 +68,7 @@ function App() {
                         {/* Basic Nav & Footer Page */}
                         <Route path='/about-us' element={<AboutUsIndex />} />
                         <Route path='/contact' element={<ContactIndex />} />
-                        <Route path='/return-police' element={<ReturnPolicyIndex />} />
+                        <Route path='/policy' element={<ReturnPolicyIndex />} />
                         <Route path='/authentication' element={<AuthenticationIndex />} />
                         <Route path='/privacy-police' element={<PrivacyPoliceIndex />} />
                         <Route path='/delivery-and-shipping' element={<DeliveryAndShippingIndex />} />
