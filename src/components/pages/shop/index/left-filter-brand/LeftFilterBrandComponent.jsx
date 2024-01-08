@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { IconMinus } from '@tabler/icons-react';
+import { IconMinus, IconPlus } from '@tabler/icons-react';
 import './left-filter-brand.scoped.scss'
 import Checkbox from "react-custom-checkbox";
 import { IconArrowRight } from '@tabler/icons-react';
@@ -42,10 +42,13 @@ export default function LeftFilterBrandComponent({ brands, selectedBrands, setSe
                         ))
                     }
                 </ul>
-                <Link>
-                    <span>{t('more')}</span>
-                    <IconArrowRight color="#151B4F" size={12} />
-                </Link>
+                { brands.length > 5 ?
+                    <button onClick={(e) => {const t = e.currentTarget; t.parentElement.querySelector('ul').classList.toggle('show'); t.remove()}}>
+                        <span>{t('more')}</span>
+                        <IconPlus color="#151B4F" size={12} />
+                    </button>
+                : null
+                }
             </div>
         </div>
     )

@@ -40,10 +40,22 @@
             padding-top: 1.35rem;
             margin-bottom: 0;
 
+            &.show li:nth-child(5) ~ * {
+                max-height: 5rem;
+                margin-top: 0;
+            }
+
             li {
                 display: flex;
                 align-items: center;
                 gap: 1rem;
+
+                &:nth-child(5) ~ * {
+                    max-height: 0;
+                    overflow: hidden;
+                    margin-top: -1rem;
+                    transition: max-height 300ms ease-in, margin-top 300ms ease-in;
+                }
 
                 span {
                     color: #000;
@@ -58,13 +70,15 @@
             }
         }
 
-        a {
+        button {
             margin-top: .6rem;
             display: flex;
             align-items: center;
             gap: .5rem;
             justify-content: flex-end;
             text-decoration: none;
+            background: transparent;
+            border: 0;
 
             span {
                 color: #151B4F;
