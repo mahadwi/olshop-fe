@@ -172,7 +172,7 @@ export default function ProductItemComponent({ product, className, blur, wishlis
                             <IconStarFilled style={{ color: '#FFAC33' }} size={12} />
                         </div>
                         <div className='selled'>
-                            <span>({10}) {t('sold')}</span>
+                            <span>({0}) {t('sold')}</span>
                         </div>
                     </div>
                 </div>
