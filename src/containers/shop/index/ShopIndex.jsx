@@ -47,6 +47,7 @@ export default function ShopIndex() {
     ].map(({ value, label }) => ({ value, label: t(label) }));
     const [selectedSortOption, setSelectedSortOption] = useState({ value: 'name_asc', label: t('ALphabetical, A - Z') })
     const [showMobileFilter, setShowMobileFilter] = useState(false);
+    const [showLoadMore, setLoadMore] = useState(false);
 
     // Automatically scrolls to top whenever pathname or search changes
     useEffect(() => {
@@ -110,6 +111,34 @@ export default function ShopIndex() {
                     setProducts(res.data.data)
                     setMetaPagination(res.data.meta)
                     setLoading(false)
+                    setLoadMore(true)
+                })
+        }
+    }
+
+    const loadMoreProducts = () => {
+        if (user !== false) {
+            setLoading(true)
+            setLoadMore(false)
+            Api.get('/product', {
+                params: {
+                    user_id: user ? user.id : null,
+                    brand_id: selectedBrands,
+                    category_id: selectedProductCategories,
+                    price_min: selectedPriceMinAndMax.price_min,
+                    price_max: selectedPriceMinAndMax.price_max,
+                    color_id: selectedFilterColor,
+                    itemPerpage: 10,
+                    page: metaPagination.nextPage,
+                    is_new_arrival: selectedSortOption.value == 'is_new_arrival' ? 1 : 0,
+                    sort_by: selectedSortOption.value != 'is_new_arrival' ? selectedSortOption.value : null
+                }
+            })
+                .then((res) => {
+                    setProducts((c) => [...c, ...res.data.data])
+                    setMetaPagination(res.data.meta)
+                    setLoading(false)
+                    setLoadMore(true)
                 })
         }
     }
@@ -165,7 +194,7 @@ export default function ShopIndex() {
                         selectedFilterColor={selectedFilterColor}
                         setSelectedFilterColor={setSelectedFilterColor}
                     />
-                    <ProductsWrapperComponent user={user} products={products} metaPagination={metaPagination} setMetaPagination={setMetaPagination} />
+                    <ProductsWrapperComponent user={user} products={products} metaPagination={metaPagination} setMetaPagination={setMetaPagination} showLoadMore={showLoadMore} loadMoreProducts={loadMoreProducts} />
                 </div>
             </ContainerComponent>
         </div>
