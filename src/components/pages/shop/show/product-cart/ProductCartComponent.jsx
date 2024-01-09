@@ -3,12 +3,13 @@ import './product-cart.scoped.scss'
 import './product-cart.css'
 import { Collapse } from 'react-collapse';
 import Select from 'react-select';
+import AsyncSelect from 'react-select/async';
 import { IconChevronDown, IconChevronUp, IconMinus, IconPlus, IconShoppingCartFilled } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom'
 import { AuthUserContext } from '../../../../../context/AuthUserContext';
 import { LanguageContext } from '../../../../../context/LanguageContext';
 
-export default function ProductCartComponent({onlyDesktop, onlyMobile, productObj}) {
+export default function ProductCartComponent({onlyDesktop, onlyMobile, productObj, qty, doSubtractQty, doAddQty, shipTo, setShipTo, loadDistricts, couriers, selectedCourier, setSelectedCourier}) {
 
     /**
      * Hooks
@@ -28,17 +29,7 @@ export default function ProductCartComponent({onlyDesktop, onlyMobile, productOb
      * Main State
      * 
      */
-    const [selectedShippingOption, setSelectedShippingOption] = useState({ value: 'Courier', label: 'Courier' })
-    const [selectedShippingToOption, setSelectedShippingToOption] = useState({ value: 'Kota Bandung', label: 'Kota Bandung' })
     const [shippingFeeOpened, setShippingFeeOpened] = useState(false)
-    const shippingOptions = [
-        { value: 'Courier', label: 'Courier' }
-    ];
-    const shippingToOptions = [
-        { value: 'Kota Bandung', label: 'Kota Bandung' },
-        { value: 'Kota Semarang', label: 'Kota Semarang' },
-        { value: 'Kab. Malang', label: 'Kab. Malang' }
-    ];
 
     return (
         <div className={`product-cart-wrapper ${onlyDesktop ? 'only-desktop' : ''} ${onlyMobile ? 'only-mobile': ''}`}>
@@ -83,55 +74,19 @@ export default function ProductCartComponent({onlyDesktop, onlyMobile, productOb
                             }),
                         }}
                         name='shipping_option'
-                        value={selectedShippingOption}
-                        options={shippingOptions} />
+                        value={selectedCourier}
+                        onChange={setSelectedCourier}
+                        options={couriers} />
                 </div>
                 <div className='group'>
                     <label htmlFor="shipping_to">Shipping To</label>
-                    <Select
-                        styles={{
-                            control: (baseStyles, state) => ({
-                                ...baseStyles,
-                                borderColor: '#C4C4C4',
-                                borderWidth: '1px',
-                                boxShadow: 'none',
-                                backgroundColor: state.isDisabled ? 'transparent' : 'transparent',
-                                '&:hover': {
-                                    borderColor: '#C4C4C4',
-                                }
-                            }),
-                            container: (baseStyles, state) => ({
-                                ...baseStyles,
-                                width: '100%',
-                            }),
-                            input: (baseStyles, state) => ({
-                                ...baseStyles,
-                                color: '#545454',
-                                fontSize: '12px',
-                                fontWeight: '300',
-                                fontFamily: "'Inter', sans-serif"
-                            }),
-                            option: (baseStyles, state) => ({
-                                ...baseStyles,
-                                backgroundColor: state.isDisabled ? 'transparent' : 'transparent',
-                                color: '#000',
-                                fontSize: '12px',
-                                fontWeight: state.isDisabled ? '700' : '400',
-                                fontFamily: "'Inter', sans-serif",
-                                borderBottom: state.isDisabled ? '1px solid #C4C4C4;' : '0px',
-                                "&:hover": {
-                                    backgroundColor: state.isDisabled ? '#FFF' : "#000",
-                                    color: state.isDisabled ? '#000' : '#FFF'
-                                }
-                            }),
-                        }}
-                        name='shipping_to'
-                        value={selectedShippingToOption}
-                        options={shippingToOptions} />
+                    <AsyncSelect cacheOptions loadOptions={loadDistricts} defaultOptions value={shipTo} onChange={(val) => {
+                        setShipTo(val)
+                    }} />
                 </div>
                 <div className='group only-desktop'>
                     <label htmlFor="weight">Weight</label>
-                    <input type="text" name="weight" className='form-text' id="weight" value={'1,25'} readOnly />
+                    <input type="text" name="weight" className='form-text' id="weight" value={(productObj.weight * qty / 1000).toFixed(2)} readOnly />
                     <span className='unit'>Kg</span>
                 </div>
                 <div className='group'>
@@ -146,11 +101,11 @@ export default function ProductCartComponent({onlyDesktop, onlyMobile, productOb
                     </Collapse>
                 </div>
                 <div className="group only-desktop">
-                    <label>Total Stock : 30</label>
+                    <label>Total Stock : {productObj.stock}</label>
                     <div className='stock-increase-decrease'>
-                        <button type='button'><IconMinus size={15} style={{ color: '#FFF' }} /></button>
-                        <input type="number" name="amount_buy" id="amount_buy" value={1} readOnly />
-                        <button type='button'><IconPlus size={15} style={{ color: '#FFF' }} /></button>
+                        <button type='button' disabled={qty == 1} onClick={doSubtractQty}><IconMinus size={15} style={{ color: '#FFF' }} /></button>
+                        <input type="number" name="amount_buy" id="amount_buy" value={qty} readOnly />
+                        <button type='button' disabled={qty >= productObj.stock} onClick={doAddQty}><IconPlus size={15} style={{ color: '#FFF' }} /></button>
                     </div>
                 </div>
                 <div className='group only-desktop'>
@@ -160,7 +115,7 @@ export default function ProductCartComponent({onlyDesktop, onlyMobile, productOb
                     </div>
                     <div className='price-row-item'>
                         <span className='label'>Sub Total</span>
-                        <span className={`val ${user ? '' : 'blur'}`}>{user ? formater.format(Number(language == 'id' ? productObj.sale_price : productObj.sale_usd) * 1 ) : 'Rp. 19.631.312'}</span>
+                        <span className={`val ${user ? '' : 'blur'}`}>{user ? formater.format(Number(language == 'id' ? productObj.sale_price : productObj.sale_usd) * qty ) : 'Rp. 19.631.312'}</span>
                     </div>
                     {
                         !user ?
@@ -183,10 +138,10 @@ export default function ProductCartComponent({onlyDesktop, onlyMobile, productOb
             <div className='product-cart-mobile'>
                 <div className='product-cart-mobile-wrapper'>
                     <div className='product-cart-mobile-input'>
-                        <button><IconMinus size={14} /></button>
-                        <input type={'number'} value={0} />
-                        <button><IconPlus size={14} /></button>
-                        <div className='total-stock'>Total Stock: 30</div>
+                        <button disabled={qty == 1} onClick={doSubtractQty}><IconMinus size={14} /></button>
+                        <input type={'number'} value={qty} />
+                        <button type='button' disabled={qty >= productObj.stock} onClick={doAddQty}><IconPlus size={14} /></button>
+                        <div className='total-stock'>Total Stock: {productObj.stock}</div>
                     </div>
                     <div className='line-div' />
                     <div className='product-cart-mobile-cart'>

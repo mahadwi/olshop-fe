@@ -58,6 +58,7 @@ export default function ShopShow() {
     }, [pathname]);
 
     useEffect(() => {
+        loadCouriers();
         loadProductObj()
     }, [])
 
@@ -96,6 +97,48 @@ export default function ShopShow() {
             })
     }
 
+    const loadCouriers = () => {
+        Api.get(`/courier`)
+            .then((res) => {
+                const r = Object.entries(res.data.data).map(([key, value]) => ({ value: key, label: value }));
+                setCouriers(r);
+                setSelectedCourier(r[0]);
+            });
+    }
+
+    const [ couriers, setCouriers ] = useState([]);
+    const [selectedCourier, setSelectedCourier] = useState({ value: '', label: '' })
+
+    const loadDistricts = (inputValue, cb) => {
+        if (inputValue.length > 2) {
+            setTimeout(async () => {
+                try {
+                    const response = await Api.get(`/kecamatan?name=${inputValue}`)
+
+                    cb(response.data.data.map((e) => {
+                        return {
+                            value: e.id,
+                            label: e.name
+                        }
+                    }))
+                } catch (error) {
+
+                }
+            }, 1000);
+        }
+    }
+    const [shipTo, setShipTo] = useState('');
+
+    const [qty, setQty] = useState(1);
+
+    const doSubtractQty = () => {
+        setQty((c) => c-1);
+    }
+
+    const doAddQty = () => {
+        setQty((c) => c+1);
+    }
+
     return (
         <div className="shop-show-container">
             <ContainerComponent>
@@ -103,12 +146,12 @@ export default function ShopShow() {
                 <div className="product-item-detail">
                     <ProductImageComponent productImages={productObj.images ? productObj.images : []} />
                     <ProductDescriptionComponent productObj={productObj} />
-                    <ProductCartComponent onlyDesktop={true} productObj={productObj} />
+                    <ProductCartComponent onlyDesktop={true} productObj={productObj} qty={qty} doSubtractQty={doSubtractQty} doAddQty={doAddQty} shipTo={shipTo} setShipTo={setShipTo} loadDistricts={loadDistricts} couriers={couriers} selectedCourier={selectedCourier} setSelectedCourier={setSelectedCourier} />
                 </div>
                 <hr />
                 <OtherProductsComponent user={user} productsByCategory={productsByCategory} />
                 <hr className='only-mobile' />
-                <ProductCartComponent onlyMobile={true} productObj={productObj} />
+                <ProductCartComponent onlyMobile={true} productObj={productObj} qty={qty} doSubtractQty={doSubtractQty} doAddQty={doAddQty} shipTo={shipTo} setShipTo={setShipTo} loadDistricts={loadDistricts} couriers={couriers} selectedCourier={selectedCourier} setSelectedCourier={setSelectedCourier} />
                 <hr className='only-mobile' />
                 <ProductDescriptionMobileComponent productObj={productObj} />
                 <hr />
