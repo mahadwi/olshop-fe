@@ -47,6 +47,14 @@ export default function LoginIndex() {
     const inputPasswordRef = useRef()
     const [modalForgotPassword, setModalForgotPassword] = useState(false)
     const [forgotPasswordStep, setForgotPasswordStep] = useState(0)
+    const [emailForgotPassword, setEmailForgotPassword] = useState('')
+    const [foundEmailForgotPassword, setFoundEmailForgotPassword] = useState(true)
+    const [disableNextStep, setDisableNextStep] = useState(true);
+    const [currentOtp, setCurrentOtp] = useState('');
+    const [currentNewPasswordForgetPassword, setCurrentNewPasswordForgetPassword] = useState('');
+    const [currentConfirmPasswordForgetPassword, setCurrentConfirmPasswordForgetPassword] = useState('');
+    const [correctOtpForgotPassword, setCorrectOtpForgotPassword] = useState(true)
+    const inputOtpRef = useRef()
 
     useEffect(() => {
         setLoading(true);
@@ -98,6 +106,39 @@ export default function LoginIndex() {
             '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-eye" width="30" height="30" viewBox="0 0 24 24" stroke-width="2" stroke="#999999" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>'
     }
 
+    const doRequestOtp = () => {
+        // setForgotPasswordStep((c) => c+1)
+        setLoading(true)
+        Api.post('/request-otp', {
+            email: emailForgotPassword,
+        })
+            .then((response) => {
+                if (response.data.errorCode == 0) {
+                    setForgotPasswordStep((c) => c+1)
+                } else {
+                    throw new Error()
+                }
+            })
+            .catch((error) => setFoundEmailForgotPassword(false))
+            .finally(() => setLoading(false));
+    }
+
+    const doResendOtp = () => {
+        setLoading(true)
+        Api.post('/request-otp', {
+            email: emailForgotPassword,
+        })
+            .then((response) => {
+                if (response.data.errorCode == 0) {
+                    setForgotPasswordStep((c) => c+1)
+                } else {
+                    throw new Error()
+                }
+            })
+            .catch((error) => setFoundEmailForgotPassword(false))
+            .finally(() => setLoading(false));
+    }
+
     const otpKeyUp = function (e) {
         const target = e.target;
         const key = e.key.toLowerCase();
@@ -118,6 +159,49 @@ export default function LoginIndex() {
               next.focus();
           }
       }
+
+      setCorrectOtpForgotPassword(true);
+    }
+
+    const doCheckOtp = () => {
+        const otp = Array.from(inputOtpRef.current.querySelectorAll('input')).reduce((s, el) => s + el.value, '');
+        // setForgotPasswordStep((c) => c+1)
+        setLoading(true)
+        Api.post('/check-otp', {
+            email: emailForgotPassword,
+            otp: otp,
+        })
+            .then((response) => {
+                if (response.data.errorCode == 0) {
+                    setCurrentOtp(otp)
+                    setForgotPasswordStep((c) => c+1)
+                } else {
+                    throw new Error()
+                }
+            })
+            .catch((error) => setCorrectOtpForgotPassword(false))
+            .finally(() => setLoading(false));
+        
+    }
+
+    const doChangePassword = () => {
+        // setForgotPasswordStep(0);
+        // setModalForgotPassword(false);
+        setLoading(true)
+        Api.post('/change-password', {
+            email: emailForgotPassword,
+            password: currentNewPasswordForgetPassword,
+            password_confirmation: currentConfirmPasswordForgetPassword,
+        })
+            .then((response) => {
+                console.log(response.data);
+            })
+            .catch((error) => console.log(error))
+            .finally(() => {
+                setModalForgotPassword(false);
+                setForgotPasswordStep(0);
+                setLoading(false)
+            });
     }
 
     return (
@@ -140,34 +224,38 @@ export default function LoginIndex() {
                                     <label>
                                         Email
                                     </label>
-                                    <input type={'text'} />
-                                    <div className='warning'>
+                                    <input type={'text'} onInput={(e) => {setEmailForgotPassword(e.currentTarget.value);setDisableNextStep(!e.currentTarget.value);setFoundEmailForgotPassword(true)}} />
+                                    <div className={`warning ${foundEmailForgotPassword ? 'hide' : ''}`}>
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-info-circle" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" /><path d="M12 9h.01" /><path d="M11 12h1v4h1" /></svg>
                                         Sorry we couldn't find your account !
                                     </div>
                                 </div>
                             </div>
                             <div className='bottom'>
-                                <button className='btn-forget-password' onClick={() => setForgotPasswordStep((c) => c+1)}>Next</button>
+                                <button disabled={disableNextStep} className='btn-forget-password' onClick={doRequestOtp}>Next</button>
                             </div>
                         </div>
                     : null }
                     { forgotPasswordStep == 1 ?
                         <div className='modal-forget-password'>
                             <div className='description'>
-                                Input your code verification. The verification code has been sent via e-mail to No*****@g****.***
+                                Input your code verification. The verification code has been sent via e-mail to {emailForgotPassword}
                             </div>
-                            <div className='input-otps'>
+                            <div ref={inputOtpRef} className='input-otps'>
                                 <input className='otp' type={'text'} onKeyUp={otpKeyUp} />
                                 <input className='otp' type={'text'} onKeyUp={otpKeyUp} />
                                 <input className='otp' type={'text'} onKeyUp={otpKeyUp} />
                                 <input className='otp' type={'text'} onKeyUp={otpKeyUp} />
                                 <input className='otp' type={'text'} onKeyUp={otpKeyUp} />
                                 <input className='otp' type={'text'} onKeyUp={otpKeyUp} />
+                            </div>
+                            <div className={`warning otp-warning ${correctOtpForgotPassword ? 'hide' : ''}`}>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-info-circle" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" /><path d="M12 9h.01" /><path d="M11 12h1v4h1" /></svg>
+                                OTP Invalid
                             </div>
                             <div className='bottom'>
-                                <button className='btn-forget-password-resend'>Resend</button>
-                                <button className='btn-forget-password' onClick={() => setForgotPasswordStep((c) => c+1)}>Next</button>
+                                <button className='btn-forget-password-resend' onClick={doResendOtp}>Resend</button>
+                                <button className='btn-forget-password' onClick={doCheckOtp}>Next</button>
                             </div>
                         </div>
                     : null }
@@ -181,21 +269,21 @@ export default function LoginIndex() {
                                     <label>
                                         New Password
                                     </label>
-                                    <input type={'text'} />
+                                    <input type={'password'} onInput={(e) => {setCurrentNewPasswordForgetPassword(e.currentTarget.value);}} />
                                 </div>
                                 <div className='input-g'>
                                     <label>
                                         Confirm New Password
                                     </label>
-                                    <input type={'text'} />
-                                    <div className='warning'>
+                                    <input type={'password'} onInput={(e) => {setCurrentConfirmPasswordForgetPassword(e.currentTarget.value);}} />
+                                    <div className={`warning ${currentNewPasswordForgetPassword != currentConfirmPasswordForgetPassword ? '' : 'hide'}`}>
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-info-circle" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" /><path d="M12 9h.01" /><path d="M11 12h1v4h1" /></svg>
                                         Password does not match
                                     </div>
                                 </div>
                             </div>
                             <div className='bottom'>
-                                <button className='btn-forget-password' onClick={() => setModalForgotPassword(false)}>Save</button>
+                                <button disabled={(currentConfirmPasswordForgetPassword == '' && currentNewPasswordForgetPassword == '') || currentNewPasswordForgetPassword != currentConfirmPasswordForgetPassword} className='btn-forget-password' onClick={doChangePassword}>Save</button>
                             </div>
                         </div>
                     : null }
