@@ -4,15 +4,18 @@ import ContainerComponent from "../../../components/general/container/ContainerC
 import BagCurrentOrder from './../../../images/temp/5c855532d5cc981711da2cd9d3b2c062.png'
 import './shopping-checkout.scoped.scss'
 import Api from "../../../utils/Api";
+import { AuthUserContext } from "../../../context/AuthUserContext";
 import { LoadingContext } from "../../../context/LoadingContext";
 import { LanguageContext } from "../../../context/LanguageContext";
 import StringUtil from "../../../utils/StringUtil";
+import { Link } from "react-router-dom";
 
 export default function ShoppingCheckout() {
     /**
      * Context
      * 
      */
+    const { user } = useContext(AuthUserContext)
     const { setLoading } = useContext(LoadingContext)
     const { language } = useContext(LanguageContext)
     const formater = new Intl.NumberFormat(language == 'id' ? 'id-ID' : 'en-EN', { style: 'currency', currency: language == 'id' ? 'IDR' : 'USD', minimumFractionDigits: 0, maximumFractionDigits: 2 })
@@ -23,6 +26,7 @@ export default function ShoppingCheckout() {
      */
     const [arrCarts, setArrCarts] = useState([])
     const [selected, setSelected] = useState({})
+    const [selectedAddress, setSelectedAddress] = useState(0)
 
     useEffect(() => {
         setLoading(true)
@@ -53,7 +57,8 @@ export default function ShoppingCheckout() {
                     <div className="action-box-shipping-address">
                         <div className="text-action-shipping-address">
                             <h4 className="text-select-shipping">Select Shipping Address</h4>
-                            <h4 className="manage-address"><IconPencil size={20} /> Manage Address</h4>
+                            <Link className="only-desktop" to={`/account/address`}><h4 className="manage-address"><IconPencil size={20} /> Manage Address</h4></Link>
+                            <Link className="only-mobile" to={`/profile/address`}><h4 className="manage-address"><IconPencil size={20} /> Manage Address</h4></Link>
                         </div>
                         <div className="arrow-wrap">
                             <button><IconArrowLeft color="#828181" /></button>
@@ -61,30 +66,16 @@ export default function ShoppingCheckout() {
                         </div>
                     </div>
                     <div className="address-wrapper">
-                        <div className="address-item">
-                            <h5 className="address-title">Company</h5>
-                            <div className="name-phone-number">
-                                <h5 className="address-name">Roberto Marquez</h5>
-                                <h5 className="address-phone">(+62) 89000111222</h5>
+                        {user.addresses?.map((addressObj, i) => (
+                            <div className={`address-item ${i == selectedAddress ? "active" : ""}`} onClick={() => setSelectedAddress(i)}>
+                                <h5 className="address-title">{addressObj.tag}</h5>
+                                <div className="name-phone-number">
+                                    <h5 className="address-name">{addressObj.name}</h5>
+                                    <h5 className="address-phone">{addressObj.phone}</h5>
+                                </div>
+                                <p>{addressObj.address} {addressObj.full_address}</p>
                             </div>
-                            <p>Jl. Tulodong Atas 2 No.8B, RT.5/RW.3, Senayan, Kec. Kby. Baru, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12190</p>
-                        </div>
-                        <div className="address-item">
-                            <h5 className="address-title">Company</h5>
-                            <div className="name-phone-number">
-                                <h5 className="address-name">Roberto Marquez</h5>
-                                <h5 className="address-phone">(+62) 89000111222</h5>
-                            </div>
-                            <p>Jl. Tulodong Atas 2 No.8B, RT.5/RW.3, Senayan, Kec. Kby. Baru, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12190</p>
-                        </div>
-                        <div className="address-item">
-                            <h5 className="address-title">Company</h5>
-                            <div className="name-phone-number">
-                                <h5 className="address-name">Roberto Marquez</h5>
-                                <h5 className="address-phone">(+62) 89000111222</h5>
-                            </div>
-                            <p>Jl. Tulodong Atas 2 No.8B, RT.5/RW.3, Senayan, Kec. Kby. Baru, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12190</p>
-                        </div>
+                        ))}
                     </div>
                 </div>
 

@@ -1,6 +1,22 @@
+@use './../../../styles/func.scoped.scss' as *;
+
 .shopping-checkout-wrapper {
     margin-top: 3rem;
     margin-bottom: 3rem;
+
+    .only-mobile {
+        display: unset;
+        @include lg {
+            display: none;
+        }
+    }
+
+    .only-desktop {
+        display: none;
+        @include lg {
+            display: unset;
+        }
+    }
 
     h2.title-checkout {
         color: #000;
@@ -33,6 +49,10 @@
                     line-height: 16px;
                     transform: translateY(2px);
                     /* 114.286% */
+                }
+
+                a {
+                    text-decoration: none;
                 }
 
                 h4.manage-address {
@@ -76,6 +96,13 @@
                 flex: 1;
                 border: 1px solid #C4C4C4;
                 background: #FFF;
+                cursor: pointer;
+                pointer-events: all;
+                box-sizing: border-box;
+
+                &.active {
+                    border:3px solid #151B4F;
+                }
 
                 h5.address-title {
                     color: #545454;
