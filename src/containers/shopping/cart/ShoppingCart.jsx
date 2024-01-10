@@ -95,6 +95,19 @@ export default function ShoppingCart() {
         }
     }
 
+    const doCheckOut = () => {
+        const selectedObj = (arrCarts.reduce((p, c) => {
+            if (c.selected) {
+                p[`${c.id}`] = {
+                    qty: c.qty
+                }
+            }
+            return p
+        }, {}));
+
+        localStorage.setItem('selectedObj', JSON.stringify(selectedObj));
+    }
+
     return (
         <ContainerComponent>
             <div className="shopping-cart-container">
@@ -216,6 +229,7 @@ export default function ShoppingCart() {
                         </div>
                         <div className="bottom-action">
                             <button type="button" onClick={() => {
+                                doCheckOut()
                                 window.location.href = '/shopping/checkout'
                             }}>Check Out</button>
                         </div>
@@ -242,6 +256,7 @@ export default function ShoppingCart() {
                             </span>
                         </div>
                         <button type="button" onClick={() => {
+                            doCheckOut()
                             window.location.href = '/shopping/checkout'
                         }}>Check Out</button>
                     </div>

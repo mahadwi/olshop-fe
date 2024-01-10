@@ -1,9 +1,49 @@
+import { useContext, useEffect, useState } from "react";
 import { IconArrowLeft, IconArrowRight, IconPencil } from "@tabler/icons-react"
 import ContainerComponent from "../../../components/general/container/ContainerComponent"
 import BagCurrentOrder from './../../../images/temp/5c855532d5cc981711da2cd9d3b2c062.png'
 import './shopping-checkout.scoped.scss'
+import Api from "../../../utils/Api";
+import { LoadingContext } from "../../../context/LoadingContext";
+import { LanguageContext } from "../../../context/LanguageContext";
+import StringUtil from "../../../utils/StringUtil";
 
 export default function ShoppingCheckout() {
+    /**
+     * Context
+     * 
+     */
+    const { setLoading } = useContext(LoadingContext)
+    const { language } = useContext(LanguageContext)
+    const formater = new Intl.NumberFormat(language == 'id' ? 'id-ID' : 'en-EN', { style: 'currency', currency: language == 'id' ? 'IDR' : 'USD', minimumFractionDigits: 0, maximumFractionDigits: 2 })
+
+    /**
+     * Main State
+     * 
+     */
+    const [arrCarts, setArrCarts] = useState([])
+    const [selected, setSelected] = useState({})
+
+    useEffect(() => {
+        setLoading(true)
+        setSelected(JSON.parse(localStorage.getItem('selectedObj')))
+        loadCarts()
+    }, [])
+
+    const loadCarts = () => {
+        Api.get('/cart', {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('apiToken')
+            }
+        }).then((res) => {
+            if (res) {
+                setArrCarts(res.data.data)
+            }
+        }).finally(() => {
+            setLoading(false)
+        })
+    }
+
     return (
         <ContainerComponent>
             <div className="shopping-checkout-wrapper">
@@ -65,46 +105,37 @@ export default function ShoppingCheckout() {
                             <span>Price</span>
                         </div>
                     </div>
-                    <div className="row-data">
-                        <div className="product-order-data">
-                            <img src={BagCurrentOrder} alt="" />
-                            <div className="product-item-data-text">
-                                <h4>Prada Re-Edition 2005 Re-Nylon  mini bag</h4>
-                                <span>
-                                    1 pcs (500 gr)
-                                </span>
-                            </div>
-                        </div>
-                        <div className="basic-row-data">
-                            <h4>Rp. 19.631.312</h4>
-                        </div>
-                        <div className="basic-row-data">
-                            <h4>1</h4>
-                        </div>
-                        <div className="basic-row-data basic-row-data__price">
-                            <h4>Rp. 19.631.312</h4>
-                        </div>
-                    </div>
-                    <div className="row-data">
-                        <div className="product-order-data">
-                            <img src={BagCurrentOrder} alt="" />
-                            <div className="product-item-data-text">
-                                <h4>Prada Re-Edition 2005 Re-Nylon  mini bag</h4>
-                                <span>
-                                    1 pcs (500 gr)
-                                </span>
-                            </div>
-                        </div>
-                        <div className="basic-row-data">
-                            <h4>Rp. 19.631.312</h4>
-                        </div>
-                        <div className="basic-row-data">
-                            <h4>1</h4>
-                        </div>
-                        <div className="basic-row-data basic-row-data__price">
-                            <h4>Rp. 19.631.312</h4>
-                        </div>
-                    </div>
+                    {
+                        arrCarts.reduce((p, c) => {
+                            const key = `${c.id}`
+                            if (key in selected){
+                                const { qty } = selected[key]
+                                p.push(
+                                    <div className="row-data">
+                                        <div className="product-order-data">
+                                            <img src={c.product.images[0]} alt="" />
+                                            <div className="product-item-data-text">
+                                                <h4>{c.product.name}</h4>
+                                                <span>
+                                                    {qty} pcs ({StringUtil.numberingWithDotFormat(Math.ceil(c.product.weight * qty))} gr)
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div className="basic-row-data">
+                                            <h4>{formater.format(language == 'id' ? c.product.sale_price : c.product.sale_usd)}</h4>
+                                        </div>
+                                        <div className="basic-row-data">
+                                            <h4>{qty}</h4>
+                                        </div>
+                                        <div className="basic-row-data basic-row-data__price">
+                                            <h4>{formater.format((language == 'id' ? Number(c.product.sale_price) : Number(c.product.sale_usd)) * qty)}</h4>
+                                        </div>
+                                    </div>
+                                );
+                            }
+                            return p;
+                        }, [])
+                    }
                 </div>
 
                 <div className="box-order-transaction">
