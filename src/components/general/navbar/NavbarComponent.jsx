@@ -225,7 +225,11 @@ function NavbarComponent({ t }) {
                                     }
                                 </li>
                             </ul>
-                            <button className='cart-box-btn' onClick={() => {
+                            <button className='cart-box-btn' onClick={(e) => {
+                                if (!window.getComputedStyle(e.currentTarget).getPropertyValue('--flag-not-mobile')) {
+                                    e.currentTarget.querySelector('.floating-cart').classList.toggle('show')
+                                    return
+                                }
                                 window.location.href = '/shopping/cart'
                             }}>
                                 <IconShoppingCartFilled />

@@ -279,12 +279,15 @@
                     padding: 0 0;
                     height: 100%;
                     transform: unset;
+                    --flag-not-mobile: 1;
                 }
 
                 &:hover {
                     .floating-cart {
-                        visibility: visible;
-                        transform: translateY(0);
+                        @include lg {
+                            visibility: visible;
+                            transform: translateY(0);
+                        }
                     }
                 }
 
@@ -318,6 +321,11 @@
                     @include lg {
                         min-width: 400px;
                         width: unset;
+                    }
+
+                    &.show {
+                        visibility: visible;
+                        transform: translateY(0);
                     }
                 }
             }
