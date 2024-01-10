@@ -26,6 +26,7 @@ export default function EmailVerificationIndex() {
      * 
      */
     const [arrOtpCodes, setArrOtpCodes] = useState(['', '', '', '', '', ''])
+    const [arrMobileOtpCodes, setMobileArrOtpCodes] = useState(['', '', '', '', '', ''])
     const [email, setEmail] = useState('')
 
     // Automatically scrolls to top whenever pathname changes
@@ -58,12 +59,45 @@ export default function EmailVerificationIndex() {
         }
     }, [arrOtpCodes])
 
+    const doResend = () => {
+        setLoading(true)
+        Api.post('/request-verify-email', {
+            email: email,
+        }).catch((err) => {
+            if (err.response.status == 422) {
+                alert(err.response.data.meta)
+            }
+        }).finally(() => {
+            setLoading(false)
+        })
+    }
+
+    const doVerify = () => {
+        setLoading(true)
+        Api.post('/verify-email', {
+            email: email,
+            otp: arrMobileOtpCodes.join('')
+        }).then((res) => {
+            if (res) {
+                localStorage.removeItem('emailVerification')
+                return navigate('/login')
+            }
+        }).catch((err) => {
+            if (err.response.status == 422) {
+                alert(err.response.data.meta)
+            }
+        }).finally(() => {
+            setLoading(false)
+        })
+    }
+
     const getEmail = () => {
         setEmail(localStorage.getItem('emailVerification'))
     }
 
     return (
-        <div className="email-verification">
+        <>
+        <div className="email-verification only-desktop">
             <HighlightTitleComponent title={'Verification your account'} background={'linear-gradient(90deg, #E4A951 0%, #E4E4EA 50.62%, #FFF 98.93%)'} />
 
             <ContainerComponent>
@@ -85,5 +119,34 @@ export default function EmailVerificationIndex() {
                 </div>
             </ContainerComponent>
         </div>
+        <div className="email-verification only-mobile">
+            <ContainerComponent>
+                <div className="inner-mobile">
+                    <div className="mobile-title">
+                        Verification your account
+                    </div>
+                    <div className="mobile-code-sent-to">
+                        Input your code verification<br />The verification code has been sent via e-mail to {email}
+                    </div>
+                    {/* <p className="text-wait-verify">Please wait within 26 seconds to resend</p> */}
+                    <div className="mobile-input">
+                        {
+                            arrMobileOtpCodes.map((otpCode, index) => (
+                                <input type="text" name={`otp_code_${index}`} maxLength={1} id={`otp_code_${index}`} value={otpCode} onChange={(e) => {
+                                    const tempArray = [...arrMobileOtpCodes]
+                                    tempArray[index] = e.target.value
+                                    setMobileArrOtpCodes(tempArray)
+                                }} />
+                            ))
+                        }
+                    </div>
+                    <div className="mobile-buttons">
+                        <button className="resend" onClick={doResend}>Resend</button>
+                        <button disabled={arrMobileOtpCodes.join('').length != arrMobileOtpCodes.length} className="verify">Verify</button>
+                    </div>
+                </div>
+            </ContainerComponent>
+        </div>
+        </>
     )
 }

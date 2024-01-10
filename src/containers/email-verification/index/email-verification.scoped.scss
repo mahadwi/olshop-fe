@@ -1,3 +1,18 @@
+@use './../../../styles/func.scoped.scss' as *;
+
+.only-mobile {
+    @include lg {
+        display: none;
+    }
+}
+
+.only-desktop {
+    display: none;
+    @include lg {
+        display: unset;
+    }
+}
+
 .email-verification {
 
     .inner {
@@ -65,5 +80,104 @@
         font-weight: 400;
         line-height: 150%;
         /* 21px */
+    }
+
+    .inner-mobile {
+        display: block;
+        padding: 0;
+
+        .mobile-title {
+            color: #000;
+            text-align: center;
+            font-family: Cabin;
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 144.2%; /* 28.84px */
+            padding: 0rem;
+            margin-bottom: 1rem;
+            justify-content: center;
+        }
+
+        .mobile-code-sent-to {
+            color: var(--Neutral-Text-primary, #474A56);
+            text-align: center;
+            font-family: Cabin;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 150%; /* 21px */
+            padding: 0;
+            text-align: center;
+            justify-content: center;
+        }
+
+    .mobile-input {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        padding: 1.5rem 0;
+
+        input {
+            color: #474A56;
+            text-align: center;
+            font-family: Inter;
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 150%; /* 30px */
+            display: flex;
+            width: 44.048px;
+            height: 43px;
+            padding: 15px;
+            justify-content: space-between;
+            align-items: center;
+        }
+    }
+
+    .mobile-buttons {
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+        margin-bottom: 2rem;
+
+        .resend {
+            color: #474A56;
+            font-family: Inter;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+            text-decoration-line: underline;
+            background: transparent;
+            border:0;
+        }
+
+        .verify {
+            display: flex;
+            width: 336px;
+            height: 50px;
+            padding: 15px 20px;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            border-radius: 6px;
+            background: #000;
+            border: 0;
+            color: #FFF;
+            font-family: Cabin;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;
+
+            &:disabled {
+                background: #DDDDDD;
+                color: #A2A3B1;
+            }
+        }
+    }
+
     }
 }
