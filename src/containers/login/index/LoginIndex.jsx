@@ -292,14 +292,14 @@ export default function LoginIndex() {
             {/* End of Modal Create */}
             <ContainerComponent>
                 <div className='login-section'>
-                    <div className="left">
+                    <div className="left only-desktop">
                         <div className='inner'>
                             <img src={LoginIllustration} alt="" />
                         </div>
                     </div>
                     <div className="right">
                         <div className='inner'>
-                            <div className='sign-is-socmed'>
+                            <div className='sign-is-socmed only-desktop'>
                                 <div className='button-wrap'>
                                     {/*<GoogleLogin
                                         onSuccess={credentialResponse => {
@@ -353,6 +353,22 @@ export default function LoginIndex() {
                                 </div>
                             </form>
                             <p>Don't have an account? <Link to={'/register'}>Sign Up</Link></p>
+                            <div className='sign-is-socmed only-mobile'>
+                                <p>- OR -</p>
+                                <div className='button-wrap'>
+                                    {/*<GoogleLogin
+                                        onSuccess={credentialResponse => {
+                                            console.log(credentialResponse);
+                                        }}
+                                        onError={() => {
+                                            console.log('Login Failed');
+                                        }}
+                                        useOneTap
+                                    /> */}
+                                    <a href={googleLoginUrl}><button><img src={GoogleIcon} alt="" /> Sign in with Google</button></a>
+                                    <button><img src={FacebookIcon} alt="" /> Sign in with Facebook</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
