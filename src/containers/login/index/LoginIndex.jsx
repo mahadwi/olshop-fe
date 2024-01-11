@@ -5,7 +5,7 @@ import Checkbox from 'react-custom-checkbox'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import GoogleIcon from './../../../images/icons/google-icon.png'
 import FacebookIcon from './../../../images/icons/facebook-icon.png'
-import { IconEye, IconEyeOff } from '@tabler/icons-react'
+import { IconEye, IconEyeOff, IconX } from '@tabler/icons-react'
 import { useContext, useEffect, useRef, useState } from 'react'
 import Api from '../../../utils/Api'
 import Modal from 'react-bootstrap/Modal';
@@ -13,6 +13,7 @@ import ApiErrorHandling from '../../../utils/ApiErrorHandling'
 import { AuthUserContext } from '../../../context/AuthUserContext'
 import { LoadingContext } from '../../../context/LoadingContext'
 import { GoogleLogin } from '@react-oauth/google';
+import toast from 'react-hot-toast';
 
 const FORGOT_PASSWORD_TITLE = [
     'Find your LUXI account',
@@ -130,6 +131,17 @@ export default function LoginIndex() {
         })
             .then((response) => {
                 if (response.data.errorCode == 0) {
+                    toast.custom(() => (
+                        <div className='tooast'>
+                            <button className='tooast-close' onClick={(e) => e.currentTarget.parentElement.classList.add('hide')}><IconX /></button>
+                            <div className='tooast-name'>
+                                Re-sent Code Successfully
+                            </div>
+                            <div className='tooast-description'>
+                                We have re-sent the otp code your email. Please check your email to reset your password
+                            </div>
+                        </div>
+                    ));
                     // setForgotPasswordStep((c) => c+1)
                 } else {
                     throw new Error()
@@ -195,6 +207,17 @@ export default function LoginIndex() {
         })
             .then((response) => {
                 console.log(response.data);
+                toast.custom(() => (
+                    <div className='tooast'>
+                        <button className='tooast-close' onClick={(e) => e.currentTarget.parentElement.classList.add('hide')}><IconX /></button>
+                        <div className='tooast-name'>
+                            Password Reset Successfully
+                        </div>
+                        <div className='tooast-description'>
+                            Your password has been reset.
+                        </div>
+                    </div>
+                ));
             })
             .catch((error) => console.log(error))
             .finally(() => {
