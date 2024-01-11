@@ -101,7 +101,7 @@ export default function ShopIndex() {
                     price_min: selectedPriceMinAndMax.price_min,
                     price_max: selectedPriceMinAndMax.price_max,
                     color_id: selectedFilterColor,
-                    itemPerpage: 10,
+                    itemPerpage: 12,
                     page: currentPage ? currentPage : 1,
                     is_new_arrival: selectedSortOption.value == 'is_new_arrival' ? 1 : 0,
                     sort_by: selectedSortOption.value != 'is_new_arrival' ? selectedSortOption.value : null
@@ -128,7 +128,7 @@ export default function ShopIndex() {
                     price_min: selectedPriceMinAndMax.price_min,
                     price_max: selectedPriceMinAndMax.price_max,
                     color_id: selectedFilterColor,
-                    itemPerpage: 10,
+                    itemPerpage: 12,
                     page: metaPagination.nextPage,
                     is_new_arrival: selectedSortOption.value == 'is_new_arrival' ? 1 : 0,
                     sort_by: selectedSortOption.value != 'is_new_arrival' ? selectedSortOption.value : null

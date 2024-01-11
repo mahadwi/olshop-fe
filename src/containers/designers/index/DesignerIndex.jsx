@@ -83,7 +83,7 @@ export default function DesignerIndex() {
                     brand_id: [id],
                     is_new_arrival: selectedSortOption.value == 'is_new_arrival' ? 1 : 0,
                     sort_by: selectedSortOption.value != 'is_new_arrival' ? selectedSortOption.value : null,
-                    itemPerpage: 10,
+                    itemPerpage: 12,
                     page: currentPage ? currentPage : 1,
                 }
             })
@@ -109,7 +109,7 @@ export default function DesignerIndex() {
                     brand_id: [id],
                     is_new_arrival: selectedSortOption.value == 'is_new_arrival' ? 1 : 0,
                     sort_by: selectedSortOption.value != 'is_new_arrival' ? selectedSortOption.value : null,
-                    itemPerpage: 10,
+                    itemPerpage: 12,
                     page: metaPagination.nextPage,
                 }
             })
