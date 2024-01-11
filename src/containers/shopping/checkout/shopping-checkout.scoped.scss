@@ -87,15 +87,13 @@
 
         .address-wrapper {
             margin-top: .35rem;
-            display: flex;
-            align-items: stretch;
-            gap: 1.35rem;
 
             .address-item {
                 padding: 1rem;
-                flex: 1;
+                width: calc(33% - 6px);
                 border: 1px solid #C4C4C4;
                 background: #FFF;
+                margin-right: 12px;
                 cursor: pointer;
                 pointer-events: all;
                 box-sizing: border-box;

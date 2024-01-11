@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 import { IconArrowLeft, IconArrowRight, IconPencil } from "@tabler/icons-react"
 import ContainerComponent from "../../../components/general/container/ContainerComponent"
 import BagCurrentOrder from './../../../images/temp/5c855532d5cc981711da2cd9d3b2c062.png'
@@ -9,6 +9,7 @@ import { LoadingContext } from "../../../context/LoadingContext";
 import { LanguageContext } from "../../../context/LanguageContext";
 import StringUtil from "../../../utils/StringUtil";
 import { Link } from "react-router-dom";
+import Flickity from 'react-flickity-component'
 
 export default function ShoppingCheckout() {
     /**
@@ -27,6 +28,7 @@ export default function ShoppingCheckout() {
     const [arrCarts, setArrCarts] = useState([])
     const [selected, setSelected] = useState({})
     const [selectedAddress, setSelectedAddress] = useState(0)
+    const flkty = useRef()
 
     useEffect(() => {
         setLoading(true)
@@ -61,21 +63,23 @@ export default function ShoppingCheckout() {
                             <Link className="only-mobile" to={`/profile/address`}><h4 className="manage-address"><IconPencil size={20} /> Manage Address</h4></Link>
                         </div>
                         <div className="arrow-wrap">
-                            <button><IconArrowLeft color="#828181" /></button>
-                            <button><IconArrowRight color="#FFAC33" /></button>
+                            <button onClick={() => flkty.current.previous()} ><IconArrowLeft color="#828181" /></button>
+                            <button onClick={() => flkty.current.next()}><IconArrowRight color="#FFAC33" /></button>
                         </div>
                     </div>
                     <div className="address-wrapper">
-                        {user.addresses?.map((addressObj, i) => (
-                            <div className={`address-item ${i == selectedAddress ? "active" : ""}`} onClick={() => setSelectedAddress(i)}>
-                                <h5 className="address-title">{addressObj.tag}</h5>
-                                <div className="name-phone-number">
-                                    <h5 className="address-name">{addressObj.name}</h5>
-                                    <h5 className="address-phone">{addressObj.phone}</h5>
+                        <Flickity flickityRef={(c) => { flkty.current = c }} options={{ pageDots: false, draggable: false, prevNextButtons: false, groupCells: 3, cellAlign: 'left' }}>
+                            {user.addresses?.map((addressObj, i) => (
+                                <div className={`address-item ${i == selectedAddress ? "active" : ""}`} onClick={() => setSelectedAddress(i)}>
+                                    <h5 className="address-title">{addressObj.tag}</h5>
+                                    <div className="name-phone-number">
+                                        <h5 className="address-name">{addressObj.name}</h5>
+                                        <h5 className="address-phone">{addressObj.phone}</h5>
+                                    </div>
+                                    <p>{addressObj.address} {addressObj.full_address}</p>
                                 </div>
-                                <p>{addressObj.address} {addressObj.full_address}</p>
-                            </div>
-                        ))}
+                            ))}
+                        </Flickity>
                     </div>
                 </div>
 
