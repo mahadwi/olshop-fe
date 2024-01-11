@@ -181,7 +181,7 @@ export default function RegisterIndex() {
                                 </div>
                                 <div className='form-group remember-me-password'>
                                     <div className='form-check' style={{ cursor: 'pointer' }}>
-                                        <Checkbox style={{ cursor: 'pointer' }} checked={buttonEnabledMode} onChange={(value) => {
+                                        <Checkbox style={{ cursor: 'pointer', transform: 'translateY(6px)' }} checked={buttonEnabledMode} onChange={(value) => {
                                             setButtonEnabledMode(value)
                                         }} borderColor={'#DADADA'} />
                                         <p className='remember-me-label' htmlFor="remember_me">By clicking Register, you agree to our <Link to={'/term-and-conditions'}>{t('termconditions')}</Link> and <Link to={'/privacy-policy'}>{t('privacypolicy')}</Link></p>
