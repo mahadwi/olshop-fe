@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom'
 import { AuthUserContext } from '../../../../../context/AuthUserContext';
 import { LanguageContext } from '../../../../../context/LanguageContext';
 
-export default function ProductCartComponent({onlyDesktop, onlyMobile, productObj, qty, doSubtractQty, doAddQty, shipTo, setShipTo, loadDistricts, couriers, selectedCourier, setSelectedCourier}) {
+export default function ProductCartComponent({onlyDesktop, onlyMobile, productObj, qty, doSubtractQty, doAddQty, shipTo, setShipTo, loadDistricts, couriers, selectedCourier, setSelectedCourier, shippingFeeOpened, setShippingFeeOpened, shippingFees, selectedShippingFees, setSelectedShippingFees}) {
 
     /**
      * Hooks
@@ -24,12 +24,6 @@ export default function ProductCartComponent({onlyDesktop, onlyMobile, productOb
     const { user } = useContext(AuthUserContext)
     const { language } = useContext(LanguageContext)
     const formater = new Intl.NumberFormat( language == 'id' ? 'id-ID' : 'en-EN', { style: 'currency', currency: language == 'id' ? 'IDR' : 'USD', minimumFractionDigits: 0, maximumFractionDigits: 2 })
-
-    /**
-     * Main State
-     * 
-     */
-    const [shippingFeeOpened, setShippingFeeOpened] = useState(false)
 
     return (
         <div className={`product-cart-wrapper ${onlyDesktop ? 'only-desktop' : ''} ${onlyMobile ? 'only-mobile': ''}`}>
@@ -96,9 +90,31 @@ export default function ProductCartComponent({onlyDesktop, onlyMobile, productOb
                         <span>Shipping Fee</span>
                         <IconChevronDown style={{ transform: 'translateY(-3px)' }} />
                     </button>
-                    <Collapse isOpened={shippingFeeOpened}>
-                        <div className='collapse-content'>Random content</div>
-                    </Collapse>
+                    <div className='collapse-content'>
+                        <div className='shipping-fee-select'>
+                            <Collapse isOpened={shippingFeeOpened}>
+                                <div className='shipping-fee-contents'>
+                                    {shippingFees.map((c, i) => {
+                                        return (
+                                            <div className='shipping-fee-content' onClick={() => {setSelectedShippingFees(i); setShippingFeeOpened(false)}}>
+                                                <div className='top'>
+                                                    <div className='name'>
+                                                        {c.service}
+                                                    </div>
+                                                    <div className='price'>
+                                                        {c.cost[0].value}
+                                                    </div>
+                                                </div>
+                                                <div className='bottom'>
+                                                    Receive: {c.cost[0].etd}
+                                                </div>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            </Collapse>
+                        </div>
+                    </div>
                 </div>
                 <div className="group only-desktop">
                     <label>Total Stock : {productObj.stock}</label>

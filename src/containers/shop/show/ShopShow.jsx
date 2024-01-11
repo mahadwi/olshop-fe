@@ -34,6 +34,7 @@ export default function ShopShow() {
     const [productObj, setProductObj] = useState({})
     const [productCategory, setProductCategory] = useState({})
     const [productsByCategory, setProductsByCategory] = useState([])
+    const [shippingFeeOpened, setShippingFeeOpened] = useState(true)
     const breadcrumbs = [
         {
             label: 'Home',
@@ -100,7 +101,7 @@ export default function ShopShow() {
     const loadCouriers = () => {
         Api.get(`/courier`)
             .then((res) => {
-                const r = Object.entries(res.data.data).map(([key, value]) => ({ value: key, label: value }));
+                const r = Object.entries(res.data.data).map(([key, value]) => ({ value: value, label: key }));
                 setCouriers(r);
                 setSelectedCourier(r[0]);
             });
@@ -139,6 +140,27 @@ export default function ShopShow() {
         setQty((c) => c+1);
     }
 
+    const [shippingFees, setShippingFees] = useState([]);
+    const [selectedShippingFees, setSelectedShippingFees] = useState(0);
+
+    useEffect(() => {
+        if (shipTo != '' && user) {
+            Api.post('/ongkir', {
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('apiToken')
+                },
+                courier: selectedCourier.value,
+                destination: shipTo.value,
+                weight: productObj.weight,
+            })
+                .then((res) => {
+                    setShippingFees(res.data.data[0].costs)
+                    setSelectedShippingFees(0);
+                })
+                .catch((error) => console.log(error));
+        }
+    }, [selectedCourier, shipTo])
+
     return (
         <div className="shop-show-container">
             <ContainerComponent>
@@ -146,12 +168,12 @@ export default function ShopShow() {
                 <div className="product-item-detail">
                     <ProductImageComponent productImages={productObj.images ? productObj.images : []} />
                     <ProductDescriptionComponent productObj={productObj} />
-                    <ProductCartComponent onlyDesktop={true} productObj={productObj} qty={qty} doSubtractQty={doSubtractQty} doAddQty={doAddQty} shipTo={shipTo} setShipTo={setShipTo} loadDistricts={loadDistricts} couriers={couriers} selectedCourier={selectedCourier} setSelectedCourier={setSelectedCourier} />
+                    <ProductCartComponent onlyDesktop={true} productObj={productObj} qty={qty} doSubtractQty={doSubtractQty} doAddQty={doAddQty} shipTo={shipTo} setShipTo={setShipTo} loadDistricts={loadDistricts} couriers={couriers} selectedCourier={selectedCourier} setSelectedCourier={setSelectedCourier} shippingFeeOpened={shippingFeeOpened} setShippingFeeOpened={setShippingFeeOpened} shippingFees={shippingFees} selectedShippingFees={selectedShippingFees} setSelectedShippingFees={setSelectedShippingFees} />
                 </div>
                 <hr />
                 <OtherProductsComponent user={user} productsByCategory={productsByCategory} />
                 <hr className='only-mobile' />
-                <ProductCartComponent onlyMobile={true} productObj={productObj} qty={qty} doSubtractQty={doSubtractQty} doAddQty={doAddQty} shipTo={shipTo} setShipTo={setShipTo} loadDistricts={loadDistricts} couriers={couriers} selectedCourier={selectedCourier} setSelectedCourier={setSelectedCourier} />
+                <ProductCartComponent onlyMobile={true} productObj={productObj} qty={qty} doSubtractQty={doSubtractQty} doAddQty={doAddQty} shipTo={shipTo} setShipTo={setShipTo} loadDistricts={loadDistricts} couriers={couriers} selectedCourier={selectedCourier} setSelectedCourier={setSelectedCourier} shippingFeeOpened={shippingFeeOpened} setShippingFeeOpened={setShippingFeeOpened} shippingFees={shippingFees} selectedShippingFees={selectedShippingFees} setSelectedShippingFees={setSelectedShippingFees} />
                 <hr className='only-mobile' />
                 <ProductDescriptionMobileComponent productObj={productObj} />
                 <hr />
