@@ -130,7 +130,7 @@ export default function LoginIndex() {
         })
             .then((response) => {
                 if (response.data.errorCode == 0) {
-                    setForgotPasswordStep((c) => c+1)
+                    // setForgotPasswordStep((c) => c+1)
                 } else {
                     throw new Error()
                 }
