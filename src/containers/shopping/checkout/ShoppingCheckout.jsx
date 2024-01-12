@@ -68,7 +68,7 @@ export default function ShoppingCheckout() {
                         </div>
                     </div>
                     <div className="address-wrapper">
-                        <Flickity flickityRef={(c) => { flkty.current = c }} options={{ pageDots: false, draggable: false, prevNextButtons: false, groupCells: 3, cellAlign: 'left' }}>
+                        <Flickity flickityRef={(c) => { flkty.current = c }} options={{ pageDots: false, draggable: false, prevNextButtons: false, contain: true, cellAlign: 'left' }}>
                             {user.addresses?.map((addressObj, i) => (
                                 <div className={`address-item ${i == selectedAddress ? "active" : ""}`} onClick={() => setSelectedAddress(i)}>
                                     <h5 className="address-title">{addressObj.tag}</h5>
