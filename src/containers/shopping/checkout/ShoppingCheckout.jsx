@@ -4,11 +4,13 @@ import ContainerComponent from "../../../components/general/container/ContainerC
 import BagCurrentOrder from './../../../images/temp/5c855532d5cc981711da2cd9d3b2c062.png'
 import './shopping-checkout.scoped.scss'
 import Api from "../../../utils/Api";
+import Modal from 'react-bootstrap/Modal';
 import { AuthUserContext } from "../../../context/AuthUserContext";
 import { LoadingContext } from "../../../context/LoadingContext";
 import { LanguageContext } from "../../../context/LanguageContext";
 import StringUtil from "../../../utils/StringUtil";
 import { Link } from "react-router-dom";
+import Select from 'react-select';
 import Flickity from 'react-flickity-component'
 
 export default function ShoppingCheckout() {
@@ -28,12 +30,19 @@ export default function ShoppingCheckout() {
     const [arrCarts, setArrCarts] = useState([])
     const [selected, setSelected] = useState({})
     const [selectedAddress, setSelectedAddress] = useState(0)
+    const [modalChangeCourier, setModalChangeCourier] = useState(false)
     const flkty = useRef()
+    const [ couriers, setCouriers ] = useState([]);
+    const [selectedCourier, setSelectedCourier] = useState('')
+
+    const [shippingFees, setShippingFees] = useState([]);
+    const [selectedShippingFees, setSelectedShippingFees] = useState(-1);
 
     useEffect(() => {
         setLoading(true)
         setSelected(JSON.parse(localStorage.getItem('selectedObj')))
         loadCarts()
+        loadCouriers()
     }, [])
 
     const loadCarts = () => {
@@ -50,8 +59,137 @@ export default function ShoppingCheckout() {
         })
     }
 
+    const loadCouriers = () => {
+        Api.get(`/courier`)
+            .then((res) => {
+                const r = Object.entries(res.data.data).map(([key, value]) => ({ value: value, label: key }));
+                setCouriers(r);
+                // setSelectedCourier(r[0]);
+            });
+    }
+
+    useEffect(() => {
+        if (selectedCourier != '' && user) {
+            setLoading(true)
+            Api.post('/ongkir', {
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('apiToken')
+                },
+                courier: selectedCourier.value,
+                destination: user.addresses[selectedAddress].subdistrict_id,
+                weight: arrCarts.reduce((p, c) => {
+                            const key = `${c.id}`
+                            if (key in selected){
+                                p += c.product.weight;
+                            }
+                            return p;
+                        }, 0),
+            })
+                .then((res) => {
+                    setShippingFees(res.data.data[0].costs)
+                    setSelectedShippingFees(-1);
+                })
+                .catch((error) => console.log(error))
+                .finally(() => {
+                    setLoading(false)
+                })
+        }
+    }, [selectedCourier, selectedAddress])
+
     return (
         <ContainerComponent>
+            {/* Modal Create */}
+            <Modal show={modalChangeCourier} centered onHide={() => {
+                setModalChangeCourier(false)
+            }}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Select Shipping Option</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className="modal-courier">
+                        <div className="courier-option">
+                            <div className="title">
+                                Shipping Option
+                            </div>
+                            <div className="select">
+                                <Select
+                                    styles={{
+                                        control: (baseStyles, state) => ({
+                                            ...baseStyles,
+                                            borderColor: '#C4C4C4',
+                                            borderWidth: '1px',
+                                            boxShadow: 'none',
+                                            backgroundColor: state.isDisabled ? 'transparent' : 'transparent',
+                                            '&:hover': {
+                                                borderColor: '#C4C4C4',
+                                            }
+                                        }),
+                                        container: (baseStyles, state) => ({
+                                            ...baseStyles,
+                                            width: '100%',
+                                        }),
+                                        input: (baseStyles, state) => ({
+                                            ...baseStyles,
+                                            color: '#545454',
+                                            fontSize: '12px',
+                                            fontWeight: '300',
+                                            fontFamily: "'Inter', sans-serif"
+                                        }),
+                                        option: (baseStyles, state) => ({
+                                            ...baseStyles,
+                                            backgroundColor: state.isDisabled ? 'transparent' : 'transparent',
+                                            color: '#000',
+                                            fontSize: '12px',
+                                            fontWeight: state.isDisabled ? '700' : '400',
+                                            fontFamily: "'Inter', sans-serif",
+                                            borderBottom: state.isDisabled ? '1px solid #C4C4C4;' : '0px',
+                                            "&:hover": {
+                                                backgroundColor: state.isDisabled ? '#FFF' : "#000",
+                                                color: state.isDisabled ? '#000' : '#FFF'
+                                            }
+                                        }),
+                                    }}
+                                    name='shipping_option'
+                                    defaultOptions
+                                    placeholder='COURIER'
+                                    value={selectedCourier}
+                                    onChange={setSelectedCourier}
+                                    options={couriers} />
+                                    </div>
+                        </div>
+                        <div className="shipping-fee-contents">
+                            {shippingFees.map((c, i) => {
+                                return (
+                                    <div className={`shipping-fee-content ${selectedShippingFees == i ? 'active' : ''}`} onClick={() => {setSelectedShippingFees(i)}}>
+                                        <div className='top'>
+                                            <div className='name'>
+                                                {c.service}
+                                            </div>
+                                            <div className='price'>
+                                                {user ? formater.format(Number(language == 'id' ? c.cost[0].value : c.cost[0].value) ) : null }
+                                            </div>
+                                        </div>
+                                        <div className='bottom'>
+                                            Receive: {c.cost[0].etd}
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+                </Modal.Body>
+                <Modal.Footer>
+                    <div className=''>
+                        <button>
+                            CANCEL
+                        </button>
+                        <button>
+                            SUBMIT
+                        </button>
+                    </div>
+                </Modal.Footer>
+            </Modal>
+            {/* End of Modal Create */}
             <div className="shopping-checkout-wrapper">
                 <h2 className="title-checkout">Check Out</h2>
 
