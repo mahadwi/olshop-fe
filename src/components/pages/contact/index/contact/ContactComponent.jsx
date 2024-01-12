@@ -1,9 +1,17 @@
 import './contact.scoped.scss'
+import { useTranslation } from "react-i18next";
 
 export default function ContactComponent({ contactObj }) {
+
+    /**
+     * Hooks
+     * 
+     */
+    const { t } = useTranslation();
+
     return (
         <div className='contact-wrap-box'>
-            <h2 className='title-contact-us'>Contact Us</h2>
+            <h2 className='title-contact-us'>{t('contactus')}</h2>
             <div className='horizontal-line'></div>
             <ul className='list-address'>
                 <li className='list-item'>
@@ -57,7 +65,7 @@ export default function ContactComponent({ contactObj }) {
             </ul>
             <div className='follow-us-wrap'>
                 <h4>
-                    Follow us on :
+                    {t('followuson')} :
                 </h4>
                 <ul>
                     <li>

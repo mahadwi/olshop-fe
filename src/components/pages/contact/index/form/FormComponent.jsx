@@ -5,6 +5,8 @@ import { LoadingContext } from '../../../../../context/LoadingContext'
 import ApiErrorHandling from '../../../../../utils/ApiErrorHandling'
 import toast from 'react-hot-toast';
 import ReCAPTCHA from 'react-google-recaptcha'
+import { useTranslation } from "react-i18next";
+import { Link } from 'react-router-dom'
 
 export default function FormComponent() {
 
@@ -13,6 +15,7 @@ export default function FormComponent() {
      * 
      */
     const { setLoading } = useContext(LoadingContext)
+    const { t } = useTranslation();
 
     /**
      * Main State
@@ -62,17 +65,17 @@ export default function FormComponent() {
     return (
         <div className='form-container'>
             <p className='paragraph-question'>
-                Have a question? You may find an answer in our <span style={{
+                {t('contactindexdescquestion')} <span style={{
                     color: '#081CC9',
                     fontWeight: '700'
-                }}>FAQs</span>. <br />
-                But you can also contact us
+                }}>{t('faq')}</span>. <br />
+                {t('contactindexdesccontact')}
             </p>
 
             <form action="">
                 <div className="form-row">
                     <div className="form-group">
-                        <input type="text" className={`form-control ${objError422.firstName ? 'is-invalid' : ''}`} placeholder="First Name" value={firstName} onChange={(e) => {
+                        <input type="text" className={`form-control ${objError422.firstName ? 'is-invalid' : ''}`} placeholder={t('firstname')} value={firstName} onChange={(e) => {
                             setFirstName(e.target.value);
                         }} />
 
@@ -83,7 +86,7 @@ export default function FormComponent() {
                         }
                     </div>
                     <div className="form-group">
-                        <input type="text" className={`form-control ${objError422.lastName ? 'is-invalid' : ''}`} placeholder="Last Name" value={lastName} onChange={(e) => {
+                        <input type="text" className={`form-control ${objError422.lastName ? 'is-invalid' : ''}`} placeholder={t('lastname')} value={lastName} onChange={(e) => {
                             setLasName(e.target.value);
                         }} />
 
@@ -96,7 +99,7 @@ export default function FormComponent() {
                 </div>
                 <div className="form-row">
                     <div className="form-group">
-                        <input type="email" className={`form-control ${objError422.email ? 'is-invalid' : ''}`} placeholder="Email Address" value={email} onChange={(e) => {
+                        <input type="email" className={`form-control ${objError422.email ? 'is-invalid' : ''}`} placeholder={t('emailaddress')} value={email} onChange={(e) => {
                             setEmail(e.target.value)
                         }} />
 
@@ -107,7 +110,7 @@ export default function FormComponent() {
                         }
                     </div>
                     <div className="form-group">
-                        <input type="text" className={`form-control ${objError422.handphone ? 'is-invalid' : ''}`} placeholder="Phone Number" value={phone} onChange={(e) => {
+                        <input type="text" className={`form-control ${objError422.handphone ? 'is-invalid' : ''}`} placeholder={t('phonenumber')} value={phone} onChange={(e) => {
                             setPhone(e.target.value)
                         }} />
 
@@ -120,7 +123,7 @@ export default function FormComponent() {
                 </div>
                 <div className='form-row'>
                     <div className="form-group">
-                        <input type="text" className={`form-control ${objError422.subject ? 'is-invalid' : ''}`} placeholder="Subject" value={subject} onChange={(e) => {
+                        <input type="text" className={`form-control ${objError422.subject ? 'is-invalid' : ''}`} placeholder={t('subject')} value={subject} onChange={(e) => {
                             setSubject(e.target.value)
                         }} />
 
@@ -132,7 +135,7 @@ export default function FormComponent() {
                     </div>
                 </div>
                 <div className="form-group">
-                    <textarea name="" id="" cols="30" rows="10" className={`form-control ${objError422.message ? 'is-invalid' : ''}`} placeholder="Message Box" value={message} onChange={(e) => {
+                    <textarea name="" id="" cols="30" rows="10" className={`form-control ${objError422.message ? 'is-invalid' : ''}`} placeholder={t('messagebox')} value={message} onChange={(e) => {
                         setMessage(e.target.value)
                     }}></textarea>
 
@@ -150,18 +153,17 @@ export default function FormComponent() {
                     />
                     {
                         objError422.recapcha ?
-                        <div className='invalid-feedback'>{objError422.recapcha}</div>
-                        : <></>
+                            <div className='invalid-feedback'>{objError422.recapcha}</div>
+                            : <></>
                     }
                 </div>
                 <div className="form-group form-group__bottom">
                     <p className='bottom-paragraph'>
-                        By sending your message, you agree to accept the <a href="">General Terms and Conditions</a> of Use
-                        and that your data will be processed in compliance with the <a href="">Privacy Policy</a> of Luxi.
+                        {t('contactindexformparagraphfoot_1')} <Link to={'/term-and-conditions'}>{t('termconditions')}</Link> {t('contactindexformparagraphfoot_2')} <Link to={'/privacy-policy'}>{t('privacypolicy')}</Link> {t('contactindexformparagraphfoot_3')} LUXURYHUB.
                     </p>
                     <button type='button' onClick={() => {
                         doSubmitForm()
-                    }} className='btn btn-dark'>Submit</button>
+                    }} className='btn btn-dark'>{t('submit')}</button>
                 </div>
             </form>
         </div>

@@ -8,6 +8,7 @@ import ContactComponent from "../../../components/pages/contact/index/contact/Co
 import { useLocation } from 'react-router-dom';
 import Api from "../../../utils/Api";
 import { LoadingContext } from "../../../context/LoadingContext";
+import { useTranslation } from "react-i18next";
 
 export default function ContactIndex() {
 
@@ -16,6 +17,8 @@ export default function ContactIndex() {
      * 
      */
     const { pathname } = useLocation();
+    const { t } = useTranslation();
+
 
     /**
      * Context
@@ -68,7 +71,7 @@ export default function ContactIndex() {
                 <HeroComponent />
 
                 {/* Content */}
-                <h1 className="title-love">We’d love to hear from you</h1>
+                <h1 className="title-love">{t('contactindextitle')}</h1>
                 {/* End of Content */}
 
                 <div className="horizontal-line"></div>

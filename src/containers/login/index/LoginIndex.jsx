@@ -16,7 +16,7 @@ import { GoogleLogin } from '@react-oauth/google';
 import toast from 'react-hot-toast';
 
 const FORGOT_PASSWORD_TITLE = [
-    'Find your LUXI account',
+    'Find your LUXURYHUB account',
     'Verification',
     'Reset Password',
 ];
@@ -61,7 +61,7 @@ export default function LoginIndex() {
         setLoading(true);
         Api.get('/auth?provider=google', {
             provider: 'google',
-            headers : {
+            headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             }
@@ -69,7 +69,7 @@ export default function LoginIndex() {
             .then((response) => {
                 return response.data;
             })
-            .then((data) => setGoogleLoginUrl( data.url ))
+            .then((data) => setGoogleLoginUrl(data.url))
             .catch((error) => console.error(error))
             .finally(() => setLoading(false));
     }, []);
@@ -115,7 +115,7 @@ export default function LoginIndex() {
         })
             .then((response) => {
                 if (response.data.errorCode == 0) {
-                    setForgotPasswordStep((c) => c+1)
+                    setForgotPasswordStep((c) => c + 1)
                 } else {
                     throw new Error()
                 }
@@ -164,15 +164,15 @@ export default function LoginIndex() {
             return;
         }
 
-      if (key.length == 1){
-          target.value = e.key;
-          const next = target.nextElementSibling;
-          if (next) {
-              next.focus();
-          }
-      }
+        if (key.length == 1) {
+            target.value = e.key;
+            const next = target.nextElementSibling;
+            if (next) {
+                next.focus();
+            }
+        }
 
-      setCorrectOtpForgotPassword(true);
+        setCorrectOtpForgotPassword(true);
     }
 
     const doCheckOtp = () => {
@@ -186,14 +186,14 @@ export default function LoginIndex() {
             .then((response) => {
                 if (response.data.errorCode == 0) {
                     setCurrentOtp(otp)
-                    setForgotPasswordStep((c) => c+1)
+                    setForgotPasswordStep((c) => c + 1)
                 } else {
                     throw new Error()
                 }
             })
             .catch((error) => setCorrectOtpForgotPassword(false))
             .finally(() => setLoading(false));
-        
+
     }
 
     const doChangePassword = () => {
@@ -237,7 +237,7 @@ export default function LoginIndex() {
                     <Modal.Title>{FORGOT_PASSWORD_TITLE[forgotPasswordStep]}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    { forgotPasswordStep == 0 ?
+                    {forgotPasswordStep == 0 ?
                         <div className='modal-forget-password'>
                             <div className='description'>
                                 Enter the email associated with your account to change the password.
@@ -247,7 +247,7 @@ export default function LoginIndex() {
                                     <label>
                                         Email
                                     </label>
-                                    <input type={'text'} onInput={(e) => {setEmailForgotPassword(e.currentTarget.value);setDisableNextStep(!e.currentTarget.value);setFoundEmailForgotPassword(true)}} />
+                                    <input type={'text'} onInput={(e) => { setEmailForgotPassword(e.currentTarget.value); setDisableNextStep(!e.currentTarget.value); setFoundEmailForgotPassword(true) }} />
                                     <div className={`warning ${foundEmailForgotPassword ? 'hide' : ''}`}>
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-info-circle" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" /><path d="M12 9h.01" /><path d="M11 12h1v4h1" /></svg>
                                         Sorry we couldn't find your account !
@@ -258,8 +258,8 @@ export default function LoginIndex() {
                                 <button disabled={disableNextStep} className='btn-forget-password' onClick={doRequestOtp}>Next</button>
                             </div>
                         </div>
-                    : null }
-                    { forgotPasswordStep == 1 ?
+                        : null}
+                    {forgotPasswordStep == 1 ?
                         <div className='modal-forget-password'>
                             <div className='description'>
                                 Input your code verification. The verification code has been sent via e-mail to {emailForgotPassword}
@@ -281,8 +281,8 @@ export default function LoginIndex() {
                                 <button className='btn-forget-password' onClick={doCheckOtp}>Next</button>
                             </div>
                         </div>
-                    : null }
-                    { forgotPasswordStep == 2 ?
+                        : null}
+                    {forgotPasswordStep == 2 ?
                         <div className='modal-forget-password'>
                             <div className='description'>
                                 Enter the email associated with your account to change the password.
@@ -292,13 +292,13 @@ export default function LoginIndex() {
                                     <label>
                                         New Password
                                     </label>
-                                    <input type={'password'} onInput={(e) => {setCurrentNewPasswordForgetPassword(e.currentTarget.value);}} />
+                                    <input type={'password'} onInput={(e) => { setCurrentNewPasswordForgetPassword(e.currentTarget.value); }} />
                                 </div>
                                 <div className='input-g'>
                                     <label>
                                         Confirm New Password
                                     </label>
-                                    <input type={'password'} onInput={(e) => {setCurrentConfirmPasswordForgetPassword(e.currentTarget.value);}} />
+                                    <input type={'password'} onInput={(e) => { setCurrentConfirmPasswordForgetPassword(e.currentTarget.value); }} />
                                     <div className={`warning ${currentNewPasswordForgetPassword != currentConfirmPasswordForgetPassword ? '' : 'hide'}`}>
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-info-circle" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" /><path d="M12 9h.01" /><path d="M11 12h1v4h1" /></svg>
                                         Password does not match
@@ -309,7 +309,7 @@ export default function LoginIndex() {
                                 <button disabled={(currentConfirmPasswordForgetPassword == '' && currentNewPasswordForgetPassword == '') || currentNewPasswordForgetPassword != currentConfirmPasswordForgetPassword} className='btn-forget-password' onClick={doChangePassword}>Save</button>
                             </div>
                         </div>
-                    : null }
+                        : null}
                 </Modal.Body>
             </Modal>
             {/* End of Modal Create */}
@@ -369,7 +369,7 @@ export default function LoginIndex() {
                                         <Checkbox borderColor={'#DADADA'} />
                                         <label className='remember-me-label' htmlFor="remember_me">Remember Me</label>
                                     </div>
-                                    <Link onClick={(e) => {e.preventDefault();setModalForgotPassword(true)}}>Forgot Password?</Link>
+                                    <Link onClick={(e) => { e.preventDefault(); setModalForgotPassword(true) }}>Forgot Password?</Link>
                                 </div>
                                 <div className='form-group form-group__button'>
                                     <button className='button-submit' type='button' onClick={doLoginActionPage}>Login</button>

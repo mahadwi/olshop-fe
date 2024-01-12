@@ -57,12 +57,12 @@ export default function FooterComponent() {
                                     <span>{t('buy')}</span>
                                 </li>
                                 <li>
-                                    { user ? 
+                                    {user ?
                                         <>
                                             <a className='only-desktop' href='/account/orders'>{t('ordertracking')}</a>
                                             <a className='only-mobile' href='/profile/orders'>{t('ordertracking')}</a>
                                         </>
-                                    :
+                                        :
                                         <a href='/login'>{t('ordertracking')}</a>
                                     }
                                 </li>
@@ -73,7 +73,7 @@ export default function FooterComponent() {
                             <ul>
                                 <li>
                                     <IconInfoCircleFilled />
-                                    <span>Luxi</span>
+                                    <span>LUXURYHUB</span>
                                 </li>
                                 <li>
                                     <a href={'/about-us'}>{t('footeraboutus')}</a>
@@ -101,7 +101,7 @@ export default function FooterComponent() {
                                 <a href='#'>{t('yourprivacychoize')}</a>
                             </li>
                         </ul>
-                        <p>© {new Date().getFullYear()} LUXI {t('allrightsreserved')}. | <a href={'/contact'}>{t('followoursocialmedia')}</a></p>
+                        <p>© {new Date().getFullYear()} LUXURYHUB {t('allrightsreserved')}. | <a href={'/contact'}>{t('followoursocialmedia')}</a></p>
                     </div>
                 </div>
             </ContainerComponent>
