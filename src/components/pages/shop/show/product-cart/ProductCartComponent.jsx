@@ -104,7 +104,7 @@ export default function ProductCartComponent({onlyDesktop, onlyMobile, productOb
                                                         {c.service}
                                                     </div>
                                                     <div className='price'>
-                                                        {c.cost[0].value}
+                                                        {user ? formater.format(Number(language == 'id' ? c.cost[0].value : c.cost[0].value) ) : null }
                                                     </div>
                                                 </div>
                                                 <div className='bottom'>
@@ -117,6 +117,22 @@ export default function ProductCartComponent({onlyDesktop, onlyMobile, productOb
                             </Collapse>
                         </div>
                     </div>
+                    { selectedShippingFees != -1 ?
+                        <div className='shipping-fee-selected'>
+                            <div className='top'>
+                                <div className='name'>
+                                    {shippingFees[selectedShippingFees].service}
+                                </div>
+                                <div className='price'>
+                                    {user ? formater.format(Number(language == 'id' ? shippingFees[selectedShippingFees].cost[0].value : shippingFees[selectedShippingFees].cost[0].value) ) : null }
+                                </div>
+                            </div>
+                            <div className='bottom'>
+                                Receive: {shippingFees[selectedShippingFees].cost[0].etd}
+                            </div>
+                        </div>
+                    : null
+                    }
                 </div>
                 <div className="group only-desktop">
                     <label>Total Stock : {productObj.stock}</label>
@@ -132,8 +148,12 @@ export default function ProductCartComponent({onlyDesktop, onlyMobile, productOb
                         <span className={`val ${user ? '' : 'blur'}`}>{user ? formater.format(language == 'id' ? productObj.sale_price : productObj.sale_usd ) : 'Rp. 19.631.312'}</span>
                     </div>
                     <div className='price-row-item'>
+                        <span className='label'>Shipping Fee</span>
+                        <span className={`val ${user ? '' : 'blur'}`}>{selectedShippingFees != -1 ? formater.format(language == 'id' ? shippingFees[selectedShippingFees].cost[0].value : shippingFees[selectedShippingFees].cost[0].value ) : '0'}</span>
+                    </div>
+                    <div className='price-row-item'>
                         <span className='label'>Sub Total</span>
-                        <span className={`val ${user ? '' : 'blur'}`}>{user ? formater.format(Number(language == 'id' ? productObj.sale_price : productObj.sale_usd) * qty ) : 'Rp. 19.631.312'}</span>
+                        <span className={`val ${user ? '' : 'blur'}`}>{user ? formater.format(Number(language == 'id' ? productObj.sale_price : productObj.sale_usd) * qty + (selectedShippingFees == -1 ? 0 : shippingFees[selectedShippingFees].cost[0].value  )) : 'Rp. 19.631.312'}</span>
                     </div>
                     {
                         !user ?
