@@ -109,12 +109,12 @@ export default function ShopShow() {
             .then((res) => {
                 const r = Object.entries(res.data.data).map(([key, value]) => ({ value: value, label: key }));
                 setCouriers(r);
-                setSelectedCourier(r[0]);
+                // setSelectedCourier(r[0]);
             });
     }
 
     const [ couriers, setCouriers ] = useState([]);
-    const [selectedCourier, setSelectedCourier] = useState({ value: '', label: '' })
+    const [selectedCourier, setSelectedCourier] = useState('')
 
     const loadDistricts = (inputValue, cb) => {
         if (inputValue.length > 2) {

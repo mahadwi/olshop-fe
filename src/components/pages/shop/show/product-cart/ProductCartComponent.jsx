@@ -68,6 +68,8 @@ export default function ProductCartComponent({onlyDesktop, onlyMobile, productOb
                             }),
                         }}
                         name='shipping_option'
+                        defaultOptions
+                        placeholder='pilih option'
                         value={selectedCourier}
                         onChange={setSelectedCourier}
                         options={couriers} />
