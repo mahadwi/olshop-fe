@@ -11,6 +11,9 @@ import './shop-show.scoped.scss'
 import { useParams, useLocation } from "react-router-dom";
 import Api from "../../../utils/Api";
 import { AuthUserContext } from "../../../context/AuthUserContext";
+import { useNavigate } from 'react-router-dom'
+import { LoadingContext } from "../../../context/LoadingContext";
+import { CartContext } from "../../../context/CartContext";
 
 export default function ShopShow() {
 
@@ -20,12 +23,15 @@ export default function ShopShow() {
      */
     const { pathname } = useLocation();
     const { id } = useParams();
+    const navigate = useNavigate();
 
     /**
      * Context
      * 
      */
     const { user } = useContext(AuthUserContext)
+    const { setLoading } = useContext(LoadingContext)
+    const { refreshCarts } = useContext(CartContext)
 
     /**
      * Main State
@@ -161,6 +167,29 @@ export default function ShopShow() {
         }
     }, [selectedCourier, shipTo])
 
+    const doAddToCart = () => {
+        if (user) {
+            setLoading(true)
+            Api.post('/cart', {
+                product_id: productObj.id,
+                qty: qty
+            }, {
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('apiToken')
+                }
+            }).then((res) => {
+                if (res) {
+                    refreshCarts()
+                    alert('Berhasil dimasukan cart')
+                }
+            }).finally(() => {
+                setLoading(false)
+            })
+        } else {
+            navigate('/login');
+        }
+    }
+
     return (
         <div className="shop-show-container">
             <ContainerComponent>
@@ -168,12 +197,12 @@ export default function ShopShow() {
                 <div className="product-item-detail">
                     <ProductImageComponent productImages={productObj.images ? productObj.images : []} />
                     <ProductDescriptionComponent productObj={productObj} />
-                    <ProductCartComponent onlyDesktop={true} productObj={productObj} qty={qty} doSubtractQty={doSubtractQty} doAddQty={doAddQty} shipTo={shipTo} setShipTo={setShipTo} loadDistricts={loadDistricts} couriers={couriers} selectedCourier={selectedCourier} setSelectedCourier={setSelectedCourier} shippingFeeOpened={shippingFeeOpened} setShippingFeeOpened={setShippingFeeOpened} shippingFees={shippingFees} selectedShippingFees={selectedShippingFees} setSelectedShippingFees={setSelectedShippingFees} />
+                    <ProductCartComponent onlyDesktop={true} productObj={productObj} qty={qty} doSubtractQty={doSubtractQty} doAddQty={doAddQty} shipTo={shipTo} setShipTo={setShipTo} loadDistricts={loadDistricts} couriers={couriers} selectedCourier={selectedCourier} setSelectedCourier={setSelectedCourier} shippingFeeOpened={shippingFeeOpened} setShippingFeeOpened={setShippingFeeOpened} shippingFees={shippingFees} selectedShippingFees={selectedShippingFees} setSelectedShippingFees={setSelectedShippingFees} doAddToCart={doAddToCart} />
                 </div>
                 <hr />
                 <OtherProductsComponent user={user} productsByCategory={productsByCategory} />
                 <hr className='only-mobile' />
-                <ProductCartComponent onlyMobile={true} productObj={productObj} qty={qty} doSubtractQty={doSubtractQty} doAddQty={doAddQty} shipTo={shipTo} setShipTo={setShipTo} loadDistricts={loadDistricts} couriers={couriers} selectedCourier={selectedCourier} setSelectedCourier={setSelectedCourier} shippingFeeOpened={shippingFeeOpened} setShippingFeeOpened={setShippingFeeOpened} shippingFees={shippingFees} selectedShippingFees={selectedShippingFees} setSelectedShippingFees={setSelectedShippingFees} />
+                <ProductCartComponent onlyMobile={true} productObj={productObj} qty={qty} doSubtractQty={doSubtractQty} doAddQty={doAddQty} shipTo={shipTo} setShipTo={setShipTo} loadDistricts={loadDistricts} couriers={couriers} selectedCourier={selectedCourier} setSelectedCourier={setSelectedCourier} shippingFeeOpened={shippingFeeOpened} setShippingFeeOpened={setShippingFeeOpened} shippingFees={shippingFees} selectedShippingFees={selectedShippingFees} setSelectedShippingFees={setSelectedShippingFees} doAddToCart={doAddToCart} />
                 <hr className='only-mobile' />
                 <ProductDescriptionMobileComponent productObj={productObj} />
                 <hr />

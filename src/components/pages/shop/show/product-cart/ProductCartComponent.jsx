@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom'
 import { AuthUserContext } from '../../../../../context/AuthUserContext';
 import { LanguageContext } from '../../../../../context/LanguageContext';
 
-export default function ProductCartComponent({onlyDesktop, onlyMobile, productObj, qty, doSubtractQty, doAddQty, shipTo, setShipTo, loadDistricts, couriers, selectedCourier, setSelectedCourier, shippingFeeOpened, setShippingFeeOpened, shippingFees, selectedShippingFees, setSelectedShippingFees}) {
+export default function ProductCartComponent({onlyDesktop, onlyMobile, productObj, qty, doSubtractQty, doAddQty, shipTo, setShipTo, loadDistricts, couriers, selectedCourier, setSelectedCourier, shippingFeeOpened, setShippingFeeOpened, shippingFees, selectedShippingFees, setSelectedShippingFees, doAddToCart }) {
 
     /**
      * Hooks
@@ -147,7 +147,7 @@ export default function ProductCartComponent({onlyDesktop, onlyMobile, productOb
                     }
                 </div>
                 <div className='group only-desktop'>
-                    <button type='button' className='btn-cart'><IconShoppingCartFilled /> Add to cart</button>
+                    <button type='button' className='btn-cart' onClick={doAddToCart}><IconShoppingCartFilled /> Add to cart</button>
                     <button type='button' className='btn-buy'>Buy Now</button>
                 </div>
             </form>
@@ -161,7 +161,7 @@ export default function ProductCartComponent({onlyDesktop, onlyMobile, productOb
                     </div>
                     <div className='line-div' />
                     <div className='product-cart-mobile-cart'>
-                        <button>
+                        <button onClick={doAddToCart}>
                             <IconShoppingCartFilled />
                         </button>
                     </div>
