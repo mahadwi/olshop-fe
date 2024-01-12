@@ -51,7 +51,7 @@ export default function ProfileAddress() {
                     cb(response.data.data.map((e) => {
                         return {
                             value: e.id,
-                            label: e.name
+                            label: e.fullname
                         }
                     }))
                 } catch (error) {

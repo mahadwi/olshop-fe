@@ -34,7 +34,7 @@ export default function ShopShow() {
     const [productObj, setProductObj] = useState({})
     const [productCategory, setProductCategory] = useState({})
     const [productsByCategory, setProductsByCategory] = useState([])
-    const [shippingFeeOpened, setShippingFeeOpened] = useState(true)
+    const [shippingFeeOpened, setShippingFeeOpened] = useState(false)
     const breadcrumbs = [
         {
             label: 'Home',
@@ -119,7 +119,7 @@ export default function ShopShow() {
                     cb(response.data.data.map((e) => {
                         return {
                             value: e.id,
-                            label: e.name
+                            label: e.fullname
                         }
                     }))
                 } catch (error) {
