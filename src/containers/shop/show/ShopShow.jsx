@@ -147,10 +147,10 @@ export default function ShopShow() {
     }
 
     const [shippingFees, setShippingFees] = useState([]);
-    const [selectedShippingFees, setSelectedShippingFees] = useState(0);
+    const [selectedShippingFees, setSelectedShippingFees] = useState(-1);
 
     useEffect(() => {
-        if (shipTo != '' && user) {
+        if (selectedCourier != '' && shipTo != '' && user) {
             Api.post('/ongkir', {
                 headers: {
                     Authorization: 'Bearer ' + localStorage.getItem('apiToken')
@@ -161,7 +161,7 @@ export default function ShopShow() {
             })
                 .then((res) => {
                     setShippingFees(res.data.data[0].costs)
-                    setSelectedShippingFees(0);
+                    setSelectedShippingFees(-1);
                 })
                 .catch((error) => console.log(error));
         }
