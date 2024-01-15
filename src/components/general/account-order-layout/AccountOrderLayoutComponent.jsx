@@ -25,6 +25,7 @@ export default function AccountOrderLayoutComponent({ children, breadcrumb, titl
                             <hr />
                             <ul>
                                 <li><Link to={'/account/address'} className={position == 'Address' ? 'active' : ''}>Address</Link></li>
+                                <li><Link to={'/account/vendor'} className={position == 'Vendor' ? 'active' : ''}>Vendor</Link></li>
                                 <li><Link to={'/logout'} onClick={(e) => {
                                     e.preventDefault()
                                     doLogout(() => {

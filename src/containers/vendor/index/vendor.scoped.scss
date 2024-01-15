@@ -1,0 +1,64 @@
+.vendor {
+    background: rgba(221, 221, 221, 0.50);
+    padding: 1rem 0;
+
+    .bg-white {
+        background: #fff;
+    }
+
+    .welcome {
+        padding: 4rem 1rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        gap: 1rem;
+
+        .img-wrapper {
+            display: flex;
+            width: 200px;
+            height: 200px;
+            background: #E6E6E6;
+            border-radius: 50%;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .title {
+            color: #000;
+            font-family: Cabin;
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;
+            letter-spacing: 0.8px;
+        }
+
+        .description {
+            color: #000;
+            font-family: Cabin;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+            letter-spacing: 0.56px;
+            margin-bottom: 2.5rem;
+        }
+
+        button {
+            color: #FFF;
+            text-align: center;
+            font-family: Roboto;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 700;
+            letter-spacing: 2.1px;
+            border-radius: 15px;
+            background: #000;
+            border:0;
+            padding: 1rem 3rem;
+        }
+    }
+}

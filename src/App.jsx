@@ -26,6 +26,7 @@ import DeliveryAndShippingIndex from './containers/delivery-and-shipping/index/D
 import CustomerCareIndex from './containers/customer-care/index/CustomerCareIndex';
 import TermAndConditionIndex from './containers/term-and-condition/index/TermAndConditionIndex';
 import AddressIndex from './containers/address/index/AddressIndex';
+import VendorIndex from './containers/vendor/index/VendorIndex';
 import MainLayout from './layouts/MainLayout';
 import AuthenticateMiddleware from './middleware/AuthenticateMiddleware';
 import AccountOrder from './containers/account/order/AccountOrder';
@@ -91,6 +92,7 @@ function App() {
                             <Route path='orders' element={<AccountOrder />} />
                             <Route path='wishlist' element={<AccountWishlist />} />
                             <Route path='address' element={<AddressIndex />} />
+                            <Route path='vendor' element={<VendorIndex />} />
                         </Route>
                         {/* End of Account */}
 
