@@ -565,3 +565,37 @@
         }
     }
 }
+
+.modal-courier-bottom {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    gap: 1rem;
+
+    button {
+        border-radius: 5px;
+        border: 1px solid #C8D1E1;
+        background: #111;
+        color: #FFF;
+        font-family: Inter;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        letter-spacing: 0.48px;
+        padding: 0.5rem 2rem;
+
+        &:first-child {
+            border-radius: 5px;
+            border: 1px solid #C8D1E1;
+            background: #FFF;
+            color: #151B4F;
+            font-family: Inter;
+            font-size: 12px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;
+            letter-spacing: 0.48px;
+        }
+    }
+}

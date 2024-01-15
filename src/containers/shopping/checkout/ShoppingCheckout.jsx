@@ -30,7 +30,7 @@ export default function ShoppingCheckout() {
     const [arrCarts, setArrCarts] = useState([])
     const [selected, setSelected] = useState({})
     const [selectedAddress, setSelectedAddress] = useState(0)
-    const [modalChangeCourier, setModalChangeCourier] = useState(false)
+    const [modalChangeCourier, setModalChangeCourier] = useState(true)
     const flkty = useRef()
     const [ couriers, setCouriers ] = useState([]);
     const [selectedCourier, setSelectedCourier] = useState('')
@@ -179,11 +179,11 @@ export default function ShoppingCheckout() {
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
-                    <div className=''>
-                        <button>
+                    <div className='modal-courier-bottom'>
+                        <button onClick={() => {setModalChangeCourier(false)}}>
                             CANCEL
                         </button>
-                        <button>
+                        <button onClick={() => {setModalChangeCourier(false)}}>
                             SUBMIT
                         </button>
                     </div>
@@ -285,14 +285,14 @@ export default function ShoppingCheckout() {
                                     <h4>Shipping Option</h4>
                                 </div>
                                 <div>
-                                    <h4 className="courier">Courier</h4>
-                                    <span>Receive by 22 - 23 Okt</span>
+                                    <h4 className="courier">Courier: {selectedShippingFees != -1 ? `${selectedCourier.label} - ${shippingFees[selectedShippingFees].service}` : "-"}</h4>
+                                    <span>Receive: {selectedShippingFees != -1 ? shippingFees[selectedShippingFees].cost[0].etd : "-"}</span>
                                 </div>
                                 <div>
-                                    <h4>Change</h4>
+                                    <h4 onClick={() => {setModalChangeCourier(true)}}>Change</h4>
                                 </div>
                                 <div>
-                                    <h4>1.000.000</h4>
+                                    <h4>{formater.format(selectedShippingFees != -1 ? shippingFees[selectedShippingFees].cost[0].value : 0)}</h4>
                                 </div>
                             </div>
                         </div>
