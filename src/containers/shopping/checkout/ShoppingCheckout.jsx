@@ -96,6 +96,47 @@ export default function ShoppingCheckout() {
         }
     }, [selectedCourier, selectedAddress])
 
+    const doOrder = () => {
+        const ongkir = selectedShippingFees != -1 ? shippingFees[selectedShippingFees].cost[0].value : 0;
+        let total = ongkir;
+        const details = [];
+
+        for (const c of arrCarts) {
+            const key = `${c.id}`
+            if (key in selected){
+                const { qty } = selected[key];
+                const price = language == 'id' ? Number(c.product.sale_price) : Number(c.product.sale_usd)
+                const t = price * qty
+                total += t
+                details.push({
+                    product_id: c.product.id,
+                    qty: qty,
+                    price: price,
+                    total: t,
+                })
+            }
+        }
+
+        const data = {
+            user_id: user.id,
+            courier: selectedCourier.value,
+            ongkir: ongkir,
+            address_id: user.addresses[selectedAddress].id,
+            // voucher: "",
+            // discount: 10000,
+            total: total,
+            note: "tes",
+            details: details,
+        };
+        Api.post(`/order`, data, {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('apiToken')
+            },
+        }).then((res) => {
+            console.log(res.data);
+        }).catch((err) => console.log(err));
+    }
+
     return (
         <ContainerComponent>
             {/* Modal Create */}
@@ -360,7 +401,7 @@ export default function ShoppingCheckout() {
                         </div>
                     </div>
                     <div className="btn-row">
-                        <button>Place Order</button>
+                        <button onClick={doOrder}>Place Order</button>
                     </div>
                 </div>
             </div>
