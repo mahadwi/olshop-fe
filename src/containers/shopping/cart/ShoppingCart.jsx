@@ -64,30 +64,30 @@ export default function ShoppingCart() {
         if (window.confirm('Are you sure?')) {
             setLoading(true);
 
-            const arr = arrCarts.reduce((p, c) => {
-                if (c.selected) {
-                    p.push(Api.delete(`/cart/${c.id}`, {
-                        headers: {
-                            Authorization: 'Bearer ' + localStorage.getItem('apiToken')
-                        }
-                    }))
-                }
-                return p;
-            }, []);
-            Promise.all(arr).then(() => {
+            Api.post(`/cart-delete`, {
+                cart_id: (arrCarts.reduce((p, c) => {
+                    if (c.selected) {
+                        p.push(c.id)
+                    }
+                    return p
+                }, [])),
+            }, {
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('apiToken')
+                },
+            }).then(() => {
                 loadCarts()
-            })
-                .catch((err) => console.log(err));
+            }).catch((err) => console.log(err));
         }
     }
 
     const changeSelectedCart = (cartObj, value) => {
         const copyArrCarts = []
-        for (const cartObjState of arrCarts){
+        for (const cartObjState of arrCarts) {
             if (cartObjState === cartObj) {
                 cartObjState.selected = value;
 
-                if(!value){
+                if (!value) {
                     setSelectAll(false);
                 }
             }
@@ -139,7 +139,7 @@ export default function ShoppingCart() {
                     <div className="checkbox-head">
                         <Checkbox borderColor={'#DADADA'} checked={selectAll} onChange={(value) => {
                             const copyArrCarts = []
-                            for (const cartObj of arrCarts){
+                            for (const cartObj of arrCarts) {
                                 cartObj.selected = value;
                                 copyArrCarts.push(cartObj);
                             }
