@@ -113,7 +113,7 @@ export default function ShopShow() {
             });
     }
 
-    const [ couriers, setCouriers ] = useState([]);
+    const [couriers, setCouriers] = useState([]);
     const [selectedCourier, setSelectedCourier] = useState('')
 
     const loadDistricts = (inputValue, cb) => {
@@ -139,11 +139,11 @@ export default function ShopShow() {
     const [qty, setQty] = useState(1);
 
     const doSubtractQty = () => {
-        setQty((c) => c-1);
+        setQty((c) => c - 1);
     }
 
     const doAddQty = () => {
-        setQty((c) => c+1);
+        setQty((c) => c + 1);
     }
 
     const [shippingFees, setShippingFees] = useState([]);
@@ -190,6 +190,35 @@ export default function ShopShow() {
         }
     }
 
+    const doBuyNow = (tempProduct) => {
+        if (user) {
+            setLoading(true)
+            Api.post('/cart', {
+                product_id: tempProduct.id,
+                qty: 1
+            }, {
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('apiToken')
+                }
+            }).then((res) => {
+                if (res) {
+                    let p = {};
+
+                    p[`${res.data.data.id}`] = {
+                        qty: res.data.data.qty
+                    };
+
+                    localStorage.setItem('selectedObj', JSON.stringify(p));
+                    window.location.href = '/shopping/checkout'
+                }
+            }).finally(() => {
+                setLoading(false)
+            })
+        } else {
+            navigate('/login');
+        }
+    }
+
     return (
         <div className="shop-show-container">
             <ContainerComponent>
@@ -197,7 +226,7 @@ export default function ShopShow() {
                 <div className="product-item-detail">
                     <ProductImageComponent productImages={productObj.images ? productObj.images : []} />
                     <ProductDescriptionComponent productObj={productObj} />
-                    <ProductCartComponent onlyDesktop={true} productObj={productObj} qty={qty} doSubtractQty={doSubtractQty} doAddQty={doAddQty} shipTo={shipTo} setShipTo={setShipTo} loadDistricts={loadDistricts} couriers={couriers} selectedCourier={selectedCourier} setSelectedCourier={setSelectedCourier} shippingFeeOpened={shippingFeeOpened} setShippingFeeOpened={setShippingFeeOpened} shippingFees={shippingFees} selectedShippingFees={selectedShippingFees} setSelectedShippingFees={setSelectedShippingFees} doAddToCart={doAddToCart} />
+                    <ProductCartComponent onlyDesktop={true} productObj={productObj} qty={qty} doSubtractQty={doSubtractQty} doAddQty={doAddQty} shipTo={shipTo} setShipTo={setShipTo} loadDistricts={loadDistricts} couriers={couriers} selectedCourier={selectedCourier} setSelectedCourier={setSelectedCourier} shippingFeeOpened={shippingFeeOpened} setShippingFeeOpened={setShippingFeeOpened} shippingFees={shippingFees} selectedShippingFees={selectedShippingFees} setSelectedShippingFees={setSelectedShippingFees} doAddToCart={doAddToCart} doBuyNow={doBuyNow} />
                 </div>
                 <hr />
                 <OtherProductsComponent user={user} productsByCategory={productsByCategory} />

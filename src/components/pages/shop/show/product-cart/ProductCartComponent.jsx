@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom'
 import { AuthUserContext } from '../../../../../context/AuthUserContext';
 import { LanguageContext } from '../../../../../context/LanguageContext';
 
-export default function ProductCartComponent({onlyDesktop, onlyMobile, productObj, qty, doSubtractQty, doAddQty, shipTo, setShipTo, loadDistricts, couriers, selectedCourier, setSelectedCourier, shippingFeeOpened, setShippingFeeOpened, shippingFees, selectedShippingFees, setSelectedShippingFees, doAddToCart }) {
+export default function ProductCartComponent({ onlyDesktop, onlyMobile, productObj, qty, doSubtractQty, doAddQty, shipTo, setShipTo, loadDistricts, couriers, selectedCourier, setSelectedCourier, shippingFeeOpened, setShippingFeeOpened, shippingFees, selectedShippingFees, setSelectedShippingFees, doAddToCart, doBuyNow }) {
 
     /**
      * Hooks
@@ -23,10 +23,10 @@ export default function ProductCartComponent({onlyDesktop, onlyMobile, productOb
      */
     const { user } = useContext(AuthUserContext)
     const { language } = useContext(LanguageContext)
-    const formater = new Intl.NumberFormat( language == 'id' ? 'id-ID' : 'en-EN', { style: 'currency', currency: language == 'id' ? 'IDR' : 'USD', minimumFractionDigits: 0, maximumFractionDigits: 2 })
+    const formater = new Intl.NumberFormat(language == 'id' ? 'id-ID' : 'en-EN', { style: 'currency', currency: language == 'id' ? 'IDR' : 'USD', minimumFractionDigits: 0, maximumFractionDigits: 2 })
 
     return (
-        <div className={`product-cart-wrapper ${onlyDesktop ? 'only-desktop' : ''} ${onlyMobile ? 'only-mobile': ''}`}>
+        <div className={`product-cart-wrapper ${onlyDesktop ? 'only-desktop' : ''} ${onlyMobile ? 'only-mobile' : ''}`}>
             <form action="">
                 <div className='group'>
                     <label htmlFor="shipping_option">Shipping Option</label>
@@ -98,13 +98,13 @@ export default function ProductCartComponent({onlyDesktop, onlyMobile, productOb
                                 <div className='shipping-fee-contents'>
                                     {shippingFees.map((c, i) => {
                                         return (
-                                            <div className='shipping-fee-content' onClick={() => {setSelectedShippingFees(i); setShippingFeeOpened(false)}}>
+                                            <div className='shipping-fee-content' onClick={() => { setSelectedShippingFees(i); setShippingFeeOpened(false) }}>
                                                 <div className='top'>
                                                     <div className='name'>
                                                         {c.service}
                                                     </div>
                                                     <div className='price'>
-                                                        {user ? formater.format(Number(language == 'id' ? c.cost[0].value : c.cost[0].value) ) : null }
+                                                        {user ? formater.format(Number(language == 'id' ? c.cost[0].value : c.cost[0].value)) : null}
                                                     </div>
                                                 </div>
                                                 <div className='bottom'>
@@ -117,21 +117,21 @@ export default function ProductCartComponent({onlyDesktop, onlyMobile, productOb
                             </Collapse>
                         </div>
                     </div>
-                    { selectedShippingFees != -1 ?
+                    {selectedShippingFees != -1 ?
                         <div className='shipping-fee-selected'>
                             <div className='top'>
                                 <div className='name'>
                                     {shippingFees[selectedShippingFees].service}
                                 </div>
                                 <div className='price'>
-                                    {user ? formater.format(Number(language == 'id' ? shippingFees[selectedShippingFees].cost[0].value : shippingFees[selectedShippingFees].cost[0].value) ) : null }
+                                    {user ? formater.format(Number(language == 'id' ? shippingFees[selectedShippingFees].cost[0].value : shippingFees[selectedShippingFees].cost[0].value)) : null}
                                 </div>
                             </div>
                             <div className='bottom'>
                                 Receive: {shippingFees[selectedShippingFees].cost[0].etd}
                             </div>
                         </div>
-                    : null
+                        : null
                     }
                 </div>
                 <div className="group only-desktop">
@@ -145,15 +145,15 @@ export default function ProductCartComponent({onlyDesktop, onlyMobile, productOb
                 <div className='group only-desktop'>
                     <div className='price-row-item'>
                         <span className='label'>Price</span>
-                        <span className={`val ${user ? '' : 'blur'}`}>{user ? formater.format(language == 'id' ? productObj.sale_price : productObj.sale_usd ) : 'Rp. 19.631.312'}</span>
+                        <span className={`val ${user ? '' : 'blur'}`}>{user ? formater.format(language == 'id' ? productObj.sale_price : productObj.sale_usd) : 'Rp. 19.631.312'}</span>
                     </div>
                     <div className='price-row-item'>
                         <span className='label'>Shipping Fee</span>
-                        <span className={`val ${user ? '' : 'blur'}`}>{selectedShippingFees != -1 ? formater.format(language == 'id' ? shippingFees[selectedShippingFees].cost[0].value : shippingFees[selectedShippingFees].cost[0].value ) : '0'}</span>
+                        <span className={`val ${user ? '' : 'blur'}`}>{selectedShippingFees != -1 ? formater.format(language == 'id' ? shippingFees[selectedShippingFees].cost[0].value : shippingFees[selectedShippingFees].cost[0].value) : '0'}</span>
                     </div>
                     <div className='price-row-item'>
                         <span className='label'>Sub Total</span>
-                        <span className={`val ${user ? '' : 'blur'}`}>{user ? formater.format(Number(language == 'id' ? productObj.sale_price : productObj.sale_usd) * qty + (selectedShippingFees == -1 ? 0 : shippingFees[selectedShippingFees].cost[0].value  )) : 'Rp. 19.631.312'}</span>
+                        <span className={`val ${user ? '' : 'blur'}`}>{user ? formater.format(Number(language == 'id' ? productObj.sale_price : productObj.sale_usd) * qty + (selectedShippingFees == -1 ? 0 : shippingFees[selectedShippingFees].cost[0].value)) : 'Rp. 19.631.312'}</span>
                     </div>
                     {
                         !user ?
@@ -170,7 +170,9 @@ export default function ProductCartComponent({onlyDesktop, onlyMobile, productOb
                 </div>
                 <div className='group only-desktop'>
                     <button type='button' className='btn-cart' onClick={doAddToCart}><IconShoppingCartFilled /> Add to cart</button>
-                    <button type='button' className='btn-buy'>Buy Now</button>
+                    <button type='button' className='btn-buy' onClick={() => {
+                        doBuyNow(productObj)
+                    }}>Buy Now</button>
                 </div>
             </form>
             <div className='product-cart-mobile'>

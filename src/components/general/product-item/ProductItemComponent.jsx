@@ -27,7 +27,7 @@ export default function ProductItemComponent({ product, className, blur, wishlis
     const { setLoading } = useContext(LoadingContext)
     const { refreshCarts } = useContext(CartContext)
     const { language } = useContext(LanguageContext)
-    const formater = new Intl.NumberFormat( language == 'id' ? 'id-ID' : 'en-EN', { style: 'currency', currency: language == 'id' ? 'IDR' : 'USD', minimumFractionDigits: 0, maximumFractionDigits: 2 })
+    const formater = new Intl.NumberFormat(language == 'id' ? 'id-ID' : 'en-EN', { style: 'currency', currency: language == 'id' ? 'IDR' : 'USD', minimumFractionDigits: 0, maximumFractionDigits: 2 })
 
     /**
      * State
@@ -129,8 +129,30 @@ export default function ProductItemComponent({ product, className, blur, wishlis
         }
     }
 
-    const doBuyNow = () => {
+    const doBuyNow = (tempProduct) => {
         if (user) {
+            setLoading(true)
+            Api.post('/cart', {
+                product_id: tempProduct.id,
+                qty: 1
+            }, {
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('apiToken')
+                }
+            }).then((res) => {
+                if (res) {
+                    let p = {};
+
+                    p[`${res.data.data.id}`] = {
+                        qty: res.data.data.qty
+                    };
+
+                    localStorage.setItem('selectedObj', JSON.stringify(p));
+                    window.location.href = '/shopping/checkout'
+                }
+            }).finally(() => {
+                setLoading(false)
+            })
         } else {
             navigate('/login');
         }
@@ -145,7 +167,7 @@ export default function ProductItemComponent({ product, className, blur, wishlis
                     <button type='button' className='btn-cart' onClick={() => {
                         doAddToCart()
                     }}>{t('addtocart')}</button>
-                    <button className='btn-buy' onClick={() => doBuyNow()}>{t('buynow')}</button>
+                    <button className='btn-buy' onClick={() => doBuyNow(tempProduct)}>{t('buynow')}</button>
                 </div>
 
                 <span className='love-wrap' onClick={toggleWishlist}>
@@ -165,7 +187,7 @@ export default function ProductItemComponent({ product, className, blur, wishlis
                 </h3>
                 <div>
                     <div className='price-area'>
-                        <h4 className={`${blur ? 'blur' : ''}`}>{blur ? 'Rpxxx.xxx' : formater.format(language == 'id' ? tempProduct.sale_price : tempProduct.sale_usd )}</h4>
+                        <h4 className={`${blur ? 'blur' : ''}`}>{blur ? 'Rpxxx.xxx' : formater.format(language == 'id' ? tempProduct.sale_price : tempProduct.sale_usd)}</h4>
 
                         {
                             blur ?
