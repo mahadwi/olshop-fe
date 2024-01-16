@@ -60,6 +60,27 @@ export default function ShoppingCart() {
         })
     }
 
+    const doDeleteSelectedCart = () => {
+        if (window.confirm('Are you sure?')) {
+            setLoading(true);
+
+            const arr = arrCarts.reduce((p, c) => {
+                if (c.selected) {
+                    p.push(Api.delete(`/cart/${c.id}`, {
+                        headers: {
+                            Authorization: 'Bearer ' + localStorage.getItem('apiToken')
+                        }
+                    }))
+                }
+                return p;
+            }, []);
+            Promise.all(arr).then(() => {
+                loadCarts()
+            })
+                .catch((err) => console.log(err));
+        }
+    }
+
     const changeSelectedCart = (cartObj, value) => {
         const copyArrCarts = []
         for (const cartObjState of arrCarts){
@@ -211,6 +232,7 @@ export default function ShoppingCart() {
                     <div className="body-price">
                         <div className="top-desc">
                             <div className="left-select">
+                                <button className="delete" onClick={doDeleteSelectedCart}>Delete</button>
                             </div>
                             <div className="right-price">
                                 <div className="left-select-text">
