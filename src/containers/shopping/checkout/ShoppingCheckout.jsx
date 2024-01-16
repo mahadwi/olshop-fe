@@ -30,7 +30,7 @@ export default function ShoppingCheckout() {
     const [arrCarts, setArrCarts] = useState([])
     const [selected, setSelected] = useState({})
     const [selectedAddress, setSelectedAddress] = useState(0)
-    const [modalChangeCourier, setModalChangeCourier] = useState(true)
+    const [modalChangeCourier, setModalChangeCourier] = useState(false)
     const flkty = useRef()
     const [ couriers, setCouriers ] = useState([]);
     const [selectedCourier, setSelectedCourier] = useState('')
@@ -322,19 +322,41 @@ export default function ShoppingCheckout() {
                     <div className="price-row">
                         <div>
                             <h4>Transfer bank</h4>
-                            <h4>Rp. 39.262.624</h4>
+                            <h4>
+                                {formater.format(
+                                    arrCarts.reduce((p, c) => {
+                                        const key = `${c.id}`
+                                        if (key in selected){
+                                            const { qty } = selected[key];
+                                            return p + ((language == 'id' ? Number(c.product.sale_price) : Number(c.product.sale_usd)) * qty)
+                                        }
+                                        return p;
+                                    }, 0)
+                                )}
+                            </h4>
                         </div>
                         <div>
                             <h4>Shipping Total</h4>
-                            <h4>Shipping Total</h4>
+                            <h4>{formater.format(selectedShippingFees != -1 ? shippingFees[selectedShippingFees].cost[0].value : 0)}</h4>
                         </div>
                         <div>
                             <h4>Handling fee</h4>
-                            <h4>Rp. 500.000</h4>
+                            <h4>0</h4>
                         </div>
                         <div className="total">
                             <h4>Total Payment</h4>
-                            <h4>Rp. 40.762.624</h4>
+                            <h4>
+                                {formater.format(
+                                    arrCarts.reduce((p, c) => {
+                                        const key = `${c.id}`
+                                        if (key in selected){
+                                            const { qty } = selected[key];
+                                            return p + ((language == 'id' ? Number(c.product.sale_price) : Number(c.product.sale_usd)) * qty)
+                                        }
+                                        return p;
+                                    }, selectedShippingFees != -1 ? shippingFees[selectedShippingFees].cost[0].value : 0)
+                                )}
+                            </h4>
                         </div>
                     </div>
                     <div className="btn-row">
