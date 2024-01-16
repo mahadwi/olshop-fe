@@ -32,7 +32,7 @@ export default function ShoppingCheckout() {
     const [selectedAddress, setSelectedAddress] = useState(0)
     const [modalChangeCourier, setModalChangeCourier] = useState(false)
     const flkty = useRef()
-    const [ couriers, setCouriers ] = useState([]);
+    const [couriers, setCouriers] = useState([]);
     const [selectedCourier, setSelectedCourier] = useState('')
 
     const [shippingFees, setShippingFees] = useState([]);
@@ -78,12 +78,12 @@ export default function ShoppingCheckout() {
                 courier: selectedCourier.value,
                 destination: user.addresses[selectedAddress].subdistrict_id,
                 weight: arrCarts.reduce((p, c) => {
-                            const key = `${c.id}`
-                            if (key in selected){
-                                p += c.product.weight;
-                            }
-                            return p;
-                        }, 0),
+                    const key = `${c.id}`
+                    if (key in selected) {
+                        p += c.product.weight;
+                    }
+                    return p;
+                }, 0),
             })
                 .then((res) => {
                     setShippingFees(res.data.data[0].costs)
@@ -97,13 +97,14 @@ export default function ShoppingCheckout() {
     }, [selectedCourier, selectedAddress])
 
     const doOrder = () => {
+        setLoading(true)
         const ongkir = selectedShippingFees != -1 ? shippingFees[selectedShippingFees].cost[0].value : 0;
         let total = ongkir;
         const details = [];
 
         for (const c of arrCarts) {
             const key = `${c.id}`
-            if (key in selected){
+            if (key in selected) {
                 const { qty } = selected[key];
                 const price = language == 'id' ? Number(c.product.sale_price) : Number(c.product.sale_usd)
                 const t = price * qty
@@ -133,8 +134,12 @@ export default function ShoppingCheckout() {
                 Authorization: 'Bearer ' + localStorage.getItem('apiToken')
             },
         }).then((res) => {
-            console.log(res.data);
-        }).catch((err) => console.log(err));
+            setLoading(false)
+
+            window.location.href = res.data.data.payment.invoice_url
+        }).catch((err) => {
+            setLoading(false)
+        });
     }
 
     return (
@@ -196,18 +201,18 @@ export default function ShoppingCheckout() {
                                     value={selectedCourier}
                                     onChange={setSelectedCourier}
                                     options={couriers} />
-                                    </div>
+                            </div>
                         </div>
                         <div className="shipping-fee-contents">
                             {shippingFees.map((c, i) => {
                                 return (
-                                    <div className={`shipping-fee-content ${selectedShippingFees == i ? 'active' : ''}`} onClick={() => {setSelectedShippingFees(i)}}>
+                                    <div className={`shipping-fee-content ${selectedShippingFees == i ? 'active' : ''}`} onClick={() => { setSelectedShippingFees(i) }}>
                                         <div className='top'>
                                             <div className='name'>
                                                 {c.service}
                                             </div>
                                             <div className='price'>
-                                                {user ? formater.format(Number(language == 'id' ? c.cost[0].value : c.cost[0].value) ) : null }
+                                                {user ? formater.format(Number(language == 'id' ? c.cost[0].value : c.cost[0].value)) : null}
                                             </div>
                                         </div>
                                         <div className='bottom'>
@@ -221,10 +226,10 @@ export default function ShoppingCheckout() {
                 </Modal.Body>
                 <Modal.Footer>
                     <div className='modal-courier-bottom'>
-                        <button onClick={() => {setModalChangeCourier(false)}}>
+                        <button onClick={() => { setModalChangeCourier(false) }}>
                             CANCEL
                         </button>
-                        <button onClick={() => {setModalChangeCourier(false)}}>
+                        <button onClick={() => { setModalChangeCourier(false) }}>
                             SUBMIT
                         </button>
                     </div>
@@ -282,7 +287,7 @@ export default function ShoppingCheckout() {
                     {
                         arrCarts.reduce((p, c) => {
                             const key = `${c.id}`
-                            if (key in selected){
+                            if (key in selected) {
                                 const { qty } = selected[key]
                                 p.push(
                                     <div className="row-data">
@@ -330,7 +335,7 @@ export default function ShoppingCheckout() {
                                     <span>Receive: {selectedShippingFees != -1 ? shippingFees[selectedShippingFees].cost[0].etd : "-"}</span>
                                 </div>
                                 <div>
-                                    <h4 onClick={() => {setModalChangeCourier(true)}}>Change</h4>
+                                    <h4 onClick={() => { setModalChangeCourier(true) }}>Change</h4>
                                 </div>
                                 <div>
                                     <h4>{formater.format(selectedShippingFees != -1 ? shippingFees[selectedShippingFees].cost[0].value : 0)}</h4>
@@ -367,7 +372,7 @@ export default function ShoppingCheckout() {
                                 {formater.format(
                                     arrCarts.reduce((p, c) => {
                                         const key = `${c.id}`
-                                        if (key in selected){
+                                        if (key in selected) {
                                             const { qty } = selected[key];
                                             return p + ((language == 'id' ? Number(c.product.sale_price) : Number(c.product.sale_usd)) * qty)
                                         }
@@ -390,7 +395,7 @@ export default function ShoppingCheckout() {
                                 {formater.format(
                                     arrCarts.reduce((p, c) => {
                                         const key = `${c.id}`
-                                        if (key in selected){
+                                        if (key in selected) {
                                             const { qty } = selected[key];
                                             return p + ((language == 'id' ? Number(c.product.sale_price) : Number(c.product.sale_usd)) * qty)
                                         }
