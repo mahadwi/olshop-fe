@@ -56,6 +56,7 @@ export default function ShoppingCheckout() {
             }
         }).finally(() => {
             setLoading(false)
+            setModalChangeCourier(true)
         })
     }
 
@@ -92,6 +93,9 @@ export default function ShoppingCheckout() {
                 .catch((error) => console.log(error))
                 .finally(() => {
                     setLoading(false)
+                    if (!modalChangeCourier) {
+                        setModalChangeCourier(true)
+                    }
                 })
         }
     }, [selectedCourier, selectedAddress])
