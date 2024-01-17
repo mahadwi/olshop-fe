@@ -8,6 +8,7 @@ import { LoadingContext } from "../../../context/LoadingContext";
 import { LanguageContext } from "../../../context/LanguageContext";
 import Api from "../../../utils/Api";
 import StringUtil from "../../../utils/StringUtil";
+import toast from 'react-hot-toast';
 
 export default function ShoppingCart() {
 
@@ -126,7 +127,13 @@ export default function ShoppingCart() {
             return p
         }, {}));
 
+        if (Object.keys(selectedObj).length == 0) {
+            toast.error("No selection made. Please choose an item before proceeding")
+            return false;
+        }
+
         localStorage.setItem('selectedObj', JSON.stringify(selectedObj));
+        return true
     }
 
     return (
@@ -251,8 +258,9 @@ export default function ShoppingCart() {
                         </div>
                         <div className="bottom-action">
                             <button type="button" onClick={() => {
-                                doCheckOut()
-                                window.location.href = '/shopping/checkout'
+                                if (doCheckOut()) {
+                                    window.location.href = '/shopping/checkout'
+                                }
                             }}>Check Out</button>
                         </div>
                     </div>
@@ -278,8 +286,9 @@ export default function ShoppingCart() {
                             </span>
                         </div>
                         <button type="button" onClick={() => {
-                            doCheckOut()
-                            window.location.href = '/shopping/checkout'
+                            if (doCheckOut()) {
+                                window.location.href = '/shopping/checkout'
+                            }
                         }}>Check Out</button>
                     </div>
                 </div>
