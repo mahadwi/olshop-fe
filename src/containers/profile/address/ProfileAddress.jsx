@@ -37,7 +37,7 @@ export default function ProfileAddress() {
     const [phoneCreateAddress, setPhoneCreateAddress] = useState('')
     const [addressCreateAddress, setAddressCreateAddress] = useState('')
     const [subDistrictCreateAddress, setSubDistrictCreateAddress] = useState({ value: '', label: '' })
-    const [tagCreateAddress, setTagCreateAddress] = useState('')
+    const [tagCreateAddress, setTagCreateAddress] = useState('Home')
     const [errorObj422, setErrorObj422] = useState({})
     const [objEditAddress, setObjEditAddress] = useState({})
     const [selectedSubDistrictEdit, setSelectedSubDistrictEdit] = useState({ value: '', label: '' })

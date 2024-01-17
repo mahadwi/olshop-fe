@@ -160,7 +160,17 @@ export default function VendorIndex() {
                         <div className='divider' />
                         <div className='bottom'>
                             <button onClick={() => setStep(-1)}>CANCEL</button>
-                            <button>NEXT</button>
+                            <button onClick={() => setStep(1)}>NEXT</button>
+                        </div>
+                    </div>
+                : null }
+                { step == 1 ?
+                    <div className='step-1 bg-white'>
+                        <div className='steps'>
+                            <div className='step'>Account Information</div>
+                            <div className='step active'>Product Information</div>
+                            <div className='step'>Review & Authentic</div>
+                            <div className='step'>Listing Product</div>
                         </div>
                     </div>
                 : null }
