@@ -12,6 +12,7 @@ import StringUtil from "../../../utils/StringUtil";
 import { Link } from "react-router-dom";
 import Select from 'react-select';
 import Flickity from 'react-flickity-component'
+import Checkbox from "react-custom-checkbox";
 
 export default function ShoppingCheckout() {
     /**
@@ -37,6 +38,8 @@ export default function ShoppingCheckout() {
 
     const [shippingFees, setShippingFees] = useState([]);
     const [selectedShippingFees, setSelectedShippingFees] = useState(-1);
+
+    const [modalVoucher, setModalVoucher] = useState(false)
 
     useEffect(() => {
         setLoading(true)
@@ -146,6 +149,31 @@ export default function ShoppingCheckout() {
         });
     }
 
+    const [ vouchers, setVouchers ] = useState([]);
+    const [ selectedVoucher, setSelectedVoucher ] = useState(-1);
+
+    const doLoadVouchers = () => {
+        if (vouchers.length != 0) {
+            setModalVoucher(true)
+            return
+        }
+
+        setLoading(true);
+        Api.get(`/voucher/?use_for=Product`, {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('apiToken'),
+            },
+        }).then((res) => {
+            setVouchers(res.data.data)
+            console.log(res.data.data);
+            setModalVoucher(true)
+        }).catch((err) => {
+            console.log(err);
+        }).finally(() => {
+            setLoading(false)
+        })
+    }
+
     return (
         <ContainerComponent>
             {/* Modal Create */}
@@ -240,6 +268,56 @@ export default function ShoppingCheckout() {
                 </Modal.Footer>
             </Modal>
             {/* End of Modal Create */}
+            {/* Modal Voucher */}
+            <Modal show={modalVoucher} centered onHide={() => {
+                setModalVoucher(false)
+            }}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Select Voucher</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className="modal-courier">
+                        <div className="courier-option">
+                            <div className="title">
+                                Add Voucher
+                            </div>
+                            <div className="input-text">
+                                <input type="text" className='form-control' name="voucher" id="voucher" />
+                            </div>
+                            <button>
+                                APPLY
+                            </button>
+                        </div>
+                        <div className="voucher-contents">
+                            {vouchers.map((c, i) => {
+                                return (
+                                    <div className={`voucher-content`}>
+                                        <div className="left">
+                                            <div className="name">{c.name}</div>
+                                            <div className="code">{c.code}</div>
+                                            <div className="expiring">
+                                                Expiring: {c.duration}
+                                            </div>
+                                        </div>
+                                        <Checkbox borderColor={'#DADADA'} checked={selectedVoucher == i} onChange={(value) => {setSelectedVoucher(value ? i : -1)}} />
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+                </Modal.Body>
+                <Modal.Footer>
+                    <div className='modal-courier-bottom'>
+                        <button onClick={() => { setModalVoucher(false) }}>
+                            CANCEL
+                        </button>
+                        <button onClick={() => { setModalVoucher(false) }}>
+                            SUBMIT
+                        </button>
+                    </div>
+                </Modal.Footer>
+            </Modal>
+            {/* End of Modal Voucher */}
             <div className="shopping-checkout-wrapper">
                 <h2 className="title-checkout">Check Out</h2>
 
@@ -355,7 +433,7 @@ export default function ShoppingCheckout() {
                             <h4>Platform Voucher</h4>
                         </div>
                         <div className="right">
-                            <h4>Enter code</h4>
+                            <h4 onClick={doLoadVouchers}>{ selectedVoucher == -1 ? "Enter code" : vouchers[selectedVoucher].code}</h4>
                         </div>
                     </div>
                     { /* <div className="basic-row basic-row__payment">

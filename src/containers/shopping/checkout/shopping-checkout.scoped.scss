@@ -505,12 +505,26 @@
             letter-spacing: 0.56px;
         }
 
-        .select {
+        .select, .input-text {
             flex: 1 0;
+        }
+
+        button {
+            border-radius: 5px;
+            border: 1px solid #C8D1E1;
+            background: #111;
+            color: #FFF;
+            font-family: Inter;
+            font-size: 12px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;
+            letter-spacing: 0.48px;
+            padding: 0.5rem 2rem;
         }
     }
 
-    .shipping-fee-contents {
+    .shipping-fee-contents, .voucher-contents {
         margin-top: 2rem;
         display: flex;
         flex-direction: column;
@@ -561,6 +575,54 @@
                 font-weight: 500;
                 line-height: normal;
                 letter-spacing: 0.32px;
+            }
+        }
+
+        .voucher-content {
+            border-radius: 5px;
+            border: 1px solid #DADADA;
+            background: #FFF;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: row;
+            gap: 0.25rem;
+            align-items: center;
+
+            .left {
+                display: flex;
+                flex: 1 0;
+                flex-direction: column;
+
+                .name {
+                    color: #111;
+                    font-family: Inter;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 700;
+                    line-height: normal;
+                    letter-spacing: 0.56px;
+                }
+
+                .code {
+                    color: #A2A3B1;
+                    font-family: Inter;
+                    font-size: 13px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: normal;
+                    letter-spacing: 0.52px;
+                }
+
+                .expiring {
+                    color: #F44336;
+                    font-family: Inter;
+                    font-size: 12px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: normal;
+                    letter-spacing: 0.48px;
+                    margin-top: 0.5rem;
+                }
             }
         }
     }
