@@ -528,6 +528,8 @@
         margin-top: 2rem;
         display: flex;
         flex-direction: column;
+        max-height: 50vh;
+        overflow: auto;
         gap: 1rem;
 
         .shipping-fee-content {

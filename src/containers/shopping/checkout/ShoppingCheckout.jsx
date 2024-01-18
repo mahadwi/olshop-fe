@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import Select from 'react-select';
 import Flickity from 'react-flickity-component'
 import Checkbox from "react-custom-checkbox";
+import toast from 'react-hot-toast';
 
 export default function ShoppingCheckout() {
     /**
@@ -132,7 +133,7 @@ export default function ShoppingCheckout() {
             address_id: user.addresses[selectedAddress].id,
             // voucher: "",
             // discount: 10000,
-            total: total,
+            total: total + ((total - ongkir) * 0.01),
             note: "tes",
             details: details,
         };
@@ -150,7 +151,7 @@ export default function ShoppingCheckout() {
     }
 
     const [ vouchers, setVouchers ] = useState([]);
-    const [ selectedVoucher, setSelectedVoucher ] = useState(-1);
+    const [ selectedVoucher, setSelectedVoucher ] = useState(null);
 
     const doLoadVouchers = () => {
         if (vouchers.length != 0) {
@@ -165,9 +166,27 @@ export default function ShoppingCheckout() {
             },
         }).then((res) => {
             setVouchers(res.data.data)
-            console.log(res.data.data);
             setModalVoucher(true)
         }).catch((err) => {
+            console.log(err);
+        }).finally(() => {
+            setLoading(false)
+        })
+    }
+
+    const [ voucherCode, setVoucherCode ] = useState("");
+
+    const doApplyVoucherCode = () => {
+        setLoading(true);
+        Api.get(`/voucher/${voucherCode}`, {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('apiToken'),
+            },
+        }).then((res) => {
+            setSelectedVoucher(res.data.data)
+            setModalVoucher(false)
+        }).catch((err) => {
+            toast.error("Voucher Not Found")
             console.log(err);
         }).finally(() => {
             setLoading(false)
@@ -282,14 +301,14 @@ export default function ShoppingCheckout() {
                                 Add Voucher
                             </div>
                             <div className="input-text">
-                                <input type="text" className='form-control' name="voucher" id="voucher" />
+                                <input type="text" className='form-control' name="voucher" id="voucher" onInput={(e) => setVoucherCode(e.currentTarget.value)} />
                             </div>
-                            <button>
+                            <button onClick={doApplyVoucherCode}>
                                 APPLY
                             </button>
                         </div>
                         <div className="voucher-contents">
-                            {vouchers.map((c, i) => {
+                            {vouchers.map((c) => {
                                 return (
                                     <div className={`voucher-content`}>
                                         <div className="left">
@@ -299,7 +318,7 @@ export default function ShoppingCheckout() {
                                                 Expiring: {c.duration}
                                             </div>
                                         </div>
-                                        <Checkbox borderColor={'#DADADA'} checked={selectedVoucher == i} onChange={(value) => {setSelectedVoucher(value ? i : -1)}} />
+                                        <Checkbox borderColor={'#DADADA'} checked={selectedVoucher?.code == c.code} onChange={(value) => {setSelectedVoucher(value ? c : null)}} />
                                     </div>
                                 );
                             })}
@@ -433,7 +452,7 @@ export default function ShoppingCheckout() {
                             <h4>Platform Voucher</h4>
                         </div>
                         <div className="right">
-                            <h4 onClick={doLoadVouchers}>{ selectedVoucher == -1 ? "Enter code" : vouchers[selectedVoucher].code}</h4>
+                            <h4 onClick={doLoadVouchers}>{ selectedVoucher == null ? "Enter code" : selectedVoucher.code}</h4>
                         </div>
                     </div>
                     { /* <div className="basic-row basic-row__payment">
@@ -469,7 +488,18 @@ export default function ShoppingCheckout() {
                         </div>
                         <div>
                             <h4>Handling fee</h4>
-                            <h4>0</h4>
+                            <h4>
+                                {formater.format(
+                                    arrCarts.reduce((p, c) => {
+                                        const key = `${c.id}`
+                                        if (key in selected) {
+                                            const { qty } = selected[key];
+                                            return p + ((language == 'id' ? Number(c.product.sale_price) : Number(c.product.sale_usd)) * qty)
+                                        }
+                                        return p;
+                                    }, 0) * 0.01
+                                )}
+                            </h4>
                         </div>
                         <div className="total">
                             <h4>Total Payment</h4>
@@ -483,6 +513,15 @@ export default function ShoppingCheckout() {
                                         }
                                         return p;
                                     }, selectedShippingFees != -1 ? shippingFees[selectedShippingFees].cost[0].value : 0)
+                                    +
+                                    (arrCarts.reduce((p, c) => {
+                                        const key = `${c.id}`
+                                        if (key in selected) {
+                                            const { qty } = selected[key];
+                                            return p + ((language == 'id' ? Number(c.product.sale_price) : Number(c.product.sale_usd)) * qty)
+                                        }
+                                        return p;
+                                    }, 0) * 0.01)
                                 )}
                             </h4>
                         </div>
