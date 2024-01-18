@@ -15,6 +15,10 @@ import Flickity from 'react-flickity-component'
 import Checkbox from "react-custom-checkbox";
 import toast from 'react-hot-toast';
 
+const subtractByPercent = (total, percent) => {
+    return total - (total * (percent / 100))
+}
+
 export default function ShoppingCheckout() {
     /**
      * Context
@@ -91,7 +95,7 @@ export default function ShoppingCheckout() {
                 }, 0),
             })
                 .then((res) => {
-                    setShippingFees(res.data.data[0].costs)
+                    setShippingFees(res.data.data)
                     setSelectedShippingFees(-1);
                 })
                 .catch((error) => console.log(error))
@@ -106,8 +110,9 @@ export default function ShoppingCheckout() {
 
     const doOrder = () => {
         setLoading(true)
-        const ongkir = selectedShippingFees != -1 ? shippingFees[selectedShippingFees].cost[0].value : 0;
-        let total = ongkir;
+        const ongkir = selectedShippingFees != -1 ? (Number(language == 'id' ? shippingFees[selectedShippingFees].cost[0].value : shippingFees[selectedShippingFees].cost[0].value_usd)) : 0;
+        const discount = selectedVoucher != null && selectedVoucher.type == "Price" ? Number(language == 'id' ? selectedVoucher.disc_price : selectedVoucher.disc_price_usd) : 0;
+        let total = discount * -1;
         const details = [];
 
         for (const c of arrCarts) {
@@ -126,17 +131,23 @@ export default function ShoppingCheckout() {
             }
         }
 
+        total = subtractByPercent(
+            total, 
+            selectedVoucher != null && selectedVoucher.type == "Percent" ? selectedVoucher.disc_percent : 0
+        )
+
         const data = {
             user_id: user.id,
             courier: selectedCourier.value,
             ongkir: ongkir,
             address_id: user.addresses[selectedAddress].id,
-            // voucher: "",
-            // discount: 10000,
-            total: total + ((total - ongkir) * 0.01),
+            voucher: selectedVoucher != null && selectedVoucher.code,
+            discount: discount,
+            total: total + ongkir,
             note: "tes",
             details: details,
         };
+        // console.log(data);
         Api.post(`/order`, data, {
             headers: {
                 Authorization: 'Bearer ' + localStorage.getItem('apiToken')
@@ -255,7 +266,7 @@ export default function ShoppingCheckout() {
                             </div>
                         </div>
                         <div className="shipping-fee-contents">
-                            {shippingFees.map((c, i) => {
+                            {shippingFees?.map((c, i) => {
                                 return (
                                     <div className={`shipping-fee-content ${selectedShippingFees == i ? 'active' : ''}`} onClick={() => { setSelectedShippingFees(i) }}>
                                         <div className='top'>
@@ -263,7 +274,7 @@ export default function ShoppingCheckout() {
                                                 {c.service}
                                             </div>
                                             <div className='price'>
-                                                {user ? formater.format(Number(language == 'id' ? c.cost[0].value : c.cost[0].value)) : null}
+                                                {user ? formater.format(Number(language == 'id' ? c.cost[0].value : c.cost[0].value_usd)) : null}
                                             </div>
                                         </div>
                                         <div className='bottom'>
@@ -439,7 +450,7 @@ export default function ShoppingCheckout() {
                                     <h4 onClick={() => { setModalChangeCourier(true) }}>Change</h4>
                                 </div>
                                 <div>
-                                    <h4>{formater.format(selectedShippingFees != -1 ? shippingFees[selectedShippingFees].cost[0].value : 0)}</h4>
+                                    <h4>{formater.format(selectedShippingFees != -1 ? (Number(language == 'id' ? shippingFees[selectedShippingFees].cost[0].value : shippingFees[selectedShippingFees].cost[0].value_usd)) : 0)}</h4>
                                 </div>
                             </div>
                         </div>
@@ -470,7 +481,7 @@ export default function ShoppingCheckout() {
                         <div>
                             <h4>Transfer bank</h4>
                             <h4>
-                                {formater.format(
+                                {formater.format(subtractByPercent(
                                     arrCarts.reduce((p, c) => {
                                         const key = `${c.id}`
                                         if (key in selected) {
@@ -478,15 +489,16 @@ export default function ShoppingCheckout() {
                                             return p + ((language == 'id' ? Number(c.product.sale_price) : Number(c.product.sale_usd)) * qty)
                                         }
                                         return p;
-                                    }, 0)
-                                )}
+                                    }, selectedVoucher != null && selectedVoucher.type == "Price" ? Number(language == 'id' ? selectedVoucher.disc_price : selectedVoucher.disc_price_usd) * -1 : 0 )
+                                    , selectedVoucher != null && selectedVoucher.type == "Percent" ? selectedVoucher.disc_percent : 0
+                                ))}
                             </h4>
                         </div>
                         <div>
                             <h4>Shipping Total</h4>
-                            <h4>{formater.format(selectedShippingFees != -1 ? shippingFees[selectedShippingFees].cost[0].value : 0)}</h4>
+                            <h4>{formater.format(selectedShippingFees != -1 ? (Number(language == 'id' ? shippingFees[selectedShippingFees].cost[0].value : shippingFees[selectedShippingFees].cost[0].value_usd)) : 0)}</h4>
                         </div>
-                        <div>
+                        { /* <div>
                             <h4>Handling fee</h4>
                             <h4>
                                 {formater.format(
@@ -500,11 +512,11 @@ export default function ShoppingCheckout() {
                                     }, 0) * 0.01
                                 )}
                             </h4>
-                        </div>
+                        </div> */ }
                         <div className="total">
                             <h4>Total Payment</h4>
                             <h4>
-                                {formater.format(
+                                {formater.format(subtractByPercent(
                                     arrCarts.reduce((p, c) => {
                                         const key = `${c.id}`
                                         if (key in selected) {
@@ -512,17 +524,10 @@ export default function ShoppingCheckout() {
                                             return p + ((language == 'id' ? Number(c.product.sale_price) : Number(c.product.sale_usd)) * qty)
                                         }
                                         return p;
-                                    }, selectedShippingFees != -1 ? shippingFees[selectedShippingFees].cost[0].value : 0)
-                                    +
-                                    (arrCarts.reduce((p, c) => {
-                                        const key = `${c.id}`
-                                        if (key in selected) {
-                                            const { qty } = selected[key];
-                                            return p + ((language == 'id' ? Number(c.product.sale_price) : Number(c.product.sale_usd)) * qty)
-                                        }
-                                        return p;
-                                    }, 0) * 0.01)
-                                )}
+                                    }, selectedVoucher != null && selectedVoucher.type == "Price" ? Number(language == 'id' ? selectedVoucher.disc_price : selectedVoucher.disc_price_usd) * -1 : 0)
+                                    + (selectedShippingFees != -1 ? (Number(language == 'id' ? shippingFees[selectedShippingFees].cost[0].value : shippingFees[selectedShippingFees].cost[0].value_usd)) : 0)
+                                    , selectedVoucher != null && selectedVoucher.type == "Percent" ? selectedVoucher.disc_percent : 0
+                                ))}
                             </h4>
                         </div>
                     </div>
