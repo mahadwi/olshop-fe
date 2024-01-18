@@ -284,4 +284,190 @@
             }
         }
     }
+
+    .step-1-main {
+        margin-top: 0.5rem;
+        display: flex;
+        flex-direction: row;
+        gap: 0.5rem;
+
+        .left {
+            align-self: start;
+            background: #fff;
+            padding: 1.5rem;
+            color: #000;
+            font-family: Inter;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+            letter-spacing: 0.56px;
+
+            button {
+                background: #151B4F;
+                border: 0;
+                color: #FFF;
+                font-family: Cambay;
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: 20px; /* 125% */
+                letter-spacing: 0.1px;
+                padding: 0.5rem 2rem;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                gap:1rem;
+            }
+
+            .links {
+                margin-top: 0.75rem;
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+
+        .right {
+            flex: 1 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+
+            .top {
+                display: flex;
+                flex-direction: row;
+                border-radius: 5px;
+                background: #FFF;
+                padding: 0.5rem;
+                justify-content: space-between;
+                align-items: center;
+                padding-left: 2rem;
+
+                .name {
+                    color: #000;
+                    font-family: Inter;
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 800;
+                    line-height: normal;
+                    letter-spacing: 0.64px;
+                }
+
+                .search {
+                    display: flex;
+                    flex-direction: row;
+                    color: #000;
+                    font-family: Inter;
+                    font-size: 10px;
+                    font-style: normal;
+                    font-weight: 700;
+                    line-height: normal;
+                    letter-spacing: 0.4px;
+                    justify-content: center;
+                    align-items: center;
+                    gap:0.75rem;
+
+                    .layout {
+                        display: flex;
+                        flex-direction: row;
+                        border-radius: 8px;
+                        border: 1px solid #C8D1E1;
+                        background: #000;
+
+                        button {
+                            background: transparent;
+                            border: 0;
+                            color: #fff;
+                            display: flex;
+                            padding: 0.25rem;
+
+                            &.active {
+                                border-radius: 5px;
+                                background: #E4A951;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .products {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+
+                .product {
+                    border-radius: 5px;
+                    background: #FFF;
+                    display: flex;
+                    flex-direction: row;
+
+                    .image {
+                        display: flex;
+                        padding: 0.5rem;
+
+                        img {
+                            width: 148px;
+                            height: 110px;
+                            object-fit: cover;
+                        }
+                    }
+
+                    .center {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: space-between;
+                        padding: 0.5rem 0.5rem 0.5rem 2rem;color: #828181;
+                        font-family: Inter;
+                        font-size: 12px;
+                        font-style: normal;
+                        font-weight: 500;
+                        line-height: normal;
+                        letter-spacing: 0.48px;
+
+                        .name {
+                            color: #000;
+                            font-family: Inter;
+                            font-size: 14px;
+                            font-style: normal;
+                            font-weight: 700;
+                            line-height: 16px; /* 114.286% */
+                        }
+
+                        .price {
+                            color: #545454;
+                            font-family: Inter;
+                            font-size: 14px;
+                            font-style: normal;
+                            font-weight: 500;
+                            line-height: normal;
+                            letter-spacing: 0.56px;
+                        }
+                    }
+
+                    .status {
+                        border-radius: 5px;
+                        background: #E4A951;
+                        margin-left: auto;
+                        color: #FFF;
+                        text-align: center;
+                        font-family: Inter;
+                        font-size: 12px;
+                        font-style: normal;
+                        font-weight: 500;
+                        line-height: normal;
+                        letter-spacing: 0.48px;
+                        align-self: end;
+                        padding: 0.5rem 0;
+                        width: 10rem;
+
+                        &.approve {
+                            background: #00AE65;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
