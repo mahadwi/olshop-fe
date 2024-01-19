@@ -57,7 +57,7 @@
             letter-spacing: 2.1px;
             border-radius: 15px;
             background: #000;
-            border:0;
+            border: 0;
             padding: 1rem 3rem;
         }
     }
@@ -74,7 +74,7 @@
         display: flex;
         flex-direction: row;
         justify-content: center;
-        gap:1rem;
+        gap: 1rem;
 
         .step {
             display: flex;
@@ -82,7 +82,7 @@
             justify-content: center;
             align-items: center;
             flex-basis: 14rem;
-            gap:1rem;
+            gap: 1rem;
             position: relative;
 
             &::before {
@@ -105,11 +105,13 @@
                 background: #000;
             }
 
-            &.active ~ .step {
+            &.active~.step {
                 color: #A2A3B1;
+
                 &::after {
                     background: #C4C4C4;
                 }
+
                 &::before {
                     background: #C8D1E1;
                 }
@@ -140,7 +142,7 @@
 
                     .left-form-group {
                         flex: 1;
-                        padding-top:0.25rem;
+                        padding-top: 0.25rem;
 
                         label.form-label {
                             margin-bottom: 0;
@@ -158,7 +160,7 @@
                         align-items: center;
                         justify-content: center;
                         margin: 0 1.25rem;
-                        padding-top:0.25rem;
+                        padding-top: 0.25rem;
 
                         span {
                             color: #000;
@@ -263,12 +265,12 @@
             display: flex;
             flex-direction: row;
             justify-content: end;
-            gap:0.5rem;
+            gap: 0.5rem;
 
             button {
                 border-radius: 5px;
                 background: #000;
-                border:0;
+                border: 0;
                 color: #FFF;
                 text-align: center;
                 font-family: Cabin;
@@ -311,14 +313,15 @@
                 font-size: 16px;
                 font-style: normal;
                 font-weight: 700;
-                line-height: 20px; /* 125% */
+                line-height: 20px;
+                /* 125% */
                 letter-spacing: 0.1px;
                 padding: 0.5rem 2rem;
                 display: flex;
                 flex-direction: row;
                 justify-content: center;
                 align-items: center;
-                gap:1rem;
+                gap: 1rem;
             }
 
             .links {
@@ -367,7 +370,7 @@
                     letter-spacing: 0.4px;
                     justify-content: center;
                     align-items: center;
-                    gap:0.75rem;
+                    gap: 0.75rem;
 
                     .layout {
                         display: flex;
@@ -418,7 +421,8 @@
                         display: flex;
                         flex-direction: column;
                         justify-content: space-between;
-                        padding: 0.5rem 0.5rem 0.5rem 2rem;color: #828181;
+                        padding: 0.5rem 0.5rem 0.5rem 2rem;
+                        color: #828181;
                         font-family: Inter;
                         font-size: 12px;
                         font-style: normal;
@@ -432,7 +436,8 @@
                             font-size: 14px;
                             font-style: normal;
                             font-weight: 700;
-                            line-height: 16px; /* 114.286% */
+                            line-height: 16px;
+                            /* 114.286% */
                         }
 
                         .price {
@@ -465,6 +470,361 @@
                         &.approve {
                             background: #00AE65;
                         }
+                    }
+                }
+            }
+        }
+
+        &.sell-item {
+            .card {
+                width: 80%;
+                margin: auto;
+                border: 0px;
+                padding: 1.75rem;
+                margin-top: .35rem;
+
+                .top {
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-start;
+                    gap: .5rem;
+
+                    button {
+                        background: #FFF;
+                        border: 0px;
+                    }
+
+                    h2 {
+                        color: #000;
+                        font-family: 'Inter', sans-serif;
+                        font-size: 16px;
+                        font-style: normal;
+                        font-weight: 900;
+                        line-height: normal;
+                        letter-spacing: 0.64px;
+                        margin-bottom: 0;
+                    }
+                }
+
+                .body {
+                    margin-top: 1.5rem;
+
+                    .add-photo-wrap {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+                        border-radius: 5px;
+                        border: 1px solid #C8D1E1;
+                        background: #FFF;
+                        height: 139px;
+                        gap: .5rem;
+
+                        div {
+                            background: #D9E0EE;
+                            width: 32px;
+                            height: 32px;
+                            border-radius: 16px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                        }
+
+                        p {
+                            color: #000;
+                            text-align: center;
+                            font-family: 'Inter', sans-serif;
+                            font-size: 11px;
+                            font-style: normal;
+                            font-weight: 600;
+                            line-height: normal;
+                            letter-spacing: 0.44px;
+                            margin-bottom: 0;
+                        }
+                    }
+
+                    .input-title {
+                        margin-top: .8rem;
+                        margin-bottom: 1rem;
+
+                        &.input-title-2 {
+                            margin-top: 1.5rem;
+                            margin-bottom: 1.5rem;
+                        }
+
+                        h4 {
+                            color: #000;
+                            font-family: 'Inter', sans-serif;
+                            font-size: 12px;
+                            font-style: normal;
+                            font-weight: 600;
+                            line-height: normal;
+                            letter-spacing: 0.48px;
+                            margin-bottom: 0;
+                        }
+
+                        p {
+                            color: #A2A3B1;
+                            font-family: 'Inter', sans-serif;
+                            font-size: 10px;
+                            font-style: normal;
+                            font-weight: 600;
+                            line-height: normal;
+                            letter-spacing: 0.4px;
+                            margin-bottom: 0;
+                            margin-top: .25rem;
+                        }
+                    }
+
+                    .form-area {
+                        .two-col {
+                            display: flex;
+                            gap: 1.25rem;
+
+                            div {
+                                flex: 1;
+                            }
+                        }
+
+                        .col {
+                            margin-bottom: .7rem;
+
+                            input {
+                                border-radius: 5px;
+                                border: 1px solid #C8D1E1;
+                                background: #FFF;
+                                font-family: 'Inter', sans-serif;
+                                font-size: 10px;
+                                font-style: normal;
+                                font-weight: 600;
+                                line-height: normal;
+                                letter-spacing: 0.4px;
+                                padding: .6rem 1rem;
+                                width: 100%;
+
+                                &::placeholder {
+                                    color: #A2A3B1;
+                                }
+                            }
+
+                            textarea {
+                                border-radius: 5px;
+                                border: 1px solid #C8D1E1;
+                                background: #FFF;
+                                font-family: 'Inter', sans-serif;
+                                font-size: 10px;
+                                font-style: normal;
+                                font-weight: 600;
+                                line-height: normal;
+                                letter-spacing: 0.4px;
+                                padding: .6rem 1rem;
+                                width: 100%;
+
+                                &::placeholder {
+                                    color: #A2A3B1;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .footer {
+                    margin-top: 1.5rem;
+                    display: flex;
+                    justify-content: center;
+                    gap: 1.15rem;
+
+                    button {
+                        text-align: center;
+                        font-family: 'Roboto', sans-serif;
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 700;
+                        line-height: 0px;
+                        /* 0% */
+                        letter-spacing: 2.1px;
+                        border-radius: 15px;
+                        padding: 1.5rem 3.5rem;
+                        outline: 0px;
+                        border: 0px;
+
+                        &.preview {
+                            color: #151B4F;
+                            border: 1px solid #151B4F;
+                            background: #FFF;
+                        }
+
+                        &.next {
+                            border-radius: 15px;
+                            background: #151B4F;
+                            color: #FFF;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+.modal-prainjau-body {
+    p.title-body {
+        color: #000;
+        font-family: 'Inter', sans-serif;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+        letter-spacing: 0.48px;
+    }
+
+    .body {
+        display: flex;
+        height: 80vh;
+
+        .left {
+            flex: 4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
+            background: #EEE;
+
+            div {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+
+                h2 {
+                    color: #000;
+                    font-family: 'Inter', sans-serif;
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 600;
+                    line-height: normal;
+                    letter-spacing: 0.64px;
+                    text-align: center;
+                }
+
+                p {
+                    color: #828181;
+                    text-align: center;
+                    font-family: 'Inter', sans-serif;
+                    font-size: 13px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: normal;
+                    letter-spacing: 0.52px;
+                    text-align: center;
+                    width: 50%;
+                }
+            }
+        }
+
+        .right {
+            flex: 3;
+            border-radius: 5px;
+            border: 1px solid #C4C4C4;
+            background: #FFF;
+            padding: 1.5rem;
+
+            .top {
+                h2.title {
+                    color: #A2A3B1;
+                    font-family: 'Inter', sans-serif;
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 800;
+                    line-height: normal;
+                    letter-spacing: 0.64px;
+                }
+
+                h3.price {
+                    color: #A2A3B1;
+                    font-family: 'Inter', sans-serif;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: normal;
+                    letter-spacing: 0.56px;
+                    margin-bottom: .2rem;
+                }
+
+                p.p {
+                    color: #A2A3B1;
+                    font-family: 'Inter', sans-serif;
+                    font-size: 12px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: normal;
+                    letter-spacing: 0.48px;
+                }
+            }
+
+            .bottom {
+                margin-top: 2.5rem;
+
+                h2.title {
+                    color: #A2A3B1;
+                    font-family: 'Inter', sans-serif;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 700;
+                    line-height: normal;
+                    letter-spacing: 0.56px;
+                }
+
+                hr {
+                    margin-top: 2.75rem;
+                    margin-bottom: 0;
+                }
+
+                .seller-info {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    margin-top: .8rem;
+
+                    p.seller-info-left {
+                        color: #A2A3B1;
+                        font-family: 'Inter', sans-serif;
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 700;
+                        line-height: normal;
+                        letter-spacing: 0.56px;
+                        margin-bottom: 0;
+                    }
+
+                    p.seller-info-right {
+                        color: #A2A3B1;
+                        font-family: 'Inter', sans-serif;
+                        font-size: 11px;
+                        font-style: normal;
+                        font-weight: 500;
+                        line-height: normal;
+                        letter-spacing: 0.44px;
+                        margin-bottom: 0;
+                    }
+                }
+
+                .user {
+                    display: flex;
+                    align-items: center;
+                    justify-content: start;
+                    gap: .85rem;
+                    margin-top: .75rem;
+
+                    p {
+                        color: #A2A3B1;
+                        font-family: 'Inter', sans-serif;
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 600;
+                        line-height: normal;
+                        letter-spacing: 0.56px;
+                        margin-bottom: 0;
                     }
                 }
             }
