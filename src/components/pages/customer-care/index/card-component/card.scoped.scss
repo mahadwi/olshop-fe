@@ -1,7 +1,18 @@
+@use './../../../../../styles/func.scoped.scss' as *;
+
 .card-section {
     display: flex;
     gap: 2rem;
     padding-top: 3rem;
+    flex-direction: column;
+    padding-top: 1rem;
+    gap: 1.35rem;
+
+    @include lg {
+        flex-direction: row;
+        padding-top: 3rem;
+        gap: 2rem;
+    }
 
     .card-component {
         flex: 1;
