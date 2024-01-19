@@ -11,6 +11,7 @@ import CurrencyContextProvider from './context/CurrencyContext';
 import AuthUserContextProvider from './context/AuthUserContext';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import CartContextProvider from './context/CartContext';
+import SiteSettingContextProvider from './context/SiteSettingContext';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
@@ -19,17 +20,19 @@ root.render(
     <React.StrictMode>
         <Provider store={store}>
             <GoogleOAuthProvider clientId="947119922402-enroefn9rrlsqpf2baji9qrqp3vigb4f.apps.googleusercontent.com">
-                <LanguageContextProvider>
-                    <CurrencyContextProvider>
-                        <LoadingContextProvider>
-                            <AuthUserContextProvider>
-                                <CartContextProvider>
-                                    <App />
-                                </CartContextProvider>
-                            </AuthUserContextProvider>
-                        </LoadingContextProvider>
-                    </CurrencyContextProvider>
-                </LanguageContextProvider>
+                <SiteSettingContextProvider>
+                    <LanguageContextProvider>
+                        <CurrencyContextProvider>
+                            <LoadingContextProvider>
+                                <AuthUserContextProvider>
+                                    <CartContextProvider>
+                                        <App />
+                                    </CartContextProvider>
+                                </AuthUserContextProvider>
+                            </LoadingContextProvider>
+                        </CurrencyContextProvider>
+                    </LanguageContextProvider>
+                </SiteSettingContextProvider>
             </GoogleOAuthProvider>
         </Provider>
     </React.StrictMode>

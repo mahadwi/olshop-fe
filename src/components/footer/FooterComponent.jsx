@@ -3,10 +3,12 @@ import { IconHeadset, IconInfoCircleFilled, IconShoppingBag, IconTag } from '@ta
 import ContainerComponent from '../general/container/ContainerComponent';
 import './footer.scoped.scss'
 import { AuthUserContext } from '../../context/AuthUserContext'
+import { SiteSettingContext } from '../../context/SiteSettingContext'
 import { useTranslation } from "react-i18next";
 
 export default function FooterComponent() {
     const { user } = useContext(AuthUserContext)
+    const { siteSetting } = useContext(SiteSettingContext)
     const { t } = useTranslation();
 
     return (
@@ -101,7 +103,7 @@ export default function FooterComponent() {
                                 <a href='#'>{t('yourprivacychoize')}</a>
                             </li>
                         </ul>
-                        <p>© {new Date().getFullYear()} LUXURYHUB {t('allrightsreserved')}. | <a href={'/contact'}>{t('followoursocialmedia')}</a></p>
+                        <p>© {siteSetting.copyright} {t('allrightsreserved')}. | <a href={'/contact'}>{t('followoursocialmedia')}</a></p>
                     </div>
                 </div>
             </ContainerComponent>
