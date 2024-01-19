@@ -160,7 +160,7 @@ export default function ShopShow() {
                 weight: productObj.weight,
             })
                 .then((res) => {
-                    setShippingFees(res.data.data[0].costs)
+                    setShippingFees(res.data.data)
                     setSelectedShippingFees(-1);
                 })
                 .catch((error) => console.log(error));
