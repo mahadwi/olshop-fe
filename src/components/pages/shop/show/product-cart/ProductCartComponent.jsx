@@ -8,6 +8,7 @@ import { IconChevronDown, IconChevronUp, IconMinus, IconPlus, IconShoppingCartFi
 import { useNavigate } from 'react-router-dom'
 import { AuthUserContext } from '../../../../../context/AuthUserContext';
 import { LanguageContext } from '../../../../../context/LanguageContext';
+import { CurrencyContext } from '../../../../../context/CurrencyContext';
 
 export default function ProductCartComponent({ onlyDesktop, onlyMobile, productObj, qty, doSubtractQty, doAddQty, shipTo, setShipTo, loadDistricts, couriers, selectedCourier, setSelectedCourier, shippingFeeOpened, setShippingFeeOpened, shippingFees, selectedShippingFees, setSelectedShippingFees, doAddToCart, doBuyNow }) {
 
@@ -23,7 +24,8 @@ export default function ProductCartComponent({ onlyDesktop, onlyMobile, productO
      */
     const { user } = useContext(AuthUserContext)
     const { language } = useContext(LanguageContext)
-    const formater = new Intl.NumberFormat(language == 'id' ? 'id-ID' : 'en-EN', { style: 'currency', currency: language == 'id' ? 'IDR' : 'USD', minimumFractionDigits: 0, maximumFractionDigits: 2 })
+    const { currency } = useContext(CurrencyContext)
+    const formater = new Intl.NumberFormat(currency == 'id' ? 'id-ID' : 'en-EN', { style: 'currency', currency: currency == 'id' ? 'IDR' : 'USD', minimumFractionDigits: 0, maximumFractionDigits: 2 })
 
     return (
         <div className={`product-cart-wrapper ${onlyDesktop ? 'only-desktop' : ''} ${onlyMobile ? 'only-mobile' : ''}`}>
@@ -145,7 +147,7 @@ export default function ProductCartComponent({ onlyDesktop, onlyMobile, productO
                 <div className='group only-desktop'>
                     <div className='price-row-item'>
                         <span className='label'>Price</span>
-                        <span className={`val ${user ? '' : 'blur'}`}>{user ? formater.format(language == 'id' ? productObj.sale_price : productObj.sale_usd) : 'Rp. 19.631.312'}</span>
+                        <span className={`val ${user ? '' : 'blur'}`}>{user ? formater.format(currency == 'id' ? productObj.sale_price : productObj.sale_usd) : 'Rp. 19.631.312'}</span>
                     </div>
                     <div className='price-row-item'>
                         <span className='label'>Shipping Fee</span>
@@ -153,7 +155,7 @@ export default function ProductCartComponent({ onlyDesktop, onlyMobile, productO
                     </div>
                     <div className='price-row-item'>
                         <span className='label'>Sub Total</span>
-                        <span className={`val ${user ? '' : 'blur'}`}>{user ? formater.format(Number(language == 'id' ? productObj.sale_price : productObj.sale_usd) * qty + (selectedShippingFees == -1 ? 0 : shippingFees[selectedShippingFees].cost[0].value)) : 'Rp. 19.631.312'}</span>
+                        <span className={`val ${user ? '' : 'blur'}`}>{user ? formater.format(Number(currency == 'id' ? productObj.sale_price : productObj.sale_usd) * qty + (selectedShippingFees == -1 ? 0 : shippingFees[selectedShippingFees].cost[0].value)) : 'Rp. 19.631.312'}</span>
                     </div>
                     {
                         !user ?

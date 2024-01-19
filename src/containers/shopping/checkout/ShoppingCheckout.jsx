@@ -8,6 +8,7 @@ import Modal from 'react-bootstrap/Modal';
 import { AuthUserContext } from "../../../context/AuthUserContext";
 import { LoadingContext } from "../../../context/LoadingContext";
 import { LanguageContext } from "../../../context/LanguageContext";
+import { CurrencyContext } from "../../../context/CurrencyContext";
 import StringUtil from "../../../utils/StringUtil";
 import { Link } from "react-router-dom";
 import Select from 'react-select';
@@ -27,7 +28,8 @@ export default function ShoppingCheckout() {
     const { user } = useContext(AuthUserContext)
     const { setLoading } = useContext(LoadingContext)
     const { language } = useContext(LanguageContext)
-    const formater = new Intl.NumberFormat(language == 'id' ? 'id-ID' : 'en-EN', { style: 'currency', currency: language == 'id' ? 'IDR' : 'USD', minimumFractionDigits: 0, maximumFractionDigits: 2 })
+    const { currency } = useContext(CurrencyContext)
+    const formater = new Intl.NumberFormat(currency == 'id' ? 'id-ID' : 'en-EN', { style: 'currency', currency: currency == 'id' ? 'IDR' : 'USD', minimumFractionDigits: 0, maximumFractionDigits: 2 })
 
     /**
      * Main State
@@ -110,8 +112,8 @@ export default function ShoppingCheckout() {
 
     const doOrder = () => {
         setLoading(true)
-        const ongkir = selectedShippingFees != -1 ? (Number(language == 'id' ? shippingFees[selectedShippingFees].cost[0].value : shippingFees[selectedShippingFees].cost[0].value_usd)) : 0;
-        const discount = selectedVoucher != null && selectedVoucher.type == "Price" ? Number(language == 'id' ? selectedVoucher.disc_price : selectedVoucher.disc_price_usd) : 0;
+        const ongkir = selectedShippingFees != -1 ? (Number(currency == 'id' ? shippingFees[selectedShippingFees].cost[0].value : shippingFees[selectedShippingFees].cost[0].value_usd)) : 0;
+        const discount = selectedVoucher != null && selectedVoucher.type == "Price" ? Number(currency == 'id' ? selectedVoucher.disc_price : selectedVoucher.disc_price_usd) : 0;
         let total = discount * -1;
         const details = [];
 
@@ -119,7 +121,7 @@ export default function ShoppingCheckout() {
             const key = `${c.id}`
             if (key in selected) {
                 const { qty } = selected[key];
-                const price = language == 'id' ? Number(c.product.sale_price) : Number(c.product.sale_usd)
+                const price = currency == 'id' ? Number(c.product.sale_price) : Number(c.product.sale_usd)
                 const t = price * qty
                 total += t
                 details.push({
@@ -274,7 +276,7 @@ export default function ShoppingCheckout() {
                                                 {c.service}
                                             </div>
                                             <div className='price'>
-                                                {user ? formater.format(Number(language == 'id' ? c.cost[0].value : c.cost[0].value_usd)) : null}
+                                                {user ? formater.format(Number(currency == 'id' ? c.cost[0].value : c.cost[0].value_usd)) : null}
                                             </div>
                                         </div>
                                         <div className='bottom'>
@@ -413,13 +415,13 @@ export default function ShoppingCheckout() {
                                             </div>
                                         </div>
                                         <div className="basic-row-data">
-                                            <h4>{formater.format(language == 'id' ? c.product.sale_price : c.product.sale_usd)}</h4>
+                                            <h4>{formater.format(currency == 'id' ? c.product.sale_price : c.product.sale_usd)}</h4>
                                         </div>
                                         <div className="basic-row-data">
                                             <h4>{qty}</h4>
                                         </div>
                                         <div className="basic-row-data basic-row-data__price">
-                                            <h4>{formater.format((language == 'id' ? Number(c.product.sale_price) : Number(c.product.sale_usd)) * qty)}</h4>
+                                            <h4>{formater.format((currency == 'id' ? Number(c.product.sale_price) : Number(c.product.sale_usd)) * qty)}</h4>
                                         </div>
                                     </div>
                                 );
@@ -450,7 +452,7 @@ export default function ShoppingCheckout() {
                                     <h4 onClick={() => { setModalChangeCourier(true) }}>Change</h4>
                                 </div>
                                 <div>
-                                    <h4>{formater.format(selectedShippingFees != -1 ? (Number(language == 'id' ? shippingFees[selectedShippingFees].cost[0].value : shippingFees[selectedShippingFees].cost[0].value_usd)) : 0)}</h4>
+                                    <h4>{formater.format(selectedShippingFees != -1 ? (Number(currency == 'id' ? shippingFees[selectedShippingFees].cost[0].value : shippingFees[selectedShippingFees].cost[0].value_usd)) : 0)}</h4>
                                 </div>
                             </div>
                         </div>
@@ -486,17 +488,17 @@ export default function ShoppingCheckout() {
                                         const key = `${c.id}`
                                         if (key in selected) {
                                             const { qty } = selected[key];
-                                            return p + ((language == 'id' ? Number(c.product.sale_price) : Number(c.product.sale_usd)) * qty)
+                                            return p + ((currency == 'id' ? Number(c.product.sale_price) : Number(c.product.sale_usd)) * qty)
                                         }
                                         return p;
-                                    }, selectedVoucher != null && selectedVoucher.type == "Price" ? Number(language == 'id' ? selectedVoucher.disc_price : selectedVoucher.disc_price_usd) * -1 : 0 )
+                                    }, selectedVoucher != null && selectedVoucher.type == "Price" ? Number(currency == 'id' ? selectedVoucher.disc_price : selectedVoucher.disc_price_usd) * -1 : 0 )
                                     , selectedVoucher != null && selectedVoucher.type == "Percent" ? selectedVoucher.disc_percent : 0
                                 ))}
                             </h4>
                         </div>
                         <div>
                             <h4>Shipping Total</h4>
-                            <h4>{formater.format(selectedShippingFees != -1 ? (Number(language == 'id' ? shippingFees[selectedShippingFees].cost[0].value : shippingFees[selectedShippingFees].cost[0].value_usd)) : 0)}</h4>
+                            <h4>{formater.format(selectedShippingFees != -1 ? (Number(currency == 'id' ? shippingFees[selectedShippingFees].cost[0].value : shippingFees[selectedShippingFees].cost[0].value_usd)) : 0)}</h4>
                         </div>
                         { /* <div>
                             <h4>Handling fee</h4>
@@ -506,7 +508,7 @@ export default function ShoppingCheckout() {
                                         const key = `${c.id}`
                                         if (key in selected) {
                                             const { qty } = selected[key];
-                                            return p + ((language == 'id' ? Number(c.product.sale_price) : Number(c.product.sale_usd)) * qty)
+                                            return p + ((currency == 'id' ? Number(c.product.sale_price) : Number(c.product.sale_usd)) * qty)
                                         }
                                         return p;
                                     }, 0) * 0.01
@@ -521,11 +523,11 @@ export default function ShoppingCheckout() {
                                         const key = `${c.id}`
                                         if (key in selected) {
                                             const { qty } = selected[key];
-                                            return p + ((language == 'id' ? Number(c.product.sale_price) : Number(c.product.sale_usd)) * qty)
+                                            return p + ((currency == 'id' ? Number(c.product.sale_price) : Number(c.product.sale_usd)) * qty)
                                         }
                                         return p;
-                                    }, selectedVoucher != null && selectedVoucher.type == "Price" ? Number(language == 'id' ? selectedVoucher.disc_price : selectedVoucher.disc_price_usd) * -1 : 0)
-                                    + (selectedShippingFees != -1 ? (Number(language == 'id' ? shippingFees[selectedShippingFees].cost[0].value : shippingFees[selectedShippingFees].cost[0].value_usd)) : 0)
+                                    }, selectedVoucher != null && selectedVoucher.type == "Price" ? Number(currency == 'id' ? selectedVoucher.disc_price : selectedVoucher.disc_price_usd) * -1 : 0)
+                                    + (selectedShippingFees != -1 ? (Number(currency == 'id' ? shippingFees[selectedShippingFees].cost[0].value : shippingFees[selectedShippingFees].cost[0].value_usd)) : 0)
                                     , selectedVoucher != null && selectedVoucher.type == "Percent" ? selectedVoucher.disc_percent : 0
                                 ))}
                             </h4>

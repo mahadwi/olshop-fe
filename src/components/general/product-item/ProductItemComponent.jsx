@@ -9,6 +9,7 @@ import { AuthUserContext } from '../../../context/AuthUserContext';
 import { LoadingContext } from '../../../context/LoadingContext';
 import { CartContext } from '../../../context/CartContext';
 import { LanguageContext } from '../../../context/LanguageContext';
+import { CurrencyContext } from '../../../context/CurrencyContext';
 import { useTranslation } from "react-i18next";
 
 export default function ProductItemComponent({ product, className, blur, wishlistId }) {
@@ -27,7 +28,8 @@ export default function ProductItemComponent({ product, className, blur, wishlis
     const { setLoading } = useContext(LoadingContext)
     const { refreshCarts } = useContext(CartContext)
     const { language } = useContext(LanguageContext)
-    const formater = new Intl.NumberFormat(language == 'id' ? 'id-ID' : 'en-EN', { style: 'currency', currency: language == 'id' ? 'IDR' : 'USD', minimumFractionDigits: 0, maximumFractionDigits: 2 })
+    const { currency } = useContext(CurrencyContext)
+    const formater = new Intl.NumberFormat(currency == 'id' ? 'id-ID' : 'en-EN', { style: 'currency', currency: currency == 'id' ? 'IDR' : 'USD', minimumFractionDigits: 0, maximumFractionDigits: 2 })
 
     /**
      * State
@@ -187,7 +189,7 @@ export default function ProductItemComponent({ product, className, blur, wishlis
                 </h3>
                 <div>
                     <div className='price-area'>
-                        <h4 className={`${blur ? 'blur' : ''}`}>{blur ? 'Rpxxx.xxx' : formater.format(language == 'id' ? tempProduct.sale_price : tempProduct.sale_usd)}</h4>
+                        <h4 className={`${blur ? 'blur' : ''}`}>{blur ? 'Rpxxx.xxx' : formater.format(currency == 'id' ? tempProduct.sale_price : tempProduct.sale_usd)}</h4>
 
                         {
                             blur ?

@@ -10,6 +10,7 @@ import { LoadingContext } from "../../../context/LoadingContext";
 import ApiErrorHandling from "../../../utils/ApiErrorHandling";
 import { AuthUserContext } from "../../../context/AuthUserContext";
 import { LanguageContext } from "../../../context/LanguageContext";
+import { CurrencyContext } from "../../../context/CurrencyContext";
 import WelcomeImage from '../../../images/online shopping app.png';
 import ContainerComponent from "../../../components/general/container/ContainerComponent";
 import { IconList, IconPlus, IconLayoutGrid } from "@tabler/icons-react";
@@ -50,7 +51,8 @@ export default function VendorIndex() {
     const { setLoading } = useContext(LoadingContext)
     const { user, refreshUser } = useContext(AuthUserContext)
     const { language } = useContext(LanguageContext)
-    const formater = new Intl.NumberFormat( language == 'id' ? 'id-ID' : 'en-EN', { style: 'currency', currency: language == 'id' ? 'IDR' : 'USD', minimumFractionDigits: 0, maximumFractionDigits: 2 })
+    const { currency } = useContext(CurrencyContext)
+    const formater = new Intl.NumberFormat(currency == 'id' ? 'id-ID' : 'en-EN', { style: 'currency', currency: currency == 'id' ? 'IDR' : 'USD', minimumFractionDigits: 0, maximumFractionDigits: 2 })
 
     /**
      * Main State
@@ -240,7 +242,7 @@ export default function VendorIndex() {
                                                     </div>
                                                     <div className='center'>
                                                         <div className='name'>{c.name}</div>
-                                                        <div className='price'>{formater.format(language == 'id' ? c.price : c.price_usd )}</div>
+                                                        <div className='price'>{formater.format(currency == 'id' ? c.price : c.price_usd )}</div>
                                                         <div className='stock'>Stock: {c.stock}</div>
                                                         <div className='date'>Ditawarkan pada {c.date}</div>
                                                     </div>

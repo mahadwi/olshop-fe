@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css';
 import LanguageContextProvider from './context/LanguageContext';
 import LoadingContextProvider from './context/LoadingContext';
+import CurrencyContextProvider from './context/CurrencyContext';
 import AuthUserContextProvider from './context/AuthUserContext';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import CartContextProvider from './context/CartContext';
@@ -19,13 +20,15 @@ root.render(
         <Provider store={store}>
             <GoogleOAuthProvider clientId="947119922402-enroefn9rrlsqpf2baji9qrqp3vigb4f.apps.googleusercontent.com">
                 <LanguageContextProvider>
-                    <LoadingContextProvider>
-                        <AuthUserContextProvider>
-                            <CartContextProvider>
-                                <App />
-                            </CartContextProvider>
-                        </AuthUserContextProvider>
-                    </LoadingContextProvider>
+                    <CurrencyContextProvider>
+                        <LoadingContextProvider>
+                            <AuthUserContextProvider>
+                                <CartContextProvider>
+                                    <App />
+                                </CartContextProvider>
+                            </AuthUserContextProvider>
+                        </LoadingContextProvider>
+                    </CurrencyContextProvider>
                 </LanguageContextProvider>
             </GoogleOAuthProvider>
         </Provider>

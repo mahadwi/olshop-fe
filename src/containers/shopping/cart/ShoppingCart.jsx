@@ -6,6 +6,7 @@ import ContainerComponent from "../../../components/general/container/ContainerC
 import { useContext, useEffect, useState } from "react";
 import { LoadingContext } from "../../../context/LoadingContext";
 import { LanguageContext } from "../../../context/LanguageContext";
+import { CurrencyContext } from "../../../context/CurrencyContext";
 import Api from "../../../utils/Api";
 import StringUtil from "../../../utils/StringUtil";
 import toast from 'react-hot-toast';
@@ -18,7 +19,8 @@ export default function ShoppingCart() {
      */
     const { setLoading } = useContext(LoadingContext)
     const { language } = useContext(LanguageContext)
-    const formater = new Intl.NumberFormat(language == 'id' ? 'id-ID' : 'en-EN', { style: 'currency', currency: language == 'id' ? 'IDR' : 'USD', minimumFractionDigits: 0, maximumFractionDigits: 2 })
+    const { currency } = useContext(CurrencyContext)
+    const formater = new Intl.NumberFormat(currency == 'id' ? 'id-ID' : 'en-EN', { style: 'currency', currency: currency == 'id' ? 'IDR' : 'USD', minimumFractionDigits: 0, maximumFractionDigits: 2 })
 
     /**
      * Main State
@@ -175,7 +177,7 @@ export default function ShoppingCart() {
                                         <h4 className="product-name">{cartObj.product.name}</h4>
                                         <span className="product-weight only-desktop">{cartObj.qty} pcs ({StringUtil.numberingWithDotFormat(Math.ceil(cartObj.product.weight * cartObj.qty))} gr)</span>
                                         <div className="price-col only-mobile">
-                                            <h4 className="price">{formater.format((language == 'id' ? Number(cartObj.product.sale_price) : Number(cartObj.product.sale_usd)) * cartObj.qty)}</h4>
+                                            <h4 className="price">{formater.format((currency == 'id' ? Number(cartObj.product.sale_price) : Number(cartObj.product.sale_usd)) * cartObj.qty)}</h4>
                                         </div>
                                         <div className="qty-col only-mobile">
                                             <div>
@@ -196,7 +198,7 @@ export default function ShoppingCart() {
                                     </div>
                                 </div>
                                 <div className="item-price-col only-desktop">
-                                    <h4 className="item-price">{formater.format(language == 'id' ? cartObj.product.sale_price : cartObj.product.sale_usd)}</h4>
+                                    <h4 className="item-price">{formater.format(currency == 'id' ? cartObj.product.sale_price : cartObj.product.sale_usd)}</h4>
                                 </div>
                                 <div className="qty-col only-desktop">
                                     <div>
@@ -210,7 +212,7 @@ export default function ShoppingCart() {
                                     </div>
                                 </div>
                                 <div className="price-col only-desktop">
-                                    <h4 className="price">{formater.format((language == 'id' ? Number(cartObj.product.sale_price) : Number(cartObj.product.sale_usd)) * cartObj.qty)}</h4>
+                                    <h4 className="price">{formater.format((currency == 'id' ? Number(cartObj.product.sale_price) : Number(cartObj.product.sale_usd)) * cartObj.qty)}</h4>
                                 </div>
                                 <div className="delete-col only-desktop">
                                     <button type="button" onClick={() => {
@@ -250,7 +252,7 @@ export default function ShoppingCart() {
                                     <h4>
                                         {formater.format(arrCarts.reduce((total, cartObj) => {
                                             if (!cartObj.selected) return total;
-                                            return Number(language == 'id' ? cartObj.product.sale_price : cartObj.product.sale_usd) * cartObj.qty + total
+                                            return Number(currency == 'id' ? cartObj.product.sale_price : cartObj.product.sale_usd) * cartObj.qty + total
                                         }, 0))}
                                     </h4>
                                 </div>
@@ -281,7 +283,7 @@ export default function ShoppingCart() {
                             <span>
                                 {formater.format(arrCarts.reduce((total, cartObj) => {
                                     if (!cartObj.selected) return total;
-                                    return Number(language == 'id' ? cartObj.product.sale_price : cartObj.product.sale_usd) * cartObj.qty + total
+                                    return Number(currency == 'id' ? cartObj.product.sale_price : cartObj.product.sale_usd) * cartObj.qty + total
                                 }, 0))}
                             </span>
                         </div>

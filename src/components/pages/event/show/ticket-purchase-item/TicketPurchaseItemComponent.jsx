@@ -6,6 +6,7 @@ import { useContext, useState } from "react";
 import { IconCalendar, IconChevronDown, IconPhone, IconReceiptRefund, IconUsers } from "@tabler/icons-react";
 import { IconClock } from "@tabler/icons-react";
 import { LanguageContext } from '../../../../../context/LanguageContext'
+import { CurrencyContext } from '../../../../../context/CurrencyContext'
 
 export default function TicketPurchaseItemComponent({ ticket }) {
     /**
@@ -14,7 +15,8 @@ export default function TicketPurchaseItemComponent({ ticket }) {
      */
     const navigate = useNavigate()
     const { language } = useContext(LanguageContext)
-    const formater = new Intl.NumberFormat( language == 'id' ? 'id-ID' : 'en-EN', { style: 'currency', currency: language == 'id' ? 'IDR' : 'USD', minimumFractionDigits: 0, maximumFractionDigits: 2 })
+    const { currency } = useContext(CurrencyContext)
+    const formater = new Intl.NumberFormat(currency == 'id' ? 'id-ID' : 'en-EN', { style: 'currency', currency: currency == 'id' ? 'IDR' : 'USD', minimumFractionDigits: 0, maximumFractionDigits: 2 })
 
     const [showModal, setShowModal] = useState(false)
 

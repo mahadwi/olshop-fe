@@ -4,6 +4,7 @@ import './profile-orders.scoped.scss';
 import { AuthUserContext } from "../../../context/AuthUserContext";
 import { LoadingContext } from "../../../context/LoadingContext";
 import { LanguageContext } from "../../../context/LanguageContext";
+import { CurrencyContext } from "../../../context/CurrencyContext";
 import { IconInbox } from "@tabler/icons-react";
 
 require('rc-checkbox/assets/index.css');
@@ -55,7 +56,8 @@ export default function ProfileOrders() {
      */
     const { setLoading } = useContext(LoadingContext)
     const { language } = useContext(LanguageContext)
-    const formater = new Intl.NumberFormat( language == 'id' ? 'id-ID' : 'en-EN', { style: 'currency', currency: language == 'id' ? 'IDR' : 'USD', minimumFractionDigits: 0, maximumFractionDigits: 2 })
+    const { currency } = useContext(CurrencyContext)
+    const formater = new Intl.NumberFormat(currency == 'id' ? 'id-ID' : 'en-EN', { style: 'currency', currency: currency == 'id' ? 'IDR' : 'USD', minimumFractionDigits: 0, maximumFractionDigits: 2 })
 
     /**
      * Main State
@@ -97,7 +99,7 @@ export default function ProfileOrders() {
                                             </div>
                                             <div className='bottom'>
                                                 <div className='price'>
-                                                    {formater.format(language == 'id' ? order.sale_price : order.sale_usd )}
+                                                    {formater.format(currency == 'id' ? order.sale_price : order.sale_usd )}
                                                 </div>
                                                 <div className='qty'>
                                                     x{order.qty}

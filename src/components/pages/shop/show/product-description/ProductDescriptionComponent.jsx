@@ -3,12 +3,14 @@ import { IconStarFilled, IconHeart, IconHeartFilled, IconShare } from '@tabler/i
 import './product-description.scoped.scss'
 import parse from 'html-react-parser';
 import { LanguageContext } from '../../../../../context/LanguageContext';
+import { CurrencyContext } from '../../../../../context/CurrencyContext';
 import StringUtil from '../../../../../utils/StringUtil'
 
 export default function ProductDescriptionComponent({ productObj }) {
     const { language } = useContext(LanguageContext)
     const suffix = language == 'id' ? '' : '_en';
-    const formater = new Intl.NumberFormat( language == 'id' ? 'id-ID' : 'en-EN', { style: 'currency', currency: language == 'id' ? 'IDR' : 'USD', minimumFractionDigits: 0, maximumFractionDigits: 2 })
+    const { currency } = useContext(CurrencyContext)
+    const formater = new Intl.NumberFormat(currency == 'id' ? 'id-ID' : 'en-EN', { style: 'currency', currency: currency == 'id' ? 'IDR' : 'USD', minimumFractionDigits: 0, maximumFractionDigits: 2 })
 
     return (
         <div className="product-description-wrapper">
@@ -47,7 +49,7 @@ export default function ProductDescriptionComponent({ productObj }) {
                         <span className='wishlist-text'>Whislist</span>
                     </div>
                 </div>
-                <div className='product-price'>{formater.format(language == 'id' ? productObj.sale_price : productObj.sale_usd )}</div>
+                <div className='product-price'>{formater.format(currency == 'id' ? productObj.sale_price : productObj.sale_usd )}</div>
                 <div className='product-description-body'>
                     <div className='product-detail'>
                         <h3 className='product-detail-title'>Product Detail</h3>
