@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom'
 import { AuthUserContext } from '../../../../../context/AuthUserContext';
 import { LanguageContext } from '../../../../../context/LanguageContext';
 import { CurrencyContext } from '../../../../../context/CurrencyContext';
+import { useTranslation } from 'react-i18next';
 
 export default function ProductCartComponent({ onlyDesktop, onlyMobile, productObj, qty, doSubtractQty, doAddQty, shipTo, setShipTo, loadDistricts, couriers, selectedCourier, setSelectedCourier, shippingFeeOpened, setShippingFeeOpened, shippingFees, selectedShippingFees, setSelectedShippingFees, doAddToCart, doBuyNow }) {
 
@@ -17,6 +18,7 @@ export default function ProductCartComponent({ onlyDesktop, onlyMobile, productO
      * 
      */
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     /**
      * Context
@@ -31,7 +33,7 @@ export default function ProductCartComponent({ onlyDesktop, onlyMobile, productO
         <div className={`product-cart-wrapper ${onlyDesktop ? 'only-desktop' : ''} ${onlyMobile ? 'only-mobile' : ''}`}>
             <form action="">
                 <div className='group'>
-                    <label htmlFor="shipping_option">Shipping Option</label>
+                    <label htmlFor="shipping_option">{t('shippingoption')}</label>
                     <Select
                         styles={{
                             control: (baseStyles, state) => ({
@@ -77,13 +79,13 @@ export default function ProductCartComponent({ onlyDesktop, onlyMobile, productO
                         options={couriers} />
                 </div>
                 <div className='group'>
-                    <label htmlFor="shipping_to">Shipping To</label>
+                    <label htmlFor="shipping_to">{t('shippingto')}</label>
                     <AsyncSelect cacheOptions loadOptions={loadDistricts} defaultOptions value={shipTo} onChange={(val) => {
                         setShipTo(val)
                     }} />
                 </div>
                 <div className='group only-desktop'>
-                    <label htmlFor="weight">Weight</label>
+                    <label htmlFor="weight">{t('weight')}</label>
                     <input type="text" name="weight" className='form-text' id="weight" value={(productObj.weight * qty / 1000).toFixed(2)} readOnly />
                     <span className='unit'>Kg</span>
                 </div>
@@ -91,7 +93,7 @@ export default function ProductCartComponent({ onlyDesktop, onlyMobile, productO
                     <button type='button' className='button-shipping-fee' onClick={() => {
                         setShippingFeeOpened(!shippingFeeOpened)
                     }}>
-                        <span>Shipping Fee</span>
+                        <span>{t('shippingfee')}</span>
                         <IconChevronDown style={{ transform: 'translateY(-3px)' }} />
                     </button>
                     <div className='collapse-content'>
@@ -110,7 +112,7 @@ export default function ProductCartComponent({ onlyDesktop, onlyMobile, productO
                                                     </div>
                                                 </div>
                                                 <div className='bottom'>
-                                                    Receive: {c.cost[0].etd}
+                                                    {t('receive')}: {c.cost[0].etd}
                                                 </div>
                                             </div>
                                         );
@@ -130,14 +132,14 @@ export default function ProductCartComponent({ onlyDesktop, onlyMobile, productO
                                 </div>
                             </div>
                             <div className='bottom'>
-                                Receive: {shippingFees[selectedShippingFees].cost[0].etd}
+                                {t('receive')}: {shippingFees[selectedShippingFees].cost[0].etd}
                             </div>
                         </div>
                         : null
                     }
                 </div>
                 <div className="group only-desktop">
-                    <label>Total Stock : {productObj.stock}</label>
+                    <label>{t('totalstock')} : {productObj.stock}</label>
                     <div className='stock-increase-decrease'>
                         <button type='button' disabled={qty == 1} onClick={doSubtractQty}><IconMinus size={15} style={{ color: '#FFF' }} /></button>
                         <input type="number" name="amount_buy" id="amount_buy" value={qty} readOnly />
@@ -146,15 +148,15 @@ export default function ProductCartComponent({ onlyDesktop, onlyMobile, productO
                 </div>
                 <div className='group only-desktop'>
                     <div className='price-row-item'>
-                        <span className='label'>Price</span>
+                        <span className='label'>{t('price')}</span>
                         <span className={`val ${user ? '' : 'blur'}`}>{user ? formater.format(currency == 'id' ? productObj.sale_price : productObj.sale_usd) : 'Rp. 19.631.312'}</span>
                     </div>
                     <div className='price-row-item'>
-                        <span className='label'>Shipping Fee</span>
+                        <span className='label'>{t('shippingfee')}</span>
                         <span className={`val ${user ? '' : 'blur'}`}>{selectedShippingFees != -1 ? formater.format(language == 'id' ? shippingFees[selectedShippingFees].cost[0].value : shippingFees[selectedShippingFees].cost[0].value) : '0'}</span>
                     </div>
                     <div className='price-row-item'>
-                        <span className='label'>Sub Total</span>
+                        <span className='label'>{t('subtotal')}</span>
                         <span className={`val ${user ? '' : 'blur'}`}>{user ? formater.format(Number(currency == 'id' ? productObj.sale_price : productObj.sale_usd) * qty + (selectedShippingFees == -1 ? 0 : shippingFees[selectedShippingFees].cost[0].value)) : 'Rp. 19.631.312'}</span>
                     </div>
                     {
@@ -163,7 +165,7 @@ export default function ProductCartComponent({ onlyDesktop, onlyMobile, productO
                                 <div className='price-row-item'>
                                     <button onClick={() => {
                                         navigate('/login')
-                                    }}>Cek Harga</button>
+                                    }}>{t('checkprice')}</button>
                                 </div>
                                 <hr className='hr-button-price-check' />
                             </>
@@ -171,10 +173,10 @@ export default function ProductCartComponent({ onlyDesktop, onlyMobile, productO
                     }
                 </div>
                 <div className='group only-desktop'>
-                    <button type='button' className='btn-cart' onClick={doAddToCart}><IconShoppingCartFilled /> Add to cart</button>
+                    <button type='button' className='btn-cart' onClick={doAddToCart}><IconShoppingCartFilled /> {t('addtocart')}</button>
                     <button type='button' className='btn-buy' onClick={() => {
                         doBuyNow(productObj)
-                    }}>Buy Now</button>
+                    }}>{t('buynow')}</button>
                 </div>
             </form>
             <div className='product-cart-mobile'>
@@ -183,7 +185,7 @@ export default function ProductCartComponent({ onlyDesktop, onlyMobile, productO
                         <button disabled={qty == 1} onClick={doSubtractQty}><IconMinus size={14} /></button>
                         <input type={'number'} value={qty} />
                         <button type='button' disabled={qty >= productObj.stock} onClick={doAddQty}><IconPlus size={14} /></button>
-                        <div className='total-stock'>Total Stock: {productObj.stock}</div>
+                        <div className='total-stock'>{t('totalstock')}: {productObj.stock}</div>
                     </div>
                     <div className='line-div' />
                     <div className='product-cart-mobile-cart'>
@@ -192,7 +194,7 @@ export default function ProductCartComponent({ onlyDesktop, onlyMobile, productO
                         </button>
                     </div>
                 </div>
-                <button className='buy-now'>Buy Now</button>
+                <button className='buy-now'>{t('buynow')}</button>
             </div>
         </div>
     )
