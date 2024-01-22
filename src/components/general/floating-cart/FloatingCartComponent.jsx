@@ -7,6 +7,7 @@ import { CartContext } from '../../../context/CartContext'
 import { LanguageContext } from '../../../context/LanguageContext'
 import { CurrencyContext } from '../../../context/CurrencyContext'
 import StringUtil from '../../../utils/StringUtil'
+import { useTranslation } from "react-i18next";
 
 export default function FloatingCartComponent() {
 
@@ -14,6 +15,7 @@ export default function FloatingCartComponent() {
     const { language } = useContext(LanguageContext)
     const { currency } = useContext(CurrencyContext)
     const formater = new Intl.NumberFormat(currency == 'id' ? 'id-ID' : 'en-EN', { style: 'currency', currency: currency == 'id' ? 'IDR' : 'USD', minimumFractionDigits: 0, maximumFractionDigits: 2 })
+    const { t } = useTranslation();
 
     useEffect(() => {
         console.log(carts)
@@ -23,9 +25,9 @@ export default function FloatingCartComponent() {
         <div>
             <div className='floating-cart-content'>
                 <div className="top">
-                    <h3 className='title-float-cart'><span>Cart</span> ({carts.length})</h3>
+                    <h3 className='title-float-cart'><span>{t('cart')}</span> ({carts.length})</h3>
                     <Link className='float-cart-link' to={'/shopping/cart'}>
-                        View All
+                        {t('viewall')}
                         <IconArrowRight size={15} />
                     </Link>
                 </div>

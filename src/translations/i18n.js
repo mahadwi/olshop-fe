@@ -124,7 +124,8 @@ i18n
                     shippingtotal: 'Shipping Total',
                     totalpayment: 'Total Payment',
                     placeorder: 'Place Order',
-                    entercode: 'Enter code'
+                    entercode: 'Enter code',
+                    cart: 'Cart',
                     // Add other EN translations here
                 },
             },
@@ -245,7 +246,8 @@ i18n
                     shippingtotal: 'Total Pengiriman',
                     totalpayment: 'Total Pembayaran',
                     placeorder: 'Pesan',
-                    entercode: 'Masukan Kode'
+                    entercode: 'Masukan Kode',
+                    cart: 'Keranjang',
                     // Add other ID translations here
                 },
             },
