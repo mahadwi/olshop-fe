@@ -131,19 +131,19 @@ export default function VendorIndex() {
                             <div className='img-wrapper'>
                                 <img src={WelcomeImage} alt='ilustrator' />
                             </div>
-                            <div className='title'>Welcome to LUXI!</div>
-                            <div className='description'>To start as a vendor, register and complete the following information by clicking start registration</div>
-                            <button onClick={() => setStep(0)} >Start Registration</button>
+                            <div className='title'>{t('welcometoluxi')}</div>
+                            <div className='description'>{t('startregistrationcontent')}</div>
+                            <button onClick={() => setStep(0)} >{t('startregistration')}</button>
                         </div>
                     </div>
                     : null}
                 {step == 0 ?
                     <div className='step-1 bg-white'>
                         <div className='steps'>
-                            <div className='step active'>Account Information</div>
-                            <div className='step'>Product Information</div>
-                            <div className='step'>Review & Authentic</div>
-                            <div className='step'>Listing Product</div>
+                            <div className='step active'>{t('accountinformation')}</div>
+                            <div className='step'>{t('productinformation')}</div>
+                            <div className='step'>{t('reviewauthentic')}</div>
+                            <div className='step'>{t('listingproduct')}</div>
                         </div>
                         <div className='divider' />
                         <div className='content'>
@@ -151,7 +151,7 @@ export default function VendorIndex() {
                                 <div className="form-input">
                                     <div className="form-group">
                                         <div className="left-form-group">
-                                            <label className='form-label' htmlFor="name">Name</label>
+                                            <label className='form-label' htmlFor="name">{t('name')}</label>
                                         </div>
                                         <div className="center-form-group">
                                             <span>:</span>
@@ -173,7 +173,7 @@ export default function VendorIndex() {
                                     </div>
                                     <div className="form-group">
                                         <div className="left-form-group">
-                                            <label className='form-label' htmlFor="phone">Phone Number</label>
+                                            <label className='form-label' htmlFor="phone">{t('phonenumber')}</label>
                                         </div>
                                         <div className="center-form-group">
                                             <span>:</span>
@@ -184,7 +184,7 @@ export default function VendorIndex() {
                                     </div>
                                     <div className="form-group">
                                         <div className="left-form-group">
-                                            <label className='form-label' htmlFor="nik">NIK</label>
+                                            <label className='form-label' htmlFor="nik">{t('idcardnumber')}</label>
                                         </div>
                                         <div className="center-form-group">
                                             <span>:</span>
@@ -195,7 +195,7 @@ export default function VendorIndex() {
                                     </div>
                                     <div className="form-group">
                                         <div className="left-form-group">
-                                            <label className='form-label' htmlFor="bank">Nama Bank</label>
+                                            <label className='form-label' htmlFor="bank">{t('bankname')}</label>
                                         </div>
                                         <div className="center-form-group">
                                             <span>:</span>
@@ -207,7 +207,7 @@ export default function VendorIndex() {
                                     </div>
                                     <div className="form-group">
                                         <div className="left-form-group">
-                                            <label className='form-label' htmlFor="rekening">No Rekening</label>
+                                            <label className='form-label' htmlFor="rekening">{t('accountnumber')}</label>
                                         </div>
                                         <div className="center-form-group">
                                             <span>:</span>
@@ -218,7 +218,7 @@ export default function VendorIndex() {
                                     </div>
                                     <div className="form-group">
                                         <div className="left-form-group">
-                                            <label className='form-label' htmlFor="penerima">Nama Penerima</label>
+                                            <label className='form-label' htmlFor="penerima">{t('recipientname')}</label>
                                         </div>
                                         <div className="center-form-group">
                                             <span>:</span>
@@ -229,7 +229,7 @@ export default function VendorIndex() {
                                     </div>
                                     <div className="form-group">
                                         <div className="left-form-group">
-                                            <label className='form-label' htmlFor="alamat">Alamat</label>
+                                            <label className='form-label' htmlFor="alamat">{t('address')}</label>
                                         </div>
                                         <div className="center-form-group">
                                             <span>:</span>
@@ -243,8 +243,8 @@ export default function VendorIndex() {
                         </div>
                         <div className='divider' />
                         <div className='bottom'>
-                            <button onClick={() => setStep(-1)}>CANCEL</button>
-                            <button onClick={() => setStep(1)}>NEXT</button>
+                            <button onClick={() => setStep(-1)}>{t('cancel').toUpperCase()}</button>
+                            <button onClick={() => setStep(1)}>{t('next').toUpperCase()}</button>
                         </div>
                     </div>
                     : null}
@@ -252,10 +252,10 @@ export default function VendorIndex() {
                     <>
                         <div className='step-1 bg-white'>
                             <div className='steps'>
-                                <div className='step'>Account Information</div>
-                                <div className='step active'>Product Information</div>
-                                <div className='step'>Review & Authentic</div>
-                                <div className='step'>Listing Product</div>
+                                <div className='step'>{t('accountinformation')}</div>
+                                <div className='step active'>{t('productinformation')}</div>
+                                <div className='step'>{t('reviewauthentic')}</div>
+                                <div className='step'>{t('listingproduct')}</div>
                             </div>
                         </div>
                         {
