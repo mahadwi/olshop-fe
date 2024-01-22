@@ -1,21 +1,24 @@
 import { IconMapPin, IconSquareCheck } from "@tabler/icons-react";
 import './card.scoped.scss'
+import { useTranslation } from "react-i18next";
 
 export default function CardComponent() {
+    const { t } = useTranslation();
+
     return (
         <div className="card-section">
             <div className="card-component">
                 <div className="card-item">
                     <IconMapPin />
-                    <h3>PACKAGE TRACKING</h3>
-                    <p>Once your package has been shipped, we will send you a notification with your tracking number.</p>
+                    <h3>{t('packagetracking')}</h3>
+                    <p>{t('packagetrackingcontent')}</p>
                 </div>
             </div>
             <div className="card-component">
                 <div className="card-item">
                     <IconSquareCheck />
-                    <h3>INSURANCE</h3>
-                    <p>You may choose whether or not you want to add insurance to your delivery. The cost of insurance will be calculated according to the value of your order on the checkout page.</p>
+                    <h3>{t('insurance')}</h3>
+                    <p>{t('insurancecontent')}</p>
                 </div>
             </div>
         </div>

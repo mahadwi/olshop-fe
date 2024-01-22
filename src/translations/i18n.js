@@ -126,6 +126,10 @@ i18n
                     placeorder: 'Place Order',
                     entercode: 'Enter code',
                     cart: 'Cart',
+                    packagetracking: 'PACKAGE TRACKING',
+                    packagetrackingcontent: 'Once your package has been shipped, we will send you a notification with your tracking number.',
+                    insurance: 'INSURANCE',
+                    insurancecontent: 'You may choose whether or not you want to add insurance to your delivery. The cost of insurance will be calculated according to the value of your order on the checkout page.',
                     // Add other EN translations here
                 },
             },
@@ -248,6 +252,10 @@ i18n
                     placeorder: 'Pesan',
                     entercode: 'Masukan Kode',
                     cart: 'Keranjang',
+                    packagetracking: 'PELACAKAN PAKET',
+                    packagetrackingcontent: 'Setelah paket Anda dikirimkan, kami akan mengirimkan pemberitahuan berisi nomor pelacakan Anda.',
+                    insurance: 'ASURANSI',
+                    insurancecontent: 'Anda dapat memilih apakah Anda ingin menambahkan asuransi pada pengiriman Anda atau tidak. Biaya asuransi akan dihitung sesuai dengan nilai pesanan Anda di halaman pembayaran.',
                     // Add other ID translations here
                 },
             },
