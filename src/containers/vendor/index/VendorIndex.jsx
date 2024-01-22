@@ -252,7 +252,7 @@ export default function VendorIndex() {
                     <>
                         <div className='step-1 bg-white'>
                             <div className='steps'>
-                                <div className='step'>{t('accountinformation')}</div>
+                                <div className='step' onClick={() => setStep(0)}>{t('accountinformation')}</div>
                                 <div className='step active'>{t('productinformation')}</div>
                                 <div className='step'>{t('reviewauthentic')}</div>
                                 <div className='step'>{t('listingproduct')}</div>
