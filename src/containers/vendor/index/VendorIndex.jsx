@@ -25,7 +25,7 @@ const STEP_1_DATA_DUMMY = [
         price_usd: "235",
         stock: 1,
         date: "13/12/2023 13:00:00",
-        status: "Review"
+        status: "In Review"
     },
     {
         image: "https://dev-olshop.berkatsoft.com/image/product/656a6feb1203b.jpeg",
@@ -34,7 +34,7 @@ const STEP_1_DATA_DUMMY = [
         price_usd: "95",
         stock: 1,
         date: "13/12/2023 13:00:00",
-        status: "Approve"
+        status: "Approved"
     },
 ];
 
@@ -82,26 +82,26 @@ export default function VendorIndex() {
                 </Modal.Header>
                 <Modal.Body>
                     <div className="modal-prainjau-body">
-                        <p className="title-body">Pratinjau</p>
+                        <p className="title-body">{t('preview')}</p>
                         <div className="body">
                             <div className="left">
                                 <div>
-                                    <h2>Pratinjau Tawaran Anda</h2>
-                                    <p>Saat membuat tawaran, Anda bisa mempratinjau tampilannya </p>
+                                    <h2>{t('previewyouroffers')}</h2>
+                                    <p>{t('whencreatinganofferyoucanpreviewhowitwilllook')}</p>
                                 </div>
                             </div>
                             <div className="right">
                                 <div className="top">
-                                    <h2 className="title">Judul</h2>
-                                    <h3 className="price">Harga</h3>
-                                    <p className="p">Ditawarkan beberapa detik yang lalu di Indonesia</p>
+                                    <h2 className="title">{t('title')}</h2>
+                                    <h3 className="price">{t('price')}</h3>
+                                    <p className="p">{t('offeredafewsecondsagoin')} Indonesia</p>
                                 </div>
                                 <div className="bottom">
                                     <h2 className="title">Detail</h2>
                                     <hr />
                                     <div className="seller-info">
-                                        <p className="seller-info-left">Informasi Penjual</p>
-                                        <p className="seller-info-right">Detail Penjual</p>
+                                        <p className="seller-info-left">{t('sellerinformation')}</p>
+                                        <p className="seller-info-right">{t('sellerdetail')}</p>
                                     </div>
                                     <div className="user">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
@@ -264,24 +264,24 @@ export default function VendorIndex() {
                                     <div className='left'>
                                         <button type="button" onClick={() => {
                                             setSellItemIsOpen(true)
-                                        }}>Jual Barang <IconPlus /></button>
+                                        }}>{t('sellgoods')} <IconPlus /></button>
                                         <div className='links'>
                                             <div>
-                                                Penjualan Barang
+                                                {t('goodssales')}
                                             </div>
                                             <div>
-                                                Riwayat Penjualan Barang
+                                                {t('goodssaleshistory')}
                                             </div>
                                         </div>
                                     </div>
                                     <div className='right'>
                                         <div className='top'>
                                             <div className='name'>
-                                                Tawaran Anda
+                                                {t('youroffer')}
                                             </div>
                                             <div className='search'>
                                                 <div>
-                                                    Search
+                                                    {t('search')}
                                                 </div>
                                                 <div>
                                                     <input className="form-control" type="text" className='form-control' name="q" id="search" />
@@ -304,10 +304,10 @@ export default function VendorIndex() {
                                                                 <div className='name'>{c.name}</div>
                                                                 <div className='price'>{formater.format(currency == 'id' ? c.price : c.price_usd)}</div>
                                                                 <div className='stock'>Stock: {c.stock}</div>
-                                                                <div className='date'>Ditawarkan pada {c.date}</div>
+                                                                <div className='date'>{t('offeredon')} {c.date}</div>
                                                             </div>
-                                                            <div className={`status ${c.status.toLowerCase()}`}>
-                                                                {c.status}
+                                                            <div className="status" data-status={`${c.status.toLowerCase()}`}>
+                                                                {t(c.status.toLowerCase())}
                                                             </div>
                                                         </div>
                                                     </>)
@@ -326,7 +326,7 @@ export default function VendorIndex() {
                                                     <path d="M20 11H7.83L13.42 5.41L12 4L4 12L12 20L13.41 18.59L7.83 13H20V11Z" fill="#111111" />
                                                 </svg>
                                             </button>
-                                            <h2>Jual Barang</h2>
+                                            <h2>{t('sellgoods')}</h2>
                                         </div>
                                         <div className="body">
                                             <div className="add-photo-wrap">
@@ -342,15 +342,15 @@ export default function VendorIndex() {
                                                         </defs>
                                                     </svg>
                                                 </div>
-                                                <p>Tambahkan Foto</p>
+                                                <p>{t('addphoto')}</p>
                                             </div>
                                             <div className="input-title">
-                                                <h4>Wajib</h4>
-                                                <p>Beri penjelasan selengkap mungkin.</p>
+                                                <h4>{t('required')}</h4>
+                                                <p>{t('giveascompleteanexplanationaspossible')}</p>
                                             </div>
                                             <div className="form-area">
                                                 <div className="one-col col">
-                                                    <input className="form-control" type="text" name="" id="" placeholder="Name" />
+                                                    <input className="form-control" type="text" name="" id="" placeholder={t('name')} />
                                                 </div>
                                                 <div className="one-col col">
                                                     <Select
@@ -409,42 +409,42 @@ export default function VendorIndex() {
                                                 </div>
                                                 <div className="two-col col">
                                                     <div>
-                                                        <input className="form-control" type="number" name="" id="" placeholder="Weight (Kg)" />
+                                                        <input className="form-control" type="number" name="" id="" placeholder={`${t('weight')} (Kg)`} />
                                                     </div>
                                                     <div>
-                                                        <input className="form-control" type="number" name="" id="" placeholder="Length (cm)" />
-                                                    </div>
-                                                </div>
-                                                <div className="two-col col">
-                                                    <div>
-                                                        <input className="form-control" type="number" name="" id="" placeholder="Width (cm)" />
-                                                    </div>
-                                                    <div>
-                                                        <input className="form-control" type="number" name="" id="" placeholder="Height (cm)" />
+                                                        <input className="form-control" type="number" name="" id="" placeholder={`${t('length')} (cm)`} />
                                                     </div>
                                                 </div>
                                                 <div className="two-col col">
                                                     <div>
-                                                        <input className="form-control" type="number" name="" id="" placeholder="Price (RP)" />
+                                                        <input className="form-control" type="number" name="" id="" placeholder={`${t('width')} (cm)`} />
                                                     </div>
                                                     <div>
-                                                        <input className="form-control" type="number" name="" id="" placeholder="Price (USD)" />
-                                                    </div>
-                                                </div>
-                                                <div className="two-col col">
-                                                    <div>
-                                                        <input className="form-control" type="text" name="" id="" placeholder="Commision Type" value={'Commision Type'} />
-                                                    </div>
-                                                    <div>
-                                                        <input className="form-control" type="number" name="" id="" placeholder="Commision (%)" />
+                                                        <input className="form-control" type="number" name="" id="" placeholder={`${t('height')} (cm)`} />
                                                     </div>
                                                 </div>
                                                 <div className="two-col col">
                                                     <div>
-                                                        <input className="form-control" type="number" name="" id="" placeholder="Sale Price (RP)" />
+                                                        <input className="form-control" type="number" name="" id="" placeholder={`${t('price')} (RP)`} />
                                                     </div>
                                                     <div>
-                                                        <input className="form-control" type="number" name="" id="" placeholder="Sale Price (USD)" />
+                                                        <input className="form-control" type="number" name="" id="" placeholder={`${t('price')} (USD)`} />
+                                                    </div>
+                                                </div>
+                                                <div className="two-col col">
+                                                    <div>
+                                                        <input className="form-control" type="text" name="" id="" placeholder={t('commissiontype')} value={t('commissiontype')} />
+                                                    </div>
+                                                    <div>
+                                                        <input className="form-control" type="number" name="" id="" placeholder={`${t('commission')} (%)`} />
+                                                    </div>
+                                                </div>
+                                                <div className="two-col col">
+                                                    <div>
+                                                        <input className="form-control" type="number" name="" id="" placeholder={`${t('saleprice')} (RP)`} />
+                                                    </div>
+                                                    <div>
+                                                        <input className="form-control" type="number" name="" id="" placeholder={`${t('saleprice')} (USD)`} />
                                                     </div>
                                                 </div>
                                                 <div className="one-col col">
@@ -506,29 +506,29 @@ export default function VendorIndex() {
                                                 </div>
                                             </div>
                                             <div className="input-title input-title-2">
-                                                <h4>Detail Selengkapnya</h4>
-                                                <p>Tarik lebih banyak minat dengan menyertakan lebih banyak detail.</p>
+                                                <h4>{t('fulldetails')}</h4>
+                                                <p>{t('attractmoreinterestbyincludingmoredetails')}</p>
                                             </div>
                                             <div className="form-area">
                                                 <div className="one-col col">
-                                                    <textarea name="" id="" cols="30" rows="10" placeholder="Description Indonesia"></textarea>
+                                                    <textarea name="" id="" cols="30" rows="10" placeholder={t('descriptionindonesia')}></textarea>
                                                 </div>
                                                 <div className="one-col col">
-                                                    <textarea name="" id="" cols="30" rows="10" placeholder="Description Inggris"></textarea>
+                                                    <textarea name="" id="" cols="30" rows="10" placeholder={t('descriptionenglish')}></textarea>
                                                 </div>
                                                 <div className="one-col col">
-                                                    <textarea name="" id="" cols="30" rows="10" placeholder="History Indonesia"></textarea>
+                                                    <textarea name="" id="" cols="30" rows="10" placeholder={t('historyindonesia')}></textarea>
                                                 </div>
                                                 <div className="one-col col">
-                                                    <textarea name="" id="" cols="30" rows="10" placeholder="History Indonesia"></textarea>
+                                                    <textarea name="" id="" cols="30" rows="10" placeholder={t('historyenglish')}></textarea>
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="footer">
                                             <button className="preview" type="button" onClick={() => {
                                                 setModalPratinjau(true)
-                                            }}>Pratinjau</button>
-                                            <button className="next">Berikutnya</button>
+                                            }}>{t('preview')}</button>
+                                            <button className="next">{t('next')}</button>
                                         </div>
                                     </div>
                                 </div>

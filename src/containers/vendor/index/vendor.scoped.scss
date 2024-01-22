@@ -467,7 +467,7 @@
                         padding: 0.5rem 0;
                         width: 10rem;
 
-                        &.approve {
+                        &[data-status="approved"] {
                             background: #00AE65;
                         }
                     }
