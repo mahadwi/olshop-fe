@@ -168,7 +168,7 @@ export default function VendorIndex() {
                                             <span>:</span>
                                         </div>
                                         <div className='right-form-group'>
-                                            <input className="form-control" type="email" className='form-control' name="email" id="email" />
+                                            <input className="form-control" type="email" disabled name="email" id="email" value={user.email} />
                                         </div>
                                     </div>
                                     <div className="form-group">
