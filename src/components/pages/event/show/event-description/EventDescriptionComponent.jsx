@@ -2,10 +2,12 @@ import { useContext } from 'react';
 import StringUtil from '../../../../../utils/StringUtil'
 import './event-description.scoped.scss'
 import { LanguageContext } from '../../../../../context/LanguageContext'
+import { useTranslation } from "react-i18next";
 
 export default function EventDescriptionComponent({ eventDetailObj }) {
     const { language } = useContext(LanguageContext)
     const suffix = language == 'id' ? '' : '_en';
+    const { t } = useTranslation();
 
     return (
         <div className='event-description-section'>
@@ -13,7 +15,7 @@ export default function EventDescriptionComponent({ eventDetailObj }) {
                 <div dangerouslySetInnerHTML={{ __html: eventDetailObj['description'+suffix] }} />
             </div>
             <div className='location-box'>
-                <h3>Location Details :</h3>
+                <h3>{t('locationdetails')} :</h3>
                 <div className='location-wrapper'>
                     <div className='map-box'>
                         <iframe src={StringUtil.googleMapsURLToEmbedURL(eventDetailObj.maps)} style={{ border: 0 }} allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
@@ -35,7 +37,7 @@ export default function EventDescriptionComponent({ eventDetailObj }) {
                             </p>
                             <a href={eventDetailObj.maps} target='_blank'>
                                 <img src={require('./../../../../../images/carbon_location.png')} alt="" />
-                                <span>View In Map</span>
+                                <span>{t('viewinmap')}</span>
                             </a>
                         </div>
                     </div>

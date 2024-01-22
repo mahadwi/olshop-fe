@@ -9,6 +9,7 @@ import './event-show.scss'
 import Api from "../../../utils/Api";
 import { useParams, useLocation } from "react-router-dom";
 import { LoadingContext } from "../../../context/LoadingContext";
+import { LanguageContext } from "../../../context/LanguageContext";
 
 export default function EventShow() {
 
@@ -20,6 +21,7 @@ export default function EventShow() {
      * 
      */
     const { setLoading } = useContext(LoadingContext)
+    const { language } = useContext(LanguageContext)
 
     /**
      * Main States
@@ -41,18 +43,22 @@ export default function EventShow() {
     const loadBreadcrumbs = () => {
         setBreadcrumbs([
             {
-                label: 'Home',
+                label: language == 'id' ? 'Beranda' : 'Home',
                 url: '/'
             },
             {
-                label: 'Event',
+                label: language == 'id' ? 'Acara' : 'Event',
                 url: '/event'
             },
             {
-                label: 'Fashion Week 2023'
+                label: eventDetailObj.name
             }
         ])
     }
+
+    useEffect(() => {
+        loadBreadcrumbs();
+    }, [language, eventDetailObj])
 
     const loadEventDetailObj = (id) => {
         if (id) {

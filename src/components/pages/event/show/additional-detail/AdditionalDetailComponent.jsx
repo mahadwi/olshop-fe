@@ -1,18 +1,21 @@
 import ContainerComponent from '../../../../general/container/ContainerComponent'
 import './additional-detail.scoped.scss'
+import { useTranslation } from 'react-i18next';
 
 export default function AdditionalDetailComponent() {
+    const { t } = useTranslation();
+
     return (
         <ContainerComponent>
             <div className='additional-detail'>
                 <p>
-                    Here are some additional details about Jakarta Fashion Week:
+                    {t('herearesomeadditionaldetailsabout')} Jakarta Fashion Week:
                     <ul>
                         <li>
                             Website: <a href="">https://www.jakartafashionweek.co.id/</a>
                         </li>
                         <li>
-                            Social media:
+                            {t('socialmedia')}:
 
                             <ul>
                                 <li>

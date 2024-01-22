@@ -7,6 +7,7 @@ import { IconCalendar, IconChevronDown, IconPhone, IconReceiptRefund, IconUsers 
 import { IconClock } from "@tabler/icons-react";
 import { LanguageContext } from '../../../../../context/LanguageContext'
 import { CurrencyContext } from '../../../../../context/CurrencyContext'
+import { useTranslation } from 'react-i18next';
 
 export default function TicketPurchaseItemComponent({ ticket }) {
     /**
@@ -17,6 +18,7 @@ export default function TicketPurchaseItemComponent({ ticket }) {
     const { language } = useContext(LanguageContext)
     const { currency } = useContext(CurrencyContext)
     const formater = new Intl.NumberFormat(currency == 'id' ? 'id-ID' : 'en-EN', { style: 'currency', currency: currency == 'id' ? 'IDR' : 'USD', minimumFractionDigits: 0, maximumFractionDigits: 2 })
+    const { t } = useTranslation();
 
     const [showModal, setShowModal] = useState(false)
 
@@ -42,16 +44,16 @@ export default function TicketPurchaseItemComponent({ ticket }) {
                                     </li>
                                     <li>
                                         <IconClock size={17} />
-                                        Event Time : {ticket.time_start} - {ticket.time_end}
+                                        {t('eventtime')} : {ticket.time_start} - {ticket.time_end}
                                     </li>
                                     <li>
                                         <IconPhone size={17} />
-                                        Need to Reserve
+                                        {t('needtoreserve')}
                                     </li>
                                     <li>
                                         <IconReceiptRefund size={17} />
                                         {
-                                            ticket.is_refundable ? 'Refundable' : 'Non - Refundable'
+                                            t(ticket.is_refundable ? 'refundable' : 'nonrefundable')
                                         }
                                     </li>
                                 </ul>
@@ -67,7 +69,7 @@ export default function TicketPurchaseItemComponent({ ticket }) {
                                     <IconUsers />
                                 </div>
                                 <div className="text">
-                                    <h5>Total Visitor</h5>
+                                    <h5>{t('totalvisitor')}</h5>
                                     <span>1 Pax</span>
                                 </div>
                                 <div className="icon-right">
@@ -77,7 +79,7 @@ export default function TicketPurchaseItemComponent({ ticket }) {
                             <div className="right">
                                 <button type="button" onClick={() => {
                                     navigate('/event/fashion-week-2023/booking')
-                                }}>Book</button>
+                                }}>{t('booking')}</button>
                             </div>
                         </div>
                     </div>
@@ -106,7 +108,7 @@ export default function TicketPurchaseItemComponent({ ticket }) {
                             </defs>
                         </svg>
                         <span>
-                            <b>Event Time</b> : {ticket.time_start} - {ticket.time_end}
+                            <b>{t('eventtime')}</b> : {ticket.time_start} - {ticket.time_end}
                         </span>
                     </li>
                     <li>
@@ -114,7 +116,7 @@ export default function TicketPurchaseItemComponent({ ticket }) {
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
                                 <path d="M11.6375 12.25C10.4222 12.25 9.22153 11.985 8.03542 11.4549C6.84931 10.9249 5.77014 10.1739 4.79792 9.20208C3.82569 8.22986 3.07475 7.15069 2.54508 5.96458C2.01542 4.77847 1.75039 3.57778 1.75 2.3625C1.75 2.1875 1.80833 2.04167 1.925 1.925C2.04167 1.80833 2.1875 1.75 2.3625 1.75H4.725C4.86111 1.75 4.98264 1.79628 5.08958 1.88883C5.19653 1.98139 5.25972 2.09067 5.27917 2.21667L5.65833 4.25833C5.67778 4.41389 5.67292 4.54514 5.64375 4.65208C5.61458 4.75903 5.56111 4.85139 5.48333 4.92917L4.06875 6.35833C4.26319 6.71806 4.494 7.06553 4.76117 7.40075C5.02833 7.73597 5.32253 8.05933 5.64375 8.37083C5.94514 8.67222 6.26111 8.95183 6.59167 9.20967C6.92222 9.4675 7.27222 9.70317 7.64167 9.91667L9.0125 8.54583C9.1 8.45833 9.21433 8.39261 9.3555 8.34867C9.49667 8.30472 9.63511 8.29267 9.77083 8.3125L11.7833 8.72083C11.9194 8.75972 12.0312 8.83031 12.1187 8.93258C12.2062 9.03486 12.25 9.149 12.25 9.275V11.6375C12.25 11.8125 12.1917 11.9583 12.075 12.075C11.9583 12.1917 11.8125 12.25 11.6375 12.25Z" fill="#00AE65" />
                             </svg>
-                            <span>Need to Reserve</span>
+                            <span>{t('needtoreserve')}</span>
                         </a>
                     </li>
                     <li>
@@ -123,7 +125,7 @@ export default function TicketPurchaseItemComponent({ ticket }) {
                         </svg>
                         <span>
                             {
-                                ticket.is_refundable ? 'Refundable' : 'Non - Refundable'
+                                t(ticket.is_refundable ? 'refundable' : 'nonrefundable')
                             }
                         </span>
                     </li>
@@ -136,7 +138,7 @@ export default function TicketPurchaseItemComponent({ ticket }) {
                 <button to={'/event/fashion-week-2023/booking'} onClick={() => {
                     setShowModal(true)
                 }} className={'select-btn'}>
-                    Select
+                    {t('select')}
                 </button>
             </div>
         </div>
