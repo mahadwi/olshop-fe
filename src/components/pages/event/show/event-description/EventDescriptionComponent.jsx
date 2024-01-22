@@ -1,11 +1,16 @@
+import { useContext } from 'react';
 import StringUtil from '../../../../../utils/StringUtil'
 import './event-description.scoped.scss'
+import { LanguageContext } from '../../../../../context/LanguageContext'
 
 export default function EventDescriptionComponent({ eventDetailObj }) {
+    const { language } = useContext(LanguageContext)
+    const suffix = language == 'id' ? '' : '_en';
+
     return (
         <div className='event-description-section'>
             <div className='first-section'>
-                <div dangerouslySetInnerHTML={{ __html: eventDetailObj.description }} />
+                <div dangerouslySetInnerHTML={{ __html: eventDetailObj['description'+suffix] }} />
             </div>
             <div className='location-box'>
                 <h3>Location Details :</h3>
