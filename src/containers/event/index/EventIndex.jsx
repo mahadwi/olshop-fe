@@ -9,6 +9,7 @@ import './event-index.scoped.scss'
 import { useLocation } from 'react-router-dom';
 import Api from "../../../utils/Api";
 import { LoadingContext } from "../../../context/LoadingContext";
+import { LanguageContext } from "../../../context/LanguageContext";
 
 export default function EventIndex() {
 
@@ -23,6 +24,7 @@ export default function EventIndex() {
      * 
      */
     const { setLoading } = useContext(LoadingContext)
+    const { language } = useContext(LanguageContext)
 
     /**
      * Main State
@@ -48,14 +50,17 @@ export default function EventIndex() {
     const loadBreadcrumbs = () => {
         setBreadcrumbs([
             {
-                label: 'Home',
+                label: language == 'id' ? 'Beranda' : 'Home',
                 url: '/'
             },
             {
-                label: 'Event',
+                label: language == 'id' ? 'Acara' : 'Event',
             }
         ])
     }
+    useEffect(() => {
+        loadBreadcrumbs();
+    }, [language]);
 
     const loadEvents = () => {
 

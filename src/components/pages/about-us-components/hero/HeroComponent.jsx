@@ -14,10 +14,10 @@ export default function HeroComponent({ aboutUsObject }) {
             <div className="left">
                 <BreadCrumb
                     lists={[{
-                        label: 'Home',
+                        label: language == 'id' ? 'Beranda' : 'Home',
                         url: '/'
                     }, {
-                        label: aboutUsObject['title'+suffix]
+                      label: language == 'id' ? 'Tentang Kami' : 'About Us'
                     }]}
                 />
                 <p>

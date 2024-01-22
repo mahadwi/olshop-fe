@@ -9,6 +9,7 @@ import ProductsWrapperComponent from "../../../components/pages/shop/index/produ
 import Api from "../../../utils/Api";
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { LoadingContext } from "../../../context/LoadingContext";
+import { LanguageContext } from "../../../context/LanguageContext";
 import { AuthUserContext } from "../../../context/AuthUserContext";
 import { useTranslation } from "react-i18next";
 
@@ -19,6 +20,7 @@ export default function ShopIndex() {
     const { pathname, search } = useLocation();
 
     const { setLoading } = useContext(LoadingContext)
+    const { language } = useContext(LanguageContext)
     const { user } = useContext(AuthUserContext)
     const { t } = useTranslation();
 
@@ -69,14 +71,18 @@ export default function ShopIndex() {
     const loadBreadcrumbs = () => {
         setBreadcrumbs([
             {
-                label: 'Home',
+                label: language == 'id' ? 'Beranda' : 'Home',
                 url: '/'
             },
             {
-                label: 'Shop'
+                label: language == 'id' ? 'Toko' : 'Shop',
             }
         ])
     }
+
+    useEffect(() => {
+        loadBreadcrumbs()
+    }, [language])
 
     useEffect(() => {
         loadProducts()

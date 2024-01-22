@@ -11,6 +11,7 @@ import TopFilterComponent from "../../../components/pages/designer/index/top-fil
 import { useContext, useEffect, useState } from "react";
 import Api from "../../../utils/Api";
 import { LoadingContext } from "../../../context/LoadingContext";
+import { LanguageContext } from "../../../context/LanguageContext";
 import { AuthUserContext } from "../../../context/AuthUserContext";
 import { useTranslation } from "react-i18next";
 
@@ -31,6 +32,7 @@ export default function DesignerIndex() {
      * 
      */
     const { setLoading } = useContext(LoadingContext)
+    const { language } = useContext(LanguageContext)
     const { user } = useContext(AuthUserContext)
 
     /**
@@ -125,14 +127,19 @@ export default function DesignerIndex() {
     const loadBreadcrumbs = () => {
         setBreadcrumbs([
             {
-                label: 'Home',
+                label: language == 'id' ? 'Beranda' : 'Home',
                 url: '/'
             },
             {
                 label: 'Collections',
+                label: language == 'id' ? 'Perancang' : 'Designers',
             }
         ])
     }
+
+    useEffect(() => {
+        loadBreadcrumbs();
+    }, [language])
 
     const loadCategories = () => {
         Api.get('/product-category')

@@ -7,6 +7,7 @@ import ProductsWrapperComponent from "../../../components/pages/collective/index
 import { useLocation, useParams, useSearchParams } from "react-router-dom";
 import Api from "../../../utils/Api";
 import { LoadingContext } from "../../../context/LoadingContext";
+import { LanguageContext } from "../../../context/LanguageContext";
 import { AuthUserContext } from "../../../context/AuthUserContext";
 import { useTranslation } from "react-i18next";
 
@@ -27,6 +28,7 @@ export default function CollectiveIndex() {
      * 
      */
     const { setLoading } = useContext(LoadingContext)
+    const { language } = useContext(LanguageContext)
     const { user } = useContext(AuthUserContext)
 
     /**
@@ -121,14 +123,18 @@ export default function CollectiveIndex() {
     const loadBreadcrumbs = () => {
         setBreadcrumbs([
             {
-                label: 'Home',
+                label: language == 'id' ? 'Beranda' : 'Home',
                 url: '/'
             },
             {
-                label: 'Collections',
+                label: language == 'id' ? 'Kolektif' : 'Collections',
             }
         ])
     }
+
+    useEffect(() => {
+        loadBreadcrumbs()
+    }, [language])
 
     const loadBrands = () => {
         Api.get('/brand')

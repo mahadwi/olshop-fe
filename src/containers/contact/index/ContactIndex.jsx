@@ -8,6 +8,7 @@ import ContactComponent from "../../../components/pages/contact/index/contact/Co
 import { useLocation } from 'react-router-dom';
 import Api from "../../../utils/Api";
 import { LoadingContext } from "../../../context/LoadingContext";
+import { LanguageContext } from "../../../context/LanguageContext";
 import { useTranslation } from "react-i18next";
 
 export default function ContactIndex() {
@@ -25,6 +26,7 @@ export default function ContactIndex() {
      * 
      */
     const { setLoading } = useContext(LoadingContext)
+    const { language } = useContext(LanguageContext)
 
     /**
      * Main State
@@ -57,14 +59,12 @@ export default function ContactIndex() {
             <ContainerComponent>
                 {/* Breadcrumb */}
                 <BreadCrumb
-                    lists={[
-                        {
-                            label: 'Home',
-                            url: '/'
-                        }, {
-                            label: 'Contact'
-                        }]
-                    }
+                    lists={[{
+                        label: language == 'id' ? 'Beranda' : 'Home',
+                        url: '/'
+                    }, {
+                        label: language == 'id' ? 'Kontak' : 'Contact'
+                    }]}
                 />
                 {/* Breadcrumb */}
 
