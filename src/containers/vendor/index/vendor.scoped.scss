@@ -831,3 +831,40 @@
         }
     }
 }
+
+.modal-confirm-body {
+    color: #666;
+    text-align: justify;
+    font-family: Cabin;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.modal-confirm-body-footer {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    justify-content: center;
+    width: 100%;
+
+    button {
+        border-radius: 5px;
+        border: 1px solid #151B4F;
+        background: #FFF;
+        color: #151B4F;
+        padding: 0.25rem 1rem;
+        text-align: center;
+        font-family: Cabin;
+        font-size: 10px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+
+        &:last-child {
+            color: #fff;
+            background: #151B4F;
+        }
+    }
+}

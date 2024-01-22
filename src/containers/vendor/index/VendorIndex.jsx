@@ -57,6 +57,7 @@ export default function VendorIndex() {
     const { currency } = useContext(CurrencyContext)
     const formater = new Intl.NumberFormat(currency == 'id' ? 'id-ID' : 'en-EN', { style: 'currency', currency: currency == 'id' ? 'IDR' : 'USD', minimumFractionDigits: 0, maximumFractionDigits: 2 })
     const [sellItemIsOpen, setSellItemIsOpen] = useState(false)
+    const [modalConfirm, setModalConfirm] = useState(false)
     const [modalPratinjau, setModalPratinjau] = useState(false)
 
     /**
@@ -123,6 +124,31 @@ export default function VendorIndex() {
                 </Modal.Body>
             </Modal>
             {/* End of Modal Create */}
+            {/* Modal Confirm */}
+            <Modal centered show={modalConfirm} onHide={() => {
+                setModalConfirm(false)
+            }}>
+                <Modal.Header closeButton>
+                    <Modal.Title>{t('confirmation')}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className="modal-confirm-body">
+                        {t('thegoodsinstallationrate')}
+                    </div>
+                </Modal.Body>
+                <Modal.Footer>
+                    <div className="modal-confirm-body-footer">
+                        <button type="button" onClick={() => {
+                            setModalConfirm(false)
+                        }} className="cancel-button">{t('cancel')}</button>
+                        <button type="button" className="send-button" onClick={() => {
+                            setModalConfirm(false)
+                            setSellItemIsOpen(true);
+                        }}>{t('agree')}</button>
+                    </div>
+                </Modal.Footer>
+            </Modal>
+            {/* End of Modal Confirm */}
 
             <ContainerComponent>
                 {step == -1 ?
@@ -263,7 +289,7 @@ export default function VendorIndex() {
                                 <div className='step-1-main'>
                                     <div className='left'>
                                         <button type="button" onClick={() => {
-                                            setSellItemIsOpen(true)
+                                            setModalConfirm(true)
                                         }}>{t('sellgoods')} <IconPlus /></button>
                                         <div className='links'>
                                             <div>
@@ -409,7 +435,7 @@ export default function VendorIndex() {
                                                 </div>
                                                 <div className="two-col col">
                                                     <div>
-                                                        <input className="form-control" type="number" name="" id="" placeholder={`${t('weight')} (Kg)`} />
+                                                        <input className="form-control" type="number" min={1} name="" id="" placeholder={`${t('weight')} (Kg)`} />
                                                     </div>
                                                     <div>
                                                         <input className="form-control" type="number" name="" id="" placeholder={`${t('length')} (cm)`} />

@@ -184,6 +184,9 @@ i18n
                     booking: 'Booking',
                     herearesomeadditionaldetailsabout: 'Here are some additional details about',
                     socialmedia: 'Social Media',
+                    confirmation: 'Confirmation',
+                    thegoodsinstallationrate: 'The goods installation rate is 1% of the agreed goods price. Do you agree?',
+                    agree: 'Agree',
                     // Add other EN translations here
                 },
             },
@@ -363,6 +366,9 @@ i18n
                     booking: 'Memesan',
                     herearesomeadditionaldetailsabout: 'Berikut ini beberapa detail tambahan tentang',
                     socialmedia: 'Media Sosial',
+                    confirmation: 'Konfirmasi',
+                    thegoodsinstallationrate: 'Tarif pemasangan barang senilai 1% dari harga barang yang disepakati. Apakah anda setuju?',
+                    agree: 'Setuju',
                     // Add other ID translations here
                 },
             },
