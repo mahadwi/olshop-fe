@@ -251,7 +251,10 @@ export default function VendorIndex() {
                                         <div className="center-form-group">
                                             <span>:</span>
                                         </div>
-                                        <div className='right-form-group'>
+                                        <div className='right-form-group form-group__phone-number'>
+                                            <select name="" id="" className='form-control'>
+                                                <option value="+62">+62</option>
+                                            </select>
                                             <input className="form-control" type="email" className='form-control' name="phone" id="phone" />
                                         </div>
                                     </div>

@@ -175,6 +175,28 @@
                     .right-form-group {
                         flex: 2.5;
 
+                        &.form-group__phone-number {
+                            display: flex;
+                            align-items: center;
+                            position: relative;
+
+                            select {
+                                position: absolute;
+                                width: 4rem;
+                                font-family: 'Cabin', sans-serif;
+                                font-size: 13px;
+                                font-style: normal;
+                                font-weight: 500;
+                                line-height: normal;
+                                padding: .5rem 1rem;
+                                z-index: 1;
+                            }
+
+                            input {
+                                padding-left: 5rem;
+                            }
+                        }
+
                         select.form-control {
                             color: #000;
                             font-family: 'Cabin', sans-serif;
@@ -212,35 +234,6 @@
                                     font-weight: 500;
                                     line-height: normal;
                                 }
-                            }
-                        }
-
-
-                        &.form-group__phone-number {
-                            display: flex;
-                            position: relative;
-
-                            label.any-code {
-                                position: absolute;
-                                top: -.9rem;
-                                left: .35rem;
-                                z-index: 20;
-                                color: #000;
-                                font-family: 'Cabin', sans-serif;
-                                font-size: 10px;
-                                font-style: normal;
-                                font-weight: 500;
-                                line-height: normal;
-                            }
-
-                            select.form-control__phone-code {
-                                width: 4rem;
-                                z-index: 10;
-                            }
-
-                            input {
-                                transform: translateX(-10px);
-                                padding-left: 1rem;
                             }
                         }
                     }
