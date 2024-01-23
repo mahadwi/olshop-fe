@@ -59,6 +59,7 @@ export default function VendorIndex() {
     const [sellItemIsOpen, setSellItemIsOpen] = useState(false)
     const [modalConfirm, setModalConfirm] = useState(false)
     const [modalPratinjau, setModalPratinjau] = useState(false)
+    const [commissionType, setCommissionType] = useState(null)
 
     /**
      * Main State
@@ -459,18 +460,75 @@ export default function VendorIndex() {
                                                 </div>
                                                 <div className="two-col col">
                                                     <div>
-                                                        <input className="form-control" type="text" name="" id="" placeholder={t('commissiontype')} value={t('commissiontype')} />
+                                                        <Select
+                                                            styles={{
+                                                                placeholder: (defaultStyles) => {
+                                                                    return {
+                                                                        ...defaultStyles,
+                                                                        color: '#A2A3B1',
+                                                                        fontSize: '10px',
+                                                                        fontWeight: '600',
+                                                                        fontFamily: "'Inter', sans-serif",
+                                                                        marginLeft: '.6rem'
+                                                                    }
+                                                                },
+                                                                control: (baseStyles, state) => ({
+                                                                    ...baseStyles,
+                                                                    borderColor: '#C4C4C4',
+                                                                    borderWidth: '1px',
+                                                                    boxShadow: 'none',
+                                                                    backgroundColor: state.isDisabled ? 'transparent' : 'transparent',
+                                                                    '&:hover': {
+                                                                        borderColor: '#C4C4C4',
+                                                                    }
+                                                                }),
+                                                                container: (baseStyles, state) => ({
+                                                                    ...baseStyles,
+                                                                    width: '100%',
+                                                                }),
+                                                                input: (baseStyles, state) => ({
+                                                                    ...baseStyles,
+                                                                    color: '#545454',
+                                                                    fontSize: '10px',
+                                                                    fontWeight: 'normal',
+                                                                    fontFamily: "'Inter', sans-serif"
+                                                                }),
+                                                                option: (baseStyles, state) => ({
+                                                                    ...baseStyles,
+                                                                    backgroundColor: state.isDisabled ? 'transparent' : 'transparent',
+                                                                    color: '#000',
+                                                                    fontSize: '10px',
+                                                                    fontWeight: state.isDisabled ? '700' : '400',
+                                                                    fontFamily: "'Inter', sans-serif",
+                                                                    borderBottom: state.isDisabled ? '1px solid #C4C4C4;' : '0px',
+                                                                    "&:hover": {
+                                                                        backgroundColor: state.isDisabled ? '#FFF' : "#000",
+                                                                        color: state.isDisabled ? '#000' : '#FFF'
+                                                                    }
+                                                                }),
+                                                            }}
+                                                            name='commissiontype'
+                                                            defaultOptions
+                                                            placeholder={t('commissiontype')}
+                                                            value={commissionType}
+                                                            onChange={(option) => {
+                                                                setCommissionType(option);
+                                                            }}
+                                                            options={[
+                                                                { value: "percent", label: "Percent", },
+                                                                { value: "selling", label: "Selling", },
+                                                            ]} />
                                                     </div>
                                                     <div>
-                                                        <input className="form-control" type="number" name="" id="" placeholder={`${t('commission')} (%)`} />
+                                                        <input className="form-control" type="number" name="" id="" disabled={commissionType?.value != "percent"} placeholder={`${t('commission')} (%)`} />
                                                     </div>
                                                 </div>
                                                 <div className="two-col col">
                                                     <div>
-                                                        <input className="form-control" type="number" name="" id="" placeholder={`${t('saleprice')} (RP)`} />
+                                                        <input className="form-control" type="number" name="" id="" disabled={commissionType?.value != "selling"} placeholder={`${t('saleprice')} (RP)`} />
                                                     </div>
                                                     <div>
-                                                        <input className="form-control" type="number" name="" id="" placeholder={`${t('saleprice')} (USD)`} />
+                                                        <input className="form-control" type="number" name="" id="" disabled={commissionType?.value != "selling"} placeholder={`${t('saleprice')} (USD)`} />
                                                     </div>
                                                 </div>
                                                 <div className="one-col col">
