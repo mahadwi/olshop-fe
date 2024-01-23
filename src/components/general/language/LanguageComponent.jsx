@@ -62,7 +62,7 @@ export default function LanguageComponent({ loading }) {
                         }}>Select</button>
                     </div>
                 </div>
-                <div className='bottom'><a href='/contact'>Contact us</a> if you have question about choosing language</div>
+                <div className='bottom'><a href='javascript:void(0)'>You can change language according to your wishes</a></div>
             </div>
         </div>
     )
