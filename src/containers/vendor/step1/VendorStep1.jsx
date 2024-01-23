@@ -1,12 +1,14 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import './vendorstep1.scoped.scss'
 import { useLocation } from 'react-router-dom'
 import 'react-responsive-modal/styles.css';
-import AsyncSelect from 'react-select/async';
+import Select from 'react-select';
 import { AuthUserContext } from "../../../context/AuthUserContext";
+import { LoadingContext } from "../../../context/LoadingContext";
 import ContainerComponent from "../../../components/general/container/ContainerComponent";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import Api from '../../../utils/Api'
 
 export default function VendorStep1() {
 
@@ -22,17 +24,53 @@ export default function VendorStep1() {
      * Context
      * 
      */
+    const { setLoading } = useContext(LoadingContext)
     const { user } = useContext(AuthUserContext)
 
     /**
      * Main State
      * 
      */
+    const [banks, setBanks] = useState([]);
+    const [selectedBank, setSelectedBank] = useState(null);
+
+    const [name, setName] = useState('');
+    const [phone, setPhone] = useState('');
+    const [ktp, setKtp] = useState('');
+    const [bankAccountHolder, setBankAccountHolder] = useState('');
+    const [bankAccountNumber, setBankAccountNumber] = useState('');
+    const [address, setAddress] = useState('');
+
+    const doReg = () => {
+        const data = {
+            name: name,
+            email: user.email,
+            phone: phone,
+            ktp: ktp,
+            bank: selectedBank.value,
+            bank_account_holder: bankAccountHolder,
+            bank_account_number: bankAccountNumber,
+            address: address,
+        };
+        console.log(data);
+        navigate('../2')
+    }
 
     // Automatically scrolls to top whenever pathname changes
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [pathname]);
+
+    useEffect(() => {
+        setLoading(true);
+        Api.get('/bank-code').then((res) => {
+            setBanks(res.data.data.map((v) => ({ value: v.code, label: v.name })));
+        }).catch((err) => {
+            console.log(err);
+        }).finally(() => {
+            setLoading(false);
+        })
+    }, [])
 
     return (
         <div className='vendor'>
@@ -56,7 +94,7 @@ export default function VendorStep1() {
                                         <span>:</span>
                                     </div>
                                     <div className="right-form-group">
-                                        <input className="form-control" type="text" className='form-control disabled' name="name" id="name" />
+                                        <input className="form-control" type="text" className='form-control disabled' name="name" id="name" onInput={(event) => setName(event.currentTarget.value)} />
                                     </div>
                                 </div>
                                 <div className="form-group">
@@ -81,7 +119,7 @@ export default function VendorStep1() {
                                         <select name="" id="" className='form-control'>
                                             <option value="+62">+62</option>
                                         </select>
-                                        <input className="form-control" type="email" className='form-control' name="phone" id="phone" />
+                                        <input className="form-control" type="email" className='form-control' name="phone" id="phone" onInput={(event) => setPhone(event.currentTarget.value)} />
                                     </div>
                                 </div>
                                 <div className="form-group">
@@ -92,7 +130,7 @@ export default function VendorStep1() {
                                         <span>:</span>
                                     </div>
                                     <div className='right-form-group'>
-                                        <input className="form-control" type="email" className='form-control' name="nik" id="nik" />
+                                        <input className="form-control" type="email" className='form-control' name="nik" id="nik" onInput={(event) => setKtp(event.currentTarget.value)} />
                                     </div>
                                 </div>
                                 <div className="form-group">
@@ -104,7 +142,49 @@ export default function VendorStep1() {
                                     </div>
                                     <div className='right-form-group'>
 
-                                        <AsyncSelect cacheOptions loadOptions={() => []} defaultOptions />
+                                        <Select
+                                            styles={{
+                                                control: (baseStyles, state) => ({
+                                                    ...baseStyles,
+                                                    borderColor: '#C4C4C4',
+                                                    borderWidth: '1px',
+                                                    boxShadow: 'none',
+                                                    backgroundColor: state.isDisabled ? 'transparent' : 'transparent',
+                                                    '&:hover': {
+                                                        borderColor: '#C4C4C4',
+                                                    }
+                                                }),
+                                                container: (baseStyles, state) => ({
+                                                    ...baseStyles,
+                                                    width: '100%',
+                                                }),
+                                                input: (baseStyles, state) => ({
+                                                    ...baseStyles,
+                                                    color: '#545454',
+                                                    fontSize: '12px',
+                                                    fontWeight: '300',
+                                                    fontFamily: "'Inter', sans-serif"
+                                                }),
+                                                option: (baseStyles, state) => ({
+                                                    ...baseStyles,
+                                                    backgroundColor: state.isDisabled ? 'transparent' : 'transparent',
+                                                    color: '#000',
+                                                    fontSize: '12px',
+                                                    fontWeight: state.isDisabled ? '700' : '400',
+                                                    fontFamily: "'Inter', sans-serif",
+                                                    borderBottom: state.isDisabled ? '1px solid #C4C4C4;' : '0px',
+                                                    "&:hover": {
+                                                        backgroundColor: state.isDisabled ? '#FFF' : "#000",
+                                                        color: state.isDisabled ? '#000' : '#FFF'
+                                                    }
+                                                }),
+                                            }}
+                                            name='banks'
+                                            defaultOptions
+                                            placeholder={t('bankname').toUpperCase()}
+                                            value={selectedBank}
+                                            onChange={setSelectedBank}
+                                            options={banks} />
                                     </div>
                                 </div>
                                 <div className="form-group">
@@ -115,7 +195,7 @@ export default function VendorStep1() {
                                         <span>:</span>
                                     </div>
                                     <div className='right-form-group'>
-                                        <input className="form-control" type="email" className='form-control' name="rekening" id="rekening" />
+                                        <input className="form-control" type="email" className='form-control' name="rekening" id="rekening" onInput={(event) => setBankAccountNumber(event.currentTarget.value)} />
                                     </div>
                                 </div>
                                 <div className="form-group">
@@ -126,7 +206,7 @@ export default function VendorStep1() {
                                         <span>:</span>
                                     </div>
                                     <div className='right-form-group'>
-                                        <input className="form-control" type="email" className='form-control' name="penerima" id="penerima" />
+                                        <input className="form-control" type="email" className='form-control' name="penerima" id="penerima" onInput={(event) => setBankAccountHolder(event.currentTarget.value)} />
                                     </div>
                                 </div>
                                 <div className="form-group">
@@ -137,7 +217,7 @@ export default function VendorStep1() {
                                         <span>:</span>
                                     </div>
                                     <div className='right-form-group'>
-                                        <textarea name="address" id="alamat" class="form-control " placeholder="Address" cols="30" rows="10" style={{ height: "100px" }}></textarea>
+                                        <textarea name="address" id="alamat" class="form-control " placeholder="Address" cols="30" rows="10" style={{ height: "100px" }} onInput={(event) => setAddress(event.currentTarget.value)}></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -146,7 +226,7 @@ export default function VendorStep1() {
                     <div className='divider' />
                     <div className='bottom'>
                         <button onClick={() => navigate('..')}>{t('cancel').toUpperCase()}</button>
-                        <button onClick={() => navigate('../2')}>{t('next').toUpperCase()}</button>
+                        <button onClick={doReg}>{t('next').toUpperCase()}</button>
                     </div>
                 </div>
             </ContainerComponent>
