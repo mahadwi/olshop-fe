@@ -1,0 +1,226 @@
+.vendor {
+    background: rgba(221, 221, 221, 0.50);
+    padding: 1rem 0;
+
+    .bg-white {
+        background: #fff;
+    }
+
+    .steps {
+        padding: 4rem 2rem 2rem;
+        color: #000000;
+        text-align: center;
+        font-family: Cabin;
+        font-size: 10px;
+        font-style: normal;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 1rem;
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            flex-basis: 14rem;
+            gap: 1rem;
+            position: relative;
+
+            &::before {
+                content: '';
+                display: block;
+                width: 10px;
+                height: 10px;
+                background: #081CC9;
+                border-radius: 50%;
+            }
+
+            &:not(:first-child)::after {
+                content: '';
+                position: absolute;
+                top: 5px;
+                left: -50%;
+                height: 1px;
+                width: 90%;
+                display: block;
+                background: #000;
+            }
+
+            &.active~.step {
+                color: #A2A3B1;
+
+                &::after {
+                    background: #C4C4C4;
+                }
+
+                &::before {
+                    background: #C8D1E1;
+                }
+            }
+        }
+    }
+
+    .divider {
+        display: block;
+        height: 1px;
+        background: #C4C4C4;
+        margin: 1rem 0;
+    }
+
+    .step-1 {
+        padding: 1rem;
+
+        .content {
+            .form-input {
+                display: flex;
+                flex-direction: column;
+                gap: .5rem;
+                padding: 0 3rem;
+
+                .form-group {
+                    display: flex;
+                    align-items: start;
+
+                    .left-form-group {
+                        flex: 1;
+                        padding-top: 0.25rem;
+
+                        label.form-label {
+                            margin-bottom: 0;
+                            color: #000;
+                            font-family: 'Inter', sans-serif;
+                            font-size: 12px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: normal;
+                        }
+                    }
+
+                    .center-form-group {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        margin: 0 1.25rem;
+                        padding-top: 0.25rem;
+
+                        span {
+                            color: #000;
+                            font-family: 'Inter', sans-serif;
+                            font-size: 12px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: normal;
+                        }
+                    }
+
+                    .right-form-group {
+                        flex: 2.5;
+
+                        &.form-group__phone-number {
+                            display: flex;
+                            align-items: center;
+                            position: relative;
+
+                            select {
+                                position: absolute;
+                                width: 4rem;
+                                font-family: 'Cabin', sans-serif;
+                                font-size: 13px;
+                                font-style: normal;
+                                font-weight: 500;
+                                line-height: normal;
+                                padding: .5rem 1rem;
+                                z-index: 1;
+                            }
+
+                            input {
+                                padding-left: 5rem;
+                            }
+                        }
+
+                        select.form-control {
+                            color: #000;
+                            font-family: 'Cabin', sans-serif;
+                            font-size: 12px;
+                            font-style: normal;
+                            font-weight: 500;
+                            line-height: normal;
+                        }
+
+                        input.form-control {
+                            color: #000;
+                            font-family: 'Cabin', sans-serif;
+                            font-size: 12px;
+                            font-style: normal;
+                            font-weight: 500;
+                            line-height: normal;
+                        }
+
+
+                        .form-check-wrap {
+                            display: flex;
+                            gap: 1rem;
+
+                            .form-check-item {
+                                display: flex;
+                                align-items: center;
+                                gap: .3rem;
+
+                                label.form-label {
+                                    margin-bottom: 0;
+                                    color: #000;
+                                    font-family: 'Cabin', sans-serif;
+                                    font-size: 12px;
+                                    font-style: normal;
+                                    font-weight: 500;
+                                    line-height: normal;
+                                }
+                            }
+                        }
+                    }
+
+                    &.form-group__phone-number-wrap {
+                        margin-top: .75rem;
+                    }
+
+                    .input-dob-wrap {
+                        display: flex;
+                        gap: .85rem;
+
+                        select {
+                            flex: 1;
+                        }
+                    }
+                }
+            }
+        }
+
+        .bottom {
+            display: flex;
+            flex-direction: row;
+            justify-content: end;
+            gap: 0.5rem;
+
+            button {
+                border-radius: 5px;
+                background: #000;
+                border: 0;
+                color: #FFF;
+                text-align: center;
+                font-family: Cabin;
+                font-size: 10px;
+                font-style: normal;
+                font-weight: 600;
+                line-height: normal;
+                padding: 0.5rem 2rem;
+
+                &:first-child {
+                    background: #FFAC33;
+                }
+            }
+        }
+    }
+}
