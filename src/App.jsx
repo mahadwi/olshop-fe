@@ -26,6 +26,7 @@ import DeliveryAndShippingIndex from './containers/delivery-and-shipping/index/D
 import CustomerCareIndex from './containers/customer-care/index/CustomerCareIndex';
 import TermAndConditionIndex from './containers/term-and-condition/index/TermAndConditionIndex';
 import AddressIndex from './containers/address/index/AddressIndex';
+import VendorMiddleware from './middleware/VendorMiddleware';
 import VendorIndex from './containers/vendor/index/VendorIndex';
 import VendorStep1 from './containers/vendor/step1/VendorStep1';
 import VendorStep2 from './containers/vendor/step2/VendorStep2';
@@ -94,7 +95,7 @@ function App() {
                             <Route path='orders' element={<AccountOrder />} />
                             <Route path='wishlist' element={<AccountWishlist />} />
                             <Route path='address' element={<AddressIndex />} />
-                            <Route path='vendor'>
+                            <Route path='vendor' element={<VendorMiddleware />}>
                                 <Route index element={<VendorIndex />} />
                                 <Route path='1' element={<VendorStep1 />} />
                                 <Route path='2' element={<VendorStep2 />} />
