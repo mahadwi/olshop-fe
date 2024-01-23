@@ -1,11 +1,13 @@
 import './top-section.scoped.scss'
+import { useTranslation } from 'react-i18next';
 
 export default function TopSectionComponent() {
+    const { t } = useTranslation();
+
     return (
         <div>
-            <h1>LUXURYHUB JOURNAL</h1>
-            <p>This page is a page that contains stories, pictures, activities, information about the LUXURYHUB shop which is packaged in a journal that can be enjoyed
-                by readers anywhere and anytime to get to know more about what the LUXURYHUB shop is.</p>
+            <h1>LUXURYHUB {t('journal')}</h1>
+            <p>{t('eventjournaldescription')}</p>
         </div>
     )
 }

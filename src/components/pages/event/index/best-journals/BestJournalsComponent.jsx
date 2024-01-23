@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react'
 import './best-journals.scoped.scss'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next';
 
 export default function BestJournalsComponent({ events }) {
+    const { t } = useTranslation();
 
     return (
         <div>
-            <h2>Best journal from us to you</h2>
+            <h2>{t('bestjournalfromustoyou')}</h2>
             <hr />
             <ul>
                 {
