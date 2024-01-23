@@ -127,7 +127,7 @@ export default function CollectiveIndex() {
                 url: '/'
             },
             {
-                label: language == 'id' ? 'Kolektif' : 'Collections',
+                label: language == 'id' ? 'Kolektif' : 'Collective',
             }
         ])
     }
