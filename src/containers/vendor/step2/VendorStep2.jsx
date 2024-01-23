@@ -356,26 +356,26 @@ export default function VendorStep2() {
                                                 </div>
                                                 <div className="two-col col">
                                                     <div>
-                                                        <input className="form-control" type="number" min={1} name="" id="" placeholder={`${t('weight')} (Kg)`} onInput={inputNonNegativeValue} />
+                                                        <input className="form-control" type="number" min={1} name="" id="" placeholder={`${t('weight')} (Kg)`} onInput={inputNonNegativeValue} onChange={(e) => console.log(e)} />
                                                     </div>
                                                     <div>
-                                                        <input className="form-control" type="number" name="" id="" placeholder={`${t('length')} (cm)`} onInput={inputNonNegativeValue} />
-                                                    </div>
-                                                </div>
-                                                <div className="two-col col">
-                                                    <div>
-                                                        <input className="form-control" type="number" name="" id="" placeholder={`${t('width')} (cm)`} onInput={inputNonNegativeValue} />
-                                                    </div>
-                                                    <div>
-                                                        <input className="form-control" type="number" name="" id="" placeholder={`${t('height')} (cm)`} onInput={inputNonNegativeValue} />
+                                                        <input className="form-control" type="number" min={1} name="" id="" placeholder={`${t('length')} (cm)`} onInput={inputNonNegativeValue} />
                                                     </div>
                                                 </div>
                                                 <div className="two-col col">
                                                     <div>
-                                                        <input className="form-control" type="number" name="" id="" placeholder={`${t('price')} (RP)`} onInput={inputNonNegativeValue} />
+                                                        <input className="form-control" type="number" min={1} name="" id="" placeholder={`${t('width')} (cm)`} onInput={inputNonNegativeValue} />
                                                     </div>
                                                     <div>
-                                                        <input className="form-control" type="number" name="" id="" placeholder={`${t('price')} (USD)`} onInput={inputNonNegativeValue} />
+                                                        <input className="form-control" type="number" min={1} name="" id="" placeholder={`${t('height')} (cm)`} onInput={inputNonNegativeValue} />
+                                                    </div>
+                                                </div>
+                                                <div className="two-col col">
+                                                    <div>
+                                                        <input className="form-control" type="number" min={1} name="" id="" placeholder={`${t('price')} (RP)`} onInput={inputNonNegativeValue} />
+                                                    </div>
+                                                    <div>
+                                                        <input className="form-control" type="number" min={1} name="" id="" placeholder={`${t('price')} (USD)`} onInput={inputNonNegativeValue} />
                                                     </div>
                                                 </div>
                                                 <div className="two-col col">
@@ -440,15 +440,15 @@ export default function VendorStep2() {
                                                             ]} />
                                                     </div>
                                                     <div>
-                                                        <input className="form-control" type="number" name="" id="" disabled={commissionType?.value != "percent"} placeholder={`${t('commission')} (%)`} onInput={inputNonNegativeValue} />
+                                                        <input className="form-control" type="number" min={1} name="" id="" disabled={commissionType?.value != "percent"} placeholder={`${t('commission')} (%)`} onInput={inputNonNegativeValue} />
                                                     </div>
                                                 </div>
                                                 <div className="two-col col">
                                                     <div>
-                                                        <input className="form-control" type="number" name="" id="" disabled={commissionType?.value != "selling"} placeholder={`${t('saleprice')} (RP)`} onInput={inputNonNegativeValue} />
+                                                        <input className="form-control" type="number" min={1} name="" id="" disabled={commissionType?.value != "selling"} placeholder={`${t('saleprice')} (RP)`} onInput={inputNonNegativeValue} />
                                                     </div>
                                                     <div>
-                                                        <input className="form-control" type="number" name="" id="" disabled={commissionType?.value != "selling"} placeholder={`${t('saleprice')} (USD)`} onInput={inputNonNegativeValue} />
+                                                        <input className="form-control" type="number" min={1} name="" id="" disabled={commissionType?.value != "selling"} placeholder={`${t('saleprice')} (USD)`} onInput={inputNonNegativeValue} />
                                                     </div>
                                                 </div>
                                                 <div className="one-col col">
