@@ -400,11 +400,22 @@
                 flex-direction: column;
                 gap: 0.5rem;
 
+                &.grid {
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                    justify-content: center;
+                }
+
                 .product {
                     border-radius: 5px;
                     background: #FFF;
                     display: flex;
                     flex-direction: row;
+
+                    &.grid {
+                        flex-direction: column;
+                        flex-basis: calc(25% - 0.4rem);
+                    }
 
                     .image {
                         display: flex;
@@ -414,6 +425,12 @@
                             width: 148px;
                             height: 110px;
                             object-fit: cover;
+
+                            &.grid {
+                                width: 100%;
+                                height: auto;
+                                aspect-ratio: 1.48;
+                            }
                         }
                     }
 
@@ -429,6 +446,12 @@
                         font-weight: 500;
                         line-height: normal;
                         letter-spacing: 0.48px;
+
+                        &.grid {
+                            padding: 0.5rem;
+                            gap: 0.5rem;
+                            margin-bottom: 1rem;
+                        }
 
                         .name {
                             color: #000;
@@ -467,8 +490,18 @@
                         padding: 0.5rem 0;
                         width: 10rem;
 
+                        &.grid {
+                            border-radius: 0 0 5px 5px;
+                            align-self: stretch;
+                            width: 100%;
+                            margin-top: auto;
+                        }
+
                         &[data-status="approved"] {
                             background: #00AE65;
+                        }
+                        &[data-status="rejected"] {
+                            background: #F24E1E;
                         }
                     }
                 }

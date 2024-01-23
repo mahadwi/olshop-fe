@@ -28,6 +28,42 @@ const STEP_1_DATA_DUMMY = [
         status: "In Review"
     },
     {
+        image: "https://dev-olshop.berkatsoft.com/image/product/6544a6bc8f3ae.jpg",
+        name: "Channle Anmoller",
+        price: "35000000",
+        price_usd: "235",
+        stock: 1,
+        date: "13/12/2023 13:00:00",
+        status: "In Review"
+    },
+    {
+        image: "https://dev-olshop.berkatsoft.com/image/product/6544a6bc8f3ae.jpg",
+        name: "Channle Anmoller",
+        price: "35000000",
+        price_usd: "235",
+        stock: 1,
+        date: "13/12/2023 13:00:00",
+        status: "Rejected"
+    },
+    {
+        image: "https://dev-olshop.berkatsoft.com/image/product/656a6feb1203b.jpeg",
+        name: "CROC-EFFECT GRECA GODDESS MINI BAG",
+        price: "49303",
+        price_usd: "95",
+        stock: 1,
+        date: "13/12/2023 13:00:00",
+        status: "Approved"
+    },
+    {
+        image: "https://dev-olshop.berkatsoft.com/image/product/6544a6bc8f3ae.jpg",
+        name: "Channle Anmoller",
+        price: "35000000",
+        price_usd: "235",
+        stock: 1,
+        date: "13/12/2023 13:00:00",
+        status: "In Review"
+    },
+    {
         image: "https://dev-olshop.berkatsoft.com/image/product/656a6feb1203b.jpeg",
         name: "CROC-EFFECT GRECA GODDESS MINI BAG",
         price: "49303",
@@ -319,21 +355,21 @@ export default function VendorIndex() {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className='products'>
+                                        <div className={`products ${layout == 'grid' ? 'grid' : ''}`}>
                                             {
                                                 STEP_1_DATA_DUMMY.map((c) => {
                                                     return (<>
-                                                        <div className='product'>
+                                                        <div className={`product ${layout == 'grid' ? 'grid' : ''}`}>
                                                             <div className='image'>
-                                                                <img src={c.image} alt='product' />
+                                                                <img className={`${layout == 'grid' ? 'grid' : ''}`} src={c.image} alt='product' />
                                                             </div>
-                                                            <div className='center'>
+                                                            <div className={`center ${layout == 'grid' ? 'grid' : ''}`}>
                                                                 <div className='name'>{c.name}</div>
                                                                 <div className='price'>{formater.format(currency == 'id' ? c.price : c.price_usd)}</div>
-                                                                <div className='stock'>Stock: {c.stock}</div>
+                                                                { layout == 'list' ? <div className='stock'>Stock: {c.stock}</div> : null }
                                                                 <div className='date'>{t('offeredon')} {c.date}</div>
                                                             </div>
-                                                            <div className="status" data-status={`${c.status.toLowerCase()}`}>
+                                                            <div className={`status ${layout == 'grid' ? 'grid' : ''}`} data-status={`${c.status.toLowerCase()}`}>
                                                                 {t(c.status.toLowerCase())}
                                                             </div>
                                                         </div>
