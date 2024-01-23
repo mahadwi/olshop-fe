@@ -17,6 +17,16 @@ import { IconList, IconPlus, IconLayoutGrid } from "@tabler/icons-react";
 import Select from 'react-select';
 import { useTranslation } from "react-i18next";
 
+const inputNonNegativeValue = (event) => {
+    const target = event.currentTarget;
+    if (target.value == "") {
+        target.value = "";
+    } else {
+        const v = Number(target.value);
+        target.value = v == 0 ? 1 : v;
+    }
+}
+
 const STEP_1_DATA_DUMMY = [
     {
         image: "https://dev-olshop.berkatsoft.com/image/product/6544a6bc8f3ae.jpg",
@@ -472,26 +482,26 @@ export default function VendorIndex() {
                                                 </div>
                                                 <div className="two-col col">
                                                     <div>
-                                                        <input className="form-control" type="number" min={1} name="" id="" placeholder={`${t('weight')} (Kg)`} />
+                                                        <input className="form-control" type="number" min={1} name="" id="" placeholder={`${t('weight')} (Kg)`} onInput={inputNonNegativeValue} />
                                                     </div>
                                                     <div>
-                                                        <input className="form-control" type="number" name="" id="" placeholder={`${t('length')} (cm)`} />
-                                                    </div>
-                                                </div>
-                                                <div className="two-col col">
-                                                    <div>
-                                                        <input className="form-control" type="number" name="" id="" placeholder={`${t('width')} (cm)`} />
-                                                    </div>
-                                                    <div>
-                                                        <input className="form-control" type="number" name="" id="" placeholder={`${t('height')} (cm)`} />
+                                                        <input className="form-control" type="number" name="" id="" placeholder={`${t('length')} (cm)`} onInput={inputNonNegativeValue} />
                                                     </div>
                                                 </div>
                                                 <div className="two-col col">
                                                     <div>
-                                                        <input className="form-control" type="number" name="" id="" placeholder={`${t('price')} (RP)`} />
+                                                        <input className="form-control" type="number" name="" id="" placeholder={`${t('width')} (cm)`} onInput={inputNonNegativeValue} />
                                                     </div>
                                                     <div>
-                                                        <input className="form-control" type="number" name="" id="" placeholder={`${t('price')} (USD)`} />
+                                                        <input className="form-control" type="number" name="" id="" placeholder={`${t('height')} (cm)`} onInput={inputNonNegativeValue} />
+                                                    </div>
+                                                </div>
+                                                <div className="two-col col">
+                                                    <div>
+                                                        <input className="form-control" type="number" name="" id="" placeholder={`${t('price')} (RP)`} onInput={inputNonNegativeValue} />
+                                                    </div>
+                                                    <div>
+                                                        <input className="form-control" type="number" name="" id="" placeholder={`${t('price')} (USD)`} onInput={inputNonNegativeValue} />
                                                     </div>
                                                 </div>
                                                 <div className="two-col col">
@@ -556,15 +566,15 @@ export default function VendorIndex() {
                                                             ]} />
                                                     </div>
                                                     <div>
-                                                        <input className="form-control" type="number" name="" id="" disabled={commissionType?.value != "percent"} placeholder={`${t('commission')} (%)`} />
+                                                        <input className="form-control" type="number" name="" id="" disabled={commissionType?.value != "percent"} placeholder={`${t('commission')} (%)`} onInput={inputNonNegativeValue} />
                                                     </div>
                                                 </div>
                                                 <div className="two-col col">
                                                     <div>
-                                                        <input className="form-control" type="number" name="" id="" disabled={commissionType?.value != "selling"} placeholder={`${t('saleprice')} (RP)`} />
+                                                        <input className="form-control" type="number" name="" id="" disabled={commissionType?.value != "selling"} placeholder={`${t('saleprice')} (RP)`} onInput={inputNonNegativeValue} />
                                                     </div>
                                                     <div>
-                                                        <input className="form-control" type="number" name="" id="" disabled={commissionType?.value != "selling"} placeholder={`${t('saleprice')} (USD)`} />
+                                                        <input className="form-control" type="number" name="" id="" disabled={commissionType?.value != "selling"} placeholder={`${t('saleprice')} (USD)`} onInput={inputNonNegativeValue} />
                                                     </div>
                                                 </div>
                                                 <div className="one-col col">
