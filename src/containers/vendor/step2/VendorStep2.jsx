@@ -123,6 +123,7 @@ export default function VendorStep2() {
      * 
      */
     const [layout, setLayout] = useState("list");
+    const [modalConfirmSellGoods, setModalConfirmSellGoods] = useState(false)
 
     // Automatically scrolls to top whenever pathname changes
     useEffect(() => {
@@ -210,6 +211,32 @@ export default function VendorStep2() {
                             setModalConfirm(false)
                             setSellItemIsOpen(true);
                         }}>{t('agree')}</button>
+                    </div>
+                </Modal.Footer>
+            </Modal>
+            {/* End of Modal Confirm */}
+
+            {/* Modal Confirm */}
+            <Modal centered show={modalConfirmSellGoods} onHide={() => {
+               setModalConfirmSellGoods(false)
+            }}>
+                <Modal.Header closeButton>
+                    <Modal.Title>{t('confirmation')}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className="modal-confirm-body">
+                        {t('isthedataenteredcorrect')}
+                    </div>
+                </Modal.Body>
+                <Modal.Footer>
+                    <div className="modal-confirm-body-footer">
+                        <button type="button" onClick={() => {
+                            setModalConfirmSellGoods(false)
+                        }} className="cancel-button">{t('cancel')}</button>
+                        <button type="button" className="send-button" onClick={() => {
+                            setModalConfirmSellGoods(false)
+                            setSellItemIsOpen(false);
+                        }}>{t('save')}</button>
                     </div>
                 </Modal.Footer>
             </Modal>
@@ -576,7 +603,7 @@ export default function VendorStep2() {
                                         <button className="preview" type="button" onClick={() => {
                                             setModalPratinjau(true)
                                         }}>{t('preview')}</button>
-                                        <button className="next">{t('next')}</button>
+                                        <button className="next" onClick={() => setModalConfirmSellGoods(true)}>{t('next')}</button>
                                     </div>
                                 </div>
                             </div>
