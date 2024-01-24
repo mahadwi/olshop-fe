@@ -191,3 +191,25 @@
     line-height: 20px; /* 166.667% */
     letter-spacing: 0.1px;
 }
+
+.form-group__phone-number {
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    select {
+        position: absolute;
+        width: 4rem;
+        font-family: 'Cabin', sans-serif;
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        padding: .5rem 1rem;
+        z-index: 1;
+    }
+
+    input {
+        padding-left: 5rem;
+    }
+}

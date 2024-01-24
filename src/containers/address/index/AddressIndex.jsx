@@ -10,6 +10,11 @@ import { LoadingContext } from "../../../context/LoadingContext";
 import ApiErrorHandling from "../../../utils/ApiErrorHandling";
 import { AuthUserContext } from "../../../context/AuthUserContext";
 
+const PHONE_NUMBER_CODE = [
+    '+62',
+    '+1',
+];
+
 export default function AddressIndex() {
 
     /**
@@ -33,6 +38,7 @@ export default function AddressIndex() {
     const [modalCreateAddress, setModalCreateAddress] = useState(false)
     const [modalEditAddress, setModalEditAddress] = useState(false)
     const [nameCreateAddress, setNameCreateAddress] = useState('')
+    const [phonePrefixCreateAddress, setPhonePrefixCreateAddress] = useState('+62')
     const [phoneCreateAddress, setPhoneCreateAddress] = useState('')
     const [addressCreateAddress, setAddressCreateAddress] = useState('')
     const [subDistrictCreateAddress, setSubDistrictCreateAddress] = useState({ value: '', label: '' })
@@ -83,7 +89,7 @@ export default function AddressIndex() {
 
         Api.post('/address', {
             name: nameCreateAddress,
-            phone: phoneCreateAddress,
+            phone: `${phonePrefixCreateAddress}${phoneCreateAddress}`,
             address: addressCreateAddress,
             subdistrict_id: subDistrictCreateAddress.value,
             tag: tagCreateAddress,
@@ -96,6 +102,7 @@ export default function AddressIndex() {
             if (res) {
                 setModalCreateAddress(false)
                 setNameCreateAddress('')
+                setPhonePrefixCreateAddress('+62')
                 setPhoneCreateAddress('')
                 setAddressCreateAddress('')
                 setSubDistrictCreateAddress({ value: '', label: '' })
@@ -216,8 +223,13 @@ export default function AddressIndex() {
                                             </div> : <></>
                                     }
                                 </div>
-                                <div className="col form-group mb-3">
+                                <div className="col form-group mb-3 form-group__phone-number">
                                     <label htmlFor="phone" className="d-none">Phone</label>
+                                    <select name="" id="" className='form-control' onChange={(event) => setPhonePrefixCreateAddress(event.currentTarget.value)}>
+                                        {
+                                            PHONE_NUMBER_CODE.map((v) => <option selected={v == phonePrefixCreateAddress} value={v}>{v}</option>)
+                                        }
+                                    </select>
                                     <input type="number" name="phone" id="phone" className={`form-control ${errorObj422.phone ? 'is-invalid' : ''}`} placeholder="Phone" value={phoneCreateAddress} onChange={(e) => {
                                         setPhoneCreateAddress(e.target.value)
                                     }} />
@@ -316,8 +328,18 @@ export default function AddressIndex() {
                                             </div> : <></>
                                     }
                                 </div>
-                                <div className="col form-group mb-3">
+                                <div className="col form-group mb-3 form-group__phone-number">
                                     <label htmlFor="phone" className="d-none">Phone</label>
+                                    <select name="" id="" className='form-control' onChange={(event) => {setObjEditAddress(() => {
+                                        let obj = Object.assign({}, objEditAddress)
+                                        obj.phonePrefix = event.target.value
+
+                                        return obj
+                                    })}}>
+                                        {
+                                            PHONE_NUMBER_CODE.map((v) => <option selected={v == objEditAddress.phonePrefix} value={v}>{v}</option>)
+                                        }
+                                    </select>
                                     <input type="number" name="phone" id="phone" className={`form-control ${errorObj422.phone ? 'is-invalid' : ''}`} placeholder="Phone" value={objEditAddress.phone} onChange={(e) => {
                                         setObjEditAddress(() => {
                                             let obj = Object.assign({}, objEditAddress)

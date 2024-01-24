@@ -10,6 +10,11 @@ import NoPhotoImage from './../../../../images/icons/no-photo.png'
 
 require('rc-checkbox/assets/index.css');
 
+const PHONE_NUMBER_CODE = [
+    '+62',
+    '+1',
+];
+
 export default function BoxProfileComponent({ user }) {
 
     /**
@@ -81,7 +86,7 @@ export default function BoxProfileComponent({ user }) {
         const formData = new FormData()
         formData.append('user_name', tempUser.userName)
         formData.append('name', tempUser.name)
-        formData.append('no_hp', tempUser.phone)
+        formData.append('no_hp', `${tempUser.phonePrefix}${tempUser.phone}`)
         formData.append('gender', tempUser.gender ? tempUser.gender.toLowerCase() : '')
         formData.append('birth_date', `${selectedYear}-${selectedMonth.value}-${selectedDateMonth}`)
         formData.append('email', tempUser.email)
@@ -176,7 +181,17 @@ export default function BoxProfileComponent({ user }) {
                                 <div className="center-form-group">
                                     <span>:</span>
                                 </div>
-                                <div className="right-form-group">
+                                <div className="right-form-group form-group__phone-number">
+                                    <select name="" id="" className='form-control' onChange={(event) => {setTempUser(() => {
+                                        let obj = Object.assign({}, tempUser)
+                                        obj.phonePrefix = event.target.value
+
+                                        return obj
+                                    })}}>
+                                        {
+                                            PHONE_NUMBER_CODE.map((v) => <option selected={v == tempUser.phonePrefix} value={v}>{v}</option>)
+                                        }
+                                    </select>
                                     <input type="number" className="form-control" name='phone_number' id='phone_number' value={tempUser.phone} placeholder="Phone Number" onChange={(e) => {
                                         setTempUser(() => {
                                             let obj = Object.assign({}, tempUser)
