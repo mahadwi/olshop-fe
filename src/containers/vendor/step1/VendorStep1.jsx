@@ -58,7 +58,7 @@ export default function VendorStep1() {
             bank_account_number: bankAccountNumber,
             address: address,
         };
-        console.log(data);
+        localStorage.setItem('tempVendor', JSON.stringify(data));
         navigate('../2')
         // setLoading(true);
         // Api.post('/vendor', data, {
@@ -81,6 +81,12 @@ export default function VendorStep1() {
     }, [pathname]);
 
     useEffect(() => {
+        // const tempVendor = localStorage.getItem('tempVendor');
+        // if (tempVendor) {
+        //     navigate('../2');
+        //     return
+        // }
+
         setLoading(true);
         Api.get('/bank-code').then((res) => {
             setBanks(res.data.data.map((v) => ({ value: v.code, label: v.name })));

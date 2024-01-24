@@ -129,6 +129,14 @@ export default function VendorStep2() {
         window.scrollTo(0, 0);
     }, [pathname]);
 
+    useEffect(() => {
+        const tempVendor = localStorage.getItem('tempVendor');
+        if (!tempVendor) {
+            navigate('../1');
+            return
+        }
+    }, []);
+
     return (
         <div className='vendor'>
 
