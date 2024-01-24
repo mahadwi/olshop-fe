@@ -130,11 +130,11 @@ export default function VendorStep2() {
     }, [pathname]);
 
     useEffect(() => {
-        const tempVendor = localStorage.getItem('tempVendor');
-        if (!tempVendor) {
-            navigate('../1');
-            return
-        }
+        // const tempVendor = localStorage.getItem('tempVendor');
+        // if (!tempVendor) {
+        //     navigate('../1');
+        //     return
+        // }
     }, []);
 
     return (
@@ -217,9 +217,18 @@ export default function VendorStep2() {
 
             <ContainerComponent>
                 <>
+                    <div className='tabs'>
+                        <button onClick={() => {
+                            navigate('../1')
+                        }}>
+                            {t('accountinformation')}
+                        </button>
+                        <button className='active'>
+                            {t('productinformation')}
+                        </button>
+                    </div>
                     <div className='step-1 bg-white'>
                         <div className='steps'>
-                            <div className='step' onClick={() => navigate('../1')}>{t('accountinformation')}</div>
                             <div className='step active'>{t('productinformation')}</div>
                             <div className='step'>{t('reviewvendor')}</div>
                             <div className='step'>{t('agreement')}</div>

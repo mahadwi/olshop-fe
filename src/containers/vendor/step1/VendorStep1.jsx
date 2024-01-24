@@ -100,13 +100,19 @@ export default function VendorStep1() {
     return (
         <div className='vendor'>
             <ContainerComponent>
+                <div className='tabs'>
+                    <button className='active'>
+                        {t('accountinformation')}
+                    </button>
+                    <button onClick={() => {
+                        navigate('../2')
+                    }}>
+                        {t('productinformation')}
+                    </button>
+                </div>
                 <div className='step-1 bg-white'>
-                    <div className='steps'>
-                        <div className='step active'>{t('accountinformation')}</div>
-                        <div className='step'>{t('productinformation')}</div>
-                        <div className='step'>{t('reviewvendor')}</div>
-                        <div className='step'>{t('agreement')}</div>
-                        <div className='step'>{t('listingproduct')}</div>
+                    <div className='title'>
+                        {t('accountinformation')}
                     </div>
                     <div className='divider' />
                     <div className='content'>

@@ -1,66 +1,45 @@
 .vendor {
     background: rgba(221, 221, 221, 0.50);
-    padding: 1rem 0;
+    padding: 0 0 1rem 0;
+
+    .tabs {
+        display: flex;
+        flex-direction: row;
+        justify-content: end;
+
+        button {
+            color: #FFAC33;
+            font-family: Inter;
+            font-size: 12px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;
+            letter-spacing: 0.48px;
+            border: 1px solid #FFAC33;
+            background: #FFF;
+            padding: 0.5rem 1.5rem;
+
+            &.active {
+                background: #FFAC33;
+                color: #fff;
+            }
+        }
+    }
 
     .bg-white {
         background: #fff;
     }
 
-    .steps {
-        padding: 4rem 2rem 2rem;
-        color: #000000;
-        text-align: center;
-        font-family: Cabin;
-        font-size: 10px;
+    .title {
+        color: #000;
+        font-family: Inter;
+        font-size: 24px;
         font-style: normal;
         font-weight: 700;
-        letter-spacing: 1.5px;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        gap: 1rem;
-
-        .step {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            flex-basis: 10rem;
-            gap: 1rem;
-            position: relative;
-
-            &::before {
-                content: '';
-                display: block;
-                width: 10px;
-                height: 10px;
-                background: #081CC9;
-                border-radius: 50%;
-            }
-
-            &:not(:first-child)::after {
-                content: '';
-                position: absolute;
-                top: 5px;
-                left: -50%;
-                height: 1px;
-                width: 90%;
-                display: block;
-                background: #000;
-            }
-
-            &.active~.step {
-                color: #A2A3B1;
-
-                &::after {
-                    background: #C4C4C4;
-                }
-
-                &::before {
-                    background: #C8D1E1;
-                }
-            }
-        }
+        line-height: normal;
+        letter-spacing: 0.96px;
+        padding: 1.5rem 0;
+        text-align: center;
     }
 
     .divider {
