@@ -113,7 +113,7 @@ export default function VendorStep1() {
                                         <span>:</span>
                                     </div>
                                     <div className="right-form-group">
-                                        <input className="form-control" type="text" className='form-control disabled' name="name" id="name" onInput={(event) => setName(event.currentTarget.value)} />
+                                        <input className="form-control" type="text" className='form-control disabled' name="name" id="name" placeholder={`${t('name')}*`} onInput={(event) => setName(event.currentTarget.value)} />
                                     </div>
                                 </div>
                                 <div className="form-group">
@@ -140,7 +140,7 @@ export default function VendorStep1() {
                                                 PHONE_NUMBER_CODE.map((v) => <option selected={v == phoneCode} value={v}>{v}</option>)
                                             }
                                         </select>
-                                        <input className="form-control" type="email" className='form-control' name="phone" id="phone" onInput={(event) => setPhone(event.currentTarget.value)} />
+                                        <input className="form-control" type="email" className='form-control' name="phone" id="phone" placeholder={`${t('phonenumber')}*`} onInput={(event) => setPhone(event.currentTarget.value)} />
                                     </div>
                                 </div>
                                 <div className="form-group">
@@ -151,7 +151,7 @@ export default function VendorStep1() {
                                         <span>:</span>
                                     </div>
                                     <div className='right-form-group'>
-                                        <input className="form-control" type="email" className='form-control' name="nik" id="nik" onInput={(event) => setKtp(event.currentTarget.value)} />
+                                        <input className="form-control" type="email" className='form-control' name="nik" id="nik" placeholder={`${t('idcardnumber')}*`} onInput={(event) => setKtp(event.currentTarget.value)} />
                                     </div>
                                 </div>
                                 <div className="form-group">
@@ -186,6 +186,13 @@ export default function VendorStep1() {
                                                     fontWeight: '300',
                                                     fontFamily: "'Inter', sans-serif"
                                                 }),
+                                                placeholder: (baseStyles, state) => ({
+                                                    ...baseStyles,
+                                                    color: '#000',
+                                                    fontSize: '12px',
+                                                    fontWeight: '500',
+                                                    fontFamily: "'Cabin', sans-serif"
+                                                }),
                                                 singleValue: (baseStyles, state) => ({
                                                     ...baseStyles,
                                                     color: '#000',
@@ -209,7 +216,7 @@ export default function VendorStep1() {
                                             }}
                                             name='banks'
                                             defaultOptions
-                                            placeholder={''}
+                                            placeholder={`${t('selectbankname')}*`}
                                             value={selectedBank}
                                             onChange={setSelectedBank}
                                             options={banks} />
@@ -223,7 +230,7 @@ export default function VendorStep1() {
                                         <span>:</span>
                                     </div>
                                     <div className='right-form-group'>
-                                        <input className="form-control" type="email" className='form-control' name="rekening" id="rekening" onInput={(event) => setBankAccountNumber(event.currentTarget.value)} />
+                                        <input className="form-control" type="email" className='form-control' name="rekening" id="rekening" placeholder={`${t('accountnumber')}*`} onInput={(event) => setBankAccountNumber(event.currentTarget.value)} />
                                     </div>
                                 </div>
                                 <div className="form-group">
@@ -234,7 +241,7 @@ export default function VendorStep1() {
                                         <span>:</span>
                                     </div>
                                     <div className='right-form-group'>
-                                        <input className="form-control" type="email" className='form-control' name="penerima" id="penerima" onInput={(event) => setBankAccountHolder(event.currentTarget.value)} />
+                                        <input className="form-control" type="email" className='form-control' name="penerima" id="penerima" placeholder={`${t('recipientname')}*`} onInput={(event) => setBankAccountHolder(event.currentTarget.value)} />
                                     </div>
                                 </div>
                                 <div className="form-group">
@@ -245,7 +252,7 @@ export default function VendorStep1() {
                                         <span>:</span>
                                     </div>
                                     <div className='right-form-group'>
-                                        <textarea name="address" id="alamat" class="form-control " cols="30" rows="10" style={{ height: "100px" }} onInput={(event) => setAddress(event.currentTarget.value)}></textarea>
+                                        <textarea name="address" id="alamat" class="form-control " cols="30" rows="10" style={{ height: "100px" }} placeholder={`${t('address')}*`} onInput={(event) => setAddress(event.currentTarget.value)}></textarea>
                                     </div>
                                 </div>
                             </div>
