@@ -20,7 +20,21 @@ const inputNonNegativeValue = (event) => {
         target.value = "";
     } else {
         const v = Number(target.value);
-        target.value = v == 0 ? 1 : v;
+        target.value = isNaN(v) || v == 0 ? 1 : v;
+    }
+}
+
+const inputUsdFormat = (event) => {
+    const target = event.currentTarget;
+    if (target.value == "") {
+        target.value = "";
+    } else {
+        const s = target.value.split('.')
+        if (target.value[target.value.length - 1] == '.' && s.length == 2) {
+            return
+        }
+        const v = Number(s.slice(0, 2).join('.'))
+        target.value = (isNaN(v) || v == 0 ? 1 : v)
     }
 }
 
@@ -371,10 +385,10 @@ export default function VendorStep2() {
                                             </div>
                                             <div className="two-col col">
                                                 <div>
-                                                    <input className="form-control" type="number" min={1} name="" id="" placeholder={`${t('price')} (RP)`} onInput={inputNonNegativeValue} />
+                                                    <input className="form-control" type="text" name="" id="" placeholder={`${t('price')} (RP)`} onInput={inputNonNegativeValue} />
                                                 </div>
                                                 <div>
-                                                    <input className="form-control" type="number" min={1} name="" id="" placeholder={`${t('price')} (USD)`} onInput={inputNonNegativeValue} />
+                                                    <input className="form-control" type="text" min={1} name="" id="" placeholder={`${t('price')} (USD)`} onInput={inputUsdFormat} />
                                                 </div>
                                             </div>
                                             <div className="two-col col">
@@ -404,6 +418,20 @@ export default function VendorStep2() {
                                                             container: (baseStyles, state) => ({
                                                                 ...baseStyles,
                                                                 width: '100%',
+                                                            }),
+                                                            placeholder: (baseStyles, state) => ({
+                                                                ...baseStyles,
+                                                                color: '#000',
+                                                                fontSize: '12px',
+                                                                fontWeight: '500',
+                                                                fontFamily: "'Cabin', sans-serif"
+                                                            }),
+                                                            singleValue: (baseStyles, state) => ({
+                                                                ...baseStyles,
+                                                                color: '#000',
+                                                                fontSize: '12px',
+                                                                fontWeight: '500',
+                                                                fontFamily: "'Cabin', sans-serif"
                                                             }),
                                                             input: (baseStyles, state) => ({
                                                                 ...baseStyles,
@@ -444,10 +472,10 @@ export default function VendorStep2() {
                                             </div>
                                             <div className="two-col col">
                                                 <div>
-                                                    <input className="form-control" type="number" min={1} name="" id="" disabled={commissionType?.value != "selling"} placeholder={`${t('saleprice')} (RP)`} onInput={inputNonNegativeValue} />
+                                                    <input className="form-control" type="text" name="" id="" disabled={commissionType?.value != "selling"} placeholder={`${t('saleprice')} (RP)`} onInput={inputNonNegativeValue} />
                                                 </div>
                                                 <div>
-                                                    <input className="form-control" type="number" min={1} name="" id="" disabled={commissionType?.value != "selling"} placeholder={`${t('saleprice')} (USD)`} onInput={inputNonNegativeValue} />
+                                                    <input className="form-control" type="text" name="" id="" disabled={commissionType?.value != "selling"} placeholder={`${t('saleprice')} (USD)`} onInput={inputUsdFormat} />
                                                 </div>
                                             </div>
                                             <div className="one-col col">
