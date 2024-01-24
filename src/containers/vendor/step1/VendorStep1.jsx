@@ -98,7 +98,8 @@ export default function VendorStep1() {
                     <div className='steps'>
                         <div className='step active'>{t('accountinformation')}</div>
                         <div className='step'>{t('productinformation')}</div>
-                        <div className='step'>{t('reviewauthentic')}</div>
+                        <div className='step'>{t('reviewvendor')}</div>
+                        <div className='step'>{t('agreement')}</div>
                         <div className='step'>{t('listingproduct')}</div>
                     </div>
                     <div className='divider' />

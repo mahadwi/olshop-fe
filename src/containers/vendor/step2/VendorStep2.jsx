@@ -199,7 +199,8 @@ export default function VendorStep2() {
                         <div className='steps'>
                             <div className='step' onClick={() => navigate('../1')}>{t('accountinformation')}</div>
                             <div className='step active'>{t('productinformation')}</div>
-                            <div className='step'>{t('reviewauthentic')}</div>
+                            <div className='step'>{t('reviewvendor')}</div>
+                            <div className='step'>{t('agreement')}</div>
                             <div className='step'>{t('listingproduct')}</div>
                         </div>
                     </div>
