@@ -10,6 +10,11 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import Api from '../../../utils/Api'
 
+const PHONE_NUMBER_CODE = [
+    '+62',
+    '+1',
+];
+
 export default function VendorStep1() {
 
     /**
@@ -35,6 +40,7 @@ export default function VendorStep1() {
     const [selectedBank, setSelectedBank] = useState(null);
 
     const [name, setName] = useState('');
+    const [phoneCode, setPhoneCode] = useState('+62');
     const [phone, setPhone] = useState('');
     const [ktp, setKtp] = useState('');
     const [bankAccountHolder, setBankAccountHolder] = useState('');
@@ -45,15 +51,28 @@ export default function VendorStep1() {
         const data = {
             name: name,
             email: user.email,
-            phone: phone,
+            phone: `${phoneCode}${phone}`,
             ktp: ktp,
-            bank: selectedBank.value,
+            bank: selectedBank?.value,
             bank_account_holder: bankAccountHolder,
             bank_account_number: bankAccountNumber,
             address: address,
         };
         console.log(data);
         navigate('../2')
+        // setLoading(true);
+        // Api.post('/vendor', data, {
+        //     headers: {
+        //         Authorization: 'Bearer ' + localStorage.getItem('apiToken')
+        //     }
+        // }).then((res) => {
+        //     console.log(res.data);
+        // }).catch((err) => {
+        //     console.log(err);
+        // }).finally(() => {
+        //     setLoading(false);
+        //     navigate('../2')
+        // })
     }
 
     // Automatically scrolls to top whenever pathname changes
@@ -116,8 +135,10 @@ export default function VendorStep1() {
                                         <span>:</span>
                                     </div>
                                     <div className='right-form-group form-group__phone-number'>
-                                        <select name="" id="" className='form-control'>
-                                            <option value="+62">+62</option>
+                                        <select name="" id="" className='form-control' onChange={(event) => setPhoneCode(event.currentTarget.value)}>
+                                            {
+                                                PHONE_NUMBER_CODE.map((v) => <option selected={v == phoneCode} value={v}>{v}</option>)
+                                            }
                                         </select>
                                         <input className="form-control" type="email" className='form-control' name="phone" id="phone" onInput={(event) => setPhone(event.currentTarget.value)} />
                                     </div>
@@ -165,6 +186,13 @@ export default function VendorStep1() {
                                                     fontWeight: '300',
                                                     fontFamily: "'Inter', sans-serif"
                                                 }),
+                                                singleValue: (baseStyles, state) => ({
+                                                    ...baseStyles,
+                                                    color: '#000',
+                                                    fontSize: '12px',
+                                                    fontWeight: '500',
+                                                    fontFamily: "'Cabin', sans-serif"
+                                                }),
                                                 option: (baseStyles, state) => ({
                                                     ...baseStyles,
                                                     backgroundColor: state.isDisabled ? 'transparent' : 'transparent',
@@ -181,7 +209,7 @@ export default function VendorStep1() {
                                             }}
                                             name='banks'
                                             defaultOptions
-                                            placeholder={t('bankname').toUpperCase()}
+                                            placeholder={''}
                                             value={selectedBank}
                                             onChange={setSelectedBank}
                                             options={banks} />
@@ -217,7 +245,7 @@ export default function VendorStep1() {
                                         <span>:</span>
                                     </div>
                                     <div className='right-form-group'>
-                                        <textarea name="address" id="alamat" class="form-control " placeholder="Address" cols="30" rows="10" style={{ height: "100px" }} onInput={(event) => setAddress(event.currentTarget.value)}></textarea>
+                                        <textarea name="address" id="alamat" class="form-control " cols="30" rows="10" style={{ height: "100px" }} onInput={(event) => setAddress(event.currentTarget.value)}></textarea>
                                     </div>
                                 </div>
                             </div>
