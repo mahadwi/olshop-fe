@@ -298,9 +298,9 @@ export default function VendorStep2() {
                                     </div>
                                     <div className={`products ${layout == 'grid' ? 'grid' : ''}`}>
                                         {
-                                            STEP_1_DATA_DUMMY.map((c) => {
+                                            STEP_1_DATA_DUMMY.map((c, i) => {
                                                 return (<>
-                                                    <div className={`product ${layout == 'grid' ? 'grid' : ''}`}>
+                                                    <div className={`product ${layout == 'grid' ? 'grid' : ''}`} onClick={() => navigate(`../review/${i}`)}>
                                                         <div className='image'>
                                                             <img className={`${layout == 'grid' ? 'grid' : ''}`} src={c.image} alt='product' />
                                                         </div>
