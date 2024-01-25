@@ -211,6 +211,8 @@ i18n
                     document: 'Document',
                     agreementview: 'View',
                     download: 'Download',
+                    viewlist: 'View List',
+                    goodssalesstatus: 'Goods Sales Status',
                     // Add other EN translations here
                 },
             },
@@ -417,6 +419,8 @@ i18n
                     document: 'Dokumen',
                     agreementview: 'Liat',
                     download: 'Unduh',
+                    viewlist: 'Lihat Daftar',
+                    goodssalesstatus: 'Status Penjualan Barang',
                     // Add other ID translations here
                 },
             },
