@@ -206,6 +206,11 @@ i18n
                     depositmoneypaymentaccountinformation: 'Deposit Money Payment Account Information',
                     copy: 'Copy',
                     onbehalfof: 'On Behalf of',
+                    action: 'Action',
+                    upload: 'Upload',
+                    document: 'Document',
+                    agreementview: 'View',
+                    download: 'Download',
                     // Add other EN translations here
                 },
             },
@@ -407,6 +412,11 @@ i18n
                     depositmoneypaymentaccountinformation: 'Informasi Rekening Pembayaran Uang Titipan',
                     copy: 'Salin',
                     onbehalfof: 'Atas Nama',
+                    action: 'Aksi',
+                    upload: 'Unggah',
+                    document: 'Dokumen',
+                    agreementview: 'Liat',
+                    download: 'Unduh',
                     // Add other ID translations here
                 },
             },

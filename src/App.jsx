@@ -31,6 +31,7 @@ import VendorIndex from './containers/vendor/index/VendorIndex';
 import VendorStep1 from './containers/vendor/step1/VendorStep1';
 import VendorStep2 from './containers/vendor/step2/VendorStep2';
 import VendorReview from './containers/vendor/review/VendorReview';
+import VendorAgreement from './containers/vendor/agreement/VendorAgreement';
 import MainLayout from './layouts/MainLayout';
 import AuthenticateMiddleware from './middleware/AuthenticateMiddleware';
 import AccountOrder from './containers/account/order/AccountOrder';
@@ -101,6 +102,7 @@ function App() {
                                 <Route path='1' element={<VendorStep1 />} />
                                 <Route path='2' element={<VendorStep2 />} />
                                 <Route path='review/:id' element={<VendorReview />} />
+                                <Route path='agreement/:id' element={<VendorAgreement />} />
                             </Route>
                         </Route>
                         {/* End of Account */}

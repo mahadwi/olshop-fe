@@ -287,7 +287,7 @@ export default function VendorReview() {
                         <div className="review-item-footer">
                             { reviewObj?.status == 'Rejected' ? <button className="preview" type="button" onClick={() => navigate('../2')}>{t('backto')} {t('productinformation')}</button> : null }
                             { reviewObj?.status == 'Rejected' ? <button className="next" type="button">{t('canceltransaction')}</button> : null }
-                            { reviewObj?.status == 'Approved' ? <button className="next">{t('next')}</button> : null }
+                            { reviewObj?.status == 'Approved' ? <button className="next" onClick={() => navigate(`../agreement/${id}`)}>{t('next')}</button> : null }
                         </div>
                     </div>
                 </>
