@@ -8,6 +8,11 @@ import ReCAPTCHA from 'react-google-recaptcha'
 import { useTranslation } from "react-i18next";
 import { Link } from 'react-router-dom'
 
+const PHONE_NUMBER_CODE = [
+    '+62',
+    '+1',
+];
+
 export default function FormComponent() {
 
     /**
@@ -24,6 +29,7 @@ export default function FormComponent() {
     const [firstName, setFirstName] = useState('')
     const [lastName, setLasName] = useState('')
     const [email, setEmail] = useState('')
+    const [phonePrefix, setPhonePrefix] = useState('+62')
     const [phone, setPhone] = useState('')
     const [subject, setSubject] = useState('')
     const [message, setMessage] = useState('')
@@ -40,7 +46,7 @@ export default function FormComponent() {
             firstName: firstName,
             lastName: lastName,
             email: email,
-            handphone: phone,
+            handphone: `${phonePrefix}${phone}`,
             subject: subject,
             message: message,
             recapcha: recaptchaValue
@@ -51,6 +57,7 @@ export default function FormComponent() {
                 setFirstName('')
                 setLasName('')
                 setEmail('')
+                setPhonePrefix('+62')
                 setPhone('')
                 setSubject('')
                 setMessage('')
@@ -109,7 +116,13 @@ export default function FormComponent() {
                                 : <></>
                         }
                     </div>
-                    <div className="form-group">
+                    <div className="form-group form-group__phone-number">
+                        <label htmlFor="phone" className="d-none">Phone</label>
+                        <select name="" id="" className='form-control' onChange={(event) => setPhonePrefix(event.currentTarget.value)}>
+                            {
+                                PHONE_NUMBER_CODE.map((v) => <option selected={v == phonePrefix} value={v}>{v}</option>)
+                            }
+                        </select>
                         <input type="text" className={`form-control ${objError422.handphone ? 'is-invalid' : ''}`} placeholder={t('phonenumber')} value={phone} onChange={(e) => {
                             setPhone(e.target.value)
                         }} />
