@@ -49,7 +49,7 @@ export default function VendorAgreement() {
                 <>
                     <div className='tabs'>
                         <button onClick={() => {
-                            navigate('../1')
+                            navigate('../accountinformation')
                         }}>
                             {t('accountinformation')}
                         </button>
@@ -59,7 +59,7 @@ export default function VendorAgreement() {
                     </div>
                     <div className='step-1 bg-white'>
                         <div className='steps'>
-                            <div className='step' onClick={() => navigate('../2')}>{t('productinformation')}</div>
+                            <div className='step' onClick={() => navigate('../productinformation')}>{t('productinformation')}</div>
                             <div className='step' onClick={() => navigate(`../review/${id}`)}>{t('reviewvendor')}</div>
                             <div className='step active'>{t('agreement')}</div>
                             <div className='step'>{t('listingproduct')}</div>

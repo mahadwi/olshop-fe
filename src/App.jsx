@@ -28,8 +28,8 @@ import TermAndConditionIndex from './containers/term-and-condition/index/TermAnd
 import AddressIndex from './containers/address/index/AddressIndex';
 import VendorMiddleware from './middleware/VendorMiddleware';
 import VendorIndex from './containers/vendor/index/VendorIndex';
-import VendorStep1 from './containers/vendor/step1/VendorStep1';
-import VendorStep2 from './containers/vendor/step2/VendorStep2';
+import VendorAccountInformation from './containers/vendor/accountinformation/VendorAccountInformation';
+import VendorProductInformation from './containers/vendor/productinformation/VendorProductInformation';
 import VendorReview from './containers/vendor/review/VendorReview';
 import VendorAgreement from './containers/vendor/agreement/VendorAgreement';
 import VendorListingProduct from './containers/vendor/listingproduct/VendorListingProduct';
@@ -100,8 +100,8 @@ function App() {
                             <Route path='address' element={<AddressIndex />} />
                             <Route path='vendor' element={<VendorMiddleware />}>
                                 <Route index element={<VendorIndex />} />
-                                <Route path='1' element={<VendorStep1 />} />
-                                <Route path='2' element={<VendorStep2 />} />
+                                <Route path='accountinformation' element={<VendorAccountInformation />} />
+                                <Route path='productinformation' element={<VendorProductInformation />} />
                                 <Route path='review/:id' element={<VendorReview />} />
                                 <Route path='agreement/:id' element={<VendorAgreement />} />
                                 <Route path='listingproduct/:id' element={<VendorListingProduct />} />

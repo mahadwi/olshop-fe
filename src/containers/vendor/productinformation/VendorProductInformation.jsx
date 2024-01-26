@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import './vendorstep2.scoped.scss'
+import './vendorproductinformation.scoped.scss'
 import { useLocation } from 'react-router-dom'
 import 'react-responsive-modal/styles.css';
 import AsyncSelect from 'react-select/async';
@@ -95,7 +95,7 @@ const STEP_1_DATA_DUMMY = [
     },
 ];
 
-export default function VendorStep2() {
+export default function VendorProductInformation() {
 
     /**
      * Hooks
@@ -133,7 +133,7 @@ export default function VendorStep2() {
     useEffect(() => {
         // const tempVendor = localStorage.getItem('tempVendor');
         // if (!tempVendor) {
-        //     navigate('../1');
+        //     navigate('../accountinformation');
         //     return
         // }
     }, []);
@@ -246,7 +246,7 @@ export default function VendorStep2() {
                 <>
                     <div className='tabs'>
                         <button onClick={() => {
-                            navigate('../1')
+                            navigate('../accountinformation')
                         }}>
                             {t('accountinformation')}
                         </button>

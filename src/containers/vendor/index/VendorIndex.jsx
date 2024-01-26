@@ -32,7 +32,7 @@ export default function VendorIndex() {
                         </div>
                         <div className='title'>{t('welcometoluxi')}</div>
                         <div className='description'>{t('startregistrationcontent')}</div>
-                        <button onClick={() => navigate('1')} >{t('startregistration')}</button>
+                        <button onClick={() => navigate('accountinformation')} >{t('startregistration')}</button>
                     </div>
                 </div>
             </ContainerComponent>

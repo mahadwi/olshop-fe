@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import './vendorstep1.scoped.scss'
+import './vendoraccountinformation.scoped.scss'
 import { useLocation } from 'react-router-dom'
 import 'react-responsive-modal/styles.css';
 import Select from 'react-select';
@@ -15,7 +15,7 @@ const PHONE_NUMBER_CODE = [
     '+1',
 ];
 
-export default function VendorStep1() {
+export default function VendorAccountInformation() {
 
     /**
      * Hooks
@@ -59,7 +59,7 @@ export default function VendorStep1() {
             address: address,
         };
         localStorage.setItem('tempVendor', JSON.stringify(data));
-        navigate('../2')
+        navigate('../productinformation')
         // setLoading(true);
         // Api.post('/vendor', data, {
         //     headers: {
@@ -71,7 +71,7 @@ export default function VendorStep1() {
         //     console.log(err);
         // }).finally(() => {
         //     setLoading(false);
-        //     navigate('../2')
+        //     navigate('../productinformation')
         // })
     }
 
@@ -83,7 +83,7 @@ export default function VendorStep1() {
     useEffect(() => {
         // const tempVendor = localStorage.getItem('tempVendor');
         // if (tempVendor) {
-        //     navigate('../2');
+        //     navigate('../productinformation');
         //     return
         // }
 
@@ -105,7 +105,7 @@ export default function VendorStep1() {
                         {t('accountinformation')}
                     </button>
                     <button onClick={() => {
-                        navigate('../2')
+                        navigate('../productinformation')
                     }}>
                         {t('productinformation')}
                     </button>

@@ -142,7 +142,7 @@ export default function VendorReview() {
                 <>
                     <div className='tabs'>
                         <button onClick={() => {
-                            navigate('../1')
+                            navigate('../accountinformation')
                         }}>
                             {t('accountinformation')}
                         </button>
@@ -152,7 +152,7 @@ export default function VendorReview() {
                     </div>
                     <div className='step-1 bg-white'>
                         <div className='steps'>
-                            <div className='step' onClick={() => navigate('../2')}>{t('productinformation')}</div>
+                            <div className='step' onClick={() => navigate('../productinformation')}>{t('productinformation')}</div>
                             <div className='step active'>{t('reviewvendor')}</div>
                             <div className='step'>{t('agreement')}</div>
                             <div className='step'>{t('listingproduct')}</div>
@@ -160,7 +160,7 @@ export default function VendorReview() {
                     </div>
                     <div className='step-1-main review-item'>
                         <div className="item bg-white">
-                            <div className="top" onClick={() => navigate('../2')}>
+                            <div className="top" onClick={() => navigate('../productinformation')}>
                                 <button type="button">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                         <path d="M20 11H7.83L13.42 5.41L12 4L4 12L12 20L13.41 18.59L7.83 13H20V11Z" fill="#111111" />
@@ -285,7 +285,7 @@ export default function VendorReview() {
                         : null }
 
                         <div className="review-item-footer">
-                            { reviewObj?.status == 'Rejected' ? <button className="preview" type="button" onClick={() => navigate('../2')}>{t('backto')} {t('productinformation')}</button> : null }
+                            { reviewObj?.status == 'Rejected' ? <button className="preview" type="button" onClick={() => navigate('../productinformation')}>{t('backto')} {t('productinformation')}</button> : null }
                             { reviewObj?.status == 'Rejected' ? <button className="next" type="button">{t('canceltransaction')}</button> : null }
                             { reviewObj?.status == 'Approved' ? <button className="next" onClick={() => navigate(`../agreement/${id}`)}>{t('next')}</button> : null }
                         </div>

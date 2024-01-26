@@ -196,7 +196,7 @@ export default function VendorListingProduct() {
                 <>
                     <div className='tabs'>
                         <button onClick={() => {
-                            navigate('../1')
+                            navigate('../accountinformation')
                         }}>
                             {t('accountinformation')}
                         </button>
@@ -206,7 +206,7 @@ export default function VendorListingProduct() {
                     </div>
                     <div className='step-1 bg-white'>
                         <div className='steps'>
-                            <div className='step' onClick={() => navigate('../2')}>{t('productinformation')}</div>
+                            <div className='step' onClick={() => navigate('../productinformation')}>{t('productinformation')}</div>
                             <div className='step' onClick={() => navigate(`../review/${id}`)}>{t('reviewvendor')}</div>
                             <div className='step' onClick={() => navigate(`../agreement/${id}`)}>{t('agreement')}</div>
                             <div className='step active'>{t('listingproduct')}</div>
@@ -342,7 +342,7 @@ export default function VendorListingProduct() {
                                 </div>
                             </div>
                             <div className="listingproduct-footer">
-                                <button className="next" onClick={() => navigate(`../2`)}>{t('viewlist')}</button>
+                                <button className="next" onClick={() => navigate(`../productinformation`)}>{t('viewlist')}</button>
                             </div>
                         </div>
 
