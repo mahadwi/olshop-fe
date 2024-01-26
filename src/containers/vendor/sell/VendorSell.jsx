@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import './vendorsell.scoped.scss'
 import { useLocation } from 'react-router-dom'
 import 'react-responsive-modal/styles.css';
@@ -21,7 +21,24 @@ const inputNonNegativeValue = (event) => {
         const v = Number(target.value);
         target.value = isNaN(v) || v == 0 ? 1 : v;
     }
+    return target.value;
 }
+
+const dot = (color = 'transparent') => ({
+    alignItems: 'center',
+    display: 'flex',
+
+    ':before': {
+        backgroundColor: color,
+        borderRadius: 10,
+        content: '" "',
+        display: 'block',
+        marginRight: 8,
+        height: 10,
+        width: 10,
+    },
+});
+
 
 const inputUsdFormat = (event) => {
     const target = event.currentTarget;
@@ -30,11 +47,12 @@ const inputUsdFormat = (event) => {
     } else {
         const s = target.value.split('.')
         if (target.value[target.value.length - 1] == '.' && s.length == 2) {
-            return
+            return s.join("")
         }
         const v = Number(s.slice(0, 2).join('.'))
         target.value = (isNaN(v) || v == 0 ? 1 : v)
     }
+    return target.value;
 }
 
 export default function VendorSell() {
@@ -62,6 +80,16 @@ export default function VendorSell() {
      * 
      */
     const [modalConfirmSellGoods, setModalConfirmSellGoods] = useState(false)
+    const inputImage = useRef(null);
+    const [imageBlobUrl, setImageBlobUrl] = useState(null);
+
+    const [categories, setCategories] = useState([]);
+    const [selectedCategories, setSelectedCategories] = useState(null);
+
+    const [colors, setColors] = useState([]);
+    const [selectedColor, setSelectedColor] = useState(null);
+
+    const [formData, setFormData] = useState({});
 
     // Automatically scrolls to top whenever pathname changes
     useEffect(() => {
@@ -70,7 +98,7 @@ export default function VendorSell() {
 
     useEffect(() => {
         setLoading(true);
-        Api.get('/vendor', {
+        const v = Api.get('/vendor', {
             headers: {
                 Authorization: 'Bearer ' + localStorage.getItem('apiToken')
             }
@@ -81,10 +109,29 @@ export default function VendorSell() {
             }
         }).catch((err) => {
             console.log(err);
-        }).finally(() => {
+        });
+        const c = Api.get('/color').then((res) => {
+            setColors(res.data.data.map((c) =>({value: c.id, label: c.name, color: c.hex_code})));
+        }).catch((err) => {
+            console.log(err);
+        });
+        const ca = Api.get('/product-category').then((res) => {
+            setCategories(res.data.data.map((c) => ({value: c.id, label: c.name})));
+        }).catch((err) => {
+            console.log(err);
+        });
+        Promise.all([v, c, ca]).finally(() => {
             setLoading(false);
         });
     }, []);
+
+    const inputImageOnChange = (event) => {
+        const reader = new FileReader();
+        reader.addEventListener("load", () => {
+          setImageBlobUrl(reader.result);
+        });
+        reader.readAsDataURL(event.currentTarget.files[0]);
+    }
 
     return (
         <div className='vendor'>
@@ -198,7 +245,9 @@ export default function VendorSell() {
                             </div>
                             <div className="body">
                                 <div className="add-photo-wrap">
-                                    <div>
+                                    { imageBlobUrl ? <img alt="preview" src={imageBlobUrl} /> : null }
+                                    <input ref={inputImage} type="file" accept="image/*" hidden onChange={inputImageOnChange} />
+                                    <div onClick={() => inputImage.current?.click()}>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
                                             <g clip-path="url(#clip0_2390_8792)">
                                                 <path d="M20.0268 3.81V5.51667H17.4668V8.07667H15.7601V5.51667H13.2001V3.81H15.7601V1.25H17.4668V3.81H20.0268ZM12.7735 9.78333C13.1131 9.78322 13.4387 9.64821 13.6787 9.408C13.9188 9.1678 14.0536 8.84207 14.0535 8.50248C14.0534 8.16289 13.9184 7.83725 13.6781 7.59721C13.4379 7.35716 13.1122 7.22237 12.7726 7.22248C12.6045 7.22254 12.438 7.25571 12.2827 7.32011C12.1273 7.38451 11.9862 7.47887 11.8673 7.59781C11.7485 7.71675 11.6542 7.85793 11.5899 8.0133C11.5256 8.16867 11.4926 8.33519 11.4926 8.50333C11.4927 8.67148 11.5259 8.83797 11.5903 8.9933C11.6547 9.14863 11.749 9.28975 11.868 9.40861C11.9869 9.52747 12.1281 9.62173 12.2834 9.68603C12.4388 9.75033 12.6053 9.78339 12.7735 9.78333ZM15.7601 12.543L15.3224 12.0566C15.1623 11.8784 14.9665 11.7359 14.7478 11.6383C14.529 11.5407 14.2922 11.4903 14.0526 11.4903C13.8131 11.4903 13.5762 11.5407 13.3575 11.6383C13.1387 11.7359 12.9429 11.8784 12.7829 12.0566L12.2231 12.6804L8.08014 8.07667L5.52014 10.9208V5.51667H11.4935V3.81H5.52014C5.06751 3.81 4.63341 3.98981 4.31335 4.30987C3.99329 4.62993 3.81348 5.06403 3.81348 5.51667V15.7567C3.81348 16.2093 3.99329 16.6434 4.31335 16.9635C4.63341 17.2835 5.06751 17.4633 5.52014 17.4633H15.7601C16.2128 17.4633 16.6469 17.2835 16.9669 16.9635C17.287 16.6434 17.4668 16.2093 17.4668 15.7567V9.78333H15.7601V12.543Z" fill="#111111" />
@@ -210,7 +259,7 @@ export default function VendorSell() {
                                             </defs>
                                         </svg>
                                     </div>
-                                    <p>{t('addphoto')}</p>
+                                    <p onClick={() => inputImage.current?.click()}>{t(imageBlobUrl ? 'changephoto' : 'addphoto')}</p>
                                 </div>
                                 <div className="input-title">
                                     <h4>{t('required')}</h4>
@@ -218,7 +267,11 @@ export default function VendorSell() {
                                 </div>
                                 <div className="form-area">
                                     <div className="one-col col">
-                                        <input className="form-control" type="text" name="" id="" placeholder={t('name')} />
+                                        <input className="form-control" type="text" name="" id="" placeholder={t('name')} onInput={(event) => {
+                                            const d = Object.assign({}, formData);
+                                            d.name = event.currentTarget.value;
+                                            setFormData(d);
+                                        }} />
                                     </div>
                                     <div className="one-col col">
                                         <Select
@@ -242,6 +295,13 @@ export default function VendorSell() {
                                                     '&:hover': {
                                                         borderColor: '#C4C4C4',
                                                     }
+                                                }),
+                                                singleValue: (baseStyles, state) => ({
+                                                    ...baseStyles,
+                                                    color: '#000',
+                                                    fontSize: '12px',
+                                                    fontWeight: '500',
+                                                    fontFamily: "'Cabin', sans-serif",
                                                 }),
                                                 container: (baseStyles, state) => ({
                                                     ...baseStyles,
@@ -271,32 +331,67 @@ export default function VendorSell() {
                                             name='shipping_option'
                                             defaultOptions
                                             placeholder={t('category')}
-                                            value={null}
-                                            onChange={() => { }}
-                                            options={[]} />
+                                            value={selectedCategories}
+                                            onChange={(option) => {
+                                                const d = Object.assign({}, formData);
+                                                d.product_category_id = option.value;
+                                                setFormData(d);
+                                                setSelectedCategories(option);
+                                            }}
+                                            options={categories} />
                                     </div>
                                     <div className="two-col col">
                                         <div>
-                                            <input className="form-control" type="number" min={1} name="" id="" placeholder={`${t('weight')} (Kg)`} onInput={inputNonNegativeValue} onChange={(e) => console.log(e)} />
+                                            <input className="form-control" type="number" min={1} name="" id="" placeholder={`${t('weight')} (Kg)`} onInput={(event) => {
+                                                const v = inputNonNegativeValue(event)
+                                                const d = Object.assign({}, formData);
+                                                d.weight = v;
+                                                setFormData(d);
+                                            }} />
                                         </div>
                                         <div>
-                                            <input className="form-control" type="number" min={1} name="" id="" placeholder={`${t('length')} (cm)`} onInput={inputNonNegativeValue} />
+                                            <input className="form-control" type="number" min={1} name="" id="" placeholder={`${t('length')} (cm)`} onInput={(event) => {
+                                                const v = inputNonNegativeValue(event)
+                                                const d = Object.assign({}, formData);
+                                                d.length = v;
+                                                setFormData(d);
+                                            }} />
                                         </div>
                                     </div>
                                     <div className="two-col col">
                                         <div>
-                                            <input className="form-control" type="number" min={1} name="" id="" placeholder={`${t('width')} (cm)`} onInput={inputNonNegativeValue} />
+                                            <input className="form-control" type="number" min={1} name="" id="" placeholder={`${t('width')} (cm)`} onInput={(event) => {
+                                                const v = inputNonNegativeValue(event)
+                                                const d = Object.assign({}, formData);
+                                                d.width = v;
+                                                setFormData(d);
+                                            }} />
                                         </div>
                                         <div>
-                                            <input className="form-control" type="number" min={1} name="" id="" placeholder={`${t('height')} (cm)`} onInput={inputNonNegativeValue} />
+                                            <input className="form-control" type="number" min={1} name="" id="" placeholder={`${t('height')} (cm)`} onInput={(event) => {
+                                                const v = inputNonNegativeValue(event)
+                                                const d = Object.assign({}, formData);
+                                                d.height = v;
+                                                setFormData(d);
+                                            }} />
                                         </div>
                                     </div>
                                     <div className="two-col col">
                                         <div>
-                                            <input className="form-control" type="text" name="" id="" placeholder={`${t('price')} (RP)`} onInput={inputNonNegativeValue} />
+                                            <input className="form-control" type="text" name="" id="" placeholder={`${t('price')} (RP)`} onInput={(event) => {
+                                                const v = inputNonNegativeValue(event)
+                                                const d = Object.assign({}, formData);
+                                                d.price = v;
+                                                setFormData(d);
+                                            }} />
                                         </div>
                                         <div>
-                                            <input className="form-control" type="text" min={1} name="" id="" placeholder={`${t('price')} (USD)`} onInput={inputUsdFormat} />
+                                            <input className="form-control" type="text" min={1} name="" id="" placeholder={`${t('price')} (USD)`} onInput={(event) => {
+                                                const v = inputUsdFormat(event)
+                                                const d = Object.assign({}, formData);
+                                                d.price_usd = v;
+                                                setFormData(d);
+                                            }} />
                                         </div>
                                     </div>
                                     <div className="two-col col">
@@ -327,12 +422,12 @@ export default function VendorSell() {
                                                         ...baseStyles,
                                                         width: '100%',
                                                     }),
-                                                    placeholder: (baseStyles, state) => ({
+                                                    input: (baseStyles, state) => ({
                                                         ...baseStyles,
-                                                        color: '#000',
-                                                        fontSize: '12px',
-                                                        fontWeight: '500',
-                                                        fontFamily: "'Cabin', sans-serif"
+                                                        color: '#545454',
+                                                        fontSize: '10px',
+                                                        fontWeight: 'normal',
+                                                        fontFamily: "'Inter', sans-serif"
                                                     }),
                                                     singleValue: (baseStyles, state) => ({
                                                         ...baseStyles,
@@ -340,13 +435,6 @@ export default function VendorSell() {
                                                         fontSize: '12px',
                                                         fontWeight: '500',
                                                         fontFamily: "'Cabin', sans-serif"
-                                                    }),
-                                                    input: (baseStyles, state) => ({
-                                                        ...baseStyles,
-                                                        color: '#545454',
-                                                        fontSize: '10px',
-                                                        fontWeight: 'normal',
-                                                        fontFamily: "'Inter', sans-serif"
                                                     }),
                                                     option: (baseStyles, state) => ({
                                                         ...baseStyles,
@@ -361,12 +449,15 @@ export default function VendorSell() {
                                                             color: state.isDisabled ? '#000' : '#FFF'
                                                         }
                                                     }),
-                                                }}
+                                                    }}
                                                 name='commissiontype'
                                                 defaultOptions
                                                 placeholder={t('commissiontype')}
                                                 value={commissionType}
                                                 onChange={(option) => {
+                                                    const d = Object.assign({}, formData);
+                                                    d.commission_type = option.value;
+                                                    setFormData(d);
                                                     setCommissionType(option);
                                                 }}
                                                 options={[
@@ -375,15 +466,30 @@ export default function VendorSell() {
                                                 ]} />
                                         </div>
                                         <div>
-                                            <input className="form-control" type="number" min={1} name="" id="" disabled={commissionType?.value != "percent"} placeholder={`${t('commission')} (%)`} onInput={inputNonNegativeValue} />
+                                            <input className="form-control" type="number" min={1} name="" id="" disabled={commissionType?.value != "percent"} placeholder={`${t('commission')} (%)`} onInput={(event) => {
+                                                const v = inputNonNegativeValue(event)
+                                                const d = Object.assign({}, formData);
+                                                d.commission = v;
+                                                setFormData(d);
+                                            }} />
                                         </div>
                                     </div>
                                     <div className="two-col col">
                                         <div>
-                                            <input className="form-control" type="text" name="" id="" disabled={commissionType?.value != "selling"} placeholder={`${t('saleprice')} (RP)`} onInput={inputNonNegativeValue} />
+                                            <input className="form-control" type="text" name="" id="" disabled={commissionType?.value != "selling"} placeholder={`${t('saleprice')} (RP)`} onInput={(event) => {
+                                                const v = inputNonNegativeValue(event)
+                                                const d = Object.assign({}, formData);
+                                                d.sale_price = v;
+                                                setFormData(d);
+                                            }} />
                                         </div>
                                         <div>
-                                            <input className="form-control" type="text" name="" id="" disabled={commissionType?.value != "selling"} placeholder={`${t('saleprice')} (USD)`} onInput={inputUsdFormat} />
+                                            <input className="form-control" type="text" name="" id="" disabled={commissionType?.value != "selling"} placeholder={`${t('saleprice')} (USD)`} onInput={(event) => {
+                                                const v = inputUsdFormat(event)
+                                                const d = Object.assign({}, formData);
+                                                d.sale_usd = v;
+                                                setFormData(d);
+                                            }} />
                                         </div>
                                     </div>
                                     <div className="one-col col">
@@ -419,7 +525,16 @@ export default function VendorSell() {
                                                         color: '#545454',
                                                         fontSize: '12px',
                                                         fontWeight: '300',
-                                                        fontFamily: "'Inter', sans-serif"
+                                                        fontFamily: "'Inter', sans-serif",
+                                                        ...dot()
+                                                    }),
+                                                    singleValue: (baseStyles, state) => ({
+                                                        ...baseStyles,
+                                                        color: '#000',
+                                                        fontSize: '12px',
+                                                        fontWeight: '500',
+                                                        fontFamily: "'Cabin', sans-serif",
+                                                        ...dot(state.data.color)
                                                     }),
                                                     option: (baseStyles, state) => ({
                                                         ...baseStyles,
@@ -438,9 +553,14 @@ export default function VendorSell() {
                                                 name=''
                                                 defaultOptions
                                                 placeholder={t('color').toUpperCase()}
-                                                value={null}
-                                                onChange={() => { }}
-                                                options={[]} />
+                                                value={selectedColor}
+                                                onChange={(option) => {
+                                                    setSelectedColor(option);
+                                                    const d = Object.assign({}, formData);
+                                                    d.color_id = option.value;
+                                                    setFormData(d);
+                                                }}
+                                                options={colors} />
                                         </div>
                                     </div>
                                 </div>
@@ -450,16 +570,32 @@ export default function VendorSell() {
                                 </div>
                                 <div className="form-area">
                                     <div className="one-col col">
-                                        <textarea name="" id="" cols="30" rows="10" placeholder={t('descriptionindonesia')}></textarea>
+                                        <textarea name="" id="" cols="30" rows="10" placeholder={t('descriptionindonesia')} onInput={(event) => {
+                                                const d = Object.assign({}, formData);
+                                                d.description = event.currentTarget.value;
+                                                setFormData(d);
+                                            }} />
                                     </div>
                                     <div className="one-col col">
-                                        <textarea name="" id="" cols="30" rows="10" placeholder={t('descriptionenglish')}></textarea>
+                                        <textarea name="" id="" cols="30" rows="10" placeholder={t('descriptionenglish')} onInput={(event) => {
+                                                const d = Object.assign({}, formData);
+                                                d.description_en = event.currentTarget.value;
+                                                setFormData(d);
+                                            }} />
                                     </div>
                                     <div className="one-col col">
-                                        <textarea name="" id="" cols="30" rows="10" placeholder={t('historyindonesia')}></textarea>
+                                        <textarea name="" id="" cols="30" rows="10" placeholder={t('historyindonesia')} onInput={(event) => {
+                                                const d = Object.assign({}, formData);
+                                                d.history = event.currentTarget.value;
+                                                setFormData(d);
+                                            }} />
                                     </div>
                                     <div className="one-col col">
-                                        <textarea name="" id="" cols="30" rows="10" placeholder={t('historyenglish')}></textarea>
+                                        <textarea name="" id="" cols="30" rows="10" placeholder={t('historyenglish')} onInput={(event) => {
+                                                const d = Object.assign({}, formData);
+                                                d.history_en = event.currentTarget.value;
+                                                setFormData(d);
+                                            }} />
                                     </div>
                                 </div>
                             </div>
@@ -467,7 +603,7 @@ export default function VendorSell() {
                                 <button className="preview" type="button" onClick={() => {
                                     setModalPratinjau(true)
                                 }}>{t('preview')}</button>
-                                <button className="next" onClick={() => setModalConfirmSellGoods(true)}>{t('next')}</button>
+                                <button className="next" onClick={() => {setModalConfirmSellGoods(true); console.log(formData);}}>{t('next')}</button>
                             </div>
                         </div>
                     </div>
