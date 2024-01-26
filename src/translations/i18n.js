@@ -213,6 +213,7 @@ i18n
                     download: 'Download',
                     viewlist: 'View List',
                     goodssalesstatus: 'Goods Sales Status',
+                    edit: 'Edit',
                     // Add other EN translations here
                 },
             },
@@ -421,6 +422,7 @@ i18n
                     download: 'Unduh',
                     viewlist: 'Lihat Daftar',
                     goodssalesstatus: 'Status Penjualan Barang',
+                    edit: 'Sunting',
                     // Add other ID translations here
                 },
             },
