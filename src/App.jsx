@@ -30,6 +30,7 @@ import VendorMiddleware from './middleware/VendorMiddleware';
 import VendorIndex from './containers/vendor/index/VendorIndex';
 import VendorAccountInformation from './containers/vendor/accountinformation/VendorAccountInformation';
 import VendorProductInformation from './containers/vendor/productinformation/VendorProductInformation';
+import VendorSell from './containers/vendor/sell/VendorSell';
 import VendorReview from './containers/vendor/review/VendorReview';
 import VendorAgreement from './containers/vendor/agreement/VendorAgreement';
 import VendorListingProduct from './containers/vendor/listingproduct/VendorListingProduct';
@@ -102,6 +103,7 @@ function App() {
                                 <Route index element={<VendorIndex />} />
                                 <Route path='accountinformation' element={<VendorAccountInformation />} />
                                 <Route path='productinformation' element={<VendorProductInformation />} />
+                                <Route path='productinformation/sell' element={<VendorSell />} />
                                 <Route path='review/:id' element={<VendorReview />} />
                                 <Route path='agreement/:id' element={<VendorAgreement />} />
                                 <Route path='listingproduct/:id' element={<VendorListingProduct />} />
