@@ -43,6 +43,14 @@ export default function VendorAccountInformation() {
     const [updateVendor, setUpdateVendor] = useState(false);
     const [editVendor, setEditVendor] = useState(true);
 
+    const [defaultName, setDefaultName] = useState('');
+    const [defaultPhone, setDefaultPhone] = useState('');
+    const [defaultKtp, setDefaultKtp] = useState('');
+    const [defaultBankAccountHolder, setDefaultBankAccountHolder] = useState('');
+    const [defaultBankAccountNumber, setDefaultBankAccountNumber] = useState('');
+    const [defaultAddress, setDefaultAddress] = useState('');
+
+    const [id, setId] = useState(0);
     const [name, setName] = useState('');
     const [phoneCode, setPhoneCode] = useState('+62');
     const [phone, setPhone] = useState('');
@@ -78,15 +86,54 @@ export default function VendorAccountInformation() {
         })
     }
 
+    const doUpdate = () => {
+        const data = {
+            name: name,
+            email: user.email,
+            phone: `${phoneCode}${phone}`,
+            ktp: ktp,
+            bank: selectedBank?.value,
+            bank_account_holder: bankAccountHolder,
+            bank_account_number: bankAccountNumber,
+            address: address,
+        };
+        setErrorObj422({});
+        setLoading(true);
+        Api.put(`/vendor/${id}`, data, {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('apiToken')
+            }
+        }).then((res) => {
+            setEditVendor(false);
+            setUpdateVendor(true);
+        }).catch((err) => {
+            ApiErrorHandling.handlingErr(err, [setErrorObj422])
+        }).finally(() => {
+            setLoading(false);
+        })
+    }
+
     // Automatically scrolls to top whenever pathname changes
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [pathname]);
 
     useEffect(() => {
+        // Api.delete('/vendor/5', {
+        //     headers: {
+        //         Authorization: 'Bearer ' + localStorage.getItem('apiToken')
+        //     }
+        // }).catch((err) => {
+        //     console.log(err);
+        // });
         setLoading(true);
+        let bs = [];
+        let b = '';
+
         const bankCode = Api.get('/bank-code').then((res) => {
-            setBanks(res.data.data.map((v) => ({ value: v.code, label: v.name })));
+            const r = (res.data.data.map((v) => ({ value: v.code, label: v.name })));
+            bs = r;
+            setBanks(r);
         }).catch((err) => {
             console.log(err);
         });
@@ -97,6 +144,29 @@ export default function VendorAccountInformation() {
         }).then((res) => {
             const data = res.data.data;
             if (data.length != 0) {
+                const vendor = data[0];
+
+                setId(vendor.id);
+                setDefaultName(vendor.name);
+                setName(vendor.name);
+                for(const phoneCode of PHONE_NUMBER_CODE) {
+                    if (vendor.phone.startsWith(phoneCode)) {
+                        setDefaultPhone(vendor.phone.substring(phoneCode.length));
+                        setPhone(vendor.phone.substring(phoneCode.length));
+                        setPhoneCode(phoneCode);
+                        break;
+                    }
+                }
+                setDefaultKtp(vendor.ktp);
+                setKtp(vendor.ktp);
+                b = vendor.bank;
+                setDefaultBankAccountNumber(vendor.bank_account_number)
+                setBankAccountNumber(vendor.bank_account_number)
+                setDefaultBankAccountHolder(vendor.bank_account_holder)
+                setBankAccountHolder(vendor.bank_account_holder)
+                setDefaultAddress(vendor.address)
+                setAddress(vendor.address)
+
                 setUpdateVendor(true);
                 setEditVendor(false);
             }
@@ -106,6 +176,12 @@ export default function VendorAccountInformation() {
         Promise.all([bankCode, vendor]).catch((err) => {
             console.log(err);
         }).finally(() => {
+            for(const bank of bs) {
+                if (bank.value === b) {
+                    setSelectedBank(bank);
+                    break;
+                }
+            }
             setLoading(false);
         })
     }, [])
@@ -118,7 +194,9 @@ export default function VendorAccountInformation() {
                         {t('accountinformation')}
                     </button>
                     <button onClick={() => {
-                        navigate('../productinformation')
+                        if (updateVendor) {
+                            navigate('../productinformation')
+                        }
                     }}>
                         {t('productinformation')}
                     </button>
@@ -139,7 +217,7 @@ export default function VendorAccountInformation() {
                                         <span>:</span>
                                     </div>
                                     <div className="right-form-group">
-                                        <input disabled={!editVendor} className={`form-control ${errorObj422.name ? 'is-invalid' : ''}`} type="text" name="name" id="name" placeholder={`${t('name')}*`} onInput={(event) => setName(event.currentTarget.value)} />
+                                        <input disabled={!editVendor} className={`form-control ${errorObj422.name ? 'is-invalid' : ''}`} type="text" defaultValue={defaultName} name="name" id="name" placeholder={`${t('name')}*`} onInput={(event) => setName(event.currentTarget.value)} />
           
                                         {
                                             errorObj422.name ?
@@ -179,7 +257,7 @@ export default function VendorAccountInformation() {
                                                 PHONE_NUMBER_CODE.map((v) => <option selected={v == phoneCode} value={v}>{v}</option>)
                                             }
                                         </select>
-                                        <input disabled={!editVendor} className={`form-control ${errorObj422.phone ? 'is-invalid' : ''}`} type="email" name="phone" id="phone" placeholder={`${t('phonenumber')}*`} onInput={(event) => setPhone(event.currentTarget.value)} />
+                                        <input disabled={!editVendor} className={`form-control ${errorObj422.phone ? 'is-invalid' : ''}`} type="email" defaultValue={defaultPhone} name="phone" id="phone" placeholder={`${t('phonenumber')}*`} onInput={(event) => setPhone(event.currentTarget.value)} />
                                         {
                                             errorObj422.phone ?
                                                 <div className="invalid-feedback">
@@ -196,7 +274,7 @@ export default function VendorAccountInformation() {
                                         <span>:</span>
                                     </div>
                                     <div className='right-form-group'>
-                                        <input disabled={!editVendor} className={`form-control ${errorObj422.ktp ? 'is-invalid' : ''}`} type="email" name="nik" id="nik" placeholder={`${t('idcardnumber')}*`} onInput={(event) => setKtp(event.currentTarget.value)} />
+                                        <input disabled={!editVendor} className={`form-control ${errorObj422.ktp ? 'is-invalid' : ''}`} type="email" defaultValue={defaultKtp} name="nik" id="nik" placeholder={`${t('idcardnumber')}*`} onInput={(event) => setKtp(event.currentTarget.value)} />
                                         {
                                             errorObj422.ktp ?
                                                 <div className="invalid-feedback">
@@ -290,7 +368,7 @@ export default function VendorAccountInformation() {
                                         <span>:</span>
                                     </div>
                                     <div className='right-form-group'>
-                                        <input disabled={!editVendor} className={`form-control ${errorObj422.bank_account_number ? 'is-invalid' : ''}`} type="email" name="rekening" id="rekening" placeholder={`${t('accountnumber')}*`} onInput={(event) => setBankAccountNumber(event.currentTarget.value)} />
+                                        <input disabled={!editVendor} className={`form-control ${errorObj422.bank_account_number ? 'is-invalid' : ''}`} type="email" defaultValue={defaultBankAccountNumber}s name="rekening" id="rekening" placeholder={`${t('accountnumber')}*`} onInput={(event) => setBankAccountNumber(event.currentTarget.value)} />
                                         {
                                             errorObj422.bank_account_number ?
                                                 <div className="invalid-feedback">
@@ -307,7 +385,7 @@ export default function VendorAccountInformation() {
                                         <span>:</span>
                                     </div>
                                     <div className='right-form-group'>
-                                        <input disabled={!editVendor} className={`form-control ${errorObj422.bank_account_holder ? 'is-invalid' : ''}`} type="email" name="penerima" id="penerima" placeholder={`${t('recipientname')}*`} onInput={(event) => setBankAccountHolder(event.currentTarget.value)} />
+                                        <input disabled={!editVendor} className={`form-control ${errorObj422.bank_account_holder ? 'is-invalid' : ''}`} type="email" defaultValue={defaultBankAccountHolder} name="penerima" id="penerima" placeholder={`${t('recipientname')}*`} onInput={(event) => setBankAccountHolder(event.currentTarget.value)} />
                                         {
                                             errorObj422.bank_account_holder ?
                                                 <div className="invalid-feedback">
@@ -324,7 +402,7 @@ export default function VendorAccountInformation() {
                                         <span>:</span>
                                     </div>
                                     <div className='right-form-group'>
-                                        <textarea disabled={!editVendor} name="address" id="alamat" class={`form-control ${errorObj422.address ? 'is-invalid' : ''}`} cols="30" rows="10" style={{ height: "100px" }} placeholder={`${t('address')}*`} onInput={(event) => setAddress(event.currentTarget.value)}></textarea>
+                                        <textarea disabled={!editVendor} defaultValue={defaultAddress} name="address" id="alamat" class={`form-control ${errorObj422.address ? 'is-invalid' : ''}`} cols="30" rows="10" style={{ height: "100px" }} placeholder={`${t('address')}*`} onInput={(event) => setAddress(event.currentTarget.value)}></textarea>
                                         {
                                             errorObj422.address ?
                                                 <div className="invalid-feedback">
@@ -342,7 +420,7 @@ export default function VendorAccountInformation() {
                         {!updateVendor ? <button onClick={doReg}>{t('next')}</button> : null}
                         {!editVendor ? <button className="dark" onClick={() => {setEditVendor(true)}}>{t('edit')}</button> : null}
                         {editVendor && updateVendor ? <button onClick={() => setEditVendor(false)}>{t('cancel')}</button> : null}
-                        {editVendor && updateVendor ? <button onClick={() => {}}>{t('save')}</button> : null}
+                        {editVendor && updateVendor ? <button onClick={() => {doUpdate()}}>{t('save')}</button> : null}
                     </div>
                 </div>
             </ContainerComponent>

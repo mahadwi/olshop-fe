@@ -1,13 +1,21 @@
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import './vendor.scoped.scss'
 import { useLocation } from 'react-router-dom'
 import 'react-responsive-modal/styles.css';
 import WelcomeImage from '../../../images/online shopping app.png';
+import { LoadingContext } from "../../../context/LoadingContext";
+import Api from '../../../utils/Api'
 import ContainerComponent from "../../../components/general/container/ContainerComponent";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
 export default function VendorIndex() {
+
+    /**
+     * Context
+     * 
+     */
+    const { setLoading } = useContext(LoadingContext)
 
     /**
      * Hooks
@@ -21,6 +29,24 @@ export default function VendorIndex() {
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [pathname]);
+
+    useEffect(() => {
+        setLoading(true);
+        Api.get('/vendor', {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('apiToken')
+            }
+        }).then((res) => {
+            const data = res.data.data;
+            if (data.length != 0) {
+                navigate('accountinformation');
+            }
+        }).catch((err) => {
+            console.log(err);
+        }).finally(() => {
+            setLoading(false);
+        })
+    }, [])
 
     return (
         <div className='vendor'>
