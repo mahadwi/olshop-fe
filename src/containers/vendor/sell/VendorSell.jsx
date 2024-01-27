@@ -871,6 +871,18 @@ export default function VendorSell() {
                                                 onChange={option => {
                                                     const d = Object.assign({}, formData);
                                                     d.commission_type = option.value;
+
+                                                    if (option.value == "percent") {
+                                                        document.getElementById("sale_price").value = null;
+                                                        d.sale_price = null;
+
+                                                        document.getElementById("sale_usd").value = null;
+                                                        d.sale_usd = null;
+                                                    } else {
+                                                        document.getElementById("commision").value = null;
+                                                        d.commission = null;
+                                                    }
+
                                                     setFormData(d);
                                                     setCommissionType(option);
                                                 }}
@@ -888,10 +900,13 @@ export default function VendorSell() {
                                         <div>
                                             <input
                                                 className={`form-control ${errorObj422.commission ? "is-invalid" : ""}`}
+                                                style={{
+                                                    background: commissionType?.value == "percent" ? "white" : "#EEE"
+                                                }}
                                                 type="number"
                                                 min={1}
                                                 name=""
-                                                id=""
+                                                id="commision"
                                                 disabled={commissionType?.value != "percent"}
                                                 placeholder={`${t("commission")} (%)`}
                                                 onInput={event => {
@@ -913,8 +928,11 @@ export default function VendorSell() {
                                             <input
                                                 className={`form-control ${errorObj422.sale_price ? "is-invalid" : ""}`}
                                                 type="text"
+                                                style={{
+                                                    background: commissionType?.value == "selling" ? "white" : "#EEE"
+                                                }}
                                                 name=""
-                                                id=""
+                                                id="sale_price"
                                                 disabled={commissionType?.value != "selling"}
                                                 placeholder={`${t("saleprice")} (RP)`}
                                                 onInput={event => {
@@ -934,8 +952,11 @@ export default function VendorSell() {
                                             <input
                                                 className={`form-control ${errorObj422.sale_usd ? "is-invalid" : ""}`}
                                                 type="text"
+                                                style={{
+                                                    background: commissionType?.value == "selling" ? "white" : "#EEE"
+                                                }}
                                                 name=""
-                                                id=""
+                                                id="sale_usd"
                                                 disabled={commissionType?.value != "selling"}
                                                 placeholder={`${t("saleprice")} (USD)`}
                                                 onInput={event => {
@@ -1081,6 +1102,7 @@ export default function VendorSell() {
                                     </div>
                                     <div className="one-col col">
                                         <textarea
+                                            className="form-control"
                                             name=""
                                             id=""
                                             cols="30"
@@ -1095,6 +1117,7 @@ export default function VendorSell() {
                                     </div>
                                     <div className="one-col col">
                                         <textarea
+                                            className="form-control"
                                             name=""
                                             id=""
                                             cols="30"

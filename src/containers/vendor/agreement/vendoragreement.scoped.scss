@@ -1,5 +1,5 @@
 .vendor {
-    background: rgba(221, 221, 221, 0.50);
+    background: rgba(221, 221, 221, 0.5);
     padding: 0 0 1rem 0;
 
     .tabs {
@@ -8,19 +8,19 @@
         justify-content: end;
 
         button {
-            color: #FFAC33;
+            color: #ffac33;
             font-family: Inter;
             font-size: 12px;
             font-style: normal;
             font-weight: 700;
             line-height: normal;
             letter-spacing: 0.48px;
-            border: 1px solid #FFAC33;
-            background: #FFF;
+            border: 1px solid #ffac33;
+            background: #fff;
             padding: 0.5rem 1.5rem;
 
             &.active {
-                background: #FFAC33;
+                background: #ffac33;
                 color: #fff;
             }
         }
@@ -54,16 +54,16 @@
             position: relative;
 
             &::before {
-                content: '';
+                content: "";
                 display: block;
                 width: 10px;
                 height: 10px;
-                background: #081CC9;
+                background: #081cc9;
                 border-radius: 50%;
             }
 
             &:not(:first-child)::after {
-                content: '';
+                content: "";
                 position: absolute;
                 top: 5px;
                 left: -50%;
@@ -73,15 +73,15 @@
                 background: #000;
             }
 
-            &.active~.step {
-                color: #A2A3B1;
+            &.active ~ .step {
+                color: #a2a3b1;
 
                 &::after {
-                    background: #C4C4C4;
+                    background: #c4c4c4;
                 }
 
                 &::before {
-                    background: #C8D1E1;
+                    background: #c8d1e1;
                 }
             }
         }
@@ -98,25 +98,25 @@
                 width: 80%;
                 margin: auto;
                 border: 0px;
-                padding: 1rem .5rem;
-                margin-top: .35rem;
+                padding: 1rem 0.5rem;
+                margin-top: 0.35rem;
 
                 .top {
                     display: flex;
                     align-items: center;
                     justify-content: flex-start;
-                    gap: .5rem;
+                    gap: 0.5rem;
                     width: max-content;
                     margin-bottom: 1.5rem;
 
                     button {
-                        background: #FFF;
+                        background: #fff;
                         border: 0px;
                     }
 
                     h2 {
                         color: #000;
-                        font-family: 'Inter', sans-serif;
+                        font-family: "Inter", sans-serif;
                         font-size: 16px;
                         font-style: normal;
                         font-weight: 900;
@@ -128,7 +128,7 @@
 
                 .body {
                     padding: 0 0.5rem;
-                    color: #A2A3B1;
+                    color: #a2a3b1;
                     font-family: Inter;
                     font-size: 12px;
                     font-style: normal;
@@ -140,7 +140,7 @@
                     gap: 0.5rem;
 
                     table {
-                        thead  {
+                        thead {
                             background: rgba(0, 0, 0, 0.06);
                             color: #000;
                             text-align: center;
@@ -151,7 +151,7 @@
                             line-height: 130%; /* 15.6px */
 
                             td {
-                                border: 1px solid #B9B9B9;
+                                border: 1px solid #b9b9b9;
                                 width: 25%;
                                 padding: 0.5rem;
                             }
@@ -166,12 +166,23 @@
                             line-height: 130%; /* 15.6px */
 
                             td {
-                                border: 1px solid #B9B9B9;
+                                border: 1px solid #b9b9b9;
                                 width: 25%;
                                 padding: 0.5rem;
 
+                                a {
+                                    color: #0095ff;
+                                    text-align: center;
+                                    font-family: Inter;
+                                    font-size: 12px;
+                                    font-style: normal;
+                                    font-weight: 700;
+                                    line-height: 130%; /* 15.6px */
+                                    text-decoration: none;
+                                }
+
                                 &:is(:nth-child(2), :nth-child(3)) {
-                                    color: #0095FF;
+                                    color: #0095ff;
                                     text-align: center;
                                     font-family: Inter;
                                     font-size: 12px;
@@ -181,7 +192,6 @@
                                 }
                             }
                         }
-                        
                     }
                 }
 
@@ -193,7 +203,7 @@
 
                     button {
                         text-align: center;
-                        font-family: 'Roboto', sans-serif;
+                        font-family: "Roboto", sans-serif;
                         font-size: 14px;
                         font-style: normal;
                         font-weight: 700;
@@ -207,8 +217,8 @@
 
                         &.next {
                             border-radius: 15px;
-                            background: #151B4F;
-                            color: #FFF;
+                            background: #151b4f;
+                            color: #fff;
                         }
                     }
                 }

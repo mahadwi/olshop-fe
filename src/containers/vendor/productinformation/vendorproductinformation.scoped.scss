@@ -1,5 +1,5 @@
 .vendor {
-    background: rgba(221, 221, 221, 0.50);
+    background: rgba(221, 221, 221, 0.5);
     padding: 0 0 1rem 0;
 
     .tabs {
@@ -8,19 +8,19 @@
         justify-content: end;
 
         button {
-            color: #FFAC33;
+            color: #ffac33;
             font-family: Inter;
             font-size: 12px;
             font-style: normal;
             font-weight: 700;
             line-height: normal;
             letter-spacing: 0.48px;
-            border: 1px solid #FFAC33;
-            background: #FFF;
+            border: 1px solid #ffac33;
+            background: #fff;
             padding: 0.5rem 1.5rem;
 
             &.active {
-                background: #FFAC33;
+                background: #ffac33;
                 color: #fff;
             }
         }
@@ -54,16 +54,16 @@
             position: relative;
 
             &::before {
-                content: '';
+                content: "";
                 display: block;
                 width: 10px;
                 height: 10px;
-                background: #081CC9;
+                background: #081cc9;
                 border-radius: 50%;
             }
 
             &:not(:first-child)::after {
-                content: '';
+                content: "";
                 position: absolute;
                 top: 5px;
                 left: -50%;
@@ -73,15 +73,15 @@
                 background: #000;
             }
 
-            &.active~.step {
-                color: #A2A3B1;
+            &.active ~ .step {
+                color: #a2a3b1;
 
                 &::after {
-                    background: #C4C4C4;
+                    background: #c4c4c4;
                 }
 
                 &::before {
-                    background: #C8D1E1;
+                    background: #c8d1e1;
                 }
             }
         }
@@ -90,7 +90,7 @@
     .divider {
         display: block;
         height: 1px;
-        background: #C4C4C4;
+        background: #c4c4c4;
         margin: 1rem 0;
     }
 
@@ -113,9 +113,9 @@
             letter-spacing: 0.56px;
 
             button {
-                background: #151B4F;
+                background: #151b4f;
                 border: 0;
-                color: #FFF;
+                color: #fff;
                 font-family: Cambay;
                 font-size: 16px;
                 font-style: normal;
@@ -149,7 +149,7 @@
                 display: flex;
                 flex-direction: row;
                 border-radius: 5px;
-                background: #FFF;
+                background: #fff;
                 padding: 0.5rem;
                 justify-content: space-between;
                 align-items: center;
@@ -183,7 +183,7 @@
                         display: flex;
                         flex-direction: row;
                         border-radius: 8px;
-                        border: 1px solid #C8D1E1;
+                        border: 1px solid #c8d1e1;
                         background: #000;
 
                         button {
@@ -195,7 +195,7 @@
 
                             &.active {
                                 border-radius: 5px;
-                                background: #E4A951;
+                                background: #e4a951;
                             }
                         }
                     }
@@ -215,9 +215,10 @@
 
                 .product {
                     border-radius: 5px;
-                    background: #FFF;
+                    background: #fff;
                     display: flex;
                     flex-direction: row;
+                    cursor: pointer;
 
                     &.grid {
                         flex-direction: column;
@@ -283,9 +284,9 @@
 
                     .status {
                         border-radius: 5px;
-                        background: #E4A951;
+                        background: #e4a951;
                         margin-left: auto;
-                        color: #FFF;
+                        color: #fff;
                         text-align: center;
                         font-family: Inter;
                         font-size: 12px;
@@ -305,11 +306,11 @@
                         }
 
                         &[data-status="approved"] {
-                            background: #00AE65;
+                            background: #00ae65;
                         }
 
                         &[data-status="rejected"] {
-                            background: #F24E1E;
+                            background: #f24e1e;
                         }
                     }
                 }
@@ -337,9 +338,9 @@
 
     button {
         border-radius: 5px;
-        border: 1px solid #151B4F;
-        background: #FFF;
-        color: #151B4F;
+        border: 1px solid #151b4f;
+        background: #fff;
+        color: #151b4f;
         padding: 0.25rem 1rem;
         text-align: center;
         font-family: Cabin;
@@ -350,7 +351,7 @@
 
         &:last-child {
             color: #fff;
-            background: #151B4F;
+            background: #151b4f;
         }
     }
 }
