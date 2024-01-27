@@ -215,6 +215,9 @@ i18n
                     viewlist: 'View List',
                     goodssalesstatus: 'Goods Sales Status',
                     edit: 'Edit',
+                    productdeadline: 'Product Deadline',
+                    new: 'New',
+                    likenew: 'Like New'
                     // Add other EN translations here
                 },
             },
@@ -425,6 +428,9 @@ i18n
                     viewlist: 'Lihat Daftar',
                     goodssalesstatus: 'Status Penjualan Barang',
                     edit: 'Sunting',
+                    productdeadline: 'Deadline Produk',
+                    new: 'Baru',
+                    likenew: 'Seperti Baru'
                     // Add other ID translations here
                 },
             },
