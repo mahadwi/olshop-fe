@@ -86,11 +86,11 @@ export default function VendorSell() {
     const conditions = [
         {
             label: t("new"),
-            value: t("new")
+            value: "New"
         },
         {
             label: t("likenew"),
-            value: t("likenew")
+            value: "Like New"
         }
     ];
     const [selectedCondition, setSelectedCondition] = useState(null);
