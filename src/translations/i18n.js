@@ -226,6 +226,7 @@ i18n
                     paymentnow: 'Payment Now',
                     paymentlater: 'Payment Later',
                     paymentlaterdescription: 'Payment is made when picking up the goods',
+                    information: 'Information',
                     // Add other EN translations here
                 },
             },
@@ -447,6 +448,7 @@ i18n
                     paymentnow: 'Pembayaran Sekarang',
                     paymentlater: 'Pembayaran Nanti',
                     paymentlaterdescription: 'Pembayaran akan dilakukan saat barang diambil',
+                    information: 'Informasi',
                     // Add other ID translations here
                 },
             },

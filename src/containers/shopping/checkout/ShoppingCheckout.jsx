@@ -16,6 +16,7 @@ import Flickity from "react-flickity-component";
 import Checkbox from "react-custom-checkbox";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from 'react-router-dom'
 
 const subtractByPercent = (total, percent) => {
     return total - total * (percent / 100);
@@ -37,6 +38,7 @@ export default function ShoppingCheckout() {
      * Hooks
      *
      */
+    const navigate = useNavigate();
     const { t } = useTranslation();
 
     /**
@@ -78,6 +80,7 @@ export default function ShoppingCheckout() {
         setSelected(JSON.parse(localStorage.getItem("selectedObj")));
         loadCarts();
         loadCouriers();
+        loadOperational();
 
         // setSelectedCourier({ value: "pickup", label: t("pickituponthespot") });
     }, []);
@@ -117,6 +120,47 @@ export default function ShoppingCheckout() {
             // setSelectedCourier(r[0]);
         });
     };
+
+    const [operationalDuration, setOperationalDuration] = useState(5);
+    const [holiday, setHoliday] = useState([]);
+    const [pickupDeadlineDate, setPickupDeadlineDate] = useState(new Date());
+    const [pickupDeadlineClose, setPickupDeadlineClose] = useState("");
+
+    const loadOperational = () => {
+        Api.get(`/operational`).then(res => {
+            const { duration, operational } = res.data.data;
+            const h = [];
+            for (const {is_open, day} of operational) {
+                if (!is_open) {
+                    h.push(day);
+                }
+            }
+            setOperationalDuration(duration);
+            setHoliday(h);
+
+
+            const tmp = new Date();
+
+            let deadline = tmp.getTime();
+            let b = 0;
+            let index = tmp.getDay();
+            let c = "";
+            while (b < duration) {
+                const i = index % operational.length;
+                const { is_open, close } = operational[i];
+                c = close;
+                if (is_open) {
+                    b++;
+                }
+                index++;
+                deadline += 1000 * 60 * 60 * 24;
+            }
+            setPickupDeadlineDate(new Date(deadline));
+            setPickupDeadlineClose(c);
+        }).catch((err) => {
+            console.log(err);
+        });
+    }
 
     useEffect(() => {
         if (selectedCourier != "" && user) {
@@ -189,6 +233,8 @@ export default function ShoppingCheckout() {
             selectedVoucher != null && selectedVoucher.type == "Percent" ? selectedVoucher.disc_percent : 0
         );
 
+        const isOffline = (selectedCourier?.value == "pickup" && selectedShippingFees != -1 && selectedMethodPayment == 1);
+
         const data = {
             user_id: user.id,
             courier: selectedCourier.value,
@@ -198,7 +244,8 @@ export default function ShoppingCheckout() {
             discount: discount,
             total: total + ongkir,
             note: "tes",
-            is_offline: selectedCourier?.value == "pickup" && selectedShippingFees != -1 && selectedMethodPayment == 1,
+            is_offline: isOffline,
+            pickup_deadline: pickupDeadlineDate.toLocaleDateString("id-ID", { day: "2-digit", month: "2-digit", year: "numeric" }).replace(/\//g, "-"),
             details: details
         };
         // console.log(data);
@@ -210,7 +257,14 @@ export default function ShoppingCheckout() {
             .then(res => {
                 setLoading(false);
 
-                window.location.href = res.data.data.payment.invoice_url;
+                if (isOffline) {
+                    toast.success("Order has been success");
+                    setInterval(() => {
+                        navigate("/shop")
+                    }, 2000);
+                } else {
+                    window.location.href = res.data.data.payment.invoice_url;
+                }
             })
             .catch(err => {
                 setLoading(false);
@@ -865,6 +919,14 @@ export default function ShoppingCheckout() {
                         </div>
                     </div>
                     <div className="btn-row">
+                        {selectedCourier?.value == "pickup" ? (
+                        <div className="operational">
+                            <div>{t("information")} :</div>
+                            <div>
+                                Anda memiliki waktu untuk melakukan pick up barang selama {operationalDuration} hari, terhitung mulai besok (Hari Kerja Luxuryhub), Tenggat pengambilan barang pada tanggal {pickupDeadlineDate.toLocaleDateString("id-ID", { day: "2-digit", month: "2-digit", year: "numeric" }).replace(/\//g, "-")}, pukul {pickupDeadlineClose} WIB . Store tutup pada hari libur nasional dan hari {holiday.join(", ")}
+                            </div>
+                        </div>)
+                        : null }
                         <button onClick={doOrder}>{t("placeorder")}</button>
                     </div>
                 </div>
