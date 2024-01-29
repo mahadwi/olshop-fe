@@ -220,7 +220,12 @@ i18n
                     likenew: 'Like New',
                     pickituponthespot: 'PICK IT UP ON THE SPOT',
                     listoptions: 'List Options',
-                    paymentoption: 'Method Payment'
+                    paymentoption: 'Method Payment',
+                    choose: 'Choose',
+                    paymentoptions: 'Payment Options',
+                    paymentnow: 'Payment Now',
+                    paymentlater: 'Payment Later',
+                    paymentlaterdescription: 'Payment is made when picking up the goods',
                     // Add other EN translations here
                 },
             },
@@ -436,7 +441,12 @@ i18n
                     likenew: 'Seperti Baru',
                     pickituponthespot: 'AMBIL DI TEMPAT',
                     listoptions: 'List Opsi',
-                    paymentoption: 'Metode Pembayaran'
+                    paymentoption: 'Metode Pembayaran',
+                    choose: 'Pilih',
+                    paymentoptions: 'Pilihan Pembayaran',
+                    paymentnow: 'Pembayaran Sekarang',
+                    paymentlater: 'Pembayaran Nanti',
+                    paymentlaterdescription: 'Pembayaran akan dilakukan saat barang diambil',
                     // Add other ID translations here
                 },
             },

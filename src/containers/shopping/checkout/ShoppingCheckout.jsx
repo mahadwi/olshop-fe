@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState, useRef } from "react";
-import { IconArrowLeft, IconArrowRight, IconPencil } from "@tabler/icons-react";
+import { IconArrowLeft, IconArrowRight, IconChevronDown, IconPencil } from "@tabler/icons-react";
 import ContainerComponent from "../../../components/general/container/ContainerComponent";
 import BagCurrentOrder from "./../../../images/temp/5c855532d5cc981711da2cd9d3b2c062.png";
 import "./shopping-checkout.scoped.scss";
@@ -20,6 +20,17 @@ import { useTranslation } from "react-i18next";
 const subtractByPercent = (total, percent) => {
     return total - total * (percent / 100);
 };
+
+const PAYMENT_OPTIONS = [
+    {
+        title: "paymentnow",
+        description: ""
+    },
+    {
+        title: "paymentlater",
+        description: "paymentlaterdescription"
+    }
+];
 
 export default function ShoppingCheckout() {
     /**
@@ -51,9 +62,11 @@ export default function ShoppingCheckout() {
     const [selected, setSelected] = useState({});
     const [selectedAddress, setSelectedAddress] = useState(0);
     const [modalChangeCourier, setModalChangeCourier] = useState(false);
+    const [modalChangeMethodPayment, setModalChangeMethodPayment] = useState(false);
     const flkty = useRef();
     const [couriers, setCouriers] = useState([]);
-    const [selectedCourier, setSelectedCourier] = useState({});
+    const [selectedCourier, setSelectedCourier] = useState("");
+    const [selectedMethodPayment, setSelectedMethodPayment] = useState(-1);
 
     const [shippingFees, setShippingFees] = useState([]);
     const [selectedShippingFees, setSelectedShippingFees] = useState(-1);
@@ -66,7 +79,7 @@ export default function ShoppingCheckout() {
         loadCarts();
         loadCouriers();
 
-        setSelectedCourier({ value: "pickup", label: t("pickituponthespot") });
+        // setSelectedCourier({ value: "pickup", label: t("pickituponthespot") });
     }, []);
 
     const loadCarts = () => {
@@ -89,10 +102,10 @@ export default function ShoppingCheckout() {
     const loadCouriers = () => {
         Api.get(`/courier`).then(res => {
             const r = [];
-            r.push({
-                value: "pickup",
-                label: t("pickituponthespot")
-            });
+            // r.push({
+            //     value: "pickup",
+            //     label: t("pickituponthespot")
+            // });
 
             Object.entries(res.data.data)
                 .map(([key, value]) => ({ value: value, label: key }))
@@ -107,34 +120,34 @@ export default function ShoppingCheckout() {
 
     useEffect(() => {
         if (selectedCourier != "" && user) {
-            if (selectedCourier.value != "pickup") {
-                setLoading(true);
-                Api.post("/ongkir", {
-                    headers: {
-                        Authorization: "Bearer " + localStorage.getItem("apiToken")
-                    },
-                    courier: selectedCourier.value,
-                    destination: user.addresses[selectedAddress].subdistrict_id,
-                    weight: arrCarts.reduce((p, c) => {
-                        const key = `${c.id}`;
-                        if (key in selected) {
-                            p += c.product.weight;
-                        }
-                        return p;
-                    }, 0)
+            // if (selectedCourier.value != "pickup") {
+            setLoading(true);
+            Api.post("/ongkir", {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("apiToken")
+                },
+                courier: selectedCourier.value,
+                destination: user.addresses[selectedAddress].subdistrict_id,
+                weight: arrCarts.reduce((p, c) => {
+                    const key = `${c.id}`;
+                    if (key in selected) {
+                        p += c.product.weight;
+                    }
+                    return p;
+                }, 0)
+            })
+                .then(res => {
+                    setShippingFees(res.data.data);
+                    setSelectedShippingFees(-1);
                 })
-                    .then(res => {
-                        setShippingFees(res.data.data);
-                        setSelectedShippingFees(-1);
-                    })
-                    .catch(error => console.log(error))
-                    .finally(() => {
-                        setLoading(false);
-                        if (!modalChangeCourier) {
-                            setModalChangeCourier(true);
-                        }
-                    });
-            }
+                .catch(error => console.log(error))
+                .finally(() => {
+                    setLoading(false);
+                    if (!modalChangeCourier) {
+                        setModalChangeCourier(true);
+                    }
+                });
+            // }
         }
     }, [selectedCourier, selectedAddress]);
 
@@ -181,10 +194,11 @@ export default function ShoppingCheckout() {
             courier: selectedCourier.value,
             ongkir: ongkir,
             address_id: user.addresses[selectedAddress].id,
-            voucher: selectedVoucher != null && selectedVoucher.code,
+            voucher: (selectedVoucher != null && selectedVoucher.code) || "",
             discount: discount,
             total: total + ongkir,
             note: "tes",
+            is_offline: selectedCourier?.value == "pickup" && selectedShippingFees != -1 && selectedMethodPayment == 1,
             details: details
         };
         // console.log(data);
@@ -317,50 +331,41 @@ export default function ShoppingCheckout() {
                             </div>
                         </div>
                         <div className="shipping-fee-contents">
-                            <span className="title-list-options">{t("listoptions")}</span>
-                            {selectedCourier.value == "pickup" ? (
-                                <div className={`shipping-fee-content active`}>
-                                    <div className="top">
-                                        <div className="name">Luxury Hub Store</div>
-                                        <div className="price">
-                                            {user ? formater.format(Number(currency == "id" ? 0 : 0)) : null}
-                                        </div>
-                                    </div>
-                                </div>
-                            ) : (
-                                <>
-                                    {shippingFees?.map((c, i) => {
-                                        return (
-                                            <div
-                                                className={`shipping-fee-content ${
-                                                    selectedShippingFees == i ? "active" : ""
-                                                }`}
-                                                onClick={() => {
-                                                    setSelectedShippingFees(i);
-                                                }}
-                                            >
-                                                <div className="top">
-                                                    <div className="name">{c.service}</div>
-                                                    <div className="price">
-                                                        {user
-                                                            ? formater.format(
-                                                                  Number(
-                                                                      currency == "id"
-                                                                          ? c.cost[0].value
-                                                                          : c.cost[0].value_usd
-                                                                  )
+                            {shippingFees?.length != 0 ? (
+                                <span className="title-list-options">{t("listoptions")}</span>
+                            ) : null}
+                            <>
+                                {shippingFees?.map((c, i) => {
+                                    return (
+                                        <div
+                                            className={`shipping-fee-content ${
+                                                selectedShippingFees == i ? "active" : ""
+                                            }`}
+                                            onClick={() => {
+                                                setSelectedShippingFees(i);
+                                            }}
+                                        >
+                                            <div className="top">
+                                                <div className="name">{c.service}</div>
+                                                <div className="price">
+                                                    {user
+                                                        ? formater.format(
+                                                              Number(
+                                                                  currency == "id"
+                                                                      ? c.cost[0].value
+                                                                      : c.cost[0].value_usd
                                                               )
-                                                            : null}
-                                                    </div>
-                                                </div>
-                                                <div className="bottom">
-                                                    {t("receive")}: {c.cost[0].etd}
+                                                          )
+                                                        : null}
                                                 </div>
                                             </div>
-                                        );
-                                    })}
-                                </>
-                            )}
+                                            <div className="bottom">
+                                                {t("receive")}: {c.cost[0].etd}
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+                            </>
                         </div>
                     </div>
                 </Modal.Body>
@@ -454,6 +459,65 @@ export default function ShoppingCheckout() {
                 </Modal.Footer>
             </Modal>
             {/* End of Modal Voucher */}
+            {/* Modal Method Payment */}
+            <Modal
+                show={modalChangeMethodPayment}
+                centered
+                onHide={() => {
+                    setModalChangeMethodPayment(false);
+                }}
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title>{t("paymentoptions")}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className="modal-courier">
+                        <div className="shipping-fee-contents m-0">
+                            <span className="title-list-options">{t("listoptions")}</span>
+                            <>
+                                {PAYMENT_OPTIONS?.map((c, i) => {
+                                    return (
+                                        <div
+                                            className={`shipping-fee-content ${
+                                                selectedMethodPayment == i ? "active" : ""
+                                            }`}
+                                            onClick={() => {
+                                                setSelectedMethodPayment(i);
+                                            }}
+                                        >
+                                            <div className="top">
+                                                <div className="name">{t(c.title)}</div>
+                                            </div>
+                                            {c.description != "" ? (
+                                                <div className="bottom">{t(c.description)}</div>
+                                            ) : null}
+                                        </div>
+                                    );
+                                })}
+                            </>
+                        </div>
+                    </div>
+                </Modal.Body>
+                <Modal.Footer>
+                    <div className="modal-courier-bottom">
+                        <button
+                            onClick={() => {
+                                setModalChangeMethodPayment(false);
+                            }}
+                        >
+                            {t("cancel").toUpperCase()}
+                        </button>
+                        <button
+                            onClick={() => {
+                                setModalChangeMethodPayment(false);
+                            }}
+                        >
+                            {t("submit").toUpperCase()}
+                        </button>
+                    </div>
+                </Modal.Footer>
+            </Modal>
+            {/* End of Modal Method Payment */}
             <div className="shopping-checkout-wrapper">
                 <h2 className="title-checkout">{t("checkout")}</h2>
 
@@ -588,7 +652,7 @@ export default function ShoppingCheckout() {
                                 </div>
                                 <div>
                                     <h4 className="courier">
-                                        {selectedCourier.value == "pickup" ? (
+                                        {selectedCourier?.value == "pickup" ? (
                                             t("pickituponthespot")
                                         ) : (
                                             <>
@@ -601,7 +665,7 @@ export default function ShoppingCheckout() {
                                             </>
                                         )}
                                     </h4>
-                                    {selectedCourier.value == "pickup" ? (
+                                    {selectedCourier?.value == "pickup" ? (
                                         <></>
                                     ) : (
                                         <span>
@@ -659,26 +723,39 @@ export default function ShoppingCheckout() {
                             </h4>
                         </div>
                     </div>
-                    <div className="basic-row basic-row__payment">
-                        <div className="left">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                            >
-                                <path
-                                    d="M5.25 4.5C4.25544 4.5 3.30161 4.89509 2.59835 5.59835C1.89509 6.30161 1.5 7.25544 1.5 8.25V9H22.5V8.25C22.5 7.25544 22.1049 6.30161 21.4016 5.59835C20.6984 4.89509 19.7446 4.5 18.75 4.5H5.25ZM22.5 10.5H1.5V15.75C1.5 16.7446 1.89509 17.6984 2.59835 18.4017C3.30161 19.1049 4.25544 19.5 5.25 19.5H18.75C19.7446 19.5 20.6984 19.1049 21.4016 18.4017C22.1049 17.6984 22.5 16.7446 22.5 15.75V10.5ZM15.75 15H18.75C18.9489 15 19.1397 15.079 19.2803 15.2197C19.421 15.3603 19.5 15.5511 19.5 15.75C19.5 15.9489 19.421 16.1397 19.2803 16.2803C19.1397 16.421 18.9489 16.5 18.75 16.5H15.75C15.5511 16.5 15.3603 16.421 15.2197 16.2803C15.079 16.1397 15 15.9489 15 15.75C15 15.5511 15.079 15.3603 15.2197 15.2197C15.3603 15.079 15.5511 15 15.75 15Z"
-                                    fill="#151B4F"
-                                />
-                            </svg>
-                            <h4>{t("paymentoption")}</h4>
+                    {selectedCourier?.value == "pickup" && selectedShippingFees != -1 ? (
+                        <div className="basic-row basic-row__payment">
+                            <div className="left">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                >
+                                    <path
+                                        d="M5.25 4.5C4.25544 4.5 3.30161 4.89509 2.59835 5.59835C1.89509 6.30161 1.5 7.25544 1.5 8.25V9H22.5V8.25C22.5 7.25544 22.1049 6.30161 21.4016 5.59835C20.6984 4.89509 19.7446 4.5 18.75 4.5H5.25ZM22.5 10.5H1.5V15.75C1.5 16.7446 1.89509 17.6984 2.59835 18.4017C3.30161 19.1049 4.25544 19.5 5.25 19.5H18.75C19.7446 19.5 20.6984 19.1049 21.4016 18.4017C22.1049 17.6984 22.5 16.7446 22.5 15.75V10.5ZM15.75 15H18.75C18.9489 15 19.1397 15.079 19.2803 15.2197C19.421 15.3603 19.5 15.5511 19.5 15.75C19.5 15.9489 19.421 16.1397 19.2803 16.2803C19.1397 16.421 18.9489 16.5 18.75 16.5H15.75C15.5511 16.5 15.3603 16.421 15.2197 16.2803C15.079 16.1397 15 15.9489 15 15.75C15 15.5511 15.079 15.3603 15.2197 15.2197C15.3603 15.079 15.5511 15 15.75 15Z"
+                                        fill="#151B4F"
+                                    />
+                                </svg>
+                                <h4>{t("paymentoption")}</h4>
+                            </div>
+                            <div className="right">
+                                <h4
+                                    onClick={() => {
+                                        setModalChangeMethodPayment(true);
+                                    }}
+                                >
+                                    {t(
+                                        selectedMethodPayment == -1
+                                            ? "choose"
+                                            : PAYMENT_OPTIONS[selectedMethodPayment].title
+                                    )}{" "}
+                                    <IconChevronDown />
+                                </h4>
+                            </div>
                         </div>
-                        <div className="right">
-                            <h4>Transfer bank</h4>
-                        </div>
-                    </div>
+                    ) : null}
                     <div className="price-row">
                         <div>
                             <h4>Transfer bank</h4>
