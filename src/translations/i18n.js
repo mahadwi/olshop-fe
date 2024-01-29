@@ -217,7 +217,10 @@ i18n
                     edit: 'Edit',
                     productdeadline: 'Product Deadline',
                     new: 'New',
-                    likenew: 'Like New'
+                    likenew: 'Like New',
+                    pickituponthespot: 'PICK IT UP ON THE SPOT',
+                    listoptions: 'List Options',
+                    paymentoption: 'Method Payment'
                     // Add other EN translations here
                 },
             },
@@ -430,7 +433,10 @@ i18n
                     edit: 'Sunting',
                     productdeadline: 'Deadline Produk',
                     new: 'Baru',
-                    likenew: 'Seperti Baru'
+                    likenew: 'Seperti Baru',
+                    pickituponthespot: 'AMBIL DI TEMPAT',
+                    listoptions: 'List Opsi',
+                    paymentoption: 'Metode Pembayaran'
                     // Add other ID translations here
                 },
             },

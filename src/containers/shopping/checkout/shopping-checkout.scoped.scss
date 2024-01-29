@@ -20,7 +20,7 @@
 
     h2.title-checkout {
         color: #000;
-        font-family: 'Cambay', sans-serif;
+        font-family: "Cambay", sans-serif;
         font-size: 32px;
         font-weight: 700;
         margin-bottom: 0;
@@ -42,7 +42,7 @@
 
                 h4.text-select-shipping {
                     color: #000;
-                    font-family: 'Cambay', sans-serif;
+                    font-family: "Cambay", sans-serif;
                     font-size: 14px;
                     font-style: normal;
                     font-weight: 700;
@@ -56,8 +56,8 @@
                 }
 
                 h4.manage-address {
-                    color: #FFAC33;
-                    font-family: 'Cambay', sans-serif;
+                    color: #ffac33;
+                    font-family: "Cambay", sans-serif;
                     font-size: 14px;
                     font-style: normal;
                     font-weight: 700;
@@ -73,7 +73,7 @@
             .arrow-wrap {
                 display: flex;
                 align-items: center;
-                gap: .75rem;
+                gap: 0.75rem;
 
                 button {
                     padding: 0px;
@@ -86,25 +86,25 @@
         }
 
         .address-wrapper {
-            margin-top: .35rem;
+            margin-top: 0.35rem;
 
             .address-item {
                 padding: 1rem;
                 width: calc(33% - 6px);
-                border: 1px solid #C4C4C4;
-                background: #FFF;
+                border: 1px solid #c4c4c4;
+                background: #fff;
                 margin-right: 12px;
                 cursor: pointer;
                 pointer-events: all;
                 box-sizing: border-box;
 
                 &.active {
-                    border:3px solid #151B4F;
+                    border: 3px solid #151b4f;
                 }
 
                 h5.address-title {
                     color: #545454;
-                    font-family: 'Cambay', sans-serif;
+                    font-family: "Cambay", sans-serif;
                     font-size: 14px;
                     font-style: normal;
                     font-weight: 700;
@@ -120,7 +120,7 @@
 
                     h5.address-name {
                         color: #545454;
-                        font-family: 'Cambay', sans-serif;
+                        font-family: "Cambay", sans-serif;
                         font-size: 14px;
                         font-style: normal;
                         font-weight: 700;
@@ -130,7 +130,7 @@
 
                     h5.address-phone {
                         color: #545454;
-                        font-family: 'Cambay', sans-serif;
+                        font-family: "Cambay", sans-serif;
                         font-size: 14px;
                         font-style: normal;
                         font-weight: 700;
@@ -141,7 +141,7 @@
 
                 p {
                     color: #545454;
-                    font-family: 'Cambay', sans-serif;
+                    font-family: "Cambay", sans-serif;
                     font-size: 14px;
                     font-style: normal;
                     font-weight: 400;
@@ -158,13 +158,12 @@
         opacity: 1;
         border: 0px;
         height: 1px;
-        background: #C4C4C4;
+        background: #c4c4c4;
         margin-top: 2rem;
         margin-bottom: 1.25rem;
     }
 
     .box-product-order {
-
         .head-row {
             display: flex;
             align-items: center;
@@ -175,7 +174,7 @@
                 h4 {
                     margin-bottom: 0;
                     color: #000;
-                    font-family: 'Cambay', sans-serif;
+                    font-family: "Cambay", sans-serif;
                     font-size: 20px;
                     font-style: normal;
                     font-weight: 700;
@@ -191,7 +190,7 @@
                 span {
                     color: #828181;
                     text-align: center;
-                    font-family: 'Cambay', sans-serif;
+                    font-family: "Cambay", sans-serif;
                     font-size: 16px;
                     font-style: normal;
                     font-weight: 400;
@@ -204,7 +203,7 @@
         .row-data {
             display: flex;
             align-items: center;
-            border-bottom: 1px solid #C4C4C4;
+            border-bottom: 1px solid #c4c4c4;
             padding-bottom: 1.25rem;
             padding-top: 1.25rem;
 
@@ -216,7 +215,7 @@
                 flex: 3;
                 display: flex;
                 align-items: center;
-                gap: .8rem;
+                gap: 0.8rem;
 
                 img {
                     width: 80px;
@@ -226,10 +225,9 @@
                 }
 
                 .product-item-data-text {
-
                     h4 {
                         color: #000;
-                        font-family: 'Cambay', sans-serif;
+                        font-family: "Cambay", sans-serif;
                         font-size: 14px;
                         font-style: normal;
                         font-weight: 700;
@@ -238,8 +236,8 @@
                     }
 
                     span {
-                        color: #C4C4C4;
-                        font-family: 'Cambay', sans-serif;
+                        color: #c4c4c4;
+                        font-family: "Cambay", sans-serif;
                         font-size: 11px;
                         font-style: normal;
                         font-weight: 400;
@@ -255,7 +253,7 @@
 
                 h4 {
                     color: #000;
-                    font-family: 'Cambay', sans-serif;
+                    font-family: "Cambay", sans-serif;
                     font-size: 14px;
                     font-style: normal;
                     font-weight: 700;
@@ -265,7 +263,7 @@
 
                 &.basic-row-data__price {
                     h4 {
-                        color: #FFAC33;
+                        color: #ffac33;
                     }
                 }
             }
@@ -273,18 +271,18 @@
     }
 
     .box-order-transaction {
-        border: 1px solid #C4C4C4;
-        background: #FFF;
+        border: 1px solid #c4c4c4;
+        background: #fff;
 
         .recap-text {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            border-bottom: 1px dotted #C4C4C4;
+            border-bottom: 1px dotted #c4c4c4;
 
             .left {
                 flex: 1;
-                border-right: 1px dotted #C4C4C4;
+                border-right: 1px dotted #c4c4c4;
 
                 .inner {
                     display: flex;
@@ -294,7 +292,7 @@
 
                     h4 {
                         color: #000;
-                        font-family: 'Cambay', sans-serif;
+                        font-family: "Cambay", sans-serif;
                         font-size: 14px;
                         font-style: normal;
                         font-weight: 700;
@@ -305,8 +303,8 @@
 
                     input {
                         outline: 0px;
-                        border: 1px solid #C4C4C4;
-                        background: #FFF;
+                        border: 1px solid #c4c4c4;
+                        background: #fff;
                     }
                 }
             }
@@ -343,7 +341,7 @@
 
                         h4 {
                             color: #000;
-                            font-family: 'Cambay', sans-serif;
+                            font-family: "Cambay", sans-serif;
                             font-size: 14px;
                             font-style: normal;
                             font-weight: 700;
@@ -354,18 +352,16 @@
                             &.courier {
                                 align-self: flex-start;
                             }
-
-
                         }
 
                         span {
                             color: #000;
-                            font-family: 'Cambay', sans-serif;
+                            font-family: "Cambay", sans-serif;
                             font-size: 12px;
                             font-style: normal;
                             font-weight: 400;
                             line-height: 16px;
-                            margin-top: .45rem;
+                            margin-top: 0.45rem;
                             align-self: flex-start;
 
                             /* 133.333% */
@@ -379,7 +375,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            border-bottom: 1px solid #C4C4C4;
+            border-bottom: 1px solid #c4c4c4;
             padding: 1.25rem 2.25rem;
 
             &.basic-row__payment {
@@ -393,11 +389,11 @@
             .left {
                 display: flex;
                 align-items: center;
-                gap: .75rem;
+                gap: 0.75rem;
 
                 h4 {
                     color: #000;
-                    font-family: 'Cambay', sans-serif;
+                    font-family: "Cambay", sans-serif;
                     font-size: 14px;
                     font-style: normal;
                     font-weight: 700;
@@ -409,11 +405,10 @@
             }
 
             .right {
-
                 h4 {
-                    color: #151B4F;
+                    color: #151b4f;
                     text-align: center;
-                    font-family: 'Cambay', sans-serif;
+                    font-family: "Cambay", sans-serif;
                     font-size: 14px;
                     font-style: normal;
                     font-weight: 400;
@@ -433,27 +428,25 @@
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                margin-bottom: .8rem;
+                margin-bottom: 0.8rem;
 
                 &.total {
-
                     h4 {
                         &:first-child {
                             font-size: 16px;
                         }
 
                         &:last-child {
-                            color: #FFAC33;
+                            color: #ffac33;
                             font-size: 20px;
                         }
                     }
-
                 }
 
                 h4 {
                     margin-bottom: 0;
                     color: #000;
-                    font-family: 'Cambay', sans-serif;
+                    font-family: "Cambay", sans-serif;
                     font-size: 14px;
                     font-style: normal;
                     font-weight: 700;
@@ -466,19 +459,19 @@
         .btn-row {
             display: flex;
             justify-content: flex-end;
-            padding: .25rem 2.25rem 3rem;
+            padding: 0.25rem 2.25rem 3rem;
 
             button {
-                background: #151B4F;
-                color: #FFF;
-                font-family: 'Cambay', sans-serif;
+                background: #151b4f;
+                color: #fff;
+                font-family: "Cambay", sans-serif;
                 font-size: 16px;
                 font-style: normal;
                 font-weight: 700;
                 line-height: 20px;
                 /* 125% */
                 letter-spacing: 0.1px;
-                padding: .9rem 5rem;
+                padding: 0.9rem 5rem;
                 border: 0px;
                 outline: 0px;
             }
@@ -488,7 +481,7 @@
 
 .modal-courier {
     .courier-option {
-        background: #F9F9F9;
+        background: #f9f9f9;
         display: flex;
         justify-content: stretch;
         align-items: center;
@@ -505,15 +498,16 @@
             letter-spacing: 0.56px;
         }
 
-        .select, .input-text {
+        .select,
+        .input-text {
             flex: 1 0;
         }
 
         button {
             border-radius: 5px;
-            border: 1px solid #C8D1E1;
+            border: 1px solid #c8d1e1;
             background: #111;
-            color: #FFF;
+            color: #fff;
             font-family: Inter;
             font-size: 12px;
             font-style: normal;
@@ -524,7 +518,8 @@
         }
     }
 
-    .shipping-fee-contents, .voucher-contents {
+    .shipping-fee-contents,
+    .voucher-contents {
         margin-top: 2rem;
         display: flex;
         flex-direction: column;
@@ -532,11 +527,21 @@
         overflow: auto;
         gap: 1rem;
 
+        .title-list-options {
+            color: #a2a3b1;
+            font-family: Inter;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+            letter-spacing: 0.56px;
+        }
+
         .shipping-fee-content {
             border-radius: 5px;
-            border: 1px solid #DADADA;
-            border-left: 6px solid #DADADA;
-            background: #FFF;
+            border: 1px solid #dadada;
+            border-left: 6px solid #dadada;
+            background: #fff;
             padding: 1.5rem;
             cursor: pointer;
             pointer-events: all;
@@ -545,7 +550,7 @@
             gap: 0.25rem;
 
             &.active {
-                border-left-color: #FFAC33;
+                border-left-color: #ffac33;
             }
 
             .top {
@@ -554,7 +559,8 @@
                 justify-content: space-between;
                 align-items: start;
 
-                .name, .price {
+                .name,
+                .price {
                     color: #111;
                     font-family: Inter;
                     font-size: 12px;
@@ -565,12 +571,12 @@
                 }
 
                 .price {
-                    color: #FFAC33;
+                    color: #ffac33;
                 }
             }
 
             .bottom {
-                color: #A2A3B1;
+                color: #a2a3b1;
                 font-family: Inter;
                 font-size: 8px;
                 font-style: normal;
@@ -582,8 +588,8 @@
 
         .voucher-content {
             border-radius: 5px;
-            border: 1px solid #DADADA;
-            background: #FFF;
+            border: 1px solid #dadada;
+            background: #fff;
             padding: 1.5rem;
             display: flex;
             flex-direction: row;
@@ -606,7 +612,7 @@
                 }
 
                 .code {
-                    color: #A2A3B1;
+                    color: #a2a3b1;
                     font-family: Inter;
                     font-size: 13px;
                     font-style: normal;
@@ -616,7 +622,7 @@
                 }
 
                 .expiring {
-                    color: #F44336;
+                    color: #f44336;
                     font-family: Inter;
                     font-size: 12px;
                     font-style: normal;
@@ -638,9 +644,9 @@
 
     button {
         border-radius: 5px;
-        border: 1px solid #C8D1E1;
+        border: 1px solid #c8d1e1;
         background: #111;
-        color: #FFF;
+        color: #fff;
         font-family: Inter;
         font-size: 12px;
         font-style: normal;
@@ -651,9 +657,9 @@
 
         &:first-child {
             border-radius: 5px;
-            border: 1px solid #C8D1E1;
-            background: #FFF;
-            color: #151B4F;
+            border: 1px solid #c8d1e1;
+            background: #fff;
+            color: #151b4f;
             font-family: Inter;
             font-size: 12px;
             font-style: normal;
