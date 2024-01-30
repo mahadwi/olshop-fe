@@ -450,8 +450,7 @@
 
                 .content {
                     flex: 1 0;
-                    max-height: 40vh;
-                    overflow: auto;
+                    position: relative;
 
                     .wrapper {
                         color: #000;
@@ -463,6 +462,9 @@
                         letter-spacing: 0.56px;
                         margin-bottom: 1rem;
                         min-width: 0;
+                        position: absolute;
+                        inset: 0;
+                        overflow: auto;
                     }
 
                     .title {

@@ -245,11 +245,13 @@ export default function VendorSell() {
                                 </div>
                                 <div className="bottom">
                                     <div className="content">
-                                        <div className="title">Detail</div>
-                                        <div className="wrapper">{parse(formData?.description ? formData.description : '')}</div>
-                                        { formData?.length && formData.width && formData.height ?
-                                        <div className="title active">{t("measurements")}<span>: {`${formData.length}*${formData.width}*${formData.height}`} ({t("length").charAt(0).toUpperCase()}*{t("width").charAt(0).toUpperCase()}*{t("height").charAt(0).toUpperCase()}) (cm)</span></div>
-                                        : null }
+                                        <div className="wrapper">
+                                            <div className="title">Detail</div>
+                                            <div>{parse(formData?.description ? formData.description : '')}</div>
+                                            { formData?.length && formData.width && formData.height ?
+                                            <div className="title active">{t("measurements")}<span>: {`${formData.length}*${formData.width}*${formData.height}`} ({t("length").charAt(0).toUpperCase()}*{t("width").charAt(0).toUpperCase()}*{t("height").charAt(0).toUpperCase()}) (cm)</span></div>
+                                            : null }
+                                        </div>
                                     </div>
                                     <hr />
                                     <div className="seller-info">
