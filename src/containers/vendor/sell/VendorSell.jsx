@@ -87,6 +87,7 @@ export default function VendorSell() {
     const [modalConfirmSellGoods, setModalConfirmSellGoods] = useState(false);
     const inputImage = useRef(null);
     const [imageBlobs, setImageBlobs] = useState([]);
+    const [selectedImageBlob, setSelectedImageBlob] = useState(-1);
 
     const conditions = [
         {
@@ -237,6 +238,7 @@ export default function VendorSell() {
                 show={modalPratinjau}
                 onHide={() => {
                     setModalPratinjau(false);
+                    setSelectedImageBlob(-1);
                 }}
             >
                 <Modal.Header closeButton />
@@ -245,10 +247,31 @@ export default function VendorSell() {
                         <p className="title-body">{t("preview")}</p>
                         <div className="body">
                             <div className="left">
-                                <div>
+                            { imageBlobs.length != 0 ?
+                            <>
+                                { selectedImageBlob != -1 ?
+                                <img src={imageBlobs[selectedImageBlob].url} className="image-preview-main" alt="main preview" />
+                                : null }
+                                {
+                                    imageBlobs.length > 1 ?
+                                    <div className="preview-photos">
+                                    {
+                                        imageBlobs.map(({url}, i) => (
+                                            <button className="preview-photo" onClick={() => setSelectedImageBlob(i)}>
+                                                <img src={url} alt="preview product" />
+                                            </button>
+                                        ))
+                                    }
+                                    </div>
+                                    : null
+                                }
+                            </>
+                            :
+                                <div className="empty">
                                     <h2>{t("previewyouroffers")}</h2>
                                     <p>{t("whencreatinganofferyoucanpreviewhowitwilllook")}</p>
                                 </div>
+                            }
                             </div>
                             <div className="right">
                                 <div className="top">
@@ -1224,6 +1247,7 @@ export default function VendorSell() {
                                     type="button"
                                     onClick={() => {
                                         setModalPratinjau(true);
+                                        setSelectedImageBlob(0);
                                     }}
                                 >
                                     {t("preview")}
