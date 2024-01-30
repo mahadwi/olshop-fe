@@ -7,6 +7,7 @@ import Api from "../../../utils/Api";
 import Modal from "react-bootstrap/Modal";
 import { LoadingContext } from "../../../context/LoadingContext";
 import { AuthUserContext } from "../../../context/AuthUserContext";
+import { LanguageContext } from "../../../context/LanguageContext";
 import { CurrencyContext } from "../../../context/CurrencyContext";
 import ContainerComponent from "../../../components/general/container/ContainerComponent";
 import Select from "react-select";
@@ -72,6 +73,8 @@ export default function VendorSell() {
      */
     const { setLoading } = useContext(LoadingContext);
     const { user, refreshUser } = useContext(AuthUserContext);
+    const { language } = useContext(LanguageContext);
+    const suffix = language == 'id' ? '' : '_en';
     const { currency } = useContext(CurrencyContext);
     const [modalPratinjau, setModalPratinjau] = useState(false);
     const [commissionType, setCommissionType] = useState(null);
@@ -246,8 +249,11 @@ export default function VendorSell() {
                                 <div className="bottom">
                                     <div className="content">
                                         <div className="wrapper">
-                                            <div className="title">Detail</div>
-                                            <div>{parse(formData?.description ? formData.description : '')}</div>
+                                            { formData['description'+suffix] ? null
+                                            : <div className="title">Detail</div> }
+                                            { formData['description'+suffix] ?
+                                            <div>{parse(formData['description'+suffix] ? formData['description'+suffix] : '')}</div>
+                                            : null }
                                             { formData?.length && formData.width && formData.height ?
                                             <div className="title active">{t("measurements")}<span>: {`${formData.length}*${formData.width}*${formData.height}`} ({t("length").charAt(0).toUpperCase()}*{t("width").charAt(0).toUpperCase()}*{t("height").charAt(0).toUpperCase()}) (cm)</span></div>
                                             : null }
