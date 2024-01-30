@@ -16,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 import ApiErrorHandling from "../../../utils/ApiErrorHandling";
 import toast from "react-hot-toast";
 import parse from 'html-react-parser';
+import { IconX } from "@tabler/icons-react";
 
 const inputNonNegativeValue = event => {
     const target = event.currentTarget;
@@ -85,7 +86,7 @@ export default function VendorSell() {
      */
     const [modalConfirmSellGoods, setModalConfirmSellGoods] = useState(false);
     const inputImage = useRef(null);
-    const [imageBlobUrl, setImageBlobUrl] = useState(null);
+    const [imageBlobs, setImageBlobs] = useState([]);
 
     const conditions = [
         {
@@ -165,12 +166,29 @@ export default function VendorSell() {
     }, []);
 
     const inputImageOnChange = event => {
-        const reader = new FileReader();
-        reader.addEventListener("load", () => {
-            setImageBlobUrl(reader.result);
+        const file = event.currentTarget.files[0];
+        setImageBlobs((blobs) => {
+            const c = [...blobs];
+            c.push({
+                file: file,
+                url: URL.createObjectURL(file),
+            });
+            return c;
         });
-        reader.readAsDataURL(event.currentTarget.files[0]);
     };
+
+    const removeImageBlog = (i) => {
+        setImageBlobs((blobs) => {
+            const c = [...blobs].filter(({url}, j) => {
+                const r = j != i;
+                if (!r) {
+                    URL.revokeObjectURL(url);
+                }
+                return r;
+            });
+            return c;
+        });
+    }
 
     const doSellProduct = () => {
         setLoading(true);
@@ -182,8 +200,8 @@ export default function VendorSell() {
             form_data_insert.append(key, formData[key]);
         }
 
-        if (inputImage.current.files.length > 0) {
-            form_data_insert.append("image[]", inputImage.current.files[0]);
+        for (const { file } of imageBlobs) {
+            form_data_insert.append("image[]", file);
         }
 
         if (form_data_insert.get("commission_type") == "percent") {
@@ -378,16 +396,60 @@ export default function VendorSell() {
                                 <h2>{t("sellgoods")}</h2>
                             </div>
                             <div className="body">
-                                <div className={`add-photo-wrap ${errorObj422.image ? "is-invalid" : ""}`}>
-                                    {imageBlobUrl ? <img alt="preview" src={imageBlobUrl} /> : null}
-                                    <input
-                                        ref={inputImage}
-                                        type="file"
-                                        accept="image/*"
-                                        hidden
-                                        onChange={inputImageOnChange}
-                                    />
-                                    <div onClick={() => inputImage.current?.click()} className="cursor-pointer">
+                                <input
+                                    ref={inputImage}
+                                    type="file"
+                                    accept="image/*"
+                                    hidden
+                                    onChange={inputImageOnChange}
+                                />
+                                { imageBlobs.length != 0 ?
+                                <div className="multiple-photos">
+                                    {
+                                        imageBlobs.map(({url}, i) => (
+                                            <div className="photo">
+                                                <img src={url} alt="preview product" />
+                                                <button onClick={() => {removeImageBlog(i)}}><IconX /></button>
+                                            </div>
+                                        ))
+                                    }
+                                    { imageBlobs.length != 4 ?
+                                    <button onClick={() => inputImage.current?.click()}>
+                                        <div className="cursor-pointer">
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                width="21"
+                                                height="21"
+                                                viewBox="0 0 21 21"
+                                                fill="none"
+                                            >
+                                                <g clip-path="url(#clip0_2390_8792)">
+                                                    <path
+                                                        d="M20.0268 3.81V5.51667H17.4668V8.07667H15.7601V5.51667H13.2001V3.81H15.7601V1.25H17.4668V3.81H20.0268ZM12.7735 9.78333C13.1131 9.78322 13.4387 9.64821 13.6787 9.408C13.9188 9.1678 14.0536 8.84207 14.0535 8.50248C14.0534 8.16289 13.9184 7.83725 13.6781 7.59721C13.4379 7.35716 13.1122 7.22237 12.7726 7.22248C12.6045 7.22254 12.438 7.25571 12.2827 7.32011C12.1273 7.38451 11.9862 7.47887 11.8673 7.59781C11.7485 7.71675 11.6542 7.85793 11.5899 8.0133C11.5256 8.16867 11.4926 8.33519 11.4926 8.50333C11.4927 8.67148 11.5259 8.83797 11.5903 8.9933C11.6547 9.14863 11.749 9.28975 11.868 9.40861C11.9869 9.52747 12.1281 9.62173 12.2834 9.68603C12.4388 9.75033 12.6053 9.78339 12.7735 9.78333ZM15.7601 12.543L15.3224 12.0566C15.1623 11.8784 14.9665 11.7359 14.7478 11.6383C14.529 11.5407 14.2922 11.4903 14.0526 11.4903C13.8131 11.4903 13.5762 11.5407 13.3575 11.6383C13.1387 11.7359 12.9429 11.8784 12.7829 12.0566L12.2231 12.6804L8.08014 8.07667L5.52014 10.9208V5.51667H11.4935V3.81H5.52014C5.06751 3.81 4.63341 3.98981 4.31335 4.30987C3.99329 4.62993 3.81348 5.06403 3.81348 5.51667V15.7567C3.81348 16.2093 3.99329 16.6434 4.31335 16.9635C4.63341 17.2835 5.06751 17.4633 5.52014 17.4633H15.7601C16.2128 17.4633 16.6469 17.2835 16.9669 16.9635C17.287 16.6434 17.4668 16.2093 17.4668 15.7567V9.78333H15.7601V12.543Z"
+                                                        fill="#111111"
+                                                    />
+                                                </g>
+                                                <defs>
+                                                    <clipPath id="clip0_2390_8792">
+                                                        <rect
+                                                            width="20.48"
+                                                            height="20.48"
+                                                            fill="white"
+                                                            transform="translate(0.399902 0.398438)"
+                                                        />
+                                                    </clipPath>
+                                                </defs>
+                                            </svg>
+                                        </div>
+                                        <p>
+                                            {t("addphoto")}
+                                        </p>
+                                    </button>
+                                    : null }
+                                </div>
+                                :
+                                <div className={`add-photo-wrap ${errorObj422.image ? "is-invalid" : ""}`} onClick={() => inputImage.current?.click()}>
+                                    <div className="cursor-pointer">
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
                                             width="21"
@@ -413,10 +475,11 @@ export default function VendorSell() {
                                             </defs>
                                         </svg>
                                     </div>
-                                    <p onClick={() => inputImage.current?.click()}>
-                                        {t(imageBlobUrl ? "changephoto" : "addphoto")}
+                                    <p>
+                                        {t("addphoto")}
                                     </p>
                                 </div>
+                                }
                                 {errorObj422.image ? (
                                     <span className="invalid-feedback">{errorObj422.image}</span>
                                 ) : (
