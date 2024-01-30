@@ -227,6 +227,7 @@ i18n
                     paymentlater: 'Payment Later',
                     paymentlaterdescription: 'Payment is made when picking up the goods',
                     information: 'Information',
+                    measurements: 'Measurements',
                     // Add other EN translations here
                 },
             },
@@ -449,6 +450,7 @@ i18n
                     paymentlater: 'Pembayaran Nanti',
                     paymentlaterdescription: 'Pembayaran akan dilakukan saat barang diambil',
                     information: 'Informasi',
+                    measurements: 'Ukuran',
                     // Add other ID translations here
                 },
             },

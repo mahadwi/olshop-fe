@@ -14,6 +14,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import ApiErrorHandling from "../../../utils/ApiErrorHandling";
 import toast from "react-hot-toast";
+import parse from 'html-react-parser';
 
 const inputNonNegativeValue = event => {
     const target = event.currentTarget;
@@ -230,12 +231,26 @@ export default function VendorSell() {
                             </div>
                             <div className="right">
                                 <div className="top">
-                                    <h2 className="title">{t("title")}</h2>
-                                    <h3 className="price">{t("price")}</h3>
-                                    <p className="p">{t("offeredafewsecondsagoin")} Indonesia</p>
+                                    <h2 className={`title ${formData?.name ? "active" : ""}`}>{formData?.name ? formData.name : t("title")}</h2>
+                                    <h3 className={`price ${selectedBrand?.label ? "active" : ""}`}>Brand{selectedBrand?.label ? `: ${selectedBrand.label}` : ""}</h3>
+                                    <h3 className={`price ${formData?.price || formData?.price_usd ? "active" : ""}`}>{t("price")}{formData?.price || formData?.price_usd ? ": " : ""}{formData?.price ? ` ${Number(formData?.price)?.toLocaleString('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 })}` : ""}{formData?.price && formData?.price_usd ? " | " : ""}{formData?.price_usd ? ` ${Number(formData?.price_usd)?.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}` : ""}</h3>
+                                    {commissionType?.value == "selling" ?
+                                    <h3 className={`price ${formData?.sale_price || formData?.sale_usd ? "active" : ""}`}>{t("saleprice")}{formData?.sale_price || formData?.sale_usd ? ": " : ""}{formData?.sale_price ? ` ${Number(formData?.sale_price)?.toLocaleString('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 })}` : ""}{formData?.sale_price && formData?.sale_usd ? " | " : ""}{formData?.sale_usd ? ` ${Number(formData?.sale_usd)?.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}` : ""}</h3>
+                                    : null}
+                                    {commissionType?.value == "percent" ?
+                                    <h3 className={`price ${formData?.commission ? "active" : ""}`}>{t("commission")}{formData?.commission ? `: ${formData.commission}%` : ""}</h3>
+                                    : null}
+                                    <h3 className={`price ${selectedColor?.label ? "active" : ""}`}>{t("color")}{selectedColor?.label ? `: ${selectedColor.label}` : ""}</h3>
+                                    <p className="p">{t("offeredon")} {new Date().toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })} {new Date().toLocaleString("id-ID", { day: "2-digit", month: "2-digit", year: "numeric" })}</p>
                                 </div>
                                 <div className="bottom">
-                                    <h2 className="title">Detail</h2>
+                                    <div className="content">
+                                        <div className="title">Detail</div>
+                                        <div className="wrapper">{parse(formData?.description ? formData.description : '')}</div>
+                                        { formData?.length && formData.width && formData.height ?
+                                        <div className="title active">{t("measurements")}<span>: {`${formData.length}*${formData.width}*${formData.height}`} ({t("length").charAt(0).toUpperCase()}*{t("width").charAt(0).toUpperCase()}*{t("height").charAt(0).toUpperCase()}) (cm)</span></div>
+                                        : null }
+                                    </div>
                                     <hr />
                                     <div className="seller-info">
                                         <p className="seller-info-left">{t("sellerinformation")}</p>
@@ -261,7 +276,7 @@ export default function VendorSell() {
                                                 </clipPath>
                                             </defs>
                                         </svg>
-                                        <p>Noni_571</p>
+                                        <p>{user.name}</p>
                                     </div>
                                 </div>
                             </div>
