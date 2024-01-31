@@ -108,21 +108,17 @@ export default function ShoppingCart() {
 
     const changeQtyCart = (cartObj, qty) => {
         if (qty > 0) {
-            let copyArrCarts = []
+            setLoading(true);
 
-            arrCarts.forEach((cartObjState) => {
-                if (cartObjState === cartObj) {
-                    cartObjState.qty = qty
-                    cartObjState.total_price = cartObjState.qty * cartObjState.price
-
-                    copyArrCarts.push(cartObjState)
-
-                } else {
-                    copyArrCarts.push(cartObjState)
-                }
-            })
-
-            setArrCarts(copyArrCarts)
+            Api.put(`/cart/${cartObj?.id}`, {
+                qty: qty
+            }, {
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('apiToken')
+                },
+            }).then(() => {
+                loadCarts()
+            }).catch((err) => console.log(err)).finally(() => setLoading(false));
         }
     }
 
