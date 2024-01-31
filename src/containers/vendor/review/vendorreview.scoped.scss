@@ -197,22 +197,6 @@
                 flex-direction: column;
                 gap: 0.5rem;
 
-                .hud {
-                    color: #F24E1E;
-                    font-family: Inter;
-                    font-size: 10px;
-                    font-style: normal;
-                    font-weight: 700;
-                    line-height: normal;
-                    letter-spacing: 0.4px;
-                    position: absolute;
-                    top: 0.25rem;
-                    left: 0;
-                    width: 100%;
-                    padding: 0 1.5rem;
-                    text-align: right;
-                }
-
                 .detail {
                     display: flex;
                     flex-direction: row;
@@ -239,6 +223,93 @@
 
                         &[data-status='approved'] {
                             color: #00AE65;
+                        }
+                    }
+                }
+            }
+
+            .file-information {
+                width: 80%;
+                margin: auto;
+                border: 0px;
+                padding: 1rem;
+                margin-top: -.35rem;
+                color: #000;
+                font-family: Inter;
+                font-size: 12px;
+                font-style: normal;
+                font-weight: 800;
+                line-height: normal;
+                letter-spacing: 0.48px;
+                display: flex;
+                flex-direction: column;
+                gap: 1.5rem;
+
+                .table {
+                    padding: 0 0.5rem;
+                    color: #a2a3b1;
+                    font-family: Inter;
+                    font-size: 12px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: normal;
+                    letter-spacing: 0.48px;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.5rem;
+
+                    table {
+                        thead {
+                            background: rgba(0, 0, 0, 0.06);
+                            color: #000;
+                            text-align: center;
+                            font-family: Inter;
+                            font-size: 12px;
+                            font-style: normal;
+                            font-weight: 600;
+                            line-height: 130%; /* 15.6px */
+
+                            td {
+                                border: 1px solid #b9b9b9;
+                                width: 25%;
+                                padding: 0.5rem;
+                            }
+                        }
+
+                        tbody {
+                            color: #000;
+                            font-family: Inter;
+                            font-size: 12px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: 130%; /* 15.6px */
+
+                            td {
+                                border: 1px solid #b9b9b9;
+                                width: 25%;
+                                padding: 0.5rem;
+
+                                a {
+                                    color: #0095ff;
+                                    text-align: center;
+                                    font-family: Inter;
+                                    font-size: 12px;
+                                    font-style: normal;
+                                    font-weight: 700;
+                                    line-height: 130%; /* 15.6px */
+                                    text-decoration: none;
+                                }
+
+                                &:is(:nth-child(2), :nth-child(3)) {
+                                    color: #0095ff;
+                                    text-align: center;
+                                    font-family: Inter;
+                                    font-size: 12px;
+                                    font-style: normal;
+                                    font-weight: 700;
+                                    line-height: 130%; /* 15.6px */
+                                }
+                            }
                         }
                     }
                 }
@@ -314,6 +385,18 @@
                             line-height: 16px; /* 133.333% */
                         }
                     }
+                }
+
+                .hud {
+                    color: #F24E1E;
+                    font-family: Inter;
+                    font-size: 10px;
+                    font-style: normal;
+                    font-weight: 700;
+                    line-height: normal;
+                    letter-spacing: 0.4px;
+                    text-align: left;
+                    margin-top: -1rem;
                 }
             }
 

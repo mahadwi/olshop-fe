@@ -147,15 +147,14 @@ export default function VendorReview() {
                             </div>
                         </div>
 
-                        {reviewObj?.status != "Review" ? (
+                        {true ? (
                             <div className="appointment bg-white">
-                                {reviewObj?.status == "Approved" ? (
-                                    <div className="hud">{t("vendorreviewproof")}</div>
-                                ) : null}
+                                {reviewObj?.status != "Not Approved" ?
                                 <div className="detail">
                                     <div className="title">{t("schedulemeeting")} :</div>
                                     <div>{reviewObj?.schedulemeeting}</div>
                                 </div>
+                                : null}
                                 {reviewObj?.status != "Not Approved" ? (
                                     <div className="detail">
                                         <div className="title">{t("priceforentrustinggoods")} :</div>
@@ -177,6 +176,42 @@ export default function VendorReview() {
                                 <div className="detail">
                                     <div className="title">{t("note")} :</div>
                                     <div>{reviewObj?.note}</div>
+                                </div>
+                            </div>
+                        ) : null}
+
+                        {reviewObj?.status != "Not Approved" ? (
+                            <div className="file-information bg-white">
+                                <div>{t("fileinformation")}</div>
+                                <div className="table">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <td>{t("title")}</td>
+                                                <td>{t("action")}</td>
+                                                <td>
+                                                    {t("upload")} {t("document")}
+                                                </td>
+                                                <td>Status</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Serah Terima</td>
+                                                <td>
+                                                    <a
+                                                        href="https://www.africau.edu/images/default/sample.pdf"
+                                                        target="_blank"
+                                                    >
+                                                        {t("agreementview")}
+                                                    </a>{" "}
+                                                    | {t("download")}
+                                                </td>
+                                                <td>{t("upload")}</td>
+                                                <td className="text-center">{t(reviewObj?.status)}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         ) : null}
@@ -289,6 +324,7 @@ export default function VendorReview() {
                                         </button>
                                     </div>
                                 </div>
+                                <div className="hud">{t("vendorreviewproof")}</div>
                             </div>
                         ) : null}
 
