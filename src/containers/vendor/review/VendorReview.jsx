@@ -10,99 +10,6 @@ import ContainerComponent from "../../../components/general/container/ContainerC
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
 
-const REVEWI_DATA_DUMMY = [
-    {
-        image: "https://dev-olshop.berkatsoft.com/image/product/6544a6bc8f3ae.jpg",
-        name: "Channle Anmoller",
-        price: "35000000",
-        price_usd: "235",
-        sale_price: "35000000",
-        sale_price_usd: "235",
-        stock: 1,
-        date: "13/12/2023 13:00:00",
-        schedulemeeting: "13/12/2023 13:00:00",
-        priceforentrustinggoods: "35000000",
-        priceforentrustinggoods_usd: "235",
-        note: "-",
-        status: "In Review"
-    },
-    {
-        image: "https://dev-olshop.berkatsoft.com/image/product/6544a6bc8f3ae.jpg",
-        name: "Channle Anmoller",
-        price: "35000000",
-        price_usd: "235",
-        sale_price: "35000000",
-        sale_price_usd: "235",
-        stock: 1,
-        date: "13/12/2023 13:00:00",
-        schedulemeeting: "13/12/2023 13:00:00",
-        priceforentrustinggoods: "35000000",
-        priceforentrustinggoods_usd: "235",
-        note: "-",
-        status: "In Review"
-    },
-    {
-        image: "https://dev-olshop.berkatsoft.com/image/product/6544a6bc8f3ae.jpg",
-        name: "Channle Anmoller",
-        price: "35000000",
-        price_usd: "235",
-        sale_price: "35000000",
-        sale_price_usd: "235",
-        stock: 1,
-        date: "13/12/2023 13:00:00",
-        schedulemeeting: "13/12/2023 13:00:00",
-        priceforentrustinggoods: "35000000",
-        priceforentrustinggoods_usd: "235",
-        note: "Harga yang ditawarkan terlalu tinggi",
-        status: "Rejected"
-    },
-    {
-        image: "https://dev-olshop.berkatsoft.com/image/product/656a6feb1203b.jpeg",
-        name: "CROC-EFFECT GRECA GODDESS MINI BAG",
-        price: "49303",
-        price_usd: "95",
-        sale_price: "35000000",
-        sale_price_usd: "235",
-        stock: 1,
-        date: "13/12/2023 13:00:00",
-        schedulemeeting: "13/12/2023 13:00:00",
-        priceforentrustinggoods: "35000000",
-        priceforentrustinggoods_usd: "235",
-        note: "-",
-        status: "Approved"
-    },
-    {
-        image: "https://dev-olshop.berkatsoft.com/image/product/6544a6bc8f3ae.jpg",
-        name: "Channle Anmoller",
-        price: "35000000",
-        price_usd: "235",
-        sale_price: "35000000",
-        sale_price_usd: "235",
-        stock: 1,
-        date: "13/12/2023 13:00:00",
-        schedulemeeting: "13/12/2023 13:00:00",
-        priceforentrustinggoods: "35000000",
-        priceforentrustinggoods_usd: "235",
-        note: "-",
-        status: "In Review"
-    },
-    {
-        image: "https://dev-olshop.berkatsoft.com/image/product/656a6feb1203b.jpeg",
-        name: "CROC-EFFECT GRECA GODDESS MINI BAG",
-        price: "49303",
-        price_usd: "95",
-        sale_price: "35000000",
-        sale_price_usd: "235",
-        stock: 1,
-        date: "13/12/2023 13:00:00",
-        schedulemeeting: "13/12/2023 13:00:00",
-        priceforentrustinggoods: "35000000",
-        priceforentrustinggoods_usd: "235",
-        note: "-",
-        status: "Approved"
-    }
-];
-
 export default function VendorReview() {
     /**
      * Hooks
@@ -133,18 +40,21 @@ export default function VendorReview() {
 
     useEffect(() => {
         loadReviewObj();
-        setReviewObj(REVEWI_DATA_DUMMY[Number(id)]);
     }, []);
 
     const loadReviewObj = () => {
-        // Api Not Ready Yet
-        // Api.get("/vendor-product?search=" + id, {
-        //     headers: {
-        //         Authorization: "Bearer " + localStorage.getItem("apiToken")
-        //     }
-        // }).then(res => {
-        //     console.log(res.data.data);
-        // });
+        setLoading(false);
+        Api.get("/vendor-product/" + id, {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("apiToken")
+            }
+        }).then(res => {
+            setReviewObj(res.data.data);
+        }).catch(err => {
+            console.log(err);
+        }).finally(() => {
+            setLoading(false);
+        });
     };
 
     return (
@@ -191,7 +101,7 @@ export default function VendorReview() {
                                 <h2>{t("reviewvendor")}</h2>
                             </div>
                             <div className="body">
-                                <img src={reviewObj?.image} alt="review" />
+                                <img src={reviewObj?.images?.at(0) ?? ""} alt="review" />
                                 <div className="detail">
                                     <div className="status" data-status={reviewObj?.status?.toLowerCase()}>
                                         {t(reviewObj?.status?.toLowerCase())} .
@@ -223,7 +133,7 @@ export default function VendorReview() {
                                             maximumFractionDigits: 0
                                         })}{" "}
                                         |{" "}
-                                        {Number(reviewObj?.sale_price_usd)?.toLocaleString("en-US", {
+                                        {Number(reviewObj?.sale_usd)?.toLocaleString("en-US", {
                                             style: "currency",
                                             currency: "USD",
                                             maximumFractionDigits: 0
@@ -232,12 +142,12 @@ export default function VendorReview() {
                                 </div>
                                 <div className="detail">
                                     <div className="title">{t("offeredon")}</div>
-                                    <div>{reviewObj.date}</div>
+                                    <div>{reviewObj.offered_date}</div>
                                 </div>
                             </div>
                         </div>
 
-                        {reviewObj?.status != "In Review" ? (
+                        {reviewObj?.status != "Review" ? (
                             <div className="appointment bg-white">
                                 {reviewObj?.status == "Approved" ? (
                                     <div className="hud">{t("vendorreviewproof")}</div>
@@ -246,7 +156,7 @@ export default function VendorReview() {
                                     <div className="title">{t("schedulemeeting")} :</div>
                                     <div>{reviewObj?.schedulemeeting}</div>
                                 </div>
-                                {reviewObj?.status != "Rejected" ? (
+                                {reviewObj?.status != "Not Approved" ? (
                                     <div className="detail">
                                         <div className="title">{t("priceforentrustinggoods")} :</div>
                                         <div>
@@ -383,7 +293,7 @@ export default function VendorReview() {
                         ) : null}
 
                         <div className="review-item-footer">
-                            {reviewObj?.status == "Rejected" ? (
+                            {reviewObj?.status == "Not Approved" ? (
                                 <button
                                     className="preview"
                                     type="button"
@@ -392,7 +302,7 @@ export default function VendorReview() {
                                     {t("backto")} {t("productinformation")}
                                 </button>
                             ) : null}
-                            {reviewObj?.status == "Rejected" ? (
+                            {reviewObj?.status == "Not Approved" ? (
                                 <button className="next" type="button">
                                     {t("canceltransaction")}
                                 </button>
