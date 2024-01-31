@@ -182,7 +182,7 @@ export default function ShoppingCheckout() {
             })
                 .then(res => {
                     setShippingFees(res.data.data);
-                    setSelectedShippingFees(-1);
+                    setSelectedShippingFees(0);
                 })
                 .catch(error => console.log(error))
                 .finally(() => {
@@ -196,6 +196,16 @@ export default function ShoppingCheckout() {
     }, [selectedCourier, selectedAddress]);
 
     const doOrder = () => {
+        if (!selectedCourier) {
+            setModalChangeCourier(true);
+            return;
+        }
+
+        if (selectedCourier?.value == "pickup" && selectedMethodPayment == -1) {
+            setModalChangeMethodPayment(true);
+            return;
+        }
+
         setLoading(true);
         const ongkir =
             selectedShippingFees != -1
@@ -919,7 +929,7 @@ export default function ShoppingCheckout() {
                         </div>
                     </div>
                     <div className="btn-row">
-                        {selectedCourier?.value == "pickup" ? (
+                        {selectedCourier?.value == "pickup" && selectedMethodPayment == 1 ? (
                         <div className="operational">
                             <div>{t("information")} :</div>
                             <div>
