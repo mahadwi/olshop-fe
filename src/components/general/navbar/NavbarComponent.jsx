@@ -180,7 +180,7 @@ function NavbarComponent({ t }) {
                                 <NavLink to={"/shop"}>{t("shop").toUpperCase()}</NavLink>
                             </li>
                             <li>
-                                <NavLink>{t("collective")}</NavLink>
+                                <NavLink>{t("collective").toUpperCase()}</NavLink>
                                 <ul class="dropdown-content">
                                     <li className="dropdown-content-title">
                                         {StringUtil.capitalizeFirstLetter(t("collective").toLowerCase())}
