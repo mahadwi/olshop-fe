@@ -10,6 +10,7 @@ import NavbarHomeComponent from "../components/general/navbar-home/NavbarHomeCom
 import { CartContext } from "../context/CartContext";
 import { Toaster } from 'react-hot-toast';
 import LanguageComponent from '../components/general/language/LanguageComponent';
+import WhatsappComponent from '../components/general/whatsapp/WhatsappComponent';
 
 export default function MainLayout() {
 
@@ -38,6 +39,7 @@ export default function MainLayout() {
                 left: 0,
                 right: 0,
             }} />
+            <WhatsappComponent />
             <LoadingComponent loading={loading} />
             {
                 pathname == '/' ?
