@@ -6,6 +6,8 @@ import './consignment.scoped.scss'
 import Api from "../../../utils/Api";
 import { LoadingContext } from "../../../context/LoadingContext";
 import { LanguageContext } from "../../../context/LanguageContext";
+import { useTranslation } from "react-i18next";
+import Modal from "react-bootstrap/Modal";
 
 export default function ConsignmentIndex() {
 
@@ -14,6 +16,7 @@ export default function ConsignmentIndex() {
      * 
      */
     const { pathname } = useLocation();
+    const { t } = useTranslation();
 
     /**
      * Context
@@ -31,6 +34,8 @@ export default function ConsignmentIndex() {
     const [consignmentObject, setConsignmentObject] = useState({})
     const [sections, setSections] = useState({})
     const [brands, setBrands] = useState([])
+    const [modalCard, setModalCard] = useState(false)
+    const [contentModalCard, setContentModalCard] = useState('')
 
     useEffect(() => {
         loadBreadcrumb()
@@ -81,6 +86,22 @@ export default function ConsignmentIndex() {
 
     return (
         <div>
+            {/* Modal Card */}
+            <Modal
+                centered
+                show={modalCard}
+                onHide={() => {
+                    setModalCard(false);
+                }}
+            >
+                <Modal.Header closeButton>
+                </Modal.Header>
+                <Modal.Body>
+                    <div dangerouslySetInnerHTML={{__html: contentModalCard}}></div>
+                </Modal.Body>
+            </Modal>
+            {/* End of Modal Card */}
+
             <ContainerComponent>
                 <BreadCrumbComponent lists={breadcrumb} />
 
@@ -134,6 +155,19 @@ export default function ConsignmentIndex() {
                                                     <div className='program-step-card-icon'><img src={s.icon} alt={'icon'} width={42}/></div>
                                                     <div className='program-step-card-name'>{s['title'+suffix]}</div>
                                                     <div className='program-step-card-description' dangerouslySetInnerHTML={{__html: s['description'+suffix]}}></div>
+                                                    {s.loadmore_type ?
+                                                        <div>
+                                                            {s.loadmore_type == 'Link' ? 
+                                                                <a className='learn-more' href={s.loadmore_link}>{t('learnmore')}</a>
+                                                            : null}
+                                                            {s.loadmore_type == 'Modal' ? 
+                                                                <button className='learn-more' onClick={() => {
+                                                                    setContentModalCard(s.loadmore_text);
+                                                                    setModalCard(true);
+                                                                }}>{t('learnmore')}</button>
+                                                            : null}
+                                                        </div>
+                                                    : null}
                                                 </div>
                                             })}
                                         </div>

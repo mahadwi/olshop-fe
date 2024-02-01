@@ -233,7 +233,8 @@ i18n
                     signin: 'Sign In',
                     locationstore: 'Location Store',
                     language: 'Language',
-                    logout: 'Log Out'
+                    logout: 'Log Out',
+                    learnmore: 'Learn More',
                     // Add other EN translations here
                 },
             },
@@ -462,7 +463,8 @@ i18n
                     signin: 'Masuk',
                     locationstore: 'Lokasi Toko',
                     language: 'Bahasa',
-                    logout: 'Keluar'
+                    logout: 'Keluar',
+                    learnmore: 'Pelajari Lebih Lanjut',
                     // Add other ID translations here
                 },
             },
