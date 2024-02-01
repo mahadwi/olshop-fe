@@ -10,12 +10,12 @@ i18n
         resources: {
             en: {
                 translation: {
-                    shop: 'SHOP',
-                    collective: 'COLLECTIVE',
-                    designers: 'DESIGNERS',
-                    aboutus: 'ABOUT US',
-                    contact: 'CONTACT',
-                    event: 'EVENT',
+                    shop: 'Shop',
+                    collective: 'Collective',
+                    designers: 'Designers',
+                    aboutus: 'About Us',
+                    contact: 'Contact',
+                    event: 'Event',
                     signupgoogle: "Sign Up With Google",
                     slingbag: "Sling Bag",
                     minibag: 'Mini Bag',
@@ -229,17 +229,22 @@ i18n
                     paymentlaterdescription: 'Payment is made when picking up the goods',
                     information: 'Information',
                     measurements: 'Measurements',
+                    home: 'Home',
+                    signin: 'Sign In',
+                    locationstore: 'Location Store',
+                    language: 'Language',
+                    logout: 'Log Out'
                     // Add other EN translations here
                 },
             },
             id: {
                 translation: {
-                    shop: 'TOKO',
-                    collective: 'KOLEKTIF',
-                    designers: 'PERANCANG',
-                    aboutus: 'TENTANG KAMI',
-                    contact: 'KONTAK',
-                    event: 'ACARA',
+                    shop: 'Toko',
+                    collective: 'Kolektif',
+                    designers: 'Perancang',
+                    aboutus: 'Tentang Kami',
+                    contact: 'Kontak',
+                    event: 'Acara',
                     signupgoogle: "Daftar Dengan Google",
                     slingbag: 'Tas selempang',
                     minibag: 'Tas Mini',
@@ -276,7 +281,7 @@ i18n
                     faq: 'Pertanyaan Umum',
                     footercontact: 'Kontak',
                     consignsell: 'Kirim & Jual',
-                    consignment: 'Kirim',
+                    consignment: 'Konsinyasi',
                     authentication: 'Keaslian',
                     buy: 'Beli',
                     ordertracking: 'Pelacakan Pesanan',
@@ -453,6 +458,11 @@ i18n
                     paymentlaterdescription: 'Pembayaran akan dilakukan saat barang diambil',
                     information: 'Informasi',
                     measurements: 'Ukuran',
+                    home: 'Beranda',
+                    signin: 'Masuk',
+                    locationstore: 'Lokasi Toko',
+                    language: 'Bahasa',
+                    logout: 'Keluar'
                     // Add other ID translations here
                 },
             },
