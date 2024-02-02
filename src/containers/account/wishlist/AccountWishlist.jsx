@@ -6,6 +6,8 @@ import ProductItemComponent from "../../../components/general/product-item/Produ
 import { useLocation } from 'react-router-dom'
 import { LoadingContext } from "../../../context/LoadingContext";
 import Api from "../../../utils/Api";
+import { useSearchParams } from "react-router-dom";
+import PaginationComponent from "../../../components/pages/wishlist/PaginationComponent";
 
 export default function AccountWishlist() {
 
@@ -13,7 +15,9 @@ export default function AccountWishlist() {
      * Hooks
      * 
      */
-    const { pathname } = useLocation();
+    const { pathname, search } = useLocation();
+    const [searchParams, setSearechParams] = useSearchParams();
+    const currentPage = searchParams.get('page');
 
     /**
      * Context
@@ -27,12 +31,13 @@ export default function AccountWishlist() {
      */
     const [breadcrumb, setBreadcrumb] = useState([])
     const [arrWishlists, setArrWishlists] = useState([])
-    const [searchWishlist, setSearchWishlist] = useState('')
+    const [searchWishlist, setSearchWishlist] = useState(searchParams.get('search'))
+    const [metaPagination, setMetaPagination] = useState({})
 
-    // Automatically scrolls to top whenever pathname changes
+    // Automatically scrolls to top whenever pathname or search changes
     useEffect(() => {
         window.scrollTo(0, 0);
-    }, [pathname]);
+    }, [pathname, search]);
 
     useEffect(() => {
         setLoading(true)
@@ -53,15 +58,25 @@ export default function AccountWishlist() {
         ])
     }
 
+    useEffect(() => {
+        setLoading(true)
+        loadWishlists();
+    }, [searchParams]);
+
     const loadWishlists = () => {
         Api.get('/wishlist', {
             headers: {
                 Authorization: 'Bearer ' + localStorage.getItem('apiToken')
-            }
+            },
+            params: {
+                search: searchWishlist ? searchWishlist : null,
+                page: currentPage ? currentPage : 1,
+                itemPerpage: 15,
+            },
         }).then((res) => {
             if (res) {
-                console.log(res.data.data)
                 setArrWishlists(res.data.data)
+                setMetaPagination(res.data.meta)
             }
         }).finally(() => {
             setLoading(false)
@@ -74,11 +89,19 @@ export default function AccountWishlist() {
                 <div className='top-filter'>
                     <div className='left'>
                         <div>
-                            <input type="text" name="search" id="search" placeholder="Search" value={searchWishlist} onChange={(e) => {
+                            <input type="text" placeholder="Search" value={searchWishlist} onChange={(e) => {
                                 setSearchWishlist(e.target.value)
                             }} />
                             <button type="button" onClick={() => {
-                                // Do nothing
+                                setSearechParams((c) => {
+                                    if (searchWishlist) {
+                                        c.set('search', searchWishlist);
+                                    } else {
+                                        c.delete('search');
+                                    }
+                                    c.set('page', 1);
+                                    return c
+                                });
                             }}>
                                 <IconSearch />
                             </button>
@@ -98,6 +121,7 @@ export default function AccountWishlist() {
                         ))
                     }
                 </div>
+                <PaginationComponent metaPagination={metaPagination} setMetaPagination={setMetaPagination} />
             </div>
         </AccountOrderLayoutComponent>
     )
