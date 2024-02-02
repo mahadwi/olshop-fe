@@ -1,28 +1,6 @@
 .order-tab-content {
     margin-top: 1rem;
 
-    .search-wrap {
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-
-        input {
-            font-family: 'Cabin', sans-serif;
-            font-size: 14px;
-            font-style: normal;
-            font-weight: 500;
-            line-height: normal;
-            border-radius: 5px;
-            border: 1px solid #DADADA;
-            background: #FFF;
-            padding: .5rem 1.25rem;
-
-            &::placeholder {
-                color: #C8D1E1;
-            }
-        }
-    }
-
     .body-order-history-tab-content {
         margin-top: 1.5rem;
         padding-bottom: 5rem;
@@ -30,15 +8,46 @@
         .inner {
             margin-bottom: 1rem;
 
-            .item {
-                width: 100%;
-                display: flex;
-                justify-content: space-between;
-                gap: 1.5rem;
-                border: 1px solid #C4C4C4;
-                background: #FFF;
+            .status {
+                background: #A2A3B1;
+                color: #222B45;
+                font-family: Poppins;
+                font-size: 12px;
+                padding: 0.5rem 1rem;
 
-                .left {
+                &[data-status="cancel"] {
+                    background: #F24E1E;
+                }
+
+                &[data-status="on going"] {
+                    background: #FFAC33;
+                }
+
+                &[data-status="completed"] {
+                    background: #00AE65;
+                }
+
+                a {
+                    color: #063BC1;
+                    text-decoration: none;
+                }
+            }
+
+            .items {
+                display: flex;
+                flex-direction: column;
+                padding: 1rem;
+                border: 1px solid #C4C4C4;
+                border-top: 0;
+                background: #FFF;
+                gap: 1.5rem;
+                color: #000;
+                font-family: Cambay;
+                font-size: 12px;
+                font-style: normal;
+                font-weight: 400;
+
+                .item {
                     display: flex;
                     gap: 1.5rem;
 
@@ -51,135 +60,38 @@
 
                     .product-detail {
                         display: flex;
-                        flex-direction: column;
-                        justify-content: center;
+                        flex-direction: row;
+                        flex: 1 0;
+                        gap: 2rem;
 
-                        h4.product-name {
-                            color: #000;
-                            font-family: 'Cambay', sans-serif;
-                            font-size: 14px;
-                            font-style: normal;
-                            font-weight: 700;
-                            line-height: 16px;
-                            /* 133.333% */
-                        }
+                        > div {
+                            flex: 1 0;
+                            display: flex;
+                            flex-direction: column;
+                            gap: 0.5rem;
 
-                        table {
-                            tr {
-                                td {
-                                    color: #A2A3B1;
-                                    font-family: 'Cambay', sans-serif;
-                                    font-size: 12px;
-                                    font-style: normal;
-                                    font-weight: 400;
-                                    line-height: 16px;
-
-                                    &:first-child {
-                                        width: 50px;
-                                    }
-
-                                    &:nth-child(2) {
-                                        width: 20px;
-                                    }
-                                }
+                            div:first-child {
+                                font-weight: 700;
                             }
                         }
                     }
                 }
 
+                .view-more {
+                    background: transparent;
+                    border: 0;
+                    font-weight: 700;
+                    color: #081CC9;
+                }
 
+                .footer-item {
+                    text-align: right;
+                    font-weight: 700;
+                    margin: -1rem;
+                    padding: 1rem;
 
-                .right {
-                    position: relative;
-                    display: flex;
-                    align-items: center;
-                    padding-right: 1rem;
-
-                    .top {
-                        display: flex;
-                        align-items: center;
-                        position: absolute;
-                        top: 1rem;
-                        right: 1rem;
-
-                        .product-detail {
-                            color: #000;
-                            font-family: 'Cambay', sans-serif;
-                            font-size: 12px;
-                            font-style: normal;
-                            font-weight: 400;
-                            line-height: 16px;
-                            white-space: nowrap;
-                            padding-right: .5rem;
-                            position: relative;
-
-                            &::after {
-                                content: '';
-                                width: 1px;
-                                height: 100%;
-                                background: #C4C4C4;
-                                position: absolute;
-                                right: 0;
-                            }
-
-                            /* 160% */
-                        }
-
-                        .track-order {
-                            color: #081CC9;
-                            font-family: 'Cambay', sans-serif;
-                            font-size: 12px;
-                            font-style: normal;
-                            font-weight: 400;
-                            line-height: 16px;
-                            white-space: nowrap;
-                            padding-left: .5rem;
-                            /* 160% */
-                        }
-                    }
-
-                    .price {
-                        color: #FFAC33;
-                        font-family: 'Cambay', sans-serif;
-                        font-size: 17px;
-                        font-style: normal;
-                        font-weight: 700;
-                        line-height: 16px;
-                        padding-right: 1rem;
-                        /* 106.667% */
-                    }
-
-                    .bottom {
-                        position: absolute;
-                        right: 0;
-                        bottom: 0;
-
-                        .label {
-                            background: #444;
-                            display: flex;
-                            justify-content: center;
-                            align-items: center;
-                            width: 8rem;
-                            padding: 0.2rem 0;
-
-                            &[data-status="completed"] {
-                                background: #00AE65;
-                            }
-
-                            &[data-status="on going"] {
-                                background: #FFAC33;
-                            }
-
-                            span {
-                                color: #FFF;
-                                font-family: 'Inter', sans-serif;
-                                font-size: 10px;
-                                font-style: normal;
-                                font-weight: 700;
-                                line-height: normal;
-                                letter-spacing: 0.32px;
-                            }
-                        }
+                    &.border-top-no-bb {
+                        border-top: 1px solid #C4C4C4;
                     }
                 }
             }

@@ -243,6 +243,10 @@ i18n
                     completed: 'Completed',
                     'return': 'Return',
                     'offline': 'Offline',
+                    order: 'Order',
+                    orderstatus: 'Order Status',
+                    viewmore: 'View More',
+                    viewless: 'View Less',
                     // Add other EN translations here
                 },
             },
@@ -481,6 +485,10 @@ i18n
                     completed: 'Selesai',
                     'return': 'Retur',
                     'offline': 'Offline',
+                    order: 'Pesanan',
+                    orderstatus: 'Status Pesanan',
+                    viewmore: 'Lihat Lebih Banyak',
+                    viewless: 'Lihat Lebih Sedikit',
                     // Add other ID translations here
                 },
             },
