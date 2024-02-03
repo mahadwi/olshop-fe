@@ -4,17 +4,8 @@ import { changeLanguage } from "../../../translations/i18n";
 import { withTranslation } from "react-i18next";
 import "./navbar.scoped.scss";
 import ContainerComponent from "../container/ContainerComponent";
-import BrandLogo from "./../../../images/brands/logo.png";
-import { NavLink, useNavigate, useLocation, Link } from "react-router-dom";
-import {
-    IconAlignLeft,
-    IconArrowRight,
-    IconMapPin,
-    IconSearch,
-    IconShoppingCartFilled,
-    IconUserCircle,
-    IconX
-} from "@tabler/icons-react";
+import { useNavigate, Link, useLocation } from "react-router-dom";
+import { IconAlignLeft, IconMapPin, IconSearch, IconShoppingCartFilled, IconX } from "@tabler/icons-react";
 import StringUtil from "../../../utils/StringUtil";
 import "/node_modules/flag-icons/css/flag-icons.min.css";
 import Api from "../../../utils/Api";
@@ -23,7 +14,6 @@ import { AuthUserContext } from "../../../context/AuthUserContext";
 import { LanguageContext } from "../../../context/LanguageContext";
 import { SiteSettingContext } from "../../../context/SiteSettingContext";
 import NoPhoto from "./../../../images/icons/no-photo.png";
-import TempBag from "./../../../images/temp/5c855532d5cc981711da2cd9d3b2c062.png";
 import FloatingCartComponent from "../floating-cart/FloatingCartComponent";
 
 const useReactPath = () => {
@@ -48,6 +38,7 @@ function NavbarComponent({ t }) {
      */
     const path = useReactPath();
     const navigate = useNavigate();
+    const location = useLocation();
 
     /**
      * Refs
@@ -164,9 +155,9 @@ function NavbarComponent({ t }) {
             <div className="nav-container" ref={navRef}>
                 <ContainerComponent>
                     <nav className="navbar-olshop">
-                        <NavLink to={"/"} className="brand-wrapper">
+                        <Link to={"/"} className="brand-wrapper">
                             <img src={siteSetting.logo_url} alt="brand-logo" />
-                        </NavLink>
+                        </Link>
                         <div
                             className="hamburger"
                             onClick={() => {
@@ -177,10 +168,14 @@ function NavbarComponent({ t }) {
                         </div>
                         <ul className="links-wrapper">
                             <li>
-                                <NavLink to={"/shop"}>{t("shop").toUpperCase()}</NavLink>
+                                <Link className={`${location.pathname.includes("/shop") ? "active" : ""}`} to={"/shop"}>
+                                    {t("shop").toUpperCase()}
+                                </Link>
                             </li>
                             <li>
-                                <NavLink>{t("collective").toUpperCase()}</NavLink>
+                                <Link className={`${location.pathname.includes("/collective") ? "active" : ""}`}>
+                                    {t("collective").toUpperCase()}
+                                </Link>
                                 <ul class="dropdown-content">
                                     <li className="dropdown-content-title">
                                         {StringUtil.capitalizeFirstLetter(t("collective").toLowerCase())}
@@ -193,7 +188,9 @@ function NavbarComponent({ t }) {
                                 </ul>
                             </li>
                             <li>
-                                <NavLink>{t("designers").toUpperCase()}</NavLink>
+                                <Link className={`${location.pathname.includes("/designers") ? "active" : ""}`}>
+                                    {t("designers").toUpperCase()}
+                                </Link>
                                 <ul class="dropdown-content">
                                     <li className="dropdown-content-title">
                                         {StringUtil.capitalizeFirstLetter(t("designers").toLowerCase())}
@@ -206,16 +203,36 @@ function NavbarComponent({ t }) {
                                 </ul>
                             </li>
                             <li>
-                                <NavLink to={"/about-us"}>{t("aboutus").toUpperCase()}</NavLink>
+                                <Link
+                                    className={`${location.pathname.includes("/about-us") ? "active" : ""}`}
+                                    to={"/about-us"}
+                                >
+                                    {t("aboutus").toUpperCase()}
+                                </Link>
                             </li>
                             <li>
-                                <NavLink to={"/consignment"}>{t("consignment").toUpperCase()}</NavLink>
+                                <Link
+                                    className={`${location.pathname.includes("/consignment") ? "active" : ""}`}
+                                    to={"/consignment"}
+                                >
+                                    {t("consignment").toUpperCase()}
+                                </Link>
                             </li>
                             <li>
-                                <NavLink to={"/contact"}>{t("contact").toUpperCase()}</NavLink>
+                                <Link
+                                    className={`${location.pathname.includes("/contact") ? "active" : ""}`}
+                                    to={"/contact"}
+                                >
+                                    {t("contact").toUpperCase()}
+                                </Link>
                             </li>
                             <li>
-                                <NavLink to={"/event"}>{t("event").toUpperCase()}</NavLink>
+                                <Link
+                                    className={`${location.pathname.includes("/event") ? "active" : ""}`}
+                                    to={"/event"}
+                                >
+                                    {t("event").toUpperCase()}
+                                </Link>
                             </li>
                         </ul>
                         <div className="actions-wrapper" ref={actionsWrapperRef}>
@@ -271,9 +288,9 @@ function NavbarComponent({ t }) {
                                 </li>
                                 <li>
                                     {user ? (
-                                        <NavLink to={user ? "/account" : "/login"}>
+                                        <Link to={user ? "/account" : "/login"}>
                                             <img className="photo-profile" src={user.image ? user.image : NoPhoto} />
-                                        </NavLink>
+                                        </Link>
                                     ) : (
                                         <Link to={"/login"} className="btn-login">
                                             Login

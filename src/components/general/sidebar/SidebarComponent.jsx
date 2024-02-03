@@ -39,13 +39,13 @@ export default function SidebarComponent({ toggleSidebar, sidebarOpen, categorie
                                 window.location.reload();
                             }
                         }}
-                        className="side-link-item-a"
+                        className={`side-link-item-a ${pathname == "/" ? "active" : ""}`}
                     >
                         {t("home").toUpperCase()}
                     </Link>
                 </li>
                 <li className="side-link-item">
-                    <Link to={"/shop"} className="side-link-item-a">
+                    <Link to={"/shop"} className={`side-link-item-a ${pathname.includes("/shop") ? "active" : ""}`}>
                         {t("shop").toUpperCase()}
                     </Link>
                 </li>
@@ -55,7 +55,9 @@ export default function SidebarComponent({ toggleSidebar, sidebarOpen, categorie
                         e.currentTarget.classList.toggle("show-dropdown");
                     }}
                 >
-                    <Link className="side-link-item-a">{t("collective").toUpperCase()}</Link>
+                    <Link className={`side-link-item-a ${pathname.includes("/collective") ? "active" : ""}`}>
+                        {t("collective").toUpperCase()}
+                    </Link>
 
                     <ul className="dropdown-content">
                         {categories.map((data, index) => (
@@ -71,43 +73,60 @@ export default function SidebarComponent({ toggleSidebar, sidebarOpen, categorie
                         e.currentTarget.classList.toggle("show-dropdown");
                     }}
                 >
-                    <Link className="side-link-item-a">{t("designers").toUpperCase()}</Link>
+                    <Link className={`side-link-item-a ${pathname.includes("/designers") ? "active" : ""}`}>
+                        {t("designers").toUpperCase()}
+                    </Link>
 
                     <ul className="dropdown-content">
                         {brands.map((data, index) => (
                             <li key={index}>
-                                <a href={`/collective/${data.id}`}>{data.name}</a>
+                                <a href={`/designers/${data.id}`}>{data.name}</a>
                             </li>
                         ))}
                     </ul>
                 </li>
                 <li className="side-link-item">
-                    <Link to={"/about-us"} className="side-link-item-a">
+                    <Link
+                        to={"/about-us"}
+                        className={`side-link-item-a ${pathname.includes("/about-us") ? "active" : ""}`}
+                    >
                         {t("aboutus").toUpperCase()}
                     </Link>
                 </li>
                 <li className="side-link-item">
-                    <Link to={"/consignment"} className="side-link-item-a">
+                    <Link
+                        to={"/consignment"}
+                        className={`side-link-item-a ${pathname.includes("/consignment") ? "active" : ""}`}
+                    >
                         {t("consignment").toUpperCase()}
                     </Link>
                 </li>
                 <li className="side-link-item">
-                    <Link to={"/contact"} className="side-link-item-a">
+                    <Link
+                        to={"/contact"}
+                        className={`side-link-item-a ${pathname.includes("/contact") ? "active" : ""}`}
+                    >
                         {t("contact").toUpperCase()}
                     </Link>
                 </li>
                 <li className="side-link-item event">
-                    <Link to={"/event"} className="side-link-item-a">
+                    <Link to={"/event"} className={`side-link-item-a ${pathname.includes("/event") ? "active" : ""}`}>
                         {t("event").toUpperCase()}
                     </Link>
                 </li>
                 <li className="side-link-item">
                     {user ? (
-                        <Link to={"/profile"} className="side-link-item-a">
+                        <Link
+                            to={"/profile"}
+                            className={`side-link-item-a ${pathname.includes("/profile") ? "active" : ""}`}
+                        >
                             {t("profile").toUpperCase()}
                         </Link>
                     ) : (
-                        <Link to={"/login"} className="side-link-item-a">
+                        <Link
+                            to={"/login"}
+                            className={`side-link-item-a ${pathname.includes("/login") ? "active" : ""}`}
+                        >
                             {t("signin").toUpperCase()}
                         </Link>
                     )}
