@@ -13,6 +13,10 @@
             opacity: 1;
             transform: translateX(0);
         }
+
+        .whatsapp-component {
+            box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 0.15);
+        }
     }
 
     .whatsapp-component {
@@ -25,8 +29,8 @@
         width: 4rem;
         height: 4rem;
         border-radius: 50%;
-        box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 0.3);
         text-decoration: none;
+        transition: all 300ms ease;
     }
 
     span {
