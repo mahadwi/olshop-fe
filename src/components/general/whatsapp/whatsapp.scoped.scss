@@ -1,17 +1,48 @@
-.whatsapp-component {
+.whatsapp-component-wrapper {
     position: fixed;
     bottom: 2rem;
     right: 2rem;
     z-index: 1;
     display: flex;
-    justify-content: center;
+    flex-direction: row-reverse;
     align-items: center;
-    background: #25D366;
-    color: #fff;
-    border: 0.25rem solid rgb(255 255 255 / 0.5);
-    width: 4rem;
-    height: 4rem;
-    border-radius: 50%;
-    box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 0.3);
-    text-decoration: none;
+    gap: 0.7rem;
+
+    &:hover {
+        span {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    .whatsapp-component {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #25d366;
+        color: #fff;
+        border: 0.25rem solid rgb(255 255 255 / 0.5);
+        width: 4rem;
+        height: 4rem;
+        border-radius: 50%;
+        box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 0.3);
+        text-decoration: none;
+    }
+
+    span {
+        color: #222;
+        font-family: Cambay;
+        background: #fff;
+        box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 0.15);
+        border-radius: 7px;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        padding-bottom: 0.125rem;
+        padding-top: 0.225rem;
+        display: flex;
+        align-items: center;
+        opacity: 0;
+        transition: all 300ms ease;
+        transform: translateX(2rem);
+    }
 }
