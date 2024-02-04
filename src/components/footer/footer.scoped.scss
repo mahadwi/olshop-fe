@@ -1,7 +1,7 @@
 @use './../../styles/func.scoped.scss' as *;
 
 footer {
-    background: #1E1E1E;
+    background: #1e1e1e;
     padding: 3rem 1rem;
 
     @include lg {
@@ -38,8 +38,8 @@ footer {
             flex: 1.2;
 
             h3 {
-                color: #FFF;
-                font-family: 'Poppins', sans-serif;
+                color: #fff;
+                font-family: "Poppins", sans-serif;
                 font-size: 20px;
                 font-style: normal;
                 font-weight: 700;
@@ -48,8 +48,8 @@ footer {
             }
 
             p {
-                color: #FFF;
-                font-family: 'Cambay', sans-serif;
+                color: #fff;
+                font-family: "Cambay", sans-serif;
                 font-size: 16px;
                 font-style: normal;
                 font-weight: 400;
@@ -65,15 +65,15 @@ footer {
                 margin-top: 2.25rem;
 
                 input {
-                    border: 1px solid #FFF;
-                    background: #FFF;
-                    font-family: 'Poppins', sans-serif;
+                    border: 1px solid #fff;
+                    background: #fff;
+                    font-family: "Poppins", sans-serif;
                     font-size: 14px;
                     font-style: normal;
                     font-weight: 400;
                     line-height: 16px;
                     /* 114.286% */
-                    padding: .5rem 1rem;
+                    padding: 0.5rem 1rem;
                     width: 100%;
 
                     &::placeholder {
@@ -87,9 +87,9 @@ footer {
 
                 button {
                     border-radius: 4px;
-                    background: #FFAC33;
+                    background: #ffac33;
                     color: #000;
-                    font-family: 'Cambay', sans-serif;
+                    font-family: "Cambay", sans-serif;
                     font-size: 16px;
                     font-style: normal;
                     font-weight: 700;
@@ -99,7 +99,7 @@ footer {
                     display: block;
                     outline: none;
                     border: 0px;
-                    padding: .3rem 1.5rem;
+                    padding: 0.3rem 1.5rem;
                     margin-left: auto;
                     align-self: stretch;
                 }
@@ -131,25 +131,25 @@ footer {
                     }
 
                     li {
-                        color: #FFF;
-                        font-family: 'Cambay', sans-serif;
+                        color: #fff;
+                        font-family: "Cambay", sans-serif;
                         font-size: 16px;
                         font-style: normal;
                         font-weight: 700;
                         line-height: 16px;
-                        margin-bottom: .85rem;
+                        margin-bottom: 0.85rem;
 
                         &:first-child {
                             margin-bottom: 1rem;
                         }
 
                         span {
-                            margin-left: .25rem;
+                            margin-left: 0.25rem;
                         }
 
                         a {
-                            color: #FFF;
-                            font-family: 'Cambay';
+                            color: #fff;
+                            font-family: "Cambay";
                             font-size: 16px;
                             font-style: normal;
                             font-weight: 400;
@@ -170,7 +170,7 @@ footer {
                 opacity: 1;
                 border: 0px;
                 height: 0.5px;
-                background: #FFF;
+                background: #fff;
             }
 
             .footer-foot-list {
@@ -186,10 +186,10 @@ footer {
 
                 li {
                     position: relative;
-                    margin-bottom: .5rem;
+                    margin-bottom: 0.5rem;
 
                     @include lg {
-                        padding: 0 .75rem;
+                        padding: 0 0.75rem;
                         margin-bottom: 0;
                     }
 
@@ -198,8 +198,8 @@ footer {
                     }
 
                     a {
-                        color: #FFF;
-                        font-family: 'Cambay', sans-serif;
+                        color: #fff;
+                        font-family: "Cambay", sans-serif;
                         font-size: 16px;
                         font-style: normal;
                         font-weight: 700;
@@ -213,7 +213,7 @@ footer {
                     }
 
                     &::after {
-                        content: '';
+                        content: "";
                         position: absolute;
                         height: 80%;
                         width: 2px;
@@ -235,14 +235,68 @@ footer {
                 }
             }
 
+            .application-link {
+                display: flex;
+                flex-direction: column;
+                margin-top: 2.75rem;
+                align-items: center;
+
+                @include lg {
+                    align-items: flex-end;
+                }
+
+                p {
+                    color: #fff;
+                    font-family: "Cambay", sans-serif;
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 700;
+                    line-height: 16px; /* 100% */
+                    margin-bottom: 0;
+                }
+
+                ul {
+                    display: flex;
+                    padding-left: 0;
+                    align-items: center;
+                    margin-top: 0.7rem;
+                    flex-direction: column;
+                    gap: 0.75rem;
+                    margin-top: 1.15rem;
+
+                    @include lg {
+                        flex-direction: row;
+                        gap: 2rem;
+                        margin-top: 0;
+                    }
+
+                    img {
+                        width: 24px;
+                    }
+
+                    a {
+                        text-decoration: none;
+                        color: #fff;
+                        font-family: "Cambay", sans-serif;
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 700;
+                        line-height: 16px; /* 114.286% */
+                        display: flex;
+                        align-items: center;
+                        gap: 0.55rem;
+                    }
+                }
+            }
+
             p {
-                color: #FFF;
-                font-family: 'Cambay', sans-serif;
+                color: #fff;
+                font-family: "Cambay", sans-serif;
                 font-size: 16px;
                 font-style: normal;
                 font-weight: 700;
                 line-height: 28px;
-                margin-top: -.25rem;
+                margin-top: -0.25rem;
                 text-align: center;
 
                 @include lg {
@@ -251,8 +305,8 @@ footer {
                 }
 
                 a {
-                    color: #FFF;
-                    font-family: 'Cambay', sans-serif;
+                    color: #fff;
+                    font-family: "Cambay", sans-serif;
                     font-size: 16px;
                     font-style: normal;
                     font-weight: 700;
