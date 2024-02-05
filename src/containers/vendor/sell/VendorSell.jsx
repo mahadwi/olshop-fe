@@ -431,7 +431,7 @@ export default function VendorSell() {
                                     {
                                         imageBlobs.map(({url}, i) => (
                                             <div className="photo">
-                                                <img src={url} alt="preview product" />
+                                                <img src={url} alt="preview product" className={`${errorObj422['image.'+i] ? "is-invalid" : ""}`}/>
                                                 <button onClick={() => {removeImageBlog(i)}}><IconX /></button>
                                             </div>
                                         ))
@@ -503,11 +503,14 @@ export default function VendorSell() {
                                     </p>
                                 </div>
                                 }
-                                {errorObj422.image ? (
-                                    <span className="invalid-feedback">{errorObj422.image}</span>
-                                ) : (
-                                    <></>
-                                )}
+                                {
+                                    [0, 1, 2, 3].map((_, i) => {
+                                        if (errorObj422['image.'+i]) {
+                                            return <div className="invalid-feedback">{errorObj422['image.'+i]}</div>
+                                        }
+                                        return null
+                                    })
+                                }
                                 <div className="input-title">
                                     <h4>{t("required")}</h4>
                                     <p>{t("giveascompleteanexplanationaspossible")}</p>
