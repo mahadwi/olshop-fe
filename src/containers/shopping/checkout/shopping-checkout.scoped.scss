@@ -1,8 +1,11 @@
 @use './../../../styles/func.scoped.scss' as *;
 
 .shopping-checkout-wrapper {
-    margin-top: 3rem;
     margin-bottom: 3rem;
+
+    @include lg {
+        margin-top: 3rem;
+    }
 
     .only-mobile {
         display: unset;
@@ -20,14 +23,28 @@
 
     h2.title-checkout {
         color: #000;
-        font-family: "Cambay", sans-serif;
-        font-size: 32px;
+        font-family: Cambay;
+        font-size: 14px;
+        font-style: normal;
         font-weight: 700;
-        margin-bottom: 0;
+        line-height: 16px; /* 114.286% */
+
+        @include lg {
+            color: #000;
+            font-family: "Cambay", sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 0;
+        }
     }
 
     .box-shipping-address {
+        display: none;
         margin-top: 1.75rem;
+
+        @include lg {
+            display: block;
+        }
 
         .action-box-shipping-address {
             display: flex;
@@ -152,6 +169,50 @@
         }
     }
 
+    .box-shipping-address-mobile {
+        border-top: 3px solid #DADADA;
+        margin: 0 -1rem;
+        padding: 1rem;
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+        color: #000;
+        font-family: Cambay;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 16px; /* 133.333% */
+
+        @include lg {
+            display: none;
+        }
+
+        .tag {
+            font-size: 14px;
+        }
+
+        button {
+            margin-left: auto;
+            align-self: center;
+            background: transparent;
+            border: 0;
+            padding: 0;
+            color: #FFAC33;
+        }
+    }
+
+    .box-shipping-address-mobile-border {
+        border-bottom: 3px solid #DADADA;
+        margin: 0 -1rem;
+        height: 6px;
+        background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADYAAAADCAYAAADY8vzDAAAALUlEQVQoz2OMS376n4HGYNFcaUYGBgaGHytW0NwujogIRgYGBgYmhmEKhq3HAM9bCAaAvvvDAAAAAElFTkSuQmCC');
+        background-position: center;
+
+        @include lg {
+            display: none;
+        }
+    }
+
     hr {
         margin: 0;
         padding: 0;
@@ -161,12 +222,21 @@
         background: #c4c4c4;
         margin-top: 2rem;
         margin-bottom: 1.25rem;
+        display: none;
+
+        @include lg {
+            display: block;
+        }
     }
 
     .box-product-order {
         .head-row {
-            display: flex;
+            display: none;
             align-items: center;
+
+            @include lg {
+                display: flex;
+            }
 
             .product-order-head {
                 flex: 3;
@@ -214,8 +284,12 @@
             .product-order-data {
                 flex: 3;
                 display: flex;
-                align-items: center;
+                align-items: start;
                 gap: 0.8rem;
+
+                @include lg {
+                    align-items: center;
+                }
 
                 img {
                     width: 80px;
@@ -243,6 +317,36 @@
                         font-weight: 400;
                         line-height: 16px;
                         /* 145.455% */
+                        display: none;
+
+                        @include lg {
+                            display: inline;
+                        }
+                    }
+
+                    .mobile-price-qty {
+                        display: flex;
+                        flex-direction: row;
+                        gap: 0.5rem;
+                        color: #FFAC33;
+                        font-family: Cambay;
+                        font-size: 12px;
+                        font-style: normal;
+                        font-weight: 700;
+                        line-height: 16px; /* 133.333% */
+
+                        @include lg {
+                            display: none;
+                        }
+
+                        .qty {
+                            color: #828181;
+                            font-family: Cambay;
+                            font-size: 10px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: 16px; /* 160% */
+                        }
                     }
                 }
             }
@@ -250,6 +354,11 @@
             .basic-row-data {
                 flex: 1;
                 text-align: center;
+                display: none;
+
+                @include lg {
+                    display: block;
+                }
 
                 h4 {
                     color: #000;
@@ -270,9 +379,308 @@
         }
     }
 
+    .shippingoption-mobile {
+        border-top: 3px solid #DADADA;
+        margin: 0 -1rem;
+        padding-top: 2px;
+
+        @include lg {
+            display: none;
+        }
+
+        .inner {
+            background: #E1E1E8;
+            padding: 1rem;
+            color: #081CC9;
+            font-family: Cambay;
+            font-size: 12px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 16px; /* 133.333% */
+            border: 1px solid #081CC9;
+            border-width: 1px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+
+            .detail {
+                border-top: 1px solid #081CC9;
+                padding-top: 0.5rem;
+                color: #000;
+                font-family: Cambay;
+                font-size: 11px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: 16px; /* 145.455% */
+                display: flex;
+                flex-direction: row;
+                gap: 1rem;
+                align-items: center;
+
+                .info {
+                    flex: 1 0;
+                }
+
+                button {
+                    background: transparent;
+                    border: 0;
+                    padding: 0;
+                }
+            }
+        }
+    }
+
+    .note-mobile {
+        margin: 0 -1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+        background: #DADADA;
+        color: #000;
+        font-family: Cambay;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 16px; /* 133.333% */
+
+        @include lg {
+            display: none;
+        }
+
+        > div {
+            padding: 0.75rem 1rem;
+            background: #fff;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+
+            input {
+                border: 0;
+                background: transparent;
+                flex: 1 0;
+            }
+
+            .price {
+                color: #FFAC33;
+                font-family: Cambay;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: 16px; /* 114.286% */
+            }
+        }
+    }
+
+    .voucher-mobile {
+        margin: 0 -1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+        background: #DADADA;
+        color: #000;
+        font-family: Cambay;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 16px; /* 133.333% */
+        border-top: 3px solid #DADADA;
+
+        @include lg {
+            display: none;
+        }
+
+        > div {
+            padding: 0.75rem 1rem;
+            background: #fff;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+
+            .title {
+                display: flex;
+                flex-direction: row;
+                gap: 0.75rem;
+                align-items: center;
+            }
+
+            .entercode {
+                background: transparent;
+                border: 0;
+                padding: 0;
+                color: #A2A3B1;
+                font-family: Cambay;
+                font-size: 12px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 16px; /* 133.333% */
+            }
+
+            .methodpayment {
+                background: transparent;
+                border: 0;
+                padding: 0;
+                color: #000;
+                font-family: Cambay;
+                font-size: 12px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: 16px; /* 133.333% */
+            }
+        }
+    }
+
+    .bills-mobile {
+        margin: 0 -1rem;
+        padding: 1rem;
+        border-top: 3px solid #DADADA;
+        color: #000;
+        font-family: Cambay;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 16px; /* 133.333% */
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+
+        @include lg {
+            display: none;
+        }
+
+        > div {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+
+            &.bills {
+                margin-bottom: 0.5rem;
+                color: #000;
+                font-family: Cambay;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: 16px; /* 114.286% */
+
+                div {
+                    display: flex;
+                    flex-direction: row;
+                    gap: 0.75rem;
+                    align-items: center;
+                }
+            }
+
+            &.total {
+                margin-top: 0.5rem;
+                color: #000;
+                font-family: Cambay;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: 16px; /* 114.286% */
+
+                .price {
+                    color: #FFAC33
+                }
+            }
+        }
+    }
+
+    .operational-mobile {
+        color: #F24E1E;
+        font-family: Cambay;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 16px; /* 114.286% */
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+        margin: 0 -1rem;
+        padding: 1rem;
+        border-top: 3px solid #DADADA;
+
+        @include lg {
+            display: none;
+        }
+
+        div:first-child {
+            font-weight: 700;
+            white-space: nowrap;
+        }
+    }
+
+    .box-bottom-checkout-mobile {
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: #fff;
+        border-top: 1px solid #C4C4C4;
+        z-index: 1;
+        flex-direction: column;
+
+        @include lg {
+            display: none;
+        }
+
+        .body-price {
+            display: flex;
+            flex-direction: row;
+
+            .top-desc {
+                flex: 1;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 0 2rem;
+
+                span:first-child {
+                    color: #A2A3B1;
+                    font-family: Cambay;
+                    font-size: 12px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 16px; /* 133.333% */
+                }
+
+                span:last-child {
+                    color: #FFAC33;
+                    font-family: Cambay;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 700;
+                    line-height: 16px; /* 114.286% */
+                }
+            }
+
+            button {
+                background: #151B4F;
+                border:0;
+                padding: 1.75rem 2.5rem;
+                box-shadow: 4px 10px 4px 0px rgba(0, 0, 0, 0.25);
+                color: #FFF;
+                text-align: justify;
+                font-family: Cambay;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: 16px; /* 114.286% */
+            }
+        }
+    }
+
     .box-order-transaction {
         border: 1px solid #c4c4c4;
         background: #fff;
+        display: none;
+
+        @include lg {
+            display: block;
+        }
 
         .recap-text {
             display: flex;

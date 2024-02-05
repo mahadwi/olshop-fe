@@ -248,6 +248,9 @@ i18n
                     viewmore: 'View More',
                     viewless: 'View Less',
                     addbrand: 'Add Brand',
+                    totalorder: 'Total Order',
+                    product: 'Product',
+                    bills: 'Bills',
                     // Add other EN translations here
                 },
             },
@@ -491,6 +494,9 @@ i18n
                     viewmore: 'Lihat Lebih Banyak',
                     viewless: 'Lihat Lebih Sedikit',
                     addbrand: 'Tambahkan Brand',
+                    totalorder: 'Jumlah Pesanan',
+                    product: 'Produk',
+                    bills: 'Tagihan',
                     // Add other ID translations here
                 },
             },
