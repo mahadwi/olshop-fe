@@ -108,7 +108,7 @@ export default function ShoppingCart() {
 
     const changeQtyCart = (cartObj, qty) => {
         if (qty > 0) {
-            setLoading(true);
+            // setLoading(true);
 
             Api.put(`/cart/${cartObj?.id}`, {
                 qty: qty
