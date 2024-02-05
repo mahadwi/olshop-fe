@@ -2,7 +2,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import "./vendorsell.scoped.scss";
 import { useLocation } from "react-router-dom";
 import "react-responsive-modal/styles.css";
-import AsyncSelect from "react-select/async";
+import CreatableSelect from "react-select/creatable";
 import Api from "../../../utils/Api";
 import Modal from "react-bootstrap/Modal";
 import { LoadingContext } from "../../../context/LoadingContext";
@@ -101,6 +101,7 @@ export default function VendorSell() {
     ];
     const [selectedCondition, setSelectedCondition] = useState(null);
 
+    const [isLoadingBrands, setIsLoadingBrands] = useState(false);
     const [brands, setBrands] = useState([]);
     const [selectedBrand, setSelectedBrand] = useState(null);
 
@@ -536,7 +537,7 @@ export default function VendorSell() {
                                         )}
                                     </div>
                                     <div className="one-col col">
-                                        <Select
+                                        <CreatableSelect
                                             styles={{
                                                 placeholder: defaultStyles => {
                                                     return {
@@ -591,6 +592,32 @@ export default function VendorSell() {
                                                 })
                                             }}
                                             name=""
+                                            formatCreateLabel={(inputValue) => {
+                                                return `${t("addbrand")} "${inputValue}"`
+                                            }}
+                                            isDisabled={isLoadingBrands}
+                                            isLoading={isLoadingBrands}
+                                            onCreateOption={(inputValue) => {
+                                                setIsLoadingBrands(true);
+                                                Api.post(`/brand`, {
+                                                    name: inputValue,
+                                                }, {
+                                                    headers: {
+                                                        Authorization: "Bearer " + localStorage.getItem("apiToken")
+                                                    }
+                                                }).then((res) => {
+                                                    const newOption = {
+                                                        label: inputValue,
+                                                        value: res.data.data.id,
+                                                    }
+                                                    setBrands((prev) => [...prev, newOption]);
+                                                    setSelectedBrand(newOption);
+                                                }).catch((err) => {
+                                                    console.log(err);
+                                                }).finally(() => {
+                                                    setIsLoadingBrands(false);
+                                                });
+                                            }}
                                             defaultOptions
                                             placeholder={"Brand"}
                                             value={selectedBrand}

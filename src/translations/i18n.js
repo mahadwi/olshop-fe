@@ -247,6 +247,7 @@ i18n
                     orderstatus: 'Order Status',
                     viewmore: 'View More',
                     viewless: 'View Less',
+                    addbrand: 'Add Brand',
                     // Add other EN translations here
                 },
             },
@@ -489,6 +490,7 @@ i18n
                     orderstatus: 'Status Pesanan',
                     viewmore: 'Lihat Lebih Banyak',
                     viewless: 'Lihat Lebih Sedikit',
+                    addbrand: 'Tambahkan Brand',
                     // Add other ID translations here
                 },
             },
