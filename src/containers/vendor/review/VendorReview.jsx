@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import "./vendorreview.scoped.scss";
 import { useLocation } from "react-router-dom";
 import "react-responsive-modal/styles.css";
@@ -9,6 +9,7 @@ import { CurrencyContext } from "../../../context/CurrencyContext";
 import ContainerComponent from "../../../components/general/container/ContainerComponent";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 export default function VendorReview() {
     /**
@@ -32,6 +33,7 @@ export default function VendorReview() {
      *
      */
     const [reviewObj, setReviewObj] = useState({});
+    const inputFile = useRef(null);
 
     // Automatically scrolls to top whenever pathname changes
     useEffect(() => {
@@ -56,6 +58,27 @@ export default function VendorReview() {
             setLoading(false);
         });
     };
+
+    const inputFileOnChange = (event) => {
+        const file = event.currentTarget.files[0];
+        const form_data_insert = new FormData();
+        form_data_insert.append("vendor_product_id", id);
+        form_data_insert.append("type", reviewObj?.approve_file?.status.toLowerCase());
+        // form_data_insert.append("type", "approve");
+        form_data_insert.append("file", file);
+
+        const postFile = Api.post("/vendor-product-upload", form_data_insert, {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("apiToken")
+            }
+        });
+
+        toast.promise(postFile, {
+            loading: `${t("upload")} ${"document"}...`,
+            success: t("uploadsuccess"),
+            error: "Error validations",
+        });
+    }
 
     return (
         <div className="vendor">
@@ -197,18 +220,18 @@ export default function VendorReview() {
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td>Serah Terima</td>
+                                                <td>{reviewObj?.approve_file?.name}</td>
                                                 <td>
                                                     <a
-                                                        href="https://www.africau.edu/images/default/sample.pdf"
+                                                        href={reviewObj?.approve_file?.approve_file}
                                                         target="_blank"
                                                     >
                                                         {t("agreementview")}
                                                     </a>{" "}
-                                                    | {t("download")}
+                                                    | <a href={reviewObj?.approve_file?.draft} target="_blank">{t("download")}</a>
                                                 </td>
-                                                <td>{t("upload")}</td>
-                                                <td className="text-center">{t(reviewObj?.status)}</td>
+                                                <td><input ref={inputFile} type="file" accept="application/pdf" hidden onChange={inputFileOnChange}   /><button onClick={() => inputFile.current?.click()}>{t("upload")}</button></td>
+                                                <td className="text-center">{t(reviewObj?.approve_file?.status)}</td>
                                             </tr>
                                         </tbody>
                                     </table>

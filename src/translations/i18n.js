@@ -252,6 +252,7 @@ i18n
                     bills: 'Bills',
                     changeaddress: 'Change Address',
                     fileinformation: 'File Information',
+                    uploadsuccess: 'Upload Success',
                     // Add other EN translations here
                 },
             },
@@ -498,6 +499,7 @@ i18n
                     bills: 'Tagihan',
                     changeaddress: 'Ganti Alamat',
                     fileinformation: 'Informasi Berkas',
+                    uploadsuccess: 'Mengunggah Berhasil',
                     // Add other ID translations here
                 },
             },

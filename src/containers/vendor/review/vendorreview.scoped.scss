@@ -311,6 +311,19 @@
                                     font-style: normal;
                                     font-weight: 700;
                                     line-height: 130%; /* 15.6px */
+
+                                    button {
+                                        background: transparent;
+                                        border: 0;
+                                        padding: 0;
+                                        color: inherit;
+                                        font: inherit;
+
+                                        &:disabled {
+                                            cursor: not-allowed;
+                                            color: #555;
+                                        }
+                                    }
                                 }
                             }
                         }
