@@ -253,6 +253,7 @@ i18n
                     changeaddress: 'Change Address',
                     fileinformation: 'File Information',
                     uploadsuccess: 'Upload Success',
+                    searchplaceholder: 'Search by brand, category, product name',
                     // Add other EN translations here
                 },
             },
@@ -500,6 +501,7 @@ i18n
                     changeaddress: 'Ganti Alamat',
                     fileinformation: 'Informasi Berkas',
                     uploadsuccess: 'Mengunggah Berhasil',
+                    searchplaceholder: 'Cari dengan brand, kategori, nama produk',
                     // Add other ID translations here
                 },
             },

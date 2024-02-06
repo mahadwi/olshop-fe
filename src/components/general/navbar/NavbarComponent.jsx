@@ -15,6 +15,7 @@ import { LanguageContext } from "../../../context/LanguageContext";
 import { SiteSettingContext } from "../../../context/SiteSettingContext";
 import NoPhoto from "./../../../images/icons/no-photo.png";
 import FloatingCartComponent from "../floating-cart/FloatingCartComponent";
+import SearchComponent from "../search/SearchComponent";
 
 const useReactPath = () => {
     const [path, setPath] = useState(window.location.pathname);
@@ -61,6 +62,7 @@ function NavbarComponent({ t }) {
     const [brands, setBrands] = useState([]);
     const [categories, setCategories] = useState([]);
     const [sidebarOpen, setSidebarOpen] = useState(false);
+    const [searchOpen, setSearchOpen] = useState(true);
     const [aboutUs, setAboutUs] = useState({});
     const { language, setLanguage } = useContext(LanguageContext);
 
@@ -237,7 +239,7 @@ function NavbarComponent({ t }) {
                         </ul>
                         <div className="actions-wrapper" ref={actionsWrapperRef}>
                             <ul>
-                                <li className="search-act">
+                                <li className="search-act" onClick={() => { setSearchOpen(true) }}>
                                     <IconSearch color="#FFFFFF" />
                                 </li>
                                 <li>
@@ -327,6 +329,7 @@ function NavbarComponent({ t }) {
                 brands={brands}
                 aboutUs={aboutUs}
             />
+            { searchOpen ? <SearchComponent setSearchOpen={setSearchOpen} brands={brands} categories={categories} /> : null }
         </div>
     );
 }
