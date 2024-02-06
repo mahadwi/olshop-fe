@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState, useRef } from "react";
-import { IconArrowLeft, IconArrowRight, IconChevronDown, IconChevronRight, IconLicense, IconMapPin, IconPencil } from "@tabler/icons-react";
+import { IconArrowLeft, IconArrowRight, IconChevronDown, IconChevronRight, IconCircle, IconCircleDot, IconLicense, IconMapPin, IconPencil } from "@tabler/icons-react";
 import ContainerComponent from "../../../components/general/container/ContainerComponent";
 import BagCurrentOrder from "./../../../images/temp/5c855532d5cc981711da2cd9d3b2c062.png";
 import "./shopping-checkout.scoped.scss";
@@ -65,6 +65,7 @@ export default function ShoppingCheckout() {
     const [selectedAddress, setSelectedAddress] = useState(0);
     const [modalChangeCourier, setModalChangeCourier] = useState(false);
     const [modalChangeMethodPayment, setModalChangeMethodPayment] = useState(false);
+    const [modalChangeAddresses, setModalChangeAddresses] = useState(false);
     const flkty = useRef();
     const [couriers, setCouriers] = useState([]);
     const [selectedCourier, setSelectedCourier] = useState("");
@@ -582,6 +583,73 @@ export default function ShoppingCheckout() {
                 </Modal.Footer>
             </Modal>
             {/* End of Modal Method Payment */}
+            {/* Modal Mobile Addresses */}
+            <Modal
+                show={modalChangeAddresses}
+                centered
+                onHide={() => {
+                    setModalChangeAddresses(false);
+                }}
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title>{t("changeaddress")}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className="modal-addresses">
+                        <Link className="manageaddress" to={`/profile/address`}>
+                            <IconPencil size={18} /> {t("manageaddress")}
+                        </Link>
+                        <div className="content-addresses">
+                            {user.addresses?.map((addressObj, i) => (
+                                <div
+                                    className="address-item"
+                                    onClick={() => {
+                                        setSelectedAddress(i);
+                                    }}
+                                >
+                                    <div>
+                                        {selectedAddress == i ?
+                                            <IconCircleDot size={22} color="#FFAC33" />
+                                        : 
+                                            <IconCircle size={22} color="#A2A3B1" />
+                                        }
+                                    </div>
+                                    <div className="detail">
+                                        <div className="tag">
+                                            {addressObj.tag}
+                                        </div>
+                                        <div className="name-phone-number">
+                                            {addressObj.name} | {addressObj.phone}
+                                        </div>
+                                        <div className="address">
+                                            {addressObj.address} {addressObj.full_address}
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </Modal.Body>
+                <Modal.Footer>
+                    <div className="modal-courier-bottom">
+                        <button
+                            onClick={() => {
+                                setModalChangeAddresses(false);
+                            }}
+                        >
+                            {t("cancel").toUpperCase()}
+                        </button>
+                        <button
+                            onClick={() => {
+                                setModalChangeAddresses(false);
+                            }}
+                        >
+                            {t("submit").toUpperCase()}
+                        </button>
+                    </div>
+                </Modal.Footer>
+            </Modal>
+            {/* End of Modal Mobile Addresses */}
             <div className="shopping-checkout-wrapper">
                 <h2 className="title-checkout">{t("checkout")}</h2>
 
@@ -650,14 +718,13 @@ export default function ShoppingCheckout() {
                             {user.addresses?.[selectedAddress].tag}
                         </div>
                         <div className="name-phone-number">
-                            <div>{user.addresses?.[selectedAddress].name}</div>
-                            <div>{user.addresses?.[selectedAddress].phone}</div>
+                            <div>{user.addresses?.[selectedAddress].name} | {user.addresses?.[selectedAddress].phone}</div>
                         </div>
                         <div className="address">
                             {user.addresses?.[selectedAddress].address} {user.addresses?.[selectedAddress].full_address}
                         </div>
                     </div>
-                    <button>
+                    <button onClick={() => setModalChangeAddresses(true)}>
                         <IconChevronRight />
                     </button>
                 </div>
