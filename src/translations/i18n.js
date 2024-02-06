@@ -251,6 +251,7 @@ i18n
                     product: 'Product',
                     bills: 'Bills',
                     changeaddress: 'Change Address',
+                    fileinformation: 'File Information',
                     // Add other EN translations here
                 },
             },
@@ -496,6 +497,7 @@ i18n
                     product: 'Produk',
                     bills: 'Tagihan',
                     changeaddress: 'Ganti Alamat',
+                    fileinformation: 'Informasi Berkas',
                     // Add other ID translations here
                 },
             },

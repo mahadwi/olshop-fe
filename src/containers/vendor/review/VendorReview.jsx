@@ -152,20 +152,20 @@ export default function VendorReview() {
                                 {reviewObj?.status != "Not Approved" ?
                                 <div className="detail">
                                     <div className="title">{t("schedulemeeting")} :</div>
-                                    <div>{reviewObj?.schedulemeeting}</div>
+                                    <div>{reviewObj?.confirm_date ?? "-"}</div>
                                 </div>
                                 : null}
                                 {reviewObj?.status != "Not Approved" ? (
                                     <div className="detail">
                                         <div className="title">{t("priceforentrustinggoods")} :</div>
                                         <div>
-                                            {Number(reviewObj?.priceforentrustinggoods)?.toLocaleString("id-ID", {
+                                            {Number(reviewObj?.consignment_price)?.toLocaleString("id-ID", {
                                                 style: "currency",
                                                 currency: "IDR",
                                                 maximumFractionDigits: 0
                                             })}{" "}
                                             |{" "}
-                                            {Number(reviewObj?.priceforentrustinggoods_usd)?.toLocaleString("en-US", {
+                                            {Number(reviewObj?.consignment_usd)?.toLocaleString("en-US", {
                                                 style: "currency",
                                                 currency: "USD",
                                                 maximumFractionDigits: 0
@@ -175,7 +175,7 @@ export default function VendorReview() {
                                 ) : null}
                                 <div className="detail">
                                     <div className="title">{t("note")} :</div>
-                                    <div>{reviewObj?.note}</div>
+                                    <div>{reviewObj?.note ?? "-"}</div>
                                 </div>
                             </div>
                         ) : null}

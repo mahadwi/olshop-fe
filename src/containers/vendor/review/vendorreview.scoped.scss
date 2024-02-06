@@ -260,7 +260,6 @@
 
                     table {
                         thead {
-                            background: rgba(0, 0, 0, 0.06);
                             color: #000;
                             text-align: center;
                             font-family: Inter;
@@ -268,6 +267,10 @@
                             font-style: normal;
                             font-weight: 600;
                             line-height: 130%; /* 15.6px */
+
+                            tr {
+                                background: rgba(0, 0, 0, 0.06);
+                            }
 
                             td {
                                 border: 1px solid #b9b9b9;
