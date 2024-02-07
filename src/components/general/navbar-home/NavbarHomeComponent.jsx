@@ -69,7 +69,7 @@ function NavbarHomeComponent({ t }) {
     const [brands, setBrands] = useState([]);
     const [categories, setCategories] = useState([]);
     const [sidebarOpen, setSidebarOpen] = useState(false);
-    const [searchOpen, setSearchOpen] = useState(true);
+    const [searchOpen, setSearchOpen] = useState(false);
     const [aboutUs, setAboutUs] = useState({});
     const { language, setLanguage } = useContext(LanguageContext);
 
