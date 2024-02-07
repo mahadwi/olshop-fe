@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import "./vendorproductinformation.scoped.scss";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "react-responsive-modal/styles.css";
 import AsyncSelect from "react-select/async";
 import Api from "../../../utils/Api";
@@ -9,7 +9,7 @@ import { LoadingContext } from "../../../context/LoadingContext";
 import { AuthUserContext } from "../../../context/AuthUserContext";
 import { CurrencyContext } from "../../../context/CurrencyContext";
 import ContainerComponent from "../../../components/general/container/ContainerComponent";
-import { IconList, IconPlus, IconLayoutGrid } from "@tabler/icons-react";
+import { IconList, IconPlus, IconLayoutGrid, IconShoppingBag, IconClock } from "@tabler/icons-react";
 import Select from "react-select";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
@@ -154,6 +154,39 @@ export default function VendorProductInformation() {
                             <div className="step">{t("listingproduct")}</div>
                         </div>
                     </div>
+                    <div className="step-main-mobile">
+                        <div className="sell">
+                            <img src={user.image} alt={user.name} />
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    setModalConfirm(true);
+                                }}
+                            >
+                                {t("sellgoods")} <IconPlus />
+                            </button>
+                        </div>
+                        <div className="divider" />
+                        <div className="nav">
+                            <div className="title">Overview</div>
+                            <div className="cards">
+                                <Link to={`./goodssales`}>
+                                    <div className="count">
+                                        4
+                                        <IconShoppingBag size={22} />
+                                    </div>
+                                    <div>{t("goodssales")}</div>
+                                </Link >
+                                <Link to={`./goodssaleshistory`}>
+                                    <div className="count">
+                                        1
+                                        <IconClock size={22} />
+                                    </div>
+                                    <div>{t("goodssaleshistory")}</div>
+                                </Link >
+                            </div>
+                        </div>
+                    </div>
                     <div className="step-1-main">
                         <div className="left">
                             <button
@@ -236,7 +269,6 @@ export default function VendorProductInformation() {
                             </div>
                         </div>
                     </div>{" "}
-                    :
                 </>
             </ContainerComponent>
         </div>
