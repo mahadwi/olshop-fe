@@ -51,7 +51,7 @@ export default function VendorIndex() {
     return (
         <div className='vendor'>
             <ContainerComponent>
-                <div className='bg-white'>
+                <div className='bg-white mobile-padding'>
                     <div className='welcome'>
                         <div className='img-wrapper'>
                             <img src={WelcomeImage} alt='ilustrator' />
