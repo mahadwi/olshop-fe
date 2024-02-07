@@ -1,3 +1,5 @@
+@use './../../../styles/func.scoped.scss' as *;
+
 .vendor {
     background: rgba(221, 221, 221, 0.50);
     padding: 0 0 1rem 0;
@@ -6,6 +8,17 @@
         display: flex;
         flex-direction: row;
         justify-content: end;
+        margin: 0 -1rem;
+        background: #fff;
+        padding: 0 1rem 1rem;
+        border-bottom: 3px solid #DADADA;
+
+        @include lg {
+            background: transparent;
+            margin: 0;
+            padding: 0;
+            border-bottom: 0;
+        }
 
         button {
             color: #FFAC33;
@@ -18,6 +31,11 @@
             border: 1px solid #FFAC33;
             background: #FFF;
             padding: 0.5rem 1.5rem;
+            flex: 1 0;
+
+            @include lg {
+                flex: unset;
+            }
 
             &.active {
                 background: #FFAC33;
@@ -38,8 +56,12 @@
         font-weight: 700;
         line-height: normal;
         letter-spacing: 0.96px;
-        padding: 1.5rem 0;
+        padding: 0.5rem 0;
         text-align: center;
+
+        @include lg {
+            padding: 1.5rem 0;
+        }
     }
 
     .divider {
@@ -51,13 +73,22 @@
 
     .step-1 {
         padding: 1rem;
+        margin: 0 -1rem -1rem -1rem;
+
+        @include lg {
+            margin: 0;
+        }
 
         .content {
             .form-input {
                 display: flex;
                 flex-direction: column;
                 gap: .5rem;
-                padding: 0 3rem;
+                padding: 0;
+
+                @include lg {
+                    padding: 0 3rem;
+                }
 
                 .form-group {
                     display: flex;
@@ -183,8 +214,12 @@
         .bottom {
             display: flex;
             flex-direction: row;
-            justify-content: end;
+            justify-content: center;
             gap: 0.5rem;
+
+            @include lg {
+                justify-content: end;
+            }
 
             button {
                 border-radius: 5px;
