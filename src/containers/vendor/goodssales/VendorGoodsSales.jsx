@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import "./vendorproductinformation.scoped.scss";
+import "./vendorgoodssales.scoped.scss";
 import { Link, useLocation } from "react-router-dom";
 import "react-responsive-modal/styles.css";
 import AsyncSelect from "react-select/async";
@@ -14,7 +14,7 @@ import Select from "react-select";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
-export default function VendorProductInformation() {
+export default function VendorGoodsSales() {
     /**
      * Hooks
      *
@@ -154,39 +154,25 @@ export default function VendorProductInformation() {
                             <div className="step">{t("listingproduct")}</div>
                         </div>
                     </div>
+
                     <div className="step-main-mobile">
-                        <div className="sell">
-                            <img src={user.image} alt={user.name} />
-                            <button
-                                type="button"
-                                onClick={() => {
-                                    setModalConfirm(true);
-                                }}
+                        <button type="button" onClick={() => navigate("../productinformation")}>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
                             >
-                                {t("sellgoods")} <IconPlus />
-                            </button>
-                        </div>
-                        <div className="divider" />
-                        <div className="nav">
-                            <div className="title">Overview</div>
-                            <div className="cards">
-                                <Link to={`./goodssales`}>
-                                    <div className="count">
-                                        4
-                                        <IconShoppingBag size={22} />
-                                    </div>
-                                    <div>{t("goodssales")}</div>
-                                </Link >
-                                <Link to={`./goodssaleshistory`}>
-                                    <div className="count">
-                                        1
-                                        <IconClock size={22} />
-                                    </div>
-                                    <div>{t("goodssaleshistory")}</div>
-                                </Link >
-                            </div>
-                        </div>
+                                <path
+                                    d="M20 11H7.83L13.42 5.41L12 4L4 12L12 20L13.41 18.59L7.83 13H20V11Z"
+                                    fill="#111111"
+                                />
+                            </svg>
+                        </button>
+                        <div className="title text-center">{t("youroffer")}</div>
                     </div>
+
                     <div className="step-1-main">
                         <div className="left">
                             <button
@@ -206,9 +192,10 @@ export default function VendorProductInformation() {
                             <div className="top">
                                 <div className="name">{t("youroffer")}</div>
                                 <div className="search">
-                                    <div>{t("search")}</div>
+                                    <div className="text">{t("search")}</div>
                                     <div>
-                                        <input className="form-control" type="text" name="q" id="search" />
+                                        <input className="form-control input-desktop" type="text" name="q" id="search" />
+                                        <input className="form-control input-mobile" type="text" name="q" id="search" placeholder={t("search")} />
                                     </div>
                                     <div className="layout">
                                         <button
