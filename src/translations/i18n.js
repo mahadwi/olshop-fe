@@ -254,6 +254,8 @@ i18n
                     fileinformation: 'File Information',
                     uploadsuccess: 'Upload Success',
                     searchplaceholder: 'Search by brand, category, product name',
+                    searchresultfor: 'Search Result For',
+                    searchresultnotfound: 'Unfortunately, we couldn\'t find any result for',
                     // Add other EN translations here
                 },
             },
@@ -502,6 +504,8 @@ i18n
                     fileinformation: 'Informasi Berkas',
                     uploadsuccess: 'Mengunggah Berhasil',
                     searchplaceholder: 'Cari dengan brand, kategori, nama produk',
+                    searchresultfor: 'Hasil Pencarian Untuk',
+                    searchresultnotfound: 'Sayangnya, kita tidak dapat menemukan hasil untuk'
                     // Add other ID translations here
                 },
             },
