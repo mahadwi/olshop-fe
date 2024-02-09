@@ -1,3 +1,5 @@
+@use './../../../styles/func.scoped.scss' as *;
+
 .vendor {
     background: rgba(221, 221, 221, 0.5);
     padding: 0 0 1rem 0;
@@ -6,21 +8,37 @@
         display: flex;
         flex-direction: row;
         justify-content: end;
+        margin: 0 -1rem;
+        background: #fff;
+        padding: 0 1rem 1rem;
+        border-bottom: 3px solid #DADADA;
+
+        @include lg {
+            background: transparent;
+            margin: 0;
+            padding: 0;
+            border-bottom: 0;
+        }
 
         button {
-            color: #ffac33;
+            color: #FFAC33;
             font-family: Inter;
             font-size: 12px;
             font-style: normal;
             font-weight: 700;
             line-height: normal;
             letter-spacing: 0.48px;
-            border: 1px solid #ffac33;
-            background: #fff;
+            border: 1px solid #FFAC33;
+            background: #FFF;
             padding: 0.5rem 1.5rem;
+            flex: 1 0;
+
+            @include lg {
+                flex: unset;
+            }
 
             &.active {
-                background: #ffac33;
+                background: #FFAC33;
                 color: #fff;
             }
         }
@@ -30,8 +48,16 @@
         background: #fff;
     }
 
+    .step-1 {
+        margin: 0 -1rem;
+
+        @include lg {
+            margin: 0;
+        }
+    }
+
     .steps {
-        padding: 4rem 2rem 2rem;
+        padding: 2rem;
         color: #000000;
         text-align: center;
         font-family: Cabin;
@@ -44,10 +70,14 @@
         justify-content: center;
         gap: 1rem;
 
+        @include lg {
+            padding: 4rem 2rem 2rem 2rem;
+        }
+
         .step {
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: start;
             align-items: center;
             flex-basis: 10rem;
             gap: 1rem;
@@ -95,18 +125,28 @@
     }
 
     .step-1-main {
-        margin-top: 0.5rem;
+        margin: 0 -1rem;
+        margin-top: 0;
         display: flex;
         flex-direction: row;
         gap: 0.5rem;
 
+        @include lg {
+            margin: 0;
+            margin-top: 0.5rem;
+        }
+
         &.sell-item {
             .card {
-                width: 80%;
-                margin: auto;
+                margin: 0;
                 border: 0px;
                 padding: 1.75rem;
                 margin-top: 0.35rem;
+
+                @include lg {
+                    width: 80%;
+                    margin: auto;
+                }
 
                 .top {
                     display: flex;
@@ -135,13 +175,23 @@
                     margin-top: 1.5rem;
 
                     .multiple-photos {
-                        height: 139px;
+                        // height: 139px;
                         display: flex;
                         flex-direction: row;
                         gap: 0.25rem;
+                        flex-flow: wrap;
+
+                        @include lg {
+                            flex-flow: nowrap;
+                        }
 
                         .photo, button {
-                            width: 25%;
+                            width: calc(50% - 0.25rem);
+                            height: 139px;
+
+                            @include lg {
+                                width: 25%;
+                            }
                         }
 
                         .photo {
@@ -380,21 +430,44 @@
                     margin-top: 1.5rem;
                     display: flex;
                     justify-content: center;
-                    gap: 1.15rem;
+                    gap: 0.25rem;
+                    position: sticky;
+                    bottom: 0;
+                    padding: 1rem 0;
+                    background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 80%, rgba(255,255,255,0.5) 100%);
+
+                    @include lg {
+                        gap: 1.15rem;
+                        position: static;
+                        padding: 0;
+                        background: rgb(255,255,255);
+                    }
 
                     button {
                         text-align: center;
-                        font-family: "Roboto", sans-serif;
-                        font-size: 14px;
+                        font-family: Cambay;
+                        font-size: 12px;
                         font-style: normal;
                         font-weight: 700;
-                        line-height: 0px;
-                        /* 0% */
-                        letter-spacing: 2.1px;
-                        border-radius: 15px;
-                        padding: 1.5rem 3.5rem;
+                        line-height: 20px;
+                        /* 166.667% */
+                        letter-spacing: 0.1px;
+                        border-radius: 4px;
+                        padding: 0.25rem 0;
                         outline: 0px;
                         border: 0px;
+                        flex: 1 0;
+
+                        @include lg {
+                            font-family: "Roboto", sans-serif;
+                            font-size: 14px;
+                            line-height: 0px;
+                            /* 0% */
+                            letter-spacing: 2.1px;
+                            border-radius: 15px;
+                            padding: 1.5rem 3.5rem;
+                            flex: unset;
+                        }
 
                         &.preview {
                             color: #151b4f;
@@ -403,7 +476,6 @@
                         }
 
                         &.next {
-                            border-radius: 15px;
                             background: #151b4f;
                             color: #fff;
                         }
