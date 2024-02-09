@@ -357,16 +357,16 @@ export default function VendorReview() {
                                 <button
                                     className="preview"
                                     type="button"
-                                    onClick={() => navigate("../productinformation")}
+                                    onClick={() => navigate(`../productinformation/edit/${id}`)}
                                 >
                                     {t("backto")} {t("productinformation")}
                                 </button>
                             ) : null}
-                            {reviewObj?.status == "Not Approved" ? (
+                            {/* reviewObj?.status == "Not Approved" ? (
                                 <button className="next" type="button">
                                     {t("canceltransaction")}
                                 </button>
-                            ) : null}
+                            ) : null */}
                             {reviewObj?.status == "Approved" ? (
                                 <button className="next" onClick={() => navigate(`../agreement/${id}`)}>
                                     {t("next")}
