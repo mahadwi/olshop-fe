@@ -9,6 +9,7 @@ import { CurrencyContext } from "../../../context/CurrencyContext";
 import ContainerComponent from "../../../components/general/container/ContainerComponent";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export default function VendorAgreement() {
     /**
@@ -33,6 +34,7 @@ export default function VendorAgreement() {
      */
     const [reviewObj, setReviewObj] = useState({});
     const [agreement, setAgreement] = useState(null);
+    const [agreementsArr, setAgreementsArr] = useState([]);
 
     // Automatically scrolls to top whenever pathname changes
     useEffect(() => {
@@ -54,7 +56,7 @@ export default function VendorAgreement() {
             }
         })
             .then(res => {
-                console.log(res.data.data);
+                setAgreementsArr(res.data.data);
             })
             .catch(err => {
                 console.log(err);
@@ -62,6 +64,33 @@ export default function VendorAgreement() {
             .finally(() => {
                 setLoading(false);
             });
+    };
+
+    const doUploadAgreement = event => {
+        if (event.target.files.length > 0) {
+            setLoading(true);
+            const file = event.target.files[0];
+
+            const formData = new FormData();
+
+            formData.append("file", file);
+            formData.append("id", id);
+
+            Api.post("/agreement", formData, {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("apiToken")
+                }
+            })
+                .then(res => {
+                    toast.success("Agreement has been uploaded");
+                })
+                .catch(err => {
+                    toast.error("Error validations");
+                })
+                .finally(() => {
+                    setLoading(false);
+                });
+        }
     };
 
     return (
@@ -122,62 +151,75 @@ export default function VendorAgreement() {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Data A</td>
-                                            <td>
-                                                <a
-                                                    href="https://www.africau.edu/images/default/sample.pdf"
-                                                    target="_blank"
-                                                >
-                                                    {t("agreementview")}
-                                                </a>{" "}
-                                                | {t("download")}
-                                            </td>
-                                            <td>{t("upload")}</td>
-                                            <td />
-                                        </tr>
-                                        <tr>
-                                            <td>Data B</td>
-                                            <td>
-                                                <a
-                                                    href="https://www.africau.edu/images/default/sample.pdf"
-                                                    target="_blank"
-                                                >
-                                                    {t("agreementview")}
-                                                </a>{" "}
-                                                | {t("download")}
-                                            </td>
-                                            <td>{t("upload")}</td>
-                                            <td />
-                                        </tr>
-                                        <tr>
-                                            <td>Data C</td>
-                                            <td>
-                                                <a
-                                                    href="https://www.africau.edu/images/default/sample.pdf"
-                                                    target="_blank"
-                                                >
-                                                    {t("agreementview")}
-                                                </a>{" "}
-                                                | {t("download")}
-                                            </td>
-                                            <td>{t("upload")}</td>
-                                            <td />
-                                        </tr>
-                                        <tr>
-                                            <td>Bukti Transfer</td>
-                                            <td>
-                                                <a
-                                                    href="https://www.africau.edu/images/default/sample.pdf"
-                                                    target="_blank"
-                                                >
-                                                    {t("agreementview")}
-                                                </a>{" "}
-                                                | {t("download")}
-                                            </td>
-                                            <td>{t("upload")}</td>
-                                            <td />
-                                        </tr>
+                                        {agreementsArr.map(agreementObj => (
+                                            <tr>
+                                                <td>{agreementObj.name}</td>
+                                                <td>
+                                                    {agreementObj.file ? (
+                                                        <>
+                                                            <a href={agreementObj.file} target="_blank">
+                                                                {t("agreementview")}
+                                                            </a>
+                                                            |{" "}
+                                                            <a
+                                                                href={agreementObj.file}
+                                                                download={"ok.pdf"}
+                                                                onClick={event => {
+                                                                    event.preventDefault();
+                                                                    fetch(agreementObj.file, {
+                                                                        mode: "no-cors"
+                                                                    }).then(response => {
+                                                                        response.blob().then(blob => {
+                                                                            // Creating new object of PDF file
+                                                                            const fileURL = window.URL.createObjectURL(
+                                                                                blob
+                                                                            );
+
+                                                                            const fileName = agreementObj.file.split(
+                                                                                "/"
+                                                                            );
+
+                                                                            // Setting various property values
+                                                                            let alink = document.createElement("a");
+                                                                            alink.href = fileURL;
+                                                                            alink.download =
+                                                                                fileName[fileName.length - 1];
+                                                                            alink.click();
+                                                                        });
+                                                                    });
+                                                                }}
+                                                            >
+                                                                {t("download")}
+                                                            </a>
+                                                        </>
+                                                    ) : (
+                                                        <></>
+                                                    )}
+                                                </td>
+                                                <td>
+                                                    <span
+                                                        onClick={() => {
+                                                            document
+                                                                .getElementById("uploadAgreement" + agreementObj.id)
+                                                                .click();
+                                                        }}
+                                                    >
+                                                        {t("upload")}
+                                                    </span>
+                                                    <input
+                                                        id={"uploadAgreement" + agreementObj.id}
+                                                        type="file"
+                                                        name=""
+                                                        accept="application/pdf"
+                                                        style={{ display: "none" }}
+                                                        onChange={event => {
+                                                            doUploadAgreement(event);
+                                                        }}
+                                                    />
+                                                </td>
+                                                <td />
+                                            </tr>
+                                        ))}
                                     </tbody>
                                 </table>
                             </div>

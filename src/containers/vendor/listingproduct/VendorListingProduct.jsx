@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
-import './vendorlistingproduct.scoped.scss'
-import { useLocation } from 'react-router-dom'
-import 'react-responsive-modal/styles.css';
+import "./vendorlistingproduct.scoped.scss";
+import { useLocation } from "react-router-dom";
+import "react-responsive-modal/styles.css";
 import Api from "../../../utils/Api";
 import { LoadingContext } from "../../../context/LoadingContext";
 import { AuthUserContext } from "../../../context/AuthUserContext";
@@ -20,7 +20,7 @@ const REVEWI_DATA_DUMMY = [
         sale_price_usd: "235",
         stock: 1,
         date: "13/12/2023 13:00:00",
-        schedulemeeting : "13/12/2023 13:00:00",
+        schedulemeeting: "13/12/2023 13:00:00",
         priceforentrustinggoods: "35000000",
         priceforentrustinggoods_usd: "235",
         note: "-",
@@ -33,7 +33,7 @@ const REVEWI_DATA_DUMMY = [
         description_en: "This is description",
         history: "History barang",
         history_en: "History of",
-        status_sold: "On Etalase",
+        status_sold: "On Etalase"
     },
     {
         image: "https://dev-olshop.berkatsoft.com/image/product/6544a6bc8f3ae.jpg",
@@ -44,7 +44,7 @@ const REVEWI_DATA_DUMMY = [
         sale_price_usd: "235",
         stock: 1,
         date: "13/12/2023 13:00:00",
-        schedulemeeting : "13/12/2023 13:00:00",
+        schedulemeeting: "13/12/2023 13:00:00",
         priceforentrustinggoods: "35000000",
         priceforentrustinggoods_usd: "235",
         note: "-",
@@ -57,7 +57,7 @@ const REVEWI_DATA_DUMMY = [
         description_en: "This is description",
         history: "History barang",
         history_en: "History of",
-        status_sold: "On Etalase",
+        status_sold: "On Etalase"
     },
     {
         image: "https://dev-olshop.berkatsoft.com/image/product/6544a6bc8f3ae.jpg",
@@ -68,7 +68,7 @@ const REVEWI_DATA_DUMMY = [
         sale_price_usd: "235",
         stock: 1,
         date: "13/12/2023 13:00:00",
-        schedulemeeting : "13/12/2023 13:00:00",
+        schedulemeeting: "13/12/2023 13:00:00",
         priceforentrustinggoods: "35000000",
         priceforentrustinggoods_usd: "235",
         note: "Harga yang ditawarkan terlalu tinggi",
@@ -81,7 +81,7 @@ const REVEWI_DATA_DUMMY = [
         description_en: "This is description",
         history: "History barang",
         history_en: "History of",
-        status_sold: "On Etalase",
+        status_sold: "On Etalase"
     },
     {
         image: "https://dev-olshop.berkatsoft.com/image/product/656a6feb1203b.jpeg",
@@ -92,7 +92,7 @@ const REVEWI_DATA_DUMMY = [
         sale_price_usd: "235",
         stock: 1,
         date: "13/12/2023 13:00:00",
-        schedulemeeting : "13/12/2023 13:00:00",
+        schedulemeeting: "13/12/2023 13:00:00",
         priceforentrustinggoods: "35000000",
         priceforentrustinggoods_usd: "235",
         note: "-",
@@ -105,7 +105,7 @@ const REVEWI_DATA_DUMMY = [
         description_en: "This is description",
         history: "History barang",
         history_en: "History of",
-        status_sold: "On Etalase",
+        status_sold: "On Etalase"
     },
     {
         image: "https://dev-olshop.berkatsoft.com/image/product/6544a6bc8f3ae.jpg",
@@ -116,7 +116,7 @@ const REVEWI_DATA_DUMMY = [
         sale_price_usd: "235",
         stock: 1,
         date: "13/12/2023 13:00:00",
-        schedulemeeting : "13/12/2023 13:00:00",
+        schedulemeeting: "13/12/2023 13:00:00",
         priceforentrustinggoods: "35000000",
         priceforentrustinggoods_usd: "235",
         note: "-",
@@ -129,7 +129,7 @@ const REVEWI_DATA_DUMMY = [
         description_en: "This is description",
         history: "History barang",
         history_en: "History of",
-        status_sold: "On Etalase",
+        status_sold: "On Etalase"
     },
     {
         image: "https://dev-olshop.berkatsoft.com/image/product/656a6feb1203b.jpeg",
@@ -140,7 +140,7 @@ const REVEWI_DATA_DUMMY = [
         sale_price_usd: "235",
         stock: 1,
         date: "13/12/2023 13:00:00",
-        schedulemeeting : "13/12/2023 13:00:00",
+        schedulemeeting: "13/12/2023 13:00:00",
         priceforentrustinggoods: "35000000",
         priceforentrustinggoods_usd: "235",
         note: "-",
@@ -153,31 +153,30 @@ const REVEWI_DATA_DUMMY = [
         description_en: "This is description",
         history: "History barang",
         history_en: "History of",
-        status_sold: "Sold Out",
-    },
+        status_sold: "Sold Out"
+    }
 ];
 
 export default function VendorListingProduct() {
-
     /**
      * Hooks
-     * 
+     *
      */
     const { pathname } = useLocation();
     const { t } = useTranslation();
     const { id } = useParams();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     /**
      * Context
-     * 
+     *
      */
-    const { setLoading } = useContext(LoadingContext)
-    const { user, refreshUser } = useContext(AuthUserContext)
+    const { setLoading } = useContext(LoadingContext);
+    const { user, refreshUser } = useContext(AuthUserContext);
 
     /**
      * Main State
-     * 
+     *
      */
     const [reviewObj, setReviewObj] = useState({});
 
@@ -187,168 +186,176 @@ export default function VendorListingProduct() {
     }, [pathname]);
 
     useEffect(() => {
-        setReviewObj(REVEWI_DATA_DUMMY[Number(id)]);
+        loadReviewObj();
     }, []);
 
+    const loadReviewObj = () => {
+        setLoading(false);
+        const vp = Api.get("/vendor-product/" + id, {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("apiToken")
+            }
+        })
+            .then(res => {
+                console.log(res.data.data);
+                setReviewObj(res.data.data);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+        Promise.all([vp]).finally(() => {
+            setLoading(false);
+        });
+    };
+
     return (
-        <div className='vendor'>
+        <div className="vendor">
             <ContainerComponent>
                 <>
-                    <div className='tabs'>
-                        <button onClick={() => {
-                            navigate('../accountinformation')
-                        }}>
-                            {t('accountinformation')}
+                    <div className="tabs">
+                        <button
+                            onClick={() => {
+                                navigate("../accountinformation");
+                            }}
+                        >
+                            {t("accountinformation")}
                         </button>
-                        <button className='active'>
-                            {t('productinformation')}
-                        </button>
+                        <button className="active">{t("productinformation")}</button>
                     </div>
-                    <div className='step-1 bg-white'>
-                        <div className='steps'>
-                            <div className='step' onClick={() => navigate('../productinformation')}>{t('productinformation')}</div>
-                            <div className='step' onClick={() => navigate(`../review/${id}`)}>{t('reviewvendor')}</div>
-                            <div className='step' onClick={() => navigate(`../agreement/${id}`)}>{t('agreement')}</div>
-                            <div className='step active'>{t('listingproduct')}</div>
+                    <div className="step-1 bg-white">
+                        <div className="steps">
+                            <div className="step" onClick={() => navigate("../productinformation")}>
+                                {t("productinformation")}
+                            </div>
+                            <div className="step" onClick={() => navigate(`../review/${id}`)}>
+                                {t("reviewvendor")}
+                            </div>
+                            <div className="step" onClick={() => navigate(`../agreement/${id}`)}>
+                                {t("agreement")}
+                            </div>
+                            <div className="step active">{t("listingproduct")}</div>
                         </div>
                     </div>
-                    <div className='step-1-main review-item'>
+                    <div className="step-1-main review-item">
                         <div className="item bg-white">
                             <div className="top" onClick={() => navigate(`../agreement/${id}`)}>
                                 <button type="button">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                        <path d="M20 11H7.83L13.42 5.41L12 4L4 12L12 20L13.41 18.59L7.83 13H20V11Z" fill="#111111" />
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="24"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                    >
+                                        <path
+                                            d="M20 11H7.83L13.42 5.41L12 4L4 12L12 20L13.41 18.59L7.83 13H20V11Z"
+                                            fill="#111111"
+                                        />
                                     </svg>
                                 </button>
-                                <h2>{t('listingproduct')}</h2>
+                                <h2>{t("listingproduct")}</h2>
                             </div>
                             <div className="body">
-                                <img src={reviewObj?.image} alt='review' />
-                                <div className='detail'>
-                                    <div className='status' data-status={reviewObj?.status?.toLowerCase()}>
+                                <img src={reviewObj?.images[0]} alt="review" />
+                                <div className="detail">
+                                    <div className="status" data-status={reviewObj?.status?.toLowerCase()}>
                                         {t(reviewObj?.status?.toLowerCase())} .
                                     </div>
-                                    <div className='title'>
-                                        {reviewObj?.name}
-                                    </div>
+                                    <div className="title">{reviewObj?.name}</div>
                                 </div>
-                                <div className='detail'>
-                                    <div className='title'>
-                                        {t('price')}
-                                    </div>
+                                <div className="detail">
+                                    <div className="title">{t("price")}</div>
                                     <div>
-                                        {Number(reviewObj?.price)?.toLocaleString('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 })} | {Number(reviewObj?.price_usd)?.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })}
+                                        {Number(reviewObj?.price)?.toLocaleString("id-ID", {
+                                            style: "currency",
+                                            currency: "IDR",
+                                            maximumFractionDigits: 0
+                                        })}{" "}
+                                        |{" "}
+                                        {Number(reviewObj?.price_usd)?.toLocaleString("en-US", {
+                                            style: "currency",
+                                            currency: "USD",
+                                            maximumFractionDigits: 0
+                                        })}
                                     </div>
                                 </div>
-                                <div className='detail'>
-                                    <div className='title'>
-                                        {t('saleprice')}
-                                    </div>
+                                <div className="detail">
+                                    <div className="title">{t("saleprice")}</div>
                                     <div>
-                                        {Number(reviewObj?.sale_price)?.toLocaleString('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 })} | {Number(reviewObj?.sale_price_usd)?.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })}
+                                        {Number(reviewObj?.sale_price)?.toLocaleString("id-ID", {
+                                            style: "currency",
+                                            currency: "IDR",
+                                            maximumFractionDigits: 0
+                                        })}{" "}
+                                        |{" "}
+                                        {Number(reviewObj?.sale_price_usd)?.toLocaleString("en-US", {
+                                            style: "currency",
+                                            currency: "USD",
+                                            maximumFractionDigits: 0
+                                        })}
                                     </div>
                                 </div>
-                                <div className='detail'>
-                                    <div className='title'>
-                                        {t('weight')} (Kg)
-                                    </div>
-                                    <div>
-                                        {reviewObj?.weight}
-                                    </div>
+                                <div className="detail">
+                                    <div className="title">{t("weight")} (Kg)</div>
+                                    <div>{reviewObj?.weight}</div>
                                 </div>
-                                <div className='detail'>
-                                    <div className='title'>
-                                        {t('width')} (Kg)
-                                    </div>
-                                    <div>
-                                        {reviewObj?.width}
-                                    </div>
+                                <div className="detail">
+                                    <div className="title">{t("width")} (Kg)</div>
+                                    <div>{reviewObj?.width}</div>
                                 </div>
-                                <div className='detail'>
-                                    <div className='title'>
-                                        {t('length')} (Kg)
-                                    </div>
-                                    <div>
-                                        {reviewObj?.length}
-                                    </div>
+                                <div className="detail">
+                                    <div className="title">{t("length")} (Kg)</div>
+                                    <div>{reviewObj?.length}</div>
                                 </div>
-                                <div className='detail'>
-                                    <div className='title'>
-                                        {t('height')} (Kg)
-                                    </div>
-                                    <div>
-                                        {reviewObj?.height}
-                                    </div>
+                                <div className="detail">
+                                    <div className="title">{t("height")} (Kg)</div>
+                                    <div>{reviewObj?.height}</div>
                                 </div>
-                                <div className='detail'>
-                                    <div className='title'>
-                                        Deskripsi
-                                    </div>
+                                <div className="detail">
+                                    <div className="title">Deskripsi</div>
                                 </div>
-                                <div className='detail'>
-                                    <div className='title'>
-                                    </div>
-                                    <div>
-                                        {reviewObj?.description}
-                                    </div>
+                                <div className="detail">
+                                    <div className="title" />
+                                    <div>{reviewObj?.description}</div>
                                 </div>
-                                <div className='detail'>
-                                    <div className='title'>
-                                        Description
-                                    </div>
+                                <div className="detail">
+                                    <div className="title">Description</div>
                                 </div>
-                                <div className='detail'>
-                                    <div className='title'>
-                                    </div>
-                                    <div>
-                                        {reviewObj?.description_en}
-                                    </div>
+                                <div className="detail">
+                                    <div className="title" />
+                                    <div>{reviewObj?.description_en}</div>
                                 </div>
-                                <div className='detail'>
-                                    <div className='title'>
-                                        Sejarah
-                                    </div>
+                                <div className="detail">
+                                    <div className="title">Sejarah</div>
                                 </div>
-                                <div className='detail'>
-                                    <div className='title'>
-                                    </div>
-                                    <div>
-                                        {reviewObj?.history}
-                                    </div>
+                                <div className="detail">
+                                    <div className="title" />
+                                    <div>{reviewObj?.history}</div>
                                 </div>
-                                <div className='detail'>
-                                    <div className='title'>
-                                        History
-                                    </div>
+                                <div className="detail">
+                                    <div className="title">History</div>
                                 </div>
-                                <div className='detail'>
-                                    <div className='title'>
-                                    </div>
-                                    <div>
-                                        {reviewObj?.history_en}
-                                    </div>
+                                <div className="detail">
+                                    <div className="title" />
+                                    <div>{reviewObj?.history_en}</div>
                                 </div>
-                                <div className='detail'>
-                                    <div className='title'>
-                                        {t('goodssalesstatus')}
-                                    </div>
+                                <div className="detail">
+                                    <div className="title">{t("goodssalesstatus")}</div>
                                 </div>
-                                <div className='detail'>
-                                    <div className='title'>
-                                    </div>
-                                    <div>
-                                        {reviewObj?.status_sold}
-                                    </div>
+                                <div className="detail">
+                                    <div className="title" />
+                                    <div>{reviewObj?.status_sold}</div>
                                 </div>
                             </div>
                             <div className="listingproduct-footer">
-                                <button className="next" onClick={() => navigate(`../productinformation`)}>{t('viewlist')}</button>
+                                <button className="next" onClick={() => navigate(`../productinformation`)}>
+                                    {t("viewlist")}
+                                </button>
                             </div>
                         </div>
-
                     </div>
                 </>
             </ContainerComponent>
         </div>
-    )
+    );
 }
