@@ -15,7 +15,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import ApiErrorHandling from "../../../utils/ApiErrorHandling";
 import toast from "react-hot-toast";
-import parse from 'html-react-parser';
+import parse from "html-react-parser";
 import { IconX } from "@tabler/icons-react";
 
 const inputNonNegativeValue = event => {
@@ -76,7 +76,7 @@ export default function VendorEdit() {
     const { setLoading } = useContext(LoadingContext);
     const { user, refreshUser } = useContext(AuthUserContext);
     const { language } = useContext(LanguageContext);
-    const suffix = language == 'id' ? '' : '_en';
+    const suffix = language == "id" ? "" : "_en";
     const { currency } = useContext(CurrencyContext);
     const [modalPratinjau, setModalPratinjau] = useState(false);
     const [commissionType, setCommissionType] = useState(null);
@@ -183,7 +183,7 @@ export default function VendorEdit() {
 
             const { brand, category, color, commission_type, id, images, ...d } = fetchProduct;
 
-            for(const brandOption of fetchBrands) {
+            for (const brandOption of fetchBrands) {
                 if (brandOption.label == brand) {
                     setSelectedBrand(brandOption);
                     d.brand_id = brandOption.value;
@@ -191,7 +191,7 @@ export default function VendorEdit() {
                 }
             }
 
-            for(const categoryOption of fetchCategories) {
+            for (const categoryOption of fetchCategories) {
                 if (categoryOption.label == category) {
                     setSelectedCategories(categoryOption);
                     d.product_category_id = categoryOption.value;
@@ -199,7 +199,7 @@ export default function VendorEdit() {
                 }
             }
 
-            for(const colorOption of fetchColors) {
+            for (const colorOption of fetchColors) {
                 if (colorOption.label == color) {
                     setSelectedColor(colorOption);
                     d.color_id = colorOption.value;
@@ -231,19 +231,19 @@ export default function VendorEdit() {
 
     const inputImageOnChange = event => {
         const file = event.currentTarget.files[0];
-        setImageBlobs((blobs) => {
+        setImageBlobs(blobs => {
             const c = [...blobs];
             c.push({
                 file: file,
-                url: URL.createObjectURL(file),
+                url: URL.createObjectURL(file)
             });
             return c;
         });
     };
 
-    const removeImageBlog = (i) => {
-        setImageBlobs((blobs) => {
-            const c = [...blobs].filter(({url}, j) => {
+    const removeImageBlog = i => {
+        setImageBlobs(blobs => {
+            const c = [...blobs].filter(({ url }, j) => {
                 const r = j != i;
                 if (!r) {
                     URL.revokeObjectURL(url);
@@ -252,7 +252,7 @@ export default function VendorEdit() {
             });
             return c;
         });
-    }
+    };
 
     const doUpdateProduct = () => {
         setLoading(true);
@@ -275,7 +275,13 @@ export default function VendorEdit() {
             form_data_insert.set("commission", 0);
         }
 
-        Api.put(`/vendor-product/${id}`, form_data_insert, {
+        const dataInsert = {};
+
+        for (var pair of form_data_insert.entries()) {
+            dataInsert[pair[0]] = pair[1];
+        }
+
+        Api.put(`/vendor-product/${id}`, dataInsert, {
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("apiToken")
             }
@@ -310,57 +316,140 @@ export default function VendorEdit() {
                         <p className="title-body">{t("preview")}</p>
                         <div className="body">
                             <div className="left">
-                            { imageBlobs.length != 0 ?
-                            <>
-                                { selectedImageBlob != -1 ?
-                                <img src={imageBlobs[selectedImageBlob].url} className="image-preview-main" alt="main preview" />
-                                : null }
-                                {
-                                    imageBlobs.length > 1 ?
-                                    <div className="preview-photos">
-                                    {
-                                        imageBlobs.map(({url}, i) => (
-                                            <button className="preview-photo" onClick={() => setSelectedImageBlob(i)}>
-                                                <img src={url} alt="preview product" />
-                                            </button>
-                                        ))
-                                    }
+                                {imageBlobs.length != 0 ? (
+                                    <>
+                                        {selectedImageBlob != -1 ? (
+                                            <img
+                                                src={imageBlobs[selectedImageBlob].url}
+                                                className="image-preview-main"
+                                                alt="main preview"
+                                            />
+                                        ) : null}
+                                        {imageBlobs.length > 1 ? (
+                                            <div className="preview-photos">
+                                                {imageBlobs.map(({ url }, i) => (
+                                                    <button
+                                                        className="preview-photo"
+                                                        onClick={() => setSelectedImageBlob(i)}
+                                                    >
+                                                        <img src={url} alt="preview product" />
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        ) : null}
+                                    </>
+                                ) : (
+                                    <div className="empty">
+                                        <h2>{t("previewyouroffers")}</h2>
+                                        <p>{t("whencreatinganofferyoucanpreviewhowitwilllook")}</p>
                                     </div>
-                                    : null
-                                }
-                            </>
-                            :
-                                <div className="empty">
-                                    <h2>{t("previewyouroffers")}</h2>
-                                    <p>{t("whencreatinganofferyoucanpreviewhowitwilllook")}</p>
-                                </div>
-                            }
+                                )}
                             </div>
                             <div className="right">
                                 <div className="top">
-                                    <h2 className={`title ${formData?.name ? "active" : ""}`}>{formData?.name ? formData.name : t("title")}</h2>
-                                    <h3 className={`price ${selectedBrand?.label ? "active" : ""}`}>Brand{selectedBrand?.label ? `: ${selectedBrand.label}` : ""}</h3>
-                                    <h3 className={`price ${formData?.price || formData?.price_usd ? "active" : ""}`}>{t("price")}{formData?.price || formData?.price_usd ? ": " : ""}{formData?.price ? ` ${Number(formData?.price)?.toLocaleString('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 })}` : ""}{formData?.price && formData?.price_usd ? " | " : ""}{formData?.price_usd ? ` ${Number(formData?.price_usd)?.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}` : ""}</h3>
-                                    {commissionType?.value == "selling" ?
-                                    <h3 className={`price ${formData?.sale_price || formData?.sale_usd ? "active" : ""}`}>{t("saleprice")}{formData?.sale_price || formData?.sale_usd ? ": " : ""}{formData?.sale_price ? ` ${Number(formData?.sale_price)?.toLocaleString('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 })}` : ""}{formData?.sale_price && formData?.sale_usd ? " | " : ""}{formData?.sale_usd ? ` ${Number(formData?.sale_usd)?.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}` : ""}</h3>
-                                    : null}
-                                    {commissionType?.value == "percent" ?
-                                    <h3 className={`price ${formData?.commission ? "active" : ""}`}>{t("commission")}{formData?.commission ? `: ${formData.commission}%` : ""}</h3>
-                                    : null}
-                                    <h3 className={`price ${selectedColor?.label ? "active" : ""}`}>{t("color")}{selectedColor?.label ? `: ${selectedColor.label}` : ""}</h3>
-                                    <p className="p">{t("offeredon")} {new Date().toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })} {new Date().toLocaleString("id-ID", { day: "2-digit", month: "2-digit", year: "numeric" })}</p>
+                                    <h2 className={`title ${formData?.name ? "active" : ""}`}>
+                                        {formData?.name ? formData.name : t("title")}
+                                    </h2>
+                                    <h3 className={`price ${selectedBrand?.label ? "active" : ""}`}>
+                                        Brand{selectedBrand?.label ? `: ${selectedBrand.label}` : ""}
+                                    </h3>
+                                    <h3 className={`price ${formData?.price || formData?.price_usd ? "active" : ""}`}>
+                                        {t("price")}
+                                        {formData?.price || formData?.price_usd ? ": " : ""}
+                                        {formData?.price
+                                            ? ` ${Number(formData?.price)?.toLocaleString("id-ID", {
+                                                  style: "currency",
+                                                  currency: "IDR",
+                                                  maximumFractionDigits: 0
+                                              })}`
+                                            : ""}
+                                        {formData?.price && formData?.price_usd ? " | " : ""}
+                                        {formData?.price_usd
+                                            ? ` ${Number(formData?.price_usd)?.toLocaleString("en-US", {
+                                                  style: "currency",
+                                                  currency: "USD"
+                                              })}`
+                                            : ""}
+                                    </h3>
+                                    {commissionType?.value == "selling" ? (
+                                        <h3
+                                            className={`price ${
+                                                formData?.sale_price || formData?.sale_usd ? "active" : ""
+                                            }`}
+                                        >
+                                            {t("saleprice")}
+                                            {formData?.sale_price || formData?.sale_usd ? ": " : ""}
+                                            {formData?.sale_price
+                                                ? ` ${Number(formData?.sale_price)?.toLocaleString("id-ID", {
+                                                      style: "currency",
+                                                      currency: "IDR",
+                                                      maximumFractionDigits: 0
+                                                  })}`
+                                                : ""}
+                                            {formData?.sale_price && formData?.sale_usd ? " | " : ""}
+                                            {formData?.sale_usd
+                                                ? ` ${Number(formData?.sale_usd)?.toLocaleString("en-US", {
+                                                      style: "currency",
+                                                      currency: "USD"
+                                                  })}`
+                                                : ""}
+                                        </h3>
+                                    ) : null}
+                                    {commissionType?.value == "percent" ? (
+                                        <h3 className={`price ${formData?.commission ? "active" : ""}`}>
+                                            {t("commission")}
+                                            {formData?.commission ? `: ${formData.commission}%` : ""}
+                                        </h3>
+                                    ) : null}
+                                    <h3 className={`price ${selectedColor?.label ? "active" : ""}`}>
+                                        {t("color")}
+                                        {selectedColor?.label ? `: ${selectedColor.label}` : ""}
+                                    </h3>
+                                    <p className="p">
+                                        {t("offeredon")}{" "}
+                                        {new Date().toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })}{" "}
+                                        {new Date().toLocaleString("id-ID", {
+                                            day: "2-digit",
+                                            month: "2-digit",
+                                            year: "numeric"
+                                        })}
+                                    </p>
                                 </div>
                                 <div className="bottom">
                                     <div className="content">
                                         <div className="wrapper">
-                                            { formData['description'+suffix] ? null
-                                            : <div className="title">Detail</div> }
-                                            { formData['description'+suffix] ?
-                                            <div>{parse(formData['description'+suffix] ? formData['description'+suffix] : '')}</div>
-                                            : null }
-                                            { formData?.length && formData.width && formData.height ?
-                                            <div className="title active">{t("measurements")}<span>: {`${formData.length}*${formData.width}*${formData.height}`} ({t("length").charAt(0).toUpperCase()}*{t("width").charAt(0).toUpperCase()}*{t("height").charAt(0).toUpperCase()}) (cm)</span></div>
-                                            : null }
+                                            {formData["description" + suffix] ? null : (
+                                                <div className="title">Detail</div>
+                                            )}
+                                            {formData["description" + suffix] ? (
+                                                <div>
+                                                    {parse(
+                                                        formData["description" + suffix]
+                                                            ? formData["description" + suffix]
+                                                            : ""
+                                                    )}
+                                                </div>
+                                            ) : null}
+                                            {formData?.length && formData.width && formData.height ? (
+                                                <div className="title active">
+                                                    {t("measurements")}
+                                                    <span>
+                                                        : {`${formData.length}*${formData.width}*${formData.height}`} (
+                                                        {t("length")
+                                                            .charAt(0)
+                                                            .toUpperCase()}
+                                                        *
+                                                        {t("width")
+                                                            .charAt(0)
+                                                            .toUpperCase()}
+                                                        *
+                                                        {t("height")
+                                                            .charAt(0)
+                                                            .toUpperCase()}
+                                                        ) (cm)
+                                                    </span>
+                                                </div>
+                                            ) : null}
                                         </div>
                                     </div>
                                     <hr />
@@ -479,7 +568,9 @@ export default function VendorEdit() {
                                         />
                                     </svg>
                                 </button>
-                                <h2>{t("edit")} {t("sellgoods")}</h2>
+                                <h2>
+                                    {t("edit")} {t("sellgoods")}
+                                </h2>
                             </div>
                             <div className="body">
                                 <input
@@ -489,18 +580,61 @@ export default function VendorEdit() {
                                     hidden
                                     onChange={inputImageOnChange}
                                 />
-                                { imageBlobs.length != 0 ?
-                                <div className="multiple-photos">
-                                    {
-                                        imageBlobs.map(({url}, i) => (
+                                {imageBlobs.length != 0 ? (
+                                    <div className="multiple-photos">
+                                        {imageBlobs.map(({ url }, i) => (
                                             <div className="photo">
-                                                <img src={url} alt="preview product" className={`${errorObj422['image.'+i] ? "is-invalid" : ""}`}/>
-                                                <button onClick={() => {removeImageBlog(i)}}><IconX /></button>
+                                                <img
+                                                    src={url}
+                                                    alt="preview product"
+                                                    className={`${errorObj422["image." + i] ? "is-invalid" : ""}`}
+                                                />
+                                                <button
+                                                    onClick={() => {
+                                                        removeImageBlog(i);
+                                                    }}
+                                                >
+                                                    <IconX />
+                                                </button>
                                             </div>
-                                        ))
-                                    }
-                                    { imageBlobs.length != 4 ?
-                                    <button onClick={() => inputImage.current?.click()}>
+                                        ))}
+                                        {imageBlobs.length != 4 ? (
+                                            <button onClick={() => inputImage.current?.click()}>
+                                                <div className="cursor-pointer">
+                                                    <svg
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        width="21"
+                                                        height="21"
+                                                        viewBox="0 0 21 21"
+                                                        fill="none"
+                                                    >
+                                                        <g clip-path="url(#clip0_2390_8792)">
+                                                            <path
+                                                                d="M20.0268 3.81V5.51667H17.4668V8.07667H15.7601V5.51667H13.2001V3.81H15.7601V1.25H17.4668V3.81H20.0268ZM12.7735 9.78333C13.1131 9.78322 13.4387 9.64821 13.6787 9.408C13.9188 9.1678 14.0536 8.84207 14.0535 8.50248C14.0534 8.16289 13.9184 7.83725 13.6781 7.59721C13.4379 7.35716 13.1122 7.22237 12.7726 7.22248C12.6045 7.22254 12.438 7.25571 12.2827 7.32011C12.1273 7.38451 11.9862 7.47887 11.8673 7.59781C11.7485 7.71675 11.6542 7.85793 11.5899 8.0133C11.5256 8.16867 11.4926 8.33519 11.4926 8.50333C11.4927 8.67148 11.5259 8.83797 11.5903 8.9933C11.6547 9.14863 11.749 9.28975 11.868 9.40861C11.9869 9.52747 12.1281 9.62173 12.2834 9.68603C12.4388 9.75033 12.6053 9.78339 12.7735 9.78333ZM15.7601 12.543L15.3224 12.0566C15.1623 11.8784 14.9665 11.7359 14.7478 11.6383C14.529 11.5407 14.2922 11.4903 14.0526 11.4903C13.8131 11.4903 13.5762 11.5407 13.3575 11.6383C13.1387 11.7359 12.9429 11.8784 12.7829 12.0566L12.2231 12.6804L8.08014 8.07667L5.52014 10.9208V5.51667H11.4935V3.81H5.52014C5.06751 3.81 4.63341 3.98981 4.31335 4.30987C3.99329 4.62993 3.81348 5.06403 3.81348 5.51667V15.7567C3.81348 16.2093 3.99329 16.6434 4.31335 16.9635C4.63341 17.2835 5.06751 17.4633 5.52014 17.4633H15.7601C16.2128 17.4633 16.6469 17.2835 16.9669 16.9635C17.287 16.6434 17.4668 16.2093 17.4668 15.7567V9.78333H15.7601V12.543Z"
+                                                                fill="#111111"
+                                                            />
+                                                        </g>
+                                                        <defs>
+                                                            <clipPath id="clip0_2390_8792">
+                                                                <rect
+                                                                    width="20.48"
+                                                                    height="20.48"
+                                                                    fill="white"
+                                                                    transform="translate(0.399902 0.398438)"
+                                                                />
+                                                            </clipPath>
+                                                        </defs>
+                                                    </svg>
+                                                </div>
+                                                <p>{t("addphoto")}</p>
+                                            </button>
+                                        ) : null}
+                                    </div>
+                                ) : (
+                                    <div
+                                        className={`add-photo-wrap ${errorObj422.image ? "is-invalid" : ""}`}
+                                        onClick={() => inputImage.current?.click()}
+                                    >
                                         <div className="cursor-pointer">
                                             <svg
                                                 xmlns="http://www.w3.org/2000/svg"
@@ -527,53 +661,15 @@ export default function VendorEdit() {
                                                 </defs>
                                             </svg>
                                         </div>
-                                        <p>
-                                            {t("addphoto")}
-                                        </p>
-                                    </button>
-                                    : null }
-                                </div>
-                                :
-                                <div className={`add-photo-wrap ${errorObj422.image ? "is-invalid" : ""}`} onClick={() => inputImage.current?.click()}>
-                                    <div className="cursor-pointer">
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            width="21"
-                                            height="21"
-                                            viewBox="0 0 21 21"
-                                            fill="none"
-                                        >
-                                            <g clip-path="url(#clip0_2390_8792)">
-                                                <path
-                                                    d="M20.0268 3.81V5.51667H17.4668V8.07667H15.7601V5.51667H13.2001V3.81H15.7601V1.25H17.4668V3.81H20.0268ZM12.7735 9.78333C13.1131 9.78322 13.4387 9.64821 13.6787 9.408C13.9188 9.1678 14.0536 8.84207 14.0535 8.50248C14.0534 8.16289 13.9184 7.83725 13.6781 7.59721C13.4379 7.35716 13.1122 7.22237 12.7726 7.22248C12.6045 7.22254 12.438 7.25571 12.2827 7.32011C12.1273 7.38451 11.9862 7.47887 11.8673 7.59781C11.7485 7.71675 11.6542 7.85793 11.5899 8.0133C11.5256 8.16867 11.4926 8.33519 11.4926 8.50333C11.4927 8.67148 11.5259 8.83797 11.5903 8.9933C11.6547 9.14863 11.749 9.28975 11.868 9.40861C11.9869 9.52747 12.1281 9.62173 12.2834 9.68603C12.4388 9.75033 12.6053 9.78339 12.7735 9.78333ZM15.7601 12.543L15.3224 12.0566C15.1623 11.8784 14.9665 11.7359 14.7478 11.6383C14.529 11.5407 14.2922 11.4903 14.0526 11.4903C13.8131 11.4903 13.5762 11.5407 13.3575 11.6383C13.1387 11.7359 12.9429 11.8784 12.7829 12.0566L12.2231 12.6804L8.08014 8.07667L5.52014 10.9208V5.51667H11.4935V3.81H5.52014C5.06751 3.81 4.63341 3.98981 4.31335 4.30987C3.99329 4.62993 3.81348 5.06403 3.81348 5.51667V15.7567C3.81348 16.2093 3.99329 16.6434 4.31335 16.9635C4.63341 17.2835 5.06751 17.4633 5.52014 17.4633H15.7601C16.2128 17.4633 16.6469 17.2835 16.9669 16.9635C17.287 16.6434 17.4668 16.2093 17.4668 15.7567V9.78333H15.7601V12.543Z"
-                                                    fill="#111111"
-                                                />
-                                            </g>
-                                            <defs>
-                                                <clipPath id="clip0_2390_8792">
-                                                    <rect
-                                                        width="20.48"
-                                                        height="20.48"
-                                                        fill="white"
-                                                        transform="translate(0.399902 0.398438)"
-                                                    />
-                                                </clipPath>
-                                            </defs>
-                                        </svg>
+                                        <p>{t("addphoto")}</p>
                                     </div>
-                                    <p>
-                                        {t("addphoto")}
-                                    </p>
-                                </div>
-                                }
-                                {
-                                    [0, 1, 2, 3].map((_, i) => {
-                                        if (errorObj422['image.'+i]) {
-                                            return <div className="invalid-feedback">{errorObj422['image.'+i]}</div>
-                                        }
-                                        return null
-                                    })
-                                }
+                                )}
+                                {[0, 1, 2, 3].map((_, i) => {
+                                    if (errorObj422["image." + i]) {
+                                        return <div className="invalid-feedback">{errorObj422["image." + i]}</div>;
+                                    }
+                                    return null;
+                                })}
                                 <div className="input-title">
                                     <h4>{t("required")}</h4>
                                     <p>{t("giveascompleteanexplanationaspossible")}</p>
@@ -655,31 +751,38 @@ export default function VendorEdit() {
                                                 })
                                             }}
                                             name=""
-                                            formatCreateLabel={(inputValue) => {
-                                                return `${t("addbrand")} "${inputValue}"`
+                                            formatCreateLabel={inputValue => {
+                                                return `${t("addbrand")} "${inputValue}"`;
                                             }}
                                             isDisabled={isLoadingBrands}
                                             isLoading={isLoadingBrands}
-                                            onCreateOption={(inputValue) => {
+                                            onCreateOption={inputValue => {
                                                 setIsLoadingBrands(true);
-                                                Api.post(`/brand`, {
-                                                    name: inputValue,
-                                                }, {
-                                                    headers: {
-                                                        Authorization: "Bearer " + localStorage.getItem("apiToken")
+                                                Api.post(
+                                                    `/brand`,
+                                                    {
+                                                        name: inputValue
+                                                    },
+                                                    {
+                                                        headers: {
+                                                            Authorization: "Bearer " + localStorage.getItem("apiToken")
+                                                        }
                                                     }
-                                                }).then((res) => {
-                                                    const newOption = {
-                                                        label: inputValue,
-                                                        value: res.data.data.id,
-                                                    }
-                                                    setBrands((prev) => [...prev, newOption]);
-                                                    setSelectedBrand(newOption);
-                                                }).catch((err) => {
-                                                    console.log(err);
-                                                }).finally(() => {
-                                                    setIsLoadingBrands(false);
-                                                });
+                                                )
+                                                    .then(res => {
+                                                        const newOption = {
+                                                            label: inputValue,
+                                                            value: res.data.data.id
+                                                        };
+                                                        setBrands(prev => [...prev, newOption]);
+                                                        setSelectedBrand(newOption);
+                                                    })
+                                                    .catch(err => {
+                                                        console.log(err);
+                                                    })
+                                                    .finally(() => {
+                                                        setIsLoadingBrands(false);
+                                                    });
                                             }}
                                             defaultOptions
                                             placeholder={"Brand"}
