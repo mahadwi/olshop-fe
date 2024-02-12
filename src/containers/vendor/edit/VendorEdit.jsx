@@ -366,6 +366,8 @@ export default function VendorEdit() {
             {/* Modal Create */}
             <Modal
                 size="lg"
+                fullscreen="lg-down"
+                scrollable={true}
                 show={modalPratinjau}
                 onHide={() => {
                     setModalPratinjau(false);
