@@ -166,9 +166,7 @@ export default function VendorAgreement() {
                                                                 download={"ok.pdf"}
                                                                 onClick={event => {
                                                                     event.preventDefault();
-                                                                    fetch(agreementObj.file, {
-                                                                        mode: "no-cors"
-                                                                    }).then(response => {
+                                                                    fetch(agreementObj.file, {}).then(response => {
                                                                         response.blob().then(blob => {
                                                                             // Creating new object of PDF file
                                                                             const fileURL = window.URL.createObjectURL(
