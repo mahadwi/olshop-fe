@@ -66,14 +66,14 @@ export default function VendorAgreement() {
             });
     };
 
-    const doUploadAgreement = event => {
+    const doUploadAgreement = (event, targetId) => {
         if (event.target.files.length > 0) {
             setLoading(true);
             const file = event.target.files[0];
 
             const formData = new FormData();
 
-            formData.append("id", id);
+            formData.append("id", targetId);
             formData.append("file", file);
 
             Api.post("/agreement", formData, {
@@ -83,6 +83,15 @@ export default function VendorAgreement() {
             })
                 .then(res => {
                     toast.success("Agreement has been uploaded");
+                    const ob = res.data.data;
+                    setAgreementsArr((c) => {
+                        return c.map((obj) => {
+                            if (ob.id == obj.id) {
+                                return ob;
+                            }
+                            return obj;
+                        })
+                    });
                 })
                 .catch(err => {
                     toast.error("Error validations");
@@ -189,7 +198,7 @@ export default function VendorAgreement() {
                                                         accept="application/pdf"
                                                         style={{ display: "none" }}
                                                         onChange={event => {
-                                                            doUploadAgreement(event);
+                                                            doUploadAgreement(event, agreementObj.id);
                                                         }}
                                                     />
                                                 </td>
