@@ -73,8 +73,8 @@ export default function VendorAgreement() {
 
             const formData = new FormData();
 
-            formData.append("file", file);
             formData.append("id", id);
+            formData.append("file", file);
 
             Api.post("/agreement", formData, {
                 headers: {
@@ -157,38 +157,16 @@ export default function VendorAgreement() {
                                                 <td>
                                                     {agreementObj.file ? (
                                                         <>
-                                                            <a href={agreementObj.file} target="_blank">
+                                                            {agreementObj.file ? <a href={agreementObj.file} target="_blank">
                                                                 {t("agreementview")}
-                                                            </a>
-                                                            |{" "}
-                                                            <a
+                                                            </a> : null }
+                                                            {agreementObj.file && agreementObj.draft ? <>{" "}|{" "}</> : null }
+                                                            {agreementObj.draft ? <a
                                                                 href={agreementObj.file}
-                                                                download={"ok.pdf"}
-                                                                onClick={event => {
-                                                                    event.preventDefault();
-                                                                    fetch(agreementObj.file, {}).then(response => {
-                                                                        response.blob().then(blob => {
-                                                                            // Creating new object of PDF file
-                                                                            const fileURL = window.URL.createObjectURL(
-                                                                                blob
-                                                                            );
-
-                                                                            const fileName = agreementObj.file.split(
-                                                                                "/"
-                                                                            );
-
-                                                                            // Setting various property values
-                                                                            let alink = document.createElement("a");
-                                                                            alink.href = fileURL;
-                                                                            alink.download =
-                                                                                fileName[fileName.length - 1];
-                                                                            alink.click();
-                                                                        });
-                                                                    });
-                                                                }}
+                                                                download={agreementObj.draft}
                                                             >
                                                                 {t("download")}
-                                                            </a>
+                                                            </a> : null }
                                                         </>
                                                     ) : (
                                                         <></>
