@@ -218,6 +218,11 @@ export default function VendorEdit() {
 
             setSelectedCondition({ value: d.condition, label: d.condition == "New" ? t("new") : t("likenew") });
 
+            setImageBlobs(images.map((img) => ({
+                type: "URL",
+                url: img,
+            })));
+
             setFormData(d);
 
             (async () => {
@@ -234,6 +239,7 @@ export default function VendorEdit() {
         setImageBlobs(blobs => {
             const c = [...blobs];
             c.push({
+                type: "BLOB",
                 file: file,
                 url: URL.createObjectURL(file)
             });
@@ -243,10 +249,27 @@ export default function VendorEdit() {
 
     const removeImageBlog = i => {
         setImageBlobs(blobs => {
-            const c = [...blobs].filter(({ url }, j) => {
+            const c = [...blobs].filter(({ url, type }, j) => {
                 const r = j != i;
                 if (!r) {
-                    URL.revokeObjectURL(url);
+                    if (type == "BLOB") {
+                        URL.revokeObjectURL(url);
+                    }
+                    if (type == "URL") {
+                        setLoading(true);
+                        Api.post("/vendor-product-delete-image", {
+                            vendor_product_id: id,
+                            images: [url.split("/").pop()],
+                        }, {
+                            headers: {
+                                Authorization: "Bearer " + localStorage.getItem("apiToken"),
+                            }
+                        }).catch((err) => {
+                            console.log(err);
+                        }).finally(() => {
+                            setLoading(false);
+                        });
+                    }
                 }
                 return r;
             });
@@ -258,15 +281,46 @@ export default function VendorEdit() {
         setLoading(true);
         setErrorObj422({});
 
+        let i;
+        const imgBlobs = imageBlobs.reduce((r, img, i) => {
+            if (img.type == "BLOB") {
+                r.push({
+                    index: i,
+                    file:  img.file,
+                });
+            }
+            return r;
+        }, []);
+
+        if (imgBlobs.length == 0) {
+            i = Promise.resolve(true);
+        } else {
+            const imageFormData = new FormData();
+            imageFormData.set("vendor_product_id", id);
+
+            for (const img of imgBlobs) {
+                imageFormData.set(`images[${img.index}]`, img.file);
+            }
+
+            i = Api.post(`/vendor-product-upload-image`, imageFormData, {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("apiToken"),
+                }
+            })
+                .then(res => {
+                    console.log(res);
+                })
+        }
+
         const form_data_insert = new FormData();
 
         for (var key in formData) {
             form_data_insert.set(key, formData[key]);
         }
 
-        for (const { file } of imageBlobs) {
-            form_data_insert.append("image[]", file);
-        }
+        // for (const { file } of imageBlobs) {
+        //     form_data_insert.append("image[]", file);
+        // }
 
         if (form_data_insert.get("commission_type") == "percent") {
             form_data_insert.set("sale_price", 0);
@@ -281,17 +335,25 @@ export default function VendorEdit() {
             dataInsert[pair[0]] = pair[1];
         }
 
-        Api.put(`/vendor-product/${id}`, dataInsert, {
+        const p = Api.put(`/vendor-product/${id}`, dataInsert, {
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("apiToken")
             }
         })
+
+        Promise.all([i, p])
             .then(res => {
                 navigate(`/account/vendor/review/${id}`);
             })
             .catch(err => {
                 toast.error("Error validations");
                 ApiErrorHandling.handlingErr(err, [setErrorObj422]);
+                setImageBlobs((c) => {
+                    return c.map(({url}) => ({
+                        type: "URL",
+                        url: url,
+                    }));
+                });
             })
             .finally(() => {
                 setModalConfirmSellGoods(false);
@@ -304,6 +366,8 @@ export default function VendorEdit() {
             {/* Modal Create */}
             <Modal
                 size="lg"
+                fullscreen="lg-down"
+                scrollable={true}
                 show={modalPratinjau}
                 onHide={() => {
                     setModalPratinjau(false);
