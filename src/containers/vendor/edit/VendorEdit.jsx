@@ -279,6 +279,7 @@ export default function VendorEdit() {
 
     const doUpdateProduct = () => {
         setLoading(true);
+        setModalConfirmSellGoods(false);
         setErrorObj422({});
 
         let i;
@@ -356,7 +357,6 @@ export default function VendorEdit() {
                 });
             })
             .finally(() => {
-                setModalConfirmSellGoods(false);
                 setLoading(false);
             });
     };

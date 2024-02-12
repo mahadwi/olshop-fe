@@ -194,6 +194,7 @@ export default function VendorSell() {
 
     const doSellProduct = () => {
         setLoading(true);
+        setModalConfirmSellGoods(false);
         setErrorObj422({});
 
         const form_data_insert = new FormData();
@@ -226,7 +227,6 @@ export default function VendorSell() {
                 ApiErrorHandling.handlingErr(err, [setErrorObj422]);
             })
             .finally(() => {
-                setModalConfirmSellGoods(false);
                 setLoading(false);
             });
     };
