@@ -57,7 +57,7 @@ export default function VendorReview() {
             console.log(err);
         });
         const r = Api.get(`/rekening`).then(res => {
-            setBanks([res.data.data[1]]);
+            setBanks(res.data.data.map((bank, i) => ({...bank, open: i == 0})));
         }).catch(err => {
             console.log(err);
         });
@@ -252,32 +252,41 @@ export default function VendorReview() {
                         {reviewObj?.status == "Approved" ? (
                             <div className="bank bg-white">
                                 <div>{t("depositmoneypaymentaccountinformation")}</div>
-                                { banks.map((bank) => {
+                                <div className="hud">{t("vendorreviewproof")}</div>
+                                <div className="banks-accordion">
+                                { banks.map((bank, i) => {
                                     return (
                                         <div className="bank-info">
-                                            <div className="bank-name">
+                                            <button className="bank-name" onClick={() => {
+                                                setBanks((c) => {
+                                                    return c.map((b, j) => ({ ...b, open: j == i ? !b.open : b.open}))
+                                                })
+                                            }}>
+                                                <div className="wrapper">
+                                                    <img
+                                                        src={bank.logo_url}
+                                                        alt={bank.bank}
+                                                        width="38"
+                                                        height="13"
+                                                    />
+                                                </div>
                                                 <div>Bank {bank.bank}</div>
-
-                                                <img
-                                                    src={bank.logo_url}
-                                                    alt={bank.bank}
-                                                    width="38"
-                                                    height="13"
-                                                />
-                                            </div>
-                                            <div className="bank-message">
-                                                {t("accountnumber")} ({t("onbehalfof")} {bank.bank_account_holder})
-                                            </div>
-                                            <div className="bank-number">
-                                                <div>{bank.bank_account_number}</div>
-                                                <button onClick={() => navigator.clipboard.writeText(bank.bank_account_number)}>
-                                                    {t("copy")}
-                                                </button>
+                                            </button>
+                                            <div className={`bank-content ${!bank.open ? "hide" : ""}`}>
+                                                <div className="bank-message">
+                                                    {t("accountnumber")} ({t("onbehalfof")} {bank.bank_account_holder})
+                                                </div>
+                                                <div className="bank-number">
+                                                    <div>{bank.bank_account_number}</div>
+                                                    <button onClick={() => navigator.clipboard.writeText(bank.bank_account_number)}>
+                                                        {t("copy")}
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
                                     )
                                 })}
-                                <div className="hud">{t("vendorreviewproof")}</div>
+                                </div>
                             </div>
                         ) : null}
 
