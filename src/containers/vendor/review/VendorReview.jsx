@@ -70,7 +70,13 @@ export default function VendorReview() {
         const file = event.currentTarget.files[0];
         const form_data_insert = new FormData();
         form_data_insert.append("vendor_product_id", id);
-        form_data_insert.append("type", reviewObj?.approve_file?.status == "Approved" ? "approve" : reviewObj?.approve_file?.status?.toLowerCase() ?? "");
+        form_data_insert.append("type", (
+            reviewObj?.approve_file?.status == "Approved" || 
+            (reviewObj?.confirm_date ? 
+                new Date() >= new Date(reviewObj?.confirm_date) : 
+                false
+            )
+        ) ? "approve" : reviewObj?.approve_file?.status?.toLowerCase() ?? "");
         // form_data_insert.append("type", reviewObj?.approve_file?.status.toLowerCase());
         // form_data_insert.append("type", "approve");
         form_data_insert.append("file", file);
