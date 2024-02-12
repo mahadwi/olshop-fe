@@ -167,7 +167,7 @@ export default function VendorReview() {
                                         {Number(reviewObj?.sale_usd)?.toLocaleString("en-US", {
                                             style: "currency",
                                             currency: "USD",
-                                            maximumFractionDigits: 0
+                                            maximumFractionDigits: 2
                                         })}
                                     </div>
                                 </div>
@@ -200,7 +200,7 @@ export default function VendorReview() {
                                                 {Number(reviewObj?.consignment_usd)?.toLocaleString("en-US", {
                                                     style: "currency",
                                                     currency: "USD",
-                                                    maximumFractionDigits: 0
+                                                    maximumFractionDigits: 2
                                                 })}
                                             </div>
                                         </div>
