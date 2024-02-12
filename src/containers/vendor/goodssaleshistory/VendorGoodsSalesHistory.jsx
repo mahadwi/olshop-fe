@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import "./vendorgoodssales.scoped.scss";
+import "./vendorgoodssaleshistory.scoped.scss";
 import { Link, useLocation } from "react-router-dom";
 import "react-responsive-modal/styles.css";
 import AsyncSelect from "react-select/async";
@@ -14,7 +14,7 @@ import Select from "react-select";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
-export default function VendorGoodsSales() {
+export default function VendorGoodsSalesHistory() {
     /**
      * Hooks
      *
@@ -154,6 +154,7 @@ export default function VendorGoodsSales() {
                             <div className="step">{t("listingproduct")}</div>
                         </div>
                     </div>
+
                     <div className="step-main-mobile">
                         <button type="button" onClick={() => navigate("../productinformation")}>
                             <svg
@@ -169,8 +170,9 @@ export default function VendorGoodsSales() {
                                 />
                             </svg>
                         </button>
-                        <div className="title text-center">{t("youroffer")}</div>
+                        <div className="title text-center">{t("goodssaleshistory")}</div>
                     </div>
+
                     <div className="step-1-main">
                         <div className="left">
                             <button
@@ -182,29 +184,18 @@ export default function VendorGoodsSales() {
                                 {t("sellgoods")} <IconPlus />
                             </button>
                             <div className="links">
-                                <div className="active">{t("goodssales")}</div>
-                                <Link to={"../productinformation/goodssaleshistory"}>{t("goodssaleshistory")}</Link>
+                                <Link to={"../productinformation/goodssales"}>{t("goodssales")}</Link>
+                                <div className="active">{t("goodssaleshistory")}</div>
                             </div>
                         </div>
                         <div className="right">
                             <div className="top">
-                                <div className="name">{t("youroffer")}</div>
+                                <div className="name">{t("goodssaleshistory")}</div>
                                 <div className="search">
                                     <div className="text">{t("search")}</div>
                                     <div>
-                                        <input
-                                            className="form-control input-desktop"
-                                            type="text"
-                                            name="q"
-                                            id="search"
-                                        />
-                                        <input
-                                            className="form-control input-mobile"
-                                            type="text"
-                                            name="q"
-                                            id="search"
-                                            placeholder={t("search")}
-                                        />
+                                        <input className="form-control input-desktop" type="text" name="q" id="search" />
+                                        <input className="form-control input-mobile" type="text" name="q" id="search" placeholder={t("search")} />
                                     </div>
                                     <div className="layout">
                                         <button

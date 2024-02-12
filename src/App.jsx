@@ -31,6 +31,7 @@ import VendorIndex from './containers/vendor/index/VendorIndex';
 import VendorAccountInformation from './containers/vendor/accountinformation/VendorAccountInformation';
 import VendorProductInformation from './containers/vendor/productinformation/VendorProductInformation';
 import VendorGoodsSales from './containers/vendor/goodssales/VendorGoodsSales';
+import VendorGoodsSalesHistory from './containers/vendor/goodssaleshistory/VendorGoodsSalesHistory';
 import VendorSell from './containers/vendor/sell/VendorSell';
 import VendorEdit from './containers/vendor/edit/VendorEdit';
 import VendorReview from './containers/vendor/review/VendorReview';
@@ -108,6 +109,7 @@ function App() {
                                 <Route path='productinformation/sell' element={<VendorSell />} />
                                 <Route path='productinformation/edit/:id' element={<VendorEdit />} />
                                 <Route path='productinformation/goodssales' element={<VendorGoodsSales />} />
+                                <Route path='productinformation/goodssaleshistory' element={<VendorGoodsSalesHistory />} />
                                 <Route path='review/:id' element={<VendorReview />} />
                                 <Route path='agreement/:id' element={<VendorAgreement />} />
                                 <Route path='listingproduct/:id' element={<VendorListingProduct />} />

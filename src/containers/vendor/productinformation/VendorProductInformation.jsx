@@ -198,8 +198,8 @@ export default function VendorProductInformation() {
                                 {t("sellgoods")} <IconPlus />
                             </button>
                             <div className="links">
-                                <div>{t("goodssales")}</div>
-                                <div>{t("goodssaleshistory")}</div>
+                                <div className="active">{t("goodssales")}</div>
+                                <Link to={"./goodssaleshistory"}>{t("goodssaleshistory")}</Link>
                             </div>
                         </div>
                         <div className="right">
