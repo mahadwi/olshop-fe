@@ -180,33 +180,35 @@ export default function VendorReview() {
 
                         {true ? (
                             <div className="appointment bg-white">
-                                {reviewObj?.status != "Not Approved" ?
-                                <div className="detail">
-                                    <div className="title">{t("schedulemeeting")} :</div>
-                                    <div>{reviewObj?.confirm_date ?? "-"}</div>
-                                </div>
-                                : null}
-                                {reviewObj?.status != "Not Approved" ? (
+                                <div className="wrapper">
+                                    {reviewObj?.status != "Not Approved" ?
                                     <div className="detail">
-                                        <div className="title">{t("priceforentrustinggoods")} :</div>
-                                        <div>
-                                            {Number(reviewObj?.consignment_price)?.toLocaleString("id-ID", {
-                                                style: "currency",
-                                                currency: "IDR",
-                                                maximumFractionDigits: 0
-                                            })}{" "}
-                                            |{" "}
-                                            {Number(reviewObj?.consignment_usd)?.toLocaleString("en-US", {
-                                                style: "currency",
-                                                currency: "USD",
-                                                maximumFractionDigits: 0
-                                            })}
-                                        </div>
+                                        <div className="title">{t("schedulemeeting")} :</div>
+                                        <div>{reviewObj?.confirm_date ?? "-"}</div>
                                     </div>
-                                ) : null}
-                                <div className="detail">
-                                    <div className="title">{t("note")} :</div>
-                                    <div>{reviewObj?.note ?? "-"}</div>
+                                    : null}
+                                    {reviewObj?.status != "Not Approved" ? (
+                                        <div className="detail">
+                                            <div className="title">{t("priceforentrustinggoods")} :</div>
+                                            <div>
+                                                {Number(reviewObj?.consignment_price)?.toLocaleString("id-ID", {
+                                                    style: "currency",
+                                                    currency: "IDR",
+                                                    maximumFractionDigits: 0
+                                                })}{" "}
+                                                |{" "}
+                                                {Number(reviewObj?.consignment_usd)?.toLocaleString("en-US", {
+                                                    style: "currency",
+                                                    currency: "USD",
+                                                    maximumFractionDigits: 0
+                                                })}
+                                            </div>
+                                        </div>
+                                    ) : null}
+                                    <div className="detail">
+                                        <div className="title">{t("note")} :</div>
+                                        <div>{reviewObj?.note ?? "-"}</div>
+                                    </div>
                                 </div>
                             </div>
                         ) : null}
