@@ -42,10 +42,29 @@ export default function VendorAgreement() {
     }, [pathname]);
 
     useEffect(() => {
-        setReviewObj({});
+        loadReviewObj();
 
         loadAgrementShow();
     }, []);
+
+    const loadReviewObj = () => {
+        setLoading(false);
+        const vp = Api.get("/vendor-product/" + id, {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("apiToken")
+            }
+        })
+            .then(res => {
+                setReviewObj(res.data.data);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+
+        Promise.all([vp]).finally(() => {
+            setLoading(false);
+        });
+    };
 
     const loadAgrementShow = () => {
         setLoading(true);
@@ -84,13 +103,13 @@ export default function VendorAgreement() {
                 .then(res => {
                     toast.success("Agreement has been uploaded");
                     const ob = res.data.data;
-                    setAgreementsArr((c) => {
-                        return c.map((obj) => {
+                    setAgreementsArr(c => {
+                        return c.map(obj => {
                             if (ob.id == obj.id) {
                                 return ob;
                             }
                             return obj;
-                        })
+                        });
                     });
                 })
                 .catch(err => {
@@ -165,18 +184,19 @@ export default function VendorAgreement() {
                                                 <td>{agreementObj.name}</td>
                                                 <td>
                                                     {agreementObj.file ? (
-                                                        <>
-                                                            {agreementObj.file ? <a href={agreementObj.file} target="_blank">
-                                                                {t("agreementview")}
-                                                            </a> : null }
-                                                            {agreementObj.file && agreementObj.draft ? <>{" "}|{" "}</> : null }
-                                                            {agreementObj.draft ? <a
-                                                                href={agreementObj.file}
-                                                                download={agreementObj.draft}
-                                                            >
-                                                                {t("download")}
-                                                            </a> : null }
-                                                        </>
+                                                        <a href={agreementObj.file} target="_blank">
+                                                            {t("agreementview")}
+                                                        </a>
+                                                    ) : (
+                                                        <></>
+                                                    )}
+
+                                                    {agreementObj.draft && agreementObj.file ? " | " : <></>}
+
+                                                    {agreementObj.draft ? (
+                                                        <a href={agreementObj.draft} target="_blank">
+                                                            {t("download")}
+                                                        </a>
                                                     ) : (
                                                         <></>
                                                     )}
@@ -202,17 +222,22 @@ export default function VendorAgreement() {
                                                         }}
                                                     />
                                                 </td>
-                                                <td />
+                                                <td style={{ textAlign: "center" }}>{agreementObj.status}</td>
                                             </tr>
                                         ))}
                                     </tbody>
                                 </table>
                             </div>
-                            <div className="agreement-footer">
-                                <button className="next" onClick={() => navigate(`../listingproduct/${id}`)}>
-                                    {t("next")}
-                                </button>
-                            </div>
+
+                            {reviewObj.status == "Completed" ? (
+                                <div className="agreement-footer">
+                                    <button className="next" onClick={() => navigate(`../listingproduct/${id}`)}>
+                                        {t("next")}
+                                    </button>
+                                </div>
+                            ) : (
+                                <></>
+                            )}
                         </div>
                     </div>
                 </>

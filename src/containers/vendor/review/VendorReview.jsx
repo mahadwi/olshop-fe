@@ -51,32 +51,39 @@ export default function VendorReview() {
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("apiToken")
             }
-        }).then(res => {
-            setReviewObj(res.data.data);
-        }).catch(err => {
-            console.log(err);
-        });
-        const r = Api.get(`/rekening`).then(res => {
-            setBanks(res.data.data.map((bank, i) => ({...bank, open: i == 0})));
-        }).catch(err => {
-            console.log(err);
-        });
+        })
+            .then(res => {
+                setReviewObj(res.data.data);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+        const r = Api.get(`/rekening`)
+            .then(res => {
+                setBanks(res.data.data.map((bank, i) => ({ ...bank, open: i == 0 })));
+            })
+            .catch(err => {
+                console.log(err);
+            });
         Promise.all([vp, r]).finally(() => {
             setLoading(false);
         });
     };
 
-    const inputFileOnChange = (event) => {
+    const inputFileOnChange = event => {
         const file = event.currentTarget.files[0];
         const form_data_insert = new FormData();
         form_data_insert.append("vendor_product_id", id);
-        form_data_insert.append("type", (
-            reviewObj?.approve_file?.status == "Approved" || 
-            (reviewObj?.confirm_date ? 
-                new Date() >= new Date(reviewObj?.confirm_date) : 
-                false
-            )
-        ) ? "approve" : reviewObj?.approve_file?.status?.toLowerCase() ?? "");
+
+        const [day, month, year] = reviewObj?.confirm_date.split("-");
+
+        form_data_insert.append(
+            "type",
+            reviewObj?.approve_file?.status == "Approved" ||
+                (reviewObj?.confirm_date ? new Date() >= new Date(`${year}-${month}-${day}`) : false)
+                ? "approve"
+                : reviewObj?.approve_file?.status?.toLowerCase() ?? ""
+        );
         // form_data_insert.append("type", reviewObj?.approve_file?.status.toLowerCase());
         // form_data_insert.append("type", "approve");
         form_data_insert.append("file", file);
@@ -89,10 +96,13 @@ export default function VendorReview() {
 
         toast.promise(postFile, {
             loading: `${t("upload")} ${"document"}...`,
-            success: t("uploadsuccess"),
-            error: "Error validations",
+            success: () => {
+                t("uploadsuccess");
+                loadReviewObj();
+            },
+            error: "Error validations"
         });
-    }
+    };
 
     return (
         <div className="vendor">
@@ -187,12 +197,12 @@ export default function VendorReview() {
                         {true ? (
                             <div className="appointment bg-white">
                                 <div className="wrapper">
-                                    {reviewObj?.status != "Not Approved" ?
-                                    <div className="detail">
-                                        <div className="title">{t("schedulemeeting")} :</div>
-                                        <div>{reviewObj?.confirm_date ?? "-"}</div>
-                                    </div>
-                                    : null}
+                                    {reviewObj?.status != "Not Approved" ? (
+                                        <div className="detail">
+                                            <div className="title">{t("schedulemeeting")} :</div>
+                                            <div>{reviewObj?.confirm_date ?? "-"}</div>
+                                        </div>
+                                    ) : null}
                                     {reviewObj?.status != "Not Approved" ? (
                                         <div className="detail">
                                             <div className="title">{t("priceforentrustinggoods")} :</div>
@@ -238,15 +248,26 @@ export default function VendorReview() {
                                             <tr>
                                                 <td>{reviewObj?.approve_file?.name}</td>
                                                 <td>
-                                                    <a
-                                                        href={reviewObj?.approve_file?.approve_file}
-                                                        target="_blank"
-                                                    >
+                                                    <a href={reviewObj?.approve_file?.approve_file} target="_blank">
                                                         {t("agreementview")}
                                                     </a>{" "}
-                                                    | <a href={reviewObj?.approve_file?.draft} target="_blank">{t("download")}</a>
+                                                    |{" "}
+                                                    <a href={reviewObj?.approve_file?.draft} target="_blank">
+                                                        {t("download")}
+                                                    </a>
                                                 </td>
-                                                <td><input ref={inputFile} type="file" accept="application/pdf" hidden onChange={inputFileOnChange}   /><button onClick={() => inputFile.current?.click()}>{t("upload")}</button></td>
+                                                <td>
+                                                    <input
+                                                        ref={inputFile}
+                                                        type="file"
+                                                        accept="application/pdf"
+                                                        hidden
+                                                        onChange={inputFileOnChange}
+                                                    />
+                                                    <button onClick={() => inputFile.current?.click()}>
+                                                        {t("upload")}
+                                                    </button>
+                                                </td>
                                                 <td className="text-center">{t(reviewObj?.approve_file?.status)}</td>
                                             </tr>
                                         </tbody>
@@ -255,43 +276,54 @@ export default function VendorReview() {
                             </div>
                         ) : null}
 
-                        {reviewObj?.status == "Approved" ? (
+                        {reviewObj?.status == "Approved" || reviewObj?.status == "Completed" ? (
                             <div className="bank bg-white">
                                 <div>{t("depositmoneypaymentaccountinformation")}</div>
                                 <div className="hud">{t("vendorreviewproof")}</div>
                                 <div className="banks-accordion">
-                                { banks.map((bank, i) => {
-                                    return (
-                                        <div className="bank-info">
-                                            <button className="bank-name" onClick={() => {
-                                                setBanks((c) => {
-                                                    return c.map((b, j) => ({ ...b, open: j == i ? !b.open : b.open}))
-                                                })
-                                            }}>
-                                                <div className="wrapper">
-                                                    <img
-                                                        src={bank.logo_url}
-                                                        alt={bank.bank}
-                                                        width="38"
-                                                        height="13"
-                                                    />
-                                                </div>
-                                                <div>Bank {bank.bank}</div>
-                                            </button>
-                                            <div className={`bank-content ${!bank.open ? "hide" : ""}`}>
-                                                <div className="bank-message">
-                                                    {t("accountnumber")} ({t("onbehalfof")} {bank.bank_account_holder})
-                                                </div>
-                                                <div className="bank-number">
-                                                    <div>{bank.bank_account_number}</div>
-                                                    <button onClick={() => navigator.clipboard.writeText(bank.bank_account_number)}>
-                                                        {t("copy")}
-                                                    </button>
+                                    {banks.map((bank, i) => {
+                                        return (
+                                            <div className="bank-info">
+                                                <button
+                                                    className="bank-name"
+                                                    onClick={() => {
+                                                        setBanks(c => {
+                                                            return c.map((b, j) => ({
+                                                                ...b,
+                                                                open: j == i ? !b.open : b.open
+                                                            }));
+                                                        });
+                                                    }}
+                                                >
+                                                    <div className="wrapper">
+                                                        <img
+                                                            src={bank.logo_url}
+                                                            alt={bank.bank}
+                                                            width="38"
+                                                            height="13"
+                                                        />
+                                                    </div>
+                                                    <div>Bank {bank.bank}</div>
+                                                </button>
+                                                <div className={`bank-content ${!bank.open ? "hide" : ""}`}>
+                                                    <div className="bank-message">
+                                                        {t("accountnumber")} ({t("onbehalfof")}{" "}
+                                                        {bank.bank_account_holder})
+                                                    </div>
+                                                    <div className="bank-number">
+                                                        <div>{bank.bank_account_number}</div>
+                                                        <button
+                                                            onClick={() =>
+                                                                navigator.clipboard.writeText(bank.bank_account_number)
+                                                            }
+                                                        >
+                                                            {t("copy")}
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    )
-                                })}
+                                        );
+                                    })}
                                 </div>
                             </div>
                         ) : null}
@@ -311,7 +343,7 @@ export default function VendorReview() {
                                     {t("canceltransaction")}
                                 </button>
                             ) : null */}
-                            {reviewObj?.status == "Approved" ? (
+                            {reviewObj?.status == "Approved" || reviewObj?.status == "Completed" ? (
                                 <button className="next" onClick={() => navigate(`../agreement/${id}`)}>
                                     {t("next")}
                                 </button>

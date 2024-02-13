@@ -10,153 +10,6 @@ import ContainerComponent from "../../../components/general/container/ContainerC
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
 
-const REVEWI_DATA_DUMMY = [
-    {
-        image: "https://dev-olshop.berkatsoft.com/image/product/6544a6bc8f3ae.jpg",
-        name: "Channle Anmoller",
-        price: "35000000",
-        price_usd: "235",
-        sale_price: "35000000",
-        sale_price_usd: "235",
-        stock: 1,
-        date: "13/12/2023 13:00:00",
-        schedulemeeting: "13/12/2023 13:00:00",
-        priceforentrustinggoods: "35000000",
-        priceforentrustinggoods_usd: "235",
-        note: "-",
-        status: "In Review",
-        weight: 1,
-        width: 2,
-        length: 3,
-        height: 4,
-        description: "Ini Deskripsi",
-        description_en: "This is description",
-        history: "History barang",
-        history_en: "History of",
-        status_sold: "On Etalase"
-    },
-    {
-        image: "https://dev-olshop.berkatsoft.com/image/product/6544a6bc8f3ae.jpg",
-        name: "Channle Anmoller",
-        price: "35000000",
-        price_usd: "235",
-        sale_price: "35000000",
-        sale_price_usd: "235",
-        stock: 1,
-        date: "13/12/2023 13:00:00",
-        schedulemeeting: "13/12/2023 13:00:00",
-        priceforentrustinggoods: "35000000",
-        priceforentrustinggoods_usd: "235",
-        note: "-",
-        status: "In Review",
-        weight: 1,
-        width: 2,
-        length: 3,
-        height: 4,
-        description: "Ini Deskripsi",
-        description_en: "This is description",
-        history: "History barang",
-        history_en: "History of",
-        status_sold: "On Etalase"
-    },
-    {
-        image: "https://dev-olshop.berkatsoft.com/image/product/6544a6bc8f3ae.jpg",
-        name: "Channle Anmoller",
-        price: "35000000",
-        price_usd: "235",
-        sale_price: "35000000",
-        sale_price_usd: "235",
-        stock: 1,
-        date: "13/12/2023 13:00:00",
-        schedulemeeting: "13/12/2023 13:00:00",
-        priceforentrustinggoods: "35000000",
-        priceforentrustinggoods_usd: "235",
-        note: "Harga yang ditawarkan terlalu tinggi",
-        status: "Rejected",
-        weight: 1,
-        width: 2,
-        length: 3,
-        height: 4,
-        description: "Ini Deskripsi",
-        description_en: "This is description",
-        history: "History barang",
-        history_en: "History of",
-        status_sold: "On Etalase"
-    },
-    {
-        image: "https://dev-olshop.berkatsoft.com/image/product/656a6feb1203b.jpeg",
-        name: "CROC-EFFECT GRECA GODDESS MINI BAG",
-        price: "49303",
-        price_usd: "95",
-        sale_price: "35000000",
-        sale_price_usd: "235",
-        stock: 1,
-        date: "13/12/2023 13:00:00",
-        schedulemeeting: "13/12/2023 13:00:00",
-        priceforentrustinggoods: "35000000",
-        priceforentrustinggoods_usd: "235",
-        note: "-",
-        status: "Approved",
-        weight: 1,
-        width: 2,
-        length: 3,
-        height: 4,
-        description: "Ini Deskripsi",
-        description_en: "This is description",
-        history: "History barang",
-        history_en: "History of",
-        status_sold: "On Etalase"
-    },
-    {
-        image: "https://dev-olshop.berkatsoft.com/image/product/6544a6bc8f3ae.jpg",
-        name: "Channle Anmoller",
-        price: "35000000",
-        price_usd: "235",
-        sale_price: "35000000",
-        sale_price_usd: "235",
-        stock: 1,
-        date: "13/12/2023 13:00:00",
-        schedulemeeting: "13/12/2023 13:00:00",
-        priceforentrustinggoods: "35000000",
-        priceforentrustinggoods_usd: "235",
-        note: "-",
-        status: "In Review",
-        weight: 1,
-        width: 2,
-        length: 3,
-        height: 4,
-        description: "Ini Deskripsi",
-        description_en: "This is description",
-        history: "History barang",
-        history_en: "History of",
-        status_sold: "On Etalase"
-    },
-    {
-        image: "https://dev-olshop.berkatsoft.com/image/product/656a6feb1203b.jpeg",
-        name: "CROC-EFFECT GRECA GODDESS MINI BAG",
-        price: "49303",
-        price_usd: "95",
-        sale_price: "35000000",
-        sale_price_usd: "235",
-        stock: 1,
-        date: "13/12/2023 13:00:00",
-        schedulemeeting: "13/12/2023 13:00:00",
-        priceforentrustinggoods: "35000000",
-        priceforentrustinggoods_usd: "235",
-        note: "-",
-        status: "Approved",
-        weight: 1,
-        width: 2,
-        length: 3,
-        height: 4,
-        description: "Ini Deskripsi",
-        description_en: "This is description",
-        history: "History barang",
-        history_en: "History of",
-        status_sold: "Sold Out"
-    }
-];
-
 export default function VendorListingProduct() {
     /**
      * Hooks
@@ -256,7 +109,16 @@ export default function VendorListingProduct() {
                                 <h2>{t("listingproduct")}</h2>
                             </div>
                             <div className="body">
-                                <img src={reviewObj?.images[0]} alt="review" />
+                                <img
+                                    src={
+                                        reviewObj?.images
+                                            ? reviewObj?.images.length >= 1
+                                                ? reviewObj?.images[0]
+                                                : ""
+                                            : ""
+                                    }
+                                    alt="review"
+                                />
                                 <div className="detail">
                                     <div className="status" data-status={reviewObj?.status?.toLowerCase()}>
                                         {t(reviewObj?.status?.toLowerCase())} .
@@ -288,10 +150,10 @@ export default function VendorListingProduct() {
                                             maximumFractionDigits: 0
                                         })}{" "}
                                         |{" "}
-                                        {Number(reviewObj?.sale_price_usd)?.toLocaleString("en-US", {
+                                        {Number(reviewObj?.sale_usd)?.toLocaleString("en-US", {
                                             style: "currency",
                                             currency: "USD",
-                                            maximumFractionDigits: 0
+                                            maximumFractionDigits: 2
                                         })}
                                     </div>
                                 </div>
@@ -339,13 +201,13 @@ export default function VendorListingProduct() {
                                     <div className="title" />
                                     <div>{reviewObj?.history_en}</div>
                                 </div>
-                                <div className="detail">
+                                {/* <div className="detail">
                                     <div className="title">{t("goodssalesstatus")}</div>
                                 </div>
                                 <div className="detail">
                                     <div className="title" />
                                     <div>{reviewObj?.status_sold}</div>
-                                </div>
+                                </div> */}
                             </div>
                             <div className="listingproduct-footer">
                                 <button className="next" onClick={() => navigate(`../productinformation`)}>
