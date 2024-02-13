@@ -213,9 +213,9 @@ export default function VendorListingProduct() {
                                 </div>
                             </div>
                             <div className="listingproduct-footer">
-                                <button className="preview" onClick={() => navigate(`../productinformation`)}>
+                                <a className="preview" href={reviewObj?.consignment_file} >
                                     {t("receiptconsignment")}
-                                </button>
+                                </a>
                                 <button className="next" onClick={() => navigate(`../productinformation`)}>
                                     {t("viewlist")}
                                 </button>

@@ -281,7 +281,7 @@
                     margin-top: 1.75rem;
                 }
 
-                button {
+                button, a {
                     text-align: center;
                     font-family: Cambay;
                     font-size: 12px;
@@ -295,6 +295,7 @@
                     outline: 0px;
                     border: 0px;
                     flex: 1 0;
+                    text-decoration: none;
 
                     @include lg {
                         font-family: "Roboto", sans-serif;
