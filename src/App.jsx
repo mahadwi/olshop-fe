@@ -35,6 +35,7 @@ import VendorGoodsSalesHistory from './containers/vendor/goodssaleshistory/Vendo
 import VendorSell from './containers/vendor/sell/VendorSell';
 import VendorEdit from './containers/vendor/edit/VendorEdit';
 import VendorReview from './containers/vendor/review/VendorReview';
+import VendorCancel from './containers/vendor/cancel/VendorCancel';
 import VendorAgreement from './containers/vendor/agreement/VendorAgreement';
 import VendorListingProduct from './containers/vendor/listingproduct/VendorListingProduct';
 import MainLayout from './layouts/MainLayout';
@@ -111,6 +112,7 @@ function App() {
                                 <Route path='productinformation/goodssales' element={<VendorGoodsSales />} />
                                 <Route path='productinformation/goodssaleshistory' element={<VendorGoodsSalesHistory />} />
                                 <Route path='review/:id' element={<VendorReview />} />
+                                <Route path='cancel/:id' element={<VendorCancel />} />
                                 <Route path='agreement/:id' element={<VendorAgreement />} />
                                 <Route path='listingproduct/:id' element={<VendorListingProduct />} />
                             </Route>

@@ -257,6 +257,9 @@ i18n
                     searchresultfor: 'Search Result For',
                     searchresultnotfound: 'Unfortunately, we couldn\'t find any result for',
                     receiptconsignment: 'Receipt Consignment',
+                    canceltransactionconfirm: 'Are you sure to cancel transaction ?',
+                    yes: 'Yes',
+                    canceltransactionstatus: 'Cancel Transaction',
                     // Add other EN translations here
                 },
             },
@@ -508,6 +511,9 @@ i18n
                     searchresultfor: 'Hasil Pencarian Untuk',
                     searchresultnotfound: 'Sayangnya, kita tidak dapat menemukan hasil untuk',
                     receiptconsignment: 'Kuitansi Konsinyasi',
+                    canceltransactionconfirm: 'Apakah anda yakin akan batalkan transaksi ?',
+                    yes: 'Ya',
+                    canceltransactionstatus: 'Transaksi Batal',
                     // Add other ID translations here
                 },
             },

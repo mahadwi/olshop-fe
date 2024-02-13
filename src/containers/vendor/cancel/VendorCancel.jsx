@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import "./vendorreview.scoped.scss";
+import "./vendorcancel.scoped.scss";
 import { useLocation } from "react-router-dom";
 import "react-responsive-modal/styles.css";
 import Modal from "react-bootstrap/Modal";
@@ -12,7 +12,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-hot-toast";
 
-export default function VendorReview() {
+export default function VendorCancel() {
     /**
      * Hooks
      *
@@ -34,10 +34,8 @@ export default function VendorReview() {
      *
      */
     const [reviewObj, setReviewObj] = useState({});
-    const [banks, setBanks] = useState([]);
     const inputFile = useRef(null);
     const [selectedImage, setSelectedImage] = useState(0);
-    const [modalCancel, setModalCancel] = useState(false);
 
     // Automatically scrolls to top whenever pathname changes
     useEffect(() => {
@@ -61,14 +59,7 @@ export default function VendorReview() {
             .catch(err => {
                 console.log(err);
             });
-        const r = Api.get(`/rekening`)
-            .then(res => {
-                setBanks(res.data.data.map((bank, i) => ({ ...bank, open: i == 0 })));
-            })
-            .catch(err => {
-                console.log(err);
-            });
-        Promise.all([vp, r]).finally(() => {
+        Promise.all([vp]).finally(() => {
             setLoading(false);
         });
     };
@@ -80,15 +71,15 @@ export default function VendorReview() {
 
         const [day, month, year] = reviewObj?.confirm_date.split("-");
 
-        form_data_insert.append(
-            "type",
-            reviewObj?.approve_file?.status == "Approved" ||
-                (reviewObj?.confirm_date ? new Date() >= new Date(`${year}-${month}-${day}`) : false)
-                ? "approve"
-                : reviewObj?.approve_file?.status?.toLowerCase() ?? ""
-        );
+        // form_data_insert.append(
+        //     "type",
+        //     reviewObj?.approve_file?.status == "Approved" ||
+        //         (reviewObj?.confirm_date ? new Date() >= new Date(`${year}-${month}-${day}`) : false)
+        //         ? "approve"
+        //         : reviewObj?.approve_file?.status?.toLowerCase() ?? ""
+        // );
         // form_data_insert.append("type", reviewObj?.approve_file?.status.toLowerCase());
-        // form_data_insert.append("type", "approve");
+        form_data_insert.append("type", "cancel");
         form_data_insert.append("file", file);
 
         const postFile = Api.post("/vendor-product-upload", form_data_insert, {
@@ -109,45 +100,6 @@ export default function VendorReview() {
 
     return (
         <div className="vendor">
-            {/* Modal Confirm */}
-            <Modal
-                centered
-                show={modalCancel}
-                onHide={() => {
-                    setModalCancel(false);
-                }}
-            >
-                <Modal.Header closeButton>
-                    <Modal.Title>{t("confirmation")}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <div className="modal-confirm-body">{t("canceltransactionconfirm")}</div>
-                </Modal.Body>
-                <Modal.Footer>
-                    <div className="modal-confirm-body-footer">
-                        <button
-                            type="button"
-                            onClick={() => {
-                                setModalCancel(false);
-                            }}
-                            className="cancel-button"
-                        >
-                            {t("cancel")}
-                        </button>
-                        <button
-                            type="button"
-                            className="send-button"
-                            onClick={() => {
-                                navigate(`../cancel/${id}`);
-                            }}
-                        >
-                            {t("yes")}
-                        </button>
-                    </div>
-                </Modal.Footer>
-            </Modal>
-            {/* End of Modal Confirm */}
-
             <ContainerComponent>
                 <>
                     <div className="tabs">
@@ -203,7 +155,7 @@ export default function VendorReview() {
                                 <div className="wrapper">
                                     <div className="detail">
                                         <div className="status" data-status={reviewObj?.status?.toLowerCase()}>
-                                            {t(reviewObj?.status?.toLowerCase())} .
+                                            {t("canceltransactionstatus")} .
                                         </div>
                                         <div className="title">{reviewObj?.name}</div>
                                     </div>
@@ -250,30 +202,6 @@ export default function VendorReview() {
                         {true ? (
                             <div className="appointment bg-white">
                                 <div className="wrapper">
-                                    {reviewObj?.status != "Not Approved" ? (
-                                        <div className="detail">
-                                            <div className="title">{t("schedulemeeting")} :</div>
-                                            <div>{reviewObj?.confirm_date ?? "-"}</div>
-                                        </div>
-                                    ) : null}
-                                    {reviewObj?.status != "Not Approved" ? (
-                                        <div className="detail">
-                                            <div className="title">{t("priceforentrustinggoods")} :</div>
-                                            <div>
-                                                {Number(reviewObj?.consignment_price)?.toLocaleString("id-ID", {
-                                                    style: "currency",
-                                                    currency: "IDR",
-                                                    maximumFractionDigits: 0
-                                                })}{" "}
-                                                |{" "}
-                                                {Number(reviewObj?.consignment_usd)?.toLocaleString("en-US", {
-                                                    style: "currency",
-                                                    currency: "USD",
-                                                    maximumFractionDigits: 2
-                                                })}
-                                            </div>
-                                        </div>
-                                    ) : null}
                                     <div className="detail">
                                         <div className="title">{t("note")} :</div>
                                         <div>{reviewObj?.note ?? "-"}</div>
@@ -282,7 +210,7 @@ export default function VendorReview() {
                             </div>
                         ) : null}
 
-                        {reviewObj?.status != "Not Approved" ? (
+                        {true ? (
                             <div className="file-information bg-white">
                                 <div>{t("fileinformation")}</div>
                                 <div className="table">
@@ -299,13 +227,13 @@ export default function VendorReview() {
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td>{reviewObj?.approve_file?.name}</td>
+                                                <td>{reviewObj?.cancel_file?.name}</td>
                                                 <td>
-                                                    <a href={reviewObj?.approve_file?.draft} target="_blank">
+                                                    <a href={reviewObj?.cancel_file?.draft} target="_blank">
                                                         {t("agreementview")}
                                                     </a>{" "}
                                                     |{" "}
-                                                    <a href={reviewObj?.approve_file?.draft} target="_blank">
+                                                    <a href={reviewObj?.cancel_file?.draft} target="_blank">
                                                         {t("download")}
                                                     </a>
                                                 </td>
@@ -328,80 +256,6 @@ export default function VendorReview() {
                                 </div>
                             </div>
                         ) : null}
-
-                        {reviewObj?.status == "Approved" || reviewObj?.status == "Completed" ? (
-                            <div className="bank bg-white">
-                                <div>{t("depositmoneypaymentaccountinformation")}</div>
-                                <div className="hud">{t("vendorreviewproof")}</div>
-                                <div className="banks-accordion">
-                                    {banks.map((bank, i) => {
-                                        return (
-                                            <div className="bank-info">
-                                                <button
-                                                    className="bank-name"
-                                                    onClick={() => {
-                                                        setBanks(c => {
-                                                            return c.map((b, j) => ({
-                                                                ...b,
-                                                                open: j == i ? !b.open : b.open
-                                                            }));
-                                                        });
-                                                    }}
-                                                >
-                                                    <div className="wrapper">
-                                                        <img
-                                                            src={bank.logo_url}
-                                                            alt={bank.bank}
-                                                            width="38"
-                                                            height="13"
-                                                        />
-                                                    </div>
-                                                    <div>Bank {bank.bank}</div>
-                                                </button>
-                                                <div className={`bank-content ${!bank.open ? "hide" : ""}`}>
-                                                    <div className="bank-message">
-                                                        {t("accountnumber")} ({t("onbehalfof")}{" "}
-                                                        {bank.bank_account_holder})
-                                                    </div>
-                                                    <div className="bank-number">
-                                                        <div>{bank.bank_account_number}</div>
-                                                        <button
-                                                            onClick={() =>
-                                                                navigator.clipboard.writeText(bank.bank_account_number)
-                                                            }
-                                                        >
-                                                            {t("copy")}
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        );
-                                    })}
-                                </div>
-                            </div>
-                        ) : null}
-
-                        <div className="review-item-footer">
-                            {reviewObj?.status == "Not Approved" ? (
-                                <button
-                                    className="preview"
-                                    type="button"
-                                    onClick={() => navigate(`../productinformation/edit/${id}`)}
-                                >
-                                    {t("backto")} {t("productinformation")}
-                                </button>
-                            ) : null}
-                            { reviewObj?.status == "Not Approved" ? (
-                                <button className="next" type="button" onClick={() => setModalCancel(true)}>
-                                    {t("canceltransaction")}
-                                </button>
-                            ) : null }
-                            {reviewObj?.status == "Approved" || reviewObj?.status == "Completed" ? (
-                                <button className="next" onClick={() => navigate(`../agreement/${id}`)}>
-                                    {t("next")}
-                                </button>
-                            ) : null}
-                        </div>
                     </div>
                 </>
             </ContainerComponent>
