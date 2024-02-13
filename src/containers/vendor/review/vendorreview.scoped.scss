@@ -590,6 +590,8 @@
 
 
                 @include lg {
+                    position: static;
+                    background: transparent;
                     margin-top: 1.75rem;
                 }
 

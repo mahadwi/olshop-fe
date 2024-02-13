@@ -32,6 +32,7 @@ export default function VendorListingProduct() {
      *
      */
     const [reviewObj, setReviewObj] = useState({});
+    const [selectedImage, setSelectedImage] = useState(0);
 
     // Automatically scrolls to top whenever pathname changes
     useEffect(() => {
@@ -109,107 +110,112 @@ export default function VendorListingProduct() {
                                 <h2>{t("listingproduct")}</h2>
                             </div>
                             <div className="body">
-                                <img
-                                    src={
-                                        reviewObj?.images
-                                            ? reviewObj?.images.length >= 1
-                                                ? reviewObj?.images[0]
-                                                : ""
-                                            : ""
-                                    }
-                                    alt="review"
-                                />
-                                <div className="detail">
-                                    <div className="status" data-status={reviewObj?.status?.toLowerCase()}>
-                                        {t(reviewObj?.status?.toLowerCase())} .
+                                <img src={reviewObj?.images?.at(selectedImage) ?? ""} alt="review" className="main" />
+                                {reviewObj?.images?.length != 1 ?
+                                <div className="thumbnail">
+                                    { reviewObj?.images?.map((u, i) => (
+                                        <button onClick={() => setSelectedImage(i)}>
+                                            <img src={u} alt="foo" />
+                                        </button>
+                                    )) }
+                                </div>
+                                : null}
+                                <div className="wrapper">
+                                    <div className="detail">
+                                        <div className="status" data-status={reviewObj?.status?.toLowerCase()}>
+                                            {t(reviewObj?.status?.toLowerCase())} .
+                                        </div>
+                                        <div className="title">{reviewObj?.name}</div>
                                     </div>
-                                    <div className="title">{reviewObj?.name}</div>
-                                </div>
-                                <div className="detail">
-                                    <div className="title">{t("price")}</div>
-                                    <div>
-                                        {Number(reviewObj?.price)?.toLocaleString("id-ID", {
-                                            style: "currency",
-                                            currency: "IDR",
-                                            maximumFractionDigits: 0
-                                        })}{" "}
-                                        |{" "}
-                                        {Number(reviewObj?.price_usd)?.toLocaleString("en-US", {
-                                            style: "currency",
-                                            currency: "USD",
-                                            maximumFractionDigits: 0
-                                        })}
+                                    <div className="detail">
+                                        <div className="title">{t("price")}</div>
+                                        <div>
+                                            {Number(reviewObj?.price)?.toLocaleString("id-ID", {
+                                                style: "currency",
+                                                currency: "IDR",
+                                                maximumFractionDigits: 0
+                                            })}{" "}
+                                            |{" "}
+                                            {Number(reviewObj?.price_usd)?.toLocaleString("en-US", {
+                                                style: "currency",
+                                                currency: "USD",
+                                                maximumFractionDigits: 2
+                                            })}
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="detail">
-                                    <div className="title">{t("saleprice")}</div>
-                                    <div>
-                                        {Number(reviewObj?.sale_price)?.toLocaleString("id-ID", {
-                                            style: "currency",
-                                            currency: "IDR",
-                                            maximumFractionDigits: 0
-                                        })}{" "}
-                                        |{" "}
-                                        {Number(reviewObj?.sale_usd)?.toLocaleString("en-US", {
-                                            style: "currency",
-                                            currency: "USD",
-                                            maximumFractionDigits: 2
-                                        })}
+                                    <div className="detail">
+                                        <div className="title">{t("saleprice")}</div>
+                                        <div>
+                                            {Number(reviewObj?.sale_price)?.toLocaleString("id-ID", {
+                                                style: "currency",
+                                                currency: "IDR",
+                                                maximumFractionDigits: 0
+                                            })}{" "}
+                                            |{" "}
+                                            {Number(reviewObj?.sale_usd)?.toLocaleString("en-US", {
+                                                style: "currency",
+                                                currency: "USD",
+                                                maximumFractionDigits: 2
+                                            })}
+                                        </div>
                                     </div>
+                                    <div className="detail">
+                                        <div className="title">{t("weight")} (Kg)</div>
+                                        <div>{reviewObj?.weight}</div>
+                                    </div>
+                                    <div className="detail">
+                                        <div className="title">{t("width")} (Kg)</div>
+                                        <div>{reviewObj?.width}</div>
+                                    </div>
+                                    <div className="detail">
+                                        <div className="title">{t("length")} (Kg)</div>
+                                        <div>{reviewObj?.length}</div>
+                                    </div>
+                                    <div className="detail">
+                                        <div className="title">{t("height")} (Kg)</div>
+                                        <div>{reviewObj?.height}</div>
+                                    </div>
+                                    <div className="detail">
+                                        <div className="title">Deskripsi</div>
+                                    </div>
+                                    <div className="detail">
+                                        <div className="title" />
+                                        <div>{reviewObj?.description}</div>
+                                    </div>
+                                    <div className="detail">
+                                        <div className="title">Description</div>
+                                    </div>
+                                    <div className="detail">
+                                        <div className="title" />
+                                        <div>{reviewObj?.description_en}</div>
+                                    </div>
+                                    <div className="detail">
+                                        <div className="title">Sejarah</div>
+                                    </div>
+                                    <div className="detail">
+                                        <div className="title" />
+                                        <div>{reviewObj?.history}</div>
+                                    </div>
+                                    <div className="detail">
+                                        <div className="title">History</div>
+                                    </div>
+                                    <div className="detail">
+                                        <div className="title" />
+                                        <div>{reviewObj?.history_en}</div>
+                                    </div>
+                                    {/* <div className="detail">
+                                        <div className="title">{t("goodssalesstatus")}</div>
+                                    </div>
+                                    <div className="detail">
+                                        <div className="title" />
+                                        <div>{reviewObj?.status_sold}</div>
+                                    </div> */}
                                 </div>
-                                <div className="detail">
-                                    <div className="title">{t("weight")} (Kg)</div>
-                                    <div>{reviewObj?.weight}</div>
-                                </div>
-                                <div className="detail">
-                                    <div className="title">{t("width")} (Kg)</div>
-                                    <div>{reviewObj?.width}</div>
-                                </div>
-                                <div className="detail">
-                                    <div className="title">{t("length")} (Kg)</div>
-                                    <div>{reviewObj?.length}</div>
-                                </div>
-                                <div className="detail">
-                                    <div className="title">{t("height")} (Kg)</div>
-                                    <div>{reviewObj?.height}</div>
-                                </div>
-                                <div className="detail">
-                                    <div className="title">Deskripsi</div>
-                                </div>
-                                <div className="detail">
-                                    <div className="title" />
-                                    <div>{reviewObj?.description}</div>
-                                </div>
-                                <div className="detail">
-                                    <div className="title">Description</div>
-                                </div>
-                                <div className="detail">
-                                    <div className="title" />
-                                    <div>{reviewObj?.description_en}</div>
-                                </div>
-                                <div className="detail">
-                                    <div className="title">Sejarah</div>
-                                </div>
-                                <div className="detail">
-                                    <div className="title" />
-                                    <div>{reviewObj?.history}</div>
-                                </div>
-                                <div className="detail">
-                                    <div className="title">History</div>
-                                </div>
-                                <div className="detail">
-                                    <div className="title" />
-                                    <div>{reviewObj?.history_en}</div>
-                                </div>
-                                {/* <div className="detail">
-                                    <div className="title">{t("goodssalesstatus")}</div>
-                                </div>
-                                <div className="detail">
-                                    <div className="title" />
-                                    <div>{reviewObj?.status_sold}</div>
-                                </div> */}
                             </div>
                             <div className="listingproduct-footer">
+                                <button className="preview" onClick={() => navigate(`../productinformation`)}>
+                                    {t("receiptconsignment")}
+                                </button>
                                 <button className="next" onClick={() => navigate(`../productinformation`)}>
                                     {t("viewlist")}
                                 </button>

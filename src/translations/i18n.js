@@ -256,6 +256,7 @@ i18n
                     searchplaceholder: 'Search by brand, category, product name',
                     searchresultfor: 'Search Result For',
                     searchresultnotfound: 'Unfortunately, we couldn\'t find any result for',
+                    receiptconsignment: 'Receipt Consignment',
                     // Add other EN translations here
                 },
             },
@@ -505,7 +506,8 @@ i18n
                     uploadsuccess: 'Mengunggah Berhasil',
                     searchplaceholder: 'Cari dengan brand, kategori, nama produk',
                     searchresultfor: 'Hasil Pencarian Untuk',
-                    searchresultnotfound: 'Sayangnya, kita tidak dapat menemukan hasil untuk'
+                    searchresultnotfound: 'Sayangnya, kita tidak dapat menemukan hasil untuk',
+                    receiptconsignment: 'Kuitansi Konsinyasi',
                     // Add other ID translations here
                 },
             },
