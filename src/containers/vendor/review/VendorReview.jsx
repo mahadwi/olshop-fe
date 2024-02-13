@@ -178,7 +178,7 @@ export default function VendorReview() {
                                             {Number(reviewObj?.price_usd)?.toLocaleString("en-US", {
                                                 style: "currency",
                                                 currency: "USD",
-                                                maximumFractionDigits: 0
+                                                maximumFractionDigits: 2
                                             })}
                                         </div>
                                     </div>
