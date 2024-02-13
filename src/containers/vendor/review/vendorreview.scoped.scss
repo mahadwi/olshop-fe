@@ -1,8 +1,12 @@
 @use './../../../styles/func.scoped.scss' as *;
 
 .vendor {
-    background: rgba(221, 221, 221, 0.50);
+    background: linear-gradient(180deg, rgb(221 221 221) 0%, rgb(221 221 221) 50%, #fff 100%);
     padding: 0 0 1rem 0;
+
+    @include lg {
+        background: rgba(221, 221, 221, 0.50);
+    }
 
     .tabs {
         display: flex;
@@ -180,12 +184,52 @@
                     flex-direction: column;
                     gap: 0.5rem;
 
-                    img {
+                    img.main {
                         display: block;
                         width: 100%;
-                        aspect-ratio: 2.36;
-                        margin-bottom: 1rem;
+                        aspect-ratio: 1.36;
+                        margin-bottom: 0;
                         object-fit: cover;
+
+                        @include lg {
+                            aspect-ratio: 2.36;
+                        }
+                    }
+
+                    .thumbnail {
+                        display: flex;
+                        flex-direction: row;
+                        gap: 0.25rem;
+                        margin-bottom: 1rem;
+
+                        button {
+                            display: block;
+                            width: calc(25% - 0.25rem);
+                            aspect-ratio: 1.36;
+                            background: transparent;
+                            border: 0;
+                            padding: 0;
+
+                            img {
+                                width: 100%;
+                                height: 100%;
+                                object-fit: cover;
+                            }
+                        }
+                    }
+
+                    .wrapper {
+                        border: 1px solid #C4C4C4;
+                        border-radius: 4px;
+                        padding: 1rem;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 0.5rem;
+
+                        @include lg {
+                            border: 0;
+                            padding: 0;
+                        }
                     }
 
                     .detail {
@@ -226,6 +270,7 @@
                 margin: auto;
                 border: 0px;
                 padding: 1rem;
+                padding-top: 0;
                 margin-top: -.35rem;
                 color: #A2A3B1;
                 font-family: Inter;
@@ -240,6 +285,7 @@
 
                 @include lg {
                     width: 80%;
+                    padding-top: 1rem;
                 }
 
                 .wrapper {
@@ -292,6 +338,7 @@
                 margin: auto;
                 border: 0px;
                 padding: 1rem;
+                padding-top: 0;
                 margin-top: -.35rem;
                 color: #000;
                 font-family: Inter;
@@ -302,14 +349,17 @@
                 letter-spacing: 0.48px;
                 display: flex;
                 flex-direction: column;
-                gap: 1.5rem;
+                gap: 0.5rem;
+                position: relative;
 
                 @include lg {
                     width: 80%;
+                    padding-top: 1rem;
+                    gap: 1.5rem;
                 }
 
                 .table {
-                    padding: 0 0.5rem;
+                    padding: 0;
                     color: #a2a3b1;
                     font-family: Inter;
                     font-size: 12px;
@@ -320,6 +370,11 @@
                     display: flex;
                     flex-direction: column;
                     gap: 0.5rem;
+                    margin-bottom: 0;
+
+                    @include lg {
+                        padding: 0 0.5rem;
+                    }
 
                     table {
                         thead {
@@ -399,6 +454,7 @@
                 margin: auto;
                 border: 0px;
                 padding: 1rem;
+                padding-top: 0;
                 margin-top: -.35rem;
                 color: #000;
                 font-family: Inter;
@@ -410,9 +466,11 @@
                 display: flex;
                 flex-direction: column;
                 gap: 1.5rem;
+                position: relative;
 
                 @include lg {
                     width: 80%;
+                    padding-top: 1rem;
                 }
 
                 .hud {
@@ -436,8 +494,13 @@
 
                 .bank-info {
                     min-width: 22rem;
+                    width: 100%;
                     display: flex;
                     flex-flow: column;
+
+                    @include lg {
+                        width: unset;
+                    }
 
                     .bank-name {
                         border: 0;
@@ -516,24 +579,45 @@
             }
 
             .review-item-footer {
-                margin-top: 1.75rem;
+                margin-top: 0;
                 display: flex;
                 justify-content: center;
-                gap: 1.15rem;
+                gap: 0.25rem;
+                position: sticky;
+                bottom: 0;
+                padding: 1rem;
+                background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 80%, rgba(255,255,255,0.5) 100%);
+
+
+                @include lg {
+                    margin-top: 1.75rem;
+                }
 
                 button {
                     text-align: center;
-                    font-family: 'Roboto', sans-serif;
-                    font-size: 14px;
+                    font-family: Cambay;
+                    font-size: 12px;
                     font-style: normal;
                     font-weight: 700;
-                    line-height: 0px;
-                    /* 0% */
-                    letter-spacing: 2.1px;
-                    border-radius: 15px;
-                    padding: 1.5rem 3.5rem;
+                    line-height: 20px;
+                    /* 166.667% */
+                    letter-spacing: 0.1px;
+                    border-radius: 4px;
+                    padding: 0.25rem 0;
                     outline: 0px;
                     border: 0px;
+                    flex: 1 0;
+
+                    @include lg {
+                        font-family: "Roboto", sans-serif;
+                        font-size: 14px;
+                        line-height: 0px;
+                        /* 0% */
+                        letter-spacing: 2.1px;
+                        border-radius: 15px;
+                        padding: 1.5rem 3.5rem;
+                        flex: unset;
+                    }
 
                     &.preview {
                         color: #151B4F;
@@ -542,7 +626,6 @@
                     }
 
                     &.next {
-                        border-radius: 15px;
                         background: #151B4F;
                         color: #FFF;
                     }

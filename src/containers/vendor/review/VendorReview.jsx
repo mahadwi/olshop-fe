@@ -35,6 +35,7 @@ export default function VendorReview() {
     const [reviewObj, setReviewObj] = useState({});
     const [banks, setBanks] = useState([]);
     const inputFile = useRef(null);
+    const [selectedImage, setSelectedImage] = useState(0);
 
     // Automatically scrolls to top whenever pathname changes
     useEffect(() => {
@@ -148,48 +149,59 @@ export default function VendorReview() {
                                 <h2>{t("reviewvendor")}</h2>
                             </div>
                             <div className="body">
-                                <img src={reviewObj?.images?.at(0) ?? ""} alt="review" />
-                                <div className="detail">
-                                    <div className="status" data-status={reviewObj?.status?.toLowerCase()}>
-                                        {t(reviewObj?.status?.toLowerCase())} .
-                                    </div>
-                                    <div className="title">{reviewObj?.name}</div>
+                                <img src={reviewObj?.images?.at(selectedImage) ?? ""} alt="review" className="main" />
+                                {reviewObj?.images?.length != 1 ?
+                                <div className="thumbnail">
+                                    { reviewObj?.images?.map((u, i) => (
+                                        <button onClick={() => setSelectedImage(i)}>
+                                            <img src={u} alt="foo" />
+                                        </button>
+                                    )) }
                                 </div>
-                                <div className="detail">
-                                    <div className="title">{t("price")}</div>
-                                    <div>
-                                        {Number(reviewObj?.price)?.toLocaleString("id-ID", {
-                                            style: "currency",
-                                            currency: "IDR",
-                                            maximumFractionDigits: 0
-                                        })}{" "}
-                                        |{" "}
-                                        {Number(reviewObj?.price_usd)?.toLocaleString("en-US", {
-                                            style: "currency",
-                                            currency: "USD",
-                                            maximumFractionDigits: 0
-                                        })}
+                                : null}
+                                <div className="wrapper">
+                                    <div className="detail">
+                                        <div className="status" data-status={reviewObj?.status?.toLowerCase()}>
+                                            {t(reviewObj?.status?.toLowerCase())} .
+                                        </div>
+                                        <div className="title">{reviewObj?.name}</div>
                                     </div>
-                                </div>
-                                <div className="detail">
-                                    <div className="title">{t("saleprice")}</div>
-                                    <div>
-                                        {Number(reviewObj?.sale_price)?.toLocaleString("id-ID", {
-                                            style: "currency",
-                                            currency: "IDR",
-                                            maximumFractionDigits: 0
-                                        })}{" "}
-                                        |{" "}
-                                        {Number(reviewObj?.sale_usd)?.toLocaleString("en-US", {
-                                            style: "currency",
-                                            currency: "USD",
-                                            maximumFractionDigits: 2
-                                        })}
+                                    <div className="detail">
+                                        <div className="title">{t("price")}</div>
+                                        <div>
+                                            {Number(reviewObj?.price)?.toLocaleString("id-ID", {
+                                                style: "currency",
+                                                currency: "IDR",
+                                                maximumFractionDigits: 0
+                                            })}{" "}
+                                            |{" "}
+                                            {Number(reviewObj?.price_usd)?.toLocaleString("en-US", {
+                                                style: "currency",
+                                                currency: "USD",
+                                                maximumFractionDigits: 0
+                                            })}
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="detail">
-                                    <div className="title">{t("offeredon")}</div>
-                                    <div>{reviewObj.offered_date}</div>
+                                    <div className="detail">
+                                        <div className="title">{t("saleprice")}</div>
+                                        <div>
+                                            {Number(reviewObj?.sale_price)?.toLocaleString("id-ID", {
+                                                style: "currency",
+                                                currency: "IDR",
+                                                maximumFractionDigits: 0
+                                            })}{" "}
+                                            |{" "}
+                                            {Number(reviewObj?.sale_usd)?.toLocaleString("en-US", {
+                                                style: "currency",
+                                                currency: "USD",
+                                                maximumFractionDigits: 2
+                                            })}
+                                        </div>
+                                    </div>
+                                    <div className="detail">
+                                        <div className="title">{t("offeredon")}</div>
+                                        <div>{reviewObj.offered_date}</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
