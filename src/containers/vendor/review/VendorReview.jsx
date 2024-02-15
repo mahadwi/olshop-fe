@@ -301,11 +301,11 @@ export default function VendorReview() {
                                             <tr>
                                                 <td>{reviewObj?.approve_file?.name}</td>
                                                 <td>
-                                                    <a href={reviewObj?.approve_file?.draft} target="_blank">
+                                                    <a href={reviewObj?.approve_file?.draft} target="_blank" rel="noreferrer">
                                                         {t("agreementview")}
                                                     </a>{" "}
                                                     |{" "}
-                                                    <a href={reviewObj?.approve_file?.draft} target="_blank">
+                                                    <a href={reviewObj?.approve_file?.draft} target="_blank" rel="noreferrer">
                                                         {t("download")}
                                                     </a>
                                                 </td>
@@ -317,6 +317,15 @@ export default function VendorReview() {
                                                         hidden
                                                         onChange={inputFileOnChange}
                                                     />
+                                                    { reviewObj?.approve_file?.approve_file ?
+                                                        <>
+                                                            <a href={reviewObj?.approve_file?.approve_file} target="_blank" rel="noreferrer">
+                                                                {t("agreementview")}
+                                                            </a>
+                                                            {" | "}
+                                                        </>
+                                                        : null
+                                                    }
                                                     <button onClick={() => inputFile.current?.click()}>
                                                         {t("upload")}
                                                     </button>
