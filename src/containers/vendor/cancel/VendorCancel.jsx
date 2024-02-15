@@ -229,11 +229,11 @@ export default function VendorCancel() {
                                             <tr>
                                                 <td>{reviewObj?.cancel_file?.name}</td>
                                                 <td>
-                                                    <a href={reviewObj?.cancel_file?.draft} target="_blank">
+                                                    <a href={reviewObj?.cancel_file?.draft} target="_blank" rel="noreferrer">
                                                         {t("agreementview")}
                                                     </a>{" "}
                                                     |{" "}
-                                                    <a href={reviewObj?.cancel_file?.draft} target="_blank">
+                                                    <a href={reviewObj?.cancel_file?.draft} target="_blank" rel="noreferrer">
                                                         {t("download")}
                                                     </a>
                                                 </td>
@@ -245,11 +245,20 @@ export default function VendorCancel() {
                                                         hidden
                                                         onChange={inputFileOnChange}
                                                     />
+                                                    { reviewObj?.cancel_file?.cancel_file ?
+                                                        <>
+                                                            <a href={reviewObj?.cancel_file?.cancel_file} target="_blank" rel="noreferrer">
+                                                                {t("agreementview")}
+                                                            </a>
+                                                            {" | "}
+                                                        </>
+                                                        : null
+                                                    }
                                                     <button onClick={() => inputFile.current?.click()}>
                                                         {t("upload")}
                                                     </button>
                                                 </td>
-                                                <td className="text-center">{t(reviewObj?.approve_file?.status)}</td>
+                                                <td className="text-center">{t(reviewObj?.cancel_file?.status)}</td>
                                             </tr>
                                         </tbody>
                                     </table>
