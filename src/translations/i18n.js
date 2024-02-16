@@ -260,6 +260,7 @@ i18n
                     canceltransactionconfirm: 'Are you sure to cancel transaction ?',
                     yes: 'Yes',
                     canceltransactionstatus: 'Cancel Transaction',
+                    otherbrand: 'Other Brand',
                     // Add other EN translations here
                 },
             },
@@ -514,6 +515,7 @@ i18n
                     canceltransactionconfirm: 'Apakah anda yakin akan batalkan transaksi ?',
                     yes: 'Ya',
                     canceltransactionstatus: 'Transaksi Batal',
+                    otherbrand: 'Brand Lain',
                     // Add other ID translations here
                 },
             },

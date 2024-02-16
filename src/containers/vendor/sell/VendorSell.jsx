@@ -2,7 +2,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import "./vendorsell.scoped.scss";
 import { useLocation } from "react-router-dom";
 import "react-responsive-modal/styles.css";
-import CreatableSelect from "react-select/creatable";
+import CreatableSelect from "react-select";
 import Api from "../../../utils/Api";
 import Modal from "react-bootstrap/Modal";
 import { LoadingContext } from "../../../context/LoadingContext";
@@ -114,10 +114,19 @@ export default function VendorSell() {
     const [formData, setFormData] = useState({});
     const [errorObj422, setErrorObj422] = useState({});
 
+    const [newBrandName, setNewBrandName] = useState("");
+
     // Automatically scrolls to top whenever pathname changes
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [pathname]);
+
+    useEffect(() => {
+        setBrands((c) => {
+            c.pop();
+            return [...c, { value: -1, label: t("otherbrand") }];
+        });
+    }, [t]);
 
     useEffect(() => {
         setLoading(true);
@@ -157,7 +166,7 @@ export default function VendorSell() {
             });
         const bra = Api.get("/brand")
             .then(res => {
-                setBrands(res.data.data.map(c => ({ value: c.id, label: c.name })));
+                setBrands([...res.data.data.map(c => ({ value: c.id, label: c.name })), { value: -1, label: t("otherbrand") }]);
             })
             .catch(err => {
                 console.log(err);
@@ -200,7 +209,7 @@ export default function VendorSell() {
         const form_data_insert = new FormData();
 
         for (var key in formData) {
-            form_data_insert.append(key, formData[key]);
+            form_data_insert.set(key, formData[key]);
         }
 
         for (const { file } of imageBlobs) {
@@ -214,21 +223,44 @@ export default function VendorSell() {
             form_data_insert.append("commission", 0);
         }
 
-        Api.post("/vendor-product", form_data_insert, {
-            headers: {
-                Authorization: "Bearer " + localStorage.getItem("apiToken")
-            }
-        })
-            .then(res => {
-                navigate(`/account/vendor/review/${res.data.data.id}`);
-            })
-            .catch(err => {
-                toast.error("Error validations");
-                ApiErrorHandling.handlingErr(err, [setErrorObj422]);
-            })
-            .finally(() => {
-                setLoading(false);
+        let brandPromise;
+
+        if (selectedBrand?.value == -1 && newBrandName) {
+            brandPromise = Api.post(`/brand`, {
+                name: newBrandName,
+            }, {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("apiToken")
+                }
+            }).then((res) => {
+                form_data_insert.set("brand_id", res.data.data.id);
+            }).catch((err) => {
+                console.log(err);
             });
+        } else {
+            form_data_insert.delete("brand_id");
+            brandPromise = Promise.resolve(true);
+        }
+
+        brandPromise.then(() => {
+            Api.post("/vendor-product", form_data_insert, {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("apiToken")
+                }
+            })
+                .then(res => {
+                    navigate(`/account/vendor/review/${res.data.data.id}`);
+                })
+                .catch(err => {
+                    toast.error("Error validations");
+                    ApiErrorHandling.handlingErr(err, [setErrorObj422]);
+                })
+                .finally(() => {
+                    setLoading(false);
+                });
+        }).catch((err) => {
+            console.log(err);
+        })
     };
 
     return (
@@ -538,104 +570,121 @@ export default function VendorSell() {
                                             <></>
                                         )}
                                     </div>
-                                    <div className="one-col col">
-                                        <CreatableSelect
-                                            styles={{
-                                                placeholder: defaultStyles => {
-                                                    return {
-                                                        ...defaultStyles,
-                                                        color: "#A2A3B1",
+                                    <div className={`${ selectedBrand?.value != -1 ? "one-col" : "two-col" } col`}>
+                                        <div>
+                                            <CreatableSelect
+                                                styles={{
+                                                    placeholder: defaultStyles => {
+                                                        return {
+                                                            ...defaultStyles,
+                                                            color: "#A2A3B1",
+                                                            fontSize: "10px",
+                                                            fontWeight: "600",
+                                                            fontFamily: "'Inter', sans-serif",
+                                                            marginLeft: ".6rem"
+                                                        };
+                                                    },
+                                                    control: (baseStyles, state) => ({
+                                                        ...baseStyles,
+                                                        borderColor: errorObj422.brand_id ? "#dc3545" : "#C4C4C4",
+                                                        borderWidth: "1px",
+                                                        boxShadow: "none",
+                                                        backgroundColor: state.isDisabled ? "transparent" : "transparent",
+                                                        "&:hover": {
+                                                            borderColor: "#C4C4C4"
+                                                        }
+                                                    }),
+                                                    singleValue: (baseStyles, state) => ({
+                                                        ...baseStyles,
+                                                        color: "#000",
+                                                        fontSize: "12px",
+                                                        fontWeight: "500",
+                                                        fontFamily: "'Cabin', sans-serif"
+                                                    }),
+                                                    container: (baseStyles, state) => ({
+                                                        ...baseStyles,
+                                                        width: "100%"
+                                                    }),
+                                                    input: (baseStyles, state) => ({
+                                                        ...baseStyles,
+                                                        color: "#545454",
                                                         fontSize: "10px",
-                                                        fontWeight: "600",
+                                                        fontWeight: "normal",
+                                                        fontFamily: "'Inter', sans-serif"
+                                                    }),
+                                                    option: (baseStyles, state) => ({
+                                                        ...baseStyles,
+                                                        backgroundColor: state.isDisabled ? "transparent" : "transparent",
+                                                        color: "#000",
+                                                        fontSize: "10px",
+                                                        fontWeight: state.isDisabled ? "700" : "400",
                                                         fontFamily: "'Inter', sans-serif",
-                                                        marginLeft: ".6rem"
-                                                    };
-                                                },
-                                                control: (baseStyles, state) => ({
-                                                    ...baseStyles,
-                                                    borderColor: errorObj422.brand_id ? "#dc3545" : "#C4C4C4",
-                                                    borderWidth: "1px",
-                                                    boxShadow: "none",
-                                                    backgroundColor: state.isDisabled ? "transparent" : "transparent",
-                                                    "&:hover": {
-                                                        borderColor: "#C4C4C4"
-                                                    }
-                                                }),
-                                                singleValue: (baseStyles, state) => ({
-                                                    ...baseStyles,
-                                                    color: "#000",
-                                                    fontSize: "12px",
-                                                    fontWeight: "500",
-                                                    fontFamily: "'Cabin', sans-serif"
-                                                }),
-                                                container: (baseStyles, state) => ({
-                                                    ...baseStyles,
-                                                    width: "100%"
-                                                }),
-                                                input: (baseStyles, state) => ({
-                                                    ...baseStyles,
-                                                    color: "#545454",
-                                                    fontSize: "10px",
-                                                    fontWeight: "normal",
-                                                    fontFamily: "'Inter', sans-serif"
-                                                }),
-                                                option: (baseStyles, state) => ({
-                                                    ...baseStyles,
-                                                    backgroundColor: state.isDisabled ? "transparent" : "transparent",
-                                                    color: "#000",
-                                                    fontSize: "10px",
-                                                    fontWeight: state.isDisabled ? "700" : "400",
-                                                    fontFamily: "'Inter', sans-serif",
-                                                    borderBottom: state.isDisabled ? "1px solid #C4C4C4;" : "0px",
-                                                    "&:hover": {
-                                                        backgroundColor: state.isDisabled ? "#FFF" : "#000",
-                                                        color: state.isDisabled ? "#000" : "#FFF"
-                                                    }
-                                                })
-                                            }}
-                                            name=""
-                                            formatCreateLabel={(inputValue) => {
-                                                return `${t("addbrand")} "${inputValue}"`
-                                            }}
-                                            isDisabled={isLoadingBrands}
-                                            isLoading={isLoadingBrands}
-                                            onCreateOption={(inputValue) => {
-                                                setIsLoadingBrands(true);
-                                                Api.post(`/brand`, {
-                                                    name: inputValue,
-                                                }, {
-                                                    headers: {
-                                                        Authorization: "Bearer " + localStorage.getItem("apiToken")
-                                                    }
-                                                }).then((res) => {
-                                                    const newOption = {
-                                                        label: inputValue,
-                                                        value: res.data.data.id,
-                                                    }
-                                                    setBrands((prev) => [...prev, newOption]);
-                                                    setSelectedBrand(newOption);
-                                                }).catch((err) => {
-                                                    console.log(err);
-                                                }).finally(() => {
-                                                    setIsLoadingBrands(false);
-                                                });
-                                            }}
-                                            defaultOptions
-                                            placeholder={"Brand"}
-                                            value={selectedBrand}
-                                            onChange={option => {
-                                                const d = Object.assign({}, formData);
-                                                d.brand_id = option.value;
-                                                setFormData(d);
-                                                setSelectedBrand(option);
-                                            }}
-                                            options={brands}
-                                        />
-                                        {errorObj422.brand_id ? (
-                                            <span className="invalid-feedback">{errorObj422.brand_id}</span>
-                                        ) : (
-                                            <></>
-                                        )}
+                                                        borderBottom: state.isDisabled ? "1px solid #C4C4C4;" : "0px",
+                                                        "&:hover": {
+                                                            backgroundColor: state.isDisabled ? "#FFF" : "#000",
+                                                            color: state.isDisabled ? "#000" : "#FFF"
+                                                        }
+                                                    })
+                                                }}
+                                                name=""
+                                                // formatCreateLabel={(inputValue) => {
+                                                //     return `${t("addbrand")} "${inputValue}"`
+                                                // }}
+                                                isDisabled={isLoadingBrands}
+                                                isLoading={isLoadingBrands}
+                                                // onCreateOption={(inputValue) => {
+                                                //     setIsLoadingBrands(true);
+                                                //     Api.post(`/brand`, {
+                                                //         name: inputValue,
+                                                //     }, {
+                                                //         headers: {
+                                                //             Authorization: "Bearer " + localStorage.getItem("apiToken")
+                                                //         }
+                                                //     }).then((res) => {
+                                                //         const newOption = {
+                                                //             label: inputValue,
+                                                //             value: res.data.data.id,
+                                                //         }
+                                                //         setBrands((prev) => [...prev, newOption]);
+                                                //         setSelectedBrand(newOption);
+                                                //     }).catch((err) => {
+                                                //         console.log(err);
+                                                //     }).finally(() => {
+                                                //         setIsLoadingBrands(false);
+                                                //     });
+                                                // }}
+                                                defaultOptions
+                                                placeholder={"Brand"}
+                                                value={selectedBrand}
+                                                onChange={option => {
+                                                    const d = Object.assign({}, formData);
+                                                    d.brand_id = option.value;
+                                                    setFormData(d);
+                                                    setSelectedBrand(option);
+                                                }}
+                                                options={brands}
+                                            />
+                                            {errorObj422.brand_id ? (
+                                                <span className="invalid-feedback">{errorObj422.brand_id}</span>
+                                            ) : (
+                                                <></>
+                                            )}
+                                        </div>
+                                        { selectedBrand?.value == -1?
+                                        <div>
+                                            <input
+                                                className={`form-control`}
+                                                type="text"
+                                                name=""
+                                                id=""
+                                                placeholder={`Brand`}
+                                                value={newBrandName}
+                                                onInput={event => {
+                                                    setNewBrandName(event.target.value);
+                                                }}
+                                            />
+                                        </div>
+                                        : null }
                                     </div>
                                     <div className="one-col col">
                                         <Select
