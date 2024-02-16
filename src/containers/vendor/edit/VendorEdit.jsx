@@ -341,34 +341,57 @@ export default function VendorEdit() {
             form_data_insert.set("commission", 0);
         }
 
-        const dataInsert = {};
+        let brandPromise;
 
-        for (var pair of form_data_insert.entries()) {
-            dataInsert[pair[0]] = pair[1];
+        if (selectedBrand?.value == -1 && newBrandName) {
+            brandPromise = Api.post(`/brand`, {
+                name: newBrandName,
+            }, {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("apiToken")
+                }
+            }).then((res) => {
+                form_data_insert.set("brand_id", res.data.data.id);
+            }).catch((err) => {
+                console.log(err);
+            });
+        } else {
+            form_data_insert.delete("brand_id");
+            brandPromise = Promise.resolve(true);
         }
 
-        const p = Api.put(`/vendor-product/${id}`, dataInsert, {
-            headers: {
-                Authorization: "Bearer " + localStorage.getItem("apiToken")
-            }
-        })
-
-        Promise.all([i, p])
+        Promise.all([i, brandPromise])
             .then(res => {
-                navigate(`/account/vendor/review/${id}`);
+                const dataInsert = {};
+
+                for (var pair of form_data_insert.entries()) {
+                    dataInsert[pair[0]] = pair[1];
+                }
+
+                Api.put(`/vendor-product/${id}`, dataInsert, {
+                    headers: {
+                        Authorization: "Bearer " + localStorage.getItem("apiToken")
+                    }
+                })
+                    .then(() => {
+                        navigate(`/account/vendor/review/${id}`);
+                    })
+                    .catch(err => {
+                        toast.error("Error validations");
+                        ApiErrorHandling.handlingErr(err, [setErrorObj422]);
+                        setImageBlobs((c) => {
+                            return c.map(({url}) => ({
+                                type: "URL",
+                                url: url,
+                            }));
+                        });
+                    })
+                    .finally(() => {
+                        setLoading(false);
+                    });
             })
             .catch(err => {
-                toast.error("Error validations");
-                ApiErrorHandling.handlingErr(err, [setErrorObj422]);
-                setImageBlobs((c) => {
-                    return c.map(({url}) => ({
-                        type: "URL",
-                        url: url,
-                    }));
-                });
-            })
-            .finally(() => {
-                setLoading(false);
+                console.log(err);
             });
     };
 
