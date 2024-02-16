@@ -5,9 +5,12 @@ import './account-order-layout.scoped.scss'
 import { IconPlus } from "@tabler/icons-react";
 import { useContext } from "react";
 import { AuthUserContext } from "../../../context/AuthUserContext";
+import { useTranslation } from "react-i18next";
 
 export default function AccountOrderLayoutComponent({ children, breadcrumb, title, description, buttonAddress, position, setShowButtonAddress }) {
     const { doLogout } = useContext(AuthUserContext)
+
+    const { t } = useTranslation();
 
     return (
         <div>
@@ -25,7 +28,7 @@ export default function AccountOrderLayoutComponent({ children, breadcrumb, titl
                             <hr />
                             <ul>
                                 <li><Link to={'/account/address'} className={position == 'Address' ? 'active' : ''}>Address</Link></li>
-                                <li><Link to={'/account/vendor'} className={position == 'Vendor' ? 'active' : ''}>Vendor</Link></li>
+                                <li><Link to={'/account/vendor'} className={position == 'Vendor' ? 'active' : ''}>{t("consigner")}</Link></li>
                                 <li><Link to={'/logout'} onClick={(e) => {
                                     e.preventDefault()
                                     doLogout(() => {

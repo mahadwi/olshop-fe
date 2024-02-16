@@ -131,7 +131,7 @@ i18n
                     insurancecontent: 'You may choose whether or not you want to add insurance to your delivery. The cost of insurance will be calculated according to the value of your order on the checkout page.',
                     welcometoluxi: 'Welcome to LUXI!',
                     startregistration: 'Start Registration',
-                    startregistrationcontent: 'To start as a vendor, register and complete the following information by clicking start registration',
+                    startregistrationcontent: 'To start as a consigner, register and complete the following information by clicking start registration',
                     accountinformation: 'Account Information',
                     productinformation: 'Product Information',
                     reviewvendor: 'Review',
@@ -264,6 +264,7 @@ i18n
                     deadline: 'Deadline',
                     toastuploaddocumentsuccess: 'Document uploaded successfully',
                     toastuploaddocumentfailed: 'Document failed to upload',
+                    consigner: 'Consigner',
                     // Add other EN translations here
                 },
             },
@@ -390,7 +391,7 @@ i18n
                     insurancecontent: 'Anda dapat memilih apakah Anda ingin menambahkan asuransi pada pengiriman Anda atau tidak. Biaya asuransi akan dihitung sesuai dengan nilai pesanan Anda di halaman pembayaran.',
                     welcometoluxi: 'Selamat datang di LUXI!',
                     startregistration: 'Mulai Pendaftaran',
-                    startregistrationcontent: 'Untuk memulai sebagai vendor, daftar dan lengkapi informasi berikut dengan mengklik mulai pendaftaran',
+                    startregistrationcontent: 'Untuk memulai sebagai konsinyor, daftar dan lengkapi informasi berikut dengan mengklik mulai pendaftaran',
                     accountinformation: 'Informasi Akun',
                     productinformation: 'Informasi Produk',
                     reviewvendor: 'Tinjauan',
@@ -522,6 +523,7 @@ i18n
                     deadline: 'Tenggat Waktu',
                     toastuploaddocumentsuccess: 'Dokumen berhasil diunggah',
                     toastuploaddocumentfailed: 'Dokumen gagal diunggah',
+                    consigner: 'Konsinyor',
                     // Add other ID translations here
                 },
             },
