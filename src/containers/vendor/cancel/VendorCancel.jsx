@@ -11,6 +11,7 @@ import ContainerComponent from "../../../components/general/container/ContainerC
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import { IconCircleCheck, IconCircleX } from "@tabler/icons-react";
 
 export default function VendorCancel() {
     /**
@@ -82,19 +83,37 @@ export default function VendorCancel() {
         form_data_insert.append("type", "cancel");
         form_data_insert.append("file", file);
 
-        const postFile = Api.post("/vendor-product-upload", form_data_insert, {
+        setLoading(true);
+
+        Api.post("/vendor-product-upload", form_data_insert, {
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("apiToken")
             }
-        });
-
-        toast.promise(postFile, {
-            loading: `${t("upload")} ${"document"}...`,
-            success: () => {
-                t("uploadsuccess");
-                loadReviewObj();
-            },
-            error: "Error validations"
+        }).then(() => {
+            toast(
+                <div>
+                    <div className="text-center">
+                        <IconCircleCheck size={212} color={`#5cb85c`} />
+                    </div>
+                    <div>
+                        {t("toastuploaddocumentsuccess")}
+                    </div>
+                </div>
+            );
+            loadReviewObj();
+        }).catch(err => {
+            toast(
+                <div>
+                    <div className="text-center">
+                        <IconCircleX size={212} color={`#ff3333`} />
+                    </div>
+                    <div>
+                        {t("toastuploaddocumentfailed")}
+                    </div>
+                </div>
+            );
+        }).finally(() => {
+            setLoading(false);
         });
     };
 

@@ -262,6 +262,8 @@ i18n
                     canceltransactionstatus: 'Cancel Transaction',
                     otherbrand: 'Other Brand',
                     deadline: 'Deadline',
+                    toastuploaddocumentsuccess: 'Document uploaded successfully',
+                    toastuploaddocumentfailed: 'Document failed to upload',
                     // Add other EN translations here
                 },
             },
@@ -518,6 +520,8 @@ i18n
                     canceltransactionstatus: 'Transaksi Batal',
                     otherbrand: 'Brand Lain',
                     deadline: 'Tenggat Waktu',
+                    toastuploaddocumentsuccess: 'Dokumen berhasil diunggah',
+                    toastuploaddocumentfailed: 'Dokumen gagal diunggah',
                     // Add other ID translations here
                 },
             },

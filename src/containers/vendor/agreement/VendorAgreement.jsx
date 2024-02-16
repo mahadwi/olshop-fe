@@ -10,6 +10,7 @@ import ContainerComponent from "../../../components/general/container/ContainerC
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
+import { IconCircleCheck, IconCircleX } from "@tabler/icons-react";
 
 export default function VendorAgreement() {
     /**
@@ -101,7 +102,16 @@ export default function VendorAgreement() {
                 }
             })
                 .then(res => {
-                    toast.success("Agreement has been uploaded");
+                    toast(
+                        <div>
+                            <div className="text-center">
+                                <IconCircleCheck size={212} color={`#5cb85c`} />
+                            </div>
+                            <div>
+                                {t("toastuploaddocumentsuccess")}
+                            </div>
+                        </div>
+                    );
                     const ob = res.data.data;
                     setAgreementsArr(c => {
                         return c.map(obj => {
@@ -113,7 +123,16 @@ export default function VendorAgreement() {
                     });
                 })
                 .catch(err => {
-                    toast.error("Error validations");
+                    toast(
+                        <div>
+                            <div className="text-center">
+                                <IconCircleX size={212} color={`#ff3333`} />
+                            </div>
+                            <div>
+                                {t("toastuploaddocumentfailed")}
+                            </div>
+                        </div>
+                    );
                 })
                 .finally(() => {
                     setLoading(false);
@@ -184,19 +203,15 @@ export default function VendorAgreement() {
                                                 <td>{agreementObj.name}</td>
                                                 <td>
                                                     {agreementObj.file ? (
+                                                        <>
                                                         <a href={agreementObj.file} target="_blank">
                                                             {t("agreementview")}
                                                         </a>
-                                                    ) : (
-                                                        <></>
-                                                    )}
-
-                                                    {agreementObj.draft && agreementObj.file ? " | " : <></>}
-
-                                                    {agreementObj.draft ? (
-                                                        <a href={agreementObj.draft} target="_blank">
+                                                        {" | "}
+                                                        <a href={agreementObj.file} target="_blank">
                                                             {t("download")}
                                                         </a>
+                                                        </>
                                                     ) : (
                                                         <></>
                                                     )}
