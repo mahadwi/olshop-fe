@@ -35,7 +35,8 @@ export default function ConsignmentIndex() {
     const [sections, setSections] = useState({})
     const [brands, setBrands] = useState([])
     const [modalCard, setModalCard] = useState(false)
-    const [contentModalCard, setContentModalCard] = useState('')
+    // const [contentModalCard, setContentModalCard] = useState('')
+    const [commissions, setCommissions] = useState([])
 
     useEffect(() => {
         loadBreadcrumb()
@@ -66,7 +67,13 @@ export default function ConsignmentIndex() {
                     setBrands(res.data.data.slice(0,4));
                 }
             })
-        Promise.all([getConsignment, getBrands])
+        const getCommission = Api.get('/commission')
+            .then((res) => {
+                if (res) {
+                    setCommissions(res.data.data);
+                }
+            })
+        Promise.all([getConsignment, getBrands, getCommission])
             .finally(() => {
                 setLoading(false);
             });
@@ -97,7 +104,23 @@ export default function ConsignmentIndex() {
                 <Modal.Header closeButton>
                 </Modal.Header>
                 <Modal.Body>
-                    <div dangerouslySetInnerHTML={{__html: contentModalCard}}></div>
+                    {/* <div dangerouslySetInnerHTML={{__html: contentModalCard}}></div> */}
+                    <div>
+                    { commissions.map((c) => {
+                        return (
+                            <>
+                                <p>{c.brand} ({c.category})</p>
+                                {
+                                    c.details.map((d) => {
+                                        const min = Number(d.min);
+                                        const max = Number(d.max);
+                                        return <p>{min ? null : "<"}{max ? null : ">"} {min ? min.toLocaleString("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }) : null } {min && max ? " - " : ""  } {max ? max.toLocaleString("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }) : null} = {d.percent}%</p>
+                                    })
+                                }
+                            </>
+                        );
+                    }) }
+                    </div>
                 </Modal.Body>
             </Modal>
             {/* End of Modal Card */}
@@ -162,7 +185,7 @@ export default function ConsignmentIndex() {
                                                             : null}
                                                             {s.loadmore_type == 'Modal' ? 
                                                                 <button className='learn-more' onClick={() => {
-                                                                    setContentModalCard(s.loadmore_text);
+                                                                    // setContentModalCard(s.loadmore_text);
                                                                     setModalCard(true);
                                                                 }}>{t('learnmore')}</button>
                                                             : null}
