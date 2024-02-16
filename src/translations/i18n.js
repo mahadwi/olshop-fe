@@ -261,6 +261,7 @@ i18n
                     yes: 'Yes',
                     canceltransactionstatus: 'Cancel Transaction',
                     otherbrand: 'Other Brand',
+                    deadline: 'Deadline',
                     // Add other EN translations here
                 },
             },
@@ -516,6 +517,7 @@ i18n
                     yes: 'Ya',
                     canceltransactionstatus: 'Transaksi Batal',
                     otherbrand: 'Brand Lain',
+                    deadline: 'Tenggat Waktu',
                     // Add other ID translations here
                 },
             },

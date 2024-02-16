@@ -368,6 +368,16 @@
                         .col {
                             margin-bottom: 0.7rem;
 
+                            label.form-label {
+                                margin-bottom: 0.4rem;
+                                color: #000;
+                                font-family: 'Inter', sans-serif;
+                                font-size: 12px;
+                                font-style: normal;
+                                font-weight: 400;
+                                line-height: normal;
+                            }
+
                             input {
                                 border-radius: 5px;
                                 border: 1px solid #c8d1e1;

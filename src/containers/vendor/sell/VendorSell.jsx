@@ -552,11 +552,12 @@ export default function VendorSell() {
                                 </div>
                                 <div className="form-area">
                                     <div className="one-col col">
+                                        <label className="form-label" htmlFor="inputName">{t("name")}</label>
                                         <input
                                             className={`form-control ${errorObj422.name ? "is-invalid" : ""}`}
                                             type="text"
                                             name=""
-                                            id=""
+                                            id="inputName"
                                             placeholder={t("name")}
                                             onInput={event => {
                                                 const d = Object.assign({}, formData);
@@ -572,6 +573,7 @@ export default function VendorSell() {
                                     </div>
                                     <div className={`${ selectedBrand?.value != -1 ? "one-col" : "two-col" } col`}>
                                         <div>
+                                            <label className="form-label" htmlFor="inputBrand">Brand</label>
                                             <CreatableSelect
                                                 styles={{
                                                     placeholder: defaultStyles => {
@@ -627,6 +629,7 @@ export default function VendorSell() {
                                                     })
                                                 }}
                                                 name=""
+                                                id="inputBrand"
                                                 // formatCreateLabel={(inputValue) => {
                                                 //     return `${t("addbrand")} "${inputValue}"`
                                                 // }}
@@ -672,12 +675,13 @@ export default function VendorSell() {
                                         </div>
                                         { selectedBrand?.value == -1?
                                         <div>
+                                            <label className="form-label" htmlFor="inputBrandName">Brand {t("name")}</label>
                                             <input
                                                 className={`form-control`}
                                                 type="text"
                                                 name=""
-                                                id=""
-                                                placeholder={`Brand`}
+                                                id="inputBrandName"
+                                                placeholder={`Brand ${t("name")}`}
                                                 value={newBrandName}
                                                 onInput={event => {
                                                     setNewBrandName(event.target.value);
@@ -687,6 +691,7 @@ export default function VendorSell() {
                                         : null }
                                     </div>
                                     <div className="one-col col">
+                                        <label className="form-label" htmlFor="inputCategory">{t("category")}</label>
                                         <Select
                                             styles={{
                                                 placeholder: defaultStyles => {
@@ -744,6 +749,7 @@ export default function VendorSell() {
                                                 })
                                             }}
                                             name=""
+                                            id="inputCategory"
                                             defaultOptions
                                             placeholder={t("category")}
                                             value={selectedCategories}
@@ -763,6 +769,7 @@ export default function VendorSell() {
                                     </div>
                                     <div className="two-col col">
                                         <div>
+                                            <label className="form-label" htmlFor="inputCondition">{t("condition")}</label>
                                             <Select
                                                 styles={{
                                                     placeholder: defaultStyles => {
@@ -822,6 +829,7 @@ export default function VendorSell() {
                                                     })
                                                 }}
                                                 name=""
+                                                id="inputCondition"
                                                 defaultOptions
                                                 placeholder={t("condition")}
                                                 value={selectedCondition}
@@ -840,13 +848,14 @@ export default function VendorSell() {
                                             )}
                                         </div>
                                         <div>
+                                            <label className="form-label" htmlFor="inputDeadline">{t("deadline")}</label>
                                             <input
                                                 className={`form-control ${
                                                     errorObj422.product_deadline ? "is-invalid" : ""
                                                 }`}
                                                 type="date"
                                                 name=""
-                                                id=""
+                                                id="inputDeadline"
                                                 placeholder={`${t("productdeadline")} (cm)`}
                                                 onInput={event => {
                                                     const d = Object.assign({}, formData);
@@ -863,12 +872,13 @@ export default function VendorSell() {
                                     </div>
                                     <div className="two-col col">
                                         <div>
+                                            <label className="form-label" htmlFor="inputWeight">{t("weight")}</label>
                                             <input
                                                 className={`form-control ${errorObj422.weight ? "is-invalid" : ""}`}
                                                 type="number"
                                                 min={1}
                                                 name=""
-                                                id=""
+                                                id="inputWeight"
                                                 placeholder={`${t("weight")} (Kg)`}
                                                 onInput={event => {
                                                     const v = inputNonNegativeValue(event);
@@ -884,12 +894,13 @@ export default function VendorSell() {
                                             )}
                                         </div>
                                         <div>
+                                            <label className="form-label" htmlFor="inputLength">{t("length")}</label>
                                             <input
                                                 className={`form-control ${errorObj422.length ? "is-invalid" : ""}`}
                                                 type="number"
                                                 min={1}
                                                 name=""
-                                                id=""
+                                                id="inputLength"
                                                 placeholder={`${t("length")} (cm)`}
                                                 onInput={event => {
                                                     const v = inputNonNegativeValue(event);
@@ -907,12 +918,13 @@ export default function VendorSell() {
                                     </div>
                                     <div className="two-col col">
                                         <div>
+                                            <label className="form-label" htmlFor="inputWidth">{t("width")}</label>
                                             <input
                                                 className={`form-control ${errorObj422.width ? "is-invalid" : ""}`}
                                                 type="number"
                                                 min={1}
                                                 name=""
-                                                id=""
+                                                id="inputWidth"
                                                 placeholder={`${t("width")} (cm)`}
                                                 onInput={event => {
                                                     const v = inputNonNegativeValue(event);
@@ -928,12 +940,13 @@ export default function VendorSell() {
                                             )}
                                         </div>
                                         <div>
+                                            <label className="form-label" htmlFor="inputHeight">{t("height")}</label>
                                             <input
-                                                className={`form-control ${errorObj422.width ? "is-invalid" : ""}`}
+                                                className={`form-control ${errorObj422.height ? "is-invalid" : ""}`}
                                                 type="number"
                                                 min={1}
                                                 name=""
-                                                id=""
+                                                id="inputHeight"
                                                 placeholder={`${t("height")} (cm)`}
                                                 onInput={event => {
                                                     const v = inputNonNegativeValue(event);
@@ -951,11 +964,12 @@ export default function VendorSell() {
                                     </div>
                                     <div className="two-col col">
                                         <div>
+                                            <label className="form-label" htmlFor="inputPrice">{t("price")} (RP)</label>
                                             <input
                                                 className={`form-control ${errorObj422.price ? "is-invalid" : ""}`}
                                                 type="text"
                                                 name=""
-                                                id=""
+                                                id="inputPrice"
                                                 placeholder={`${t("price")} (RP)`}
                                                 onInput={event => {
                                                     const v = inputNonNegativeValue(event);
@@ -971,12 +985,13 @@ export default function VendorSell() {
                                             )}
                                         </div>
                                         <div>
+                                            <label className="form-label" htmlFor="inputPriceUsd">{t("price")} (USD)</label>
                                             <input
                                                 className={`form-control ${errorObj422.price_usd ? "is-invalid" : ""}`}
                                                 type="text"
                                                 min={1}
                                                 name=""
-                                                id=""
+                                                id="inputPriceUsd"
                                                 placeholder={`${t("price")} (USD)`}
                                                 onInput={event => {
                                                     const v = inputUsdFormat(event);
@@ -994,6 +1009,7 @@ export default function VendorSell() {
                                     </div>
                                     <div className="two-col col">
                                         <div>
+                                            <label className="form-label" htmlFor="inputCommissionType">{t("commissiontype")}</label>
                                             <Select
                                                 styles={{
                                                     placeholder: defaultStyles => {
@@ -1055,6 +1071,7 @@ export default function VendorSell() {
                                                     })
                                                 }}
                                                 name="commissiontype"
+                                                id="inputCommissionType"
                                                 defaultOptions
                                                 placeholder={t("commissiontype")}
                                                 value={commissionType}
@@ -1088,6 +1105,7 @@ export default function VendorSell() {
                                             )}
                                         </div>
                                         <div>
+                                            <label className="form-label" htmlFor="commision">{t("commission")} (%)</label>
                                             <input
                                                 className={`form-control ${errorObj422.commission ? "is-invalid" : ""}`}
                                                 style={{
@@ -1115,6 +1133,7 @@ export default function VendorSell() {
                                     </div>
                                     <div className="two-col col">
                                         <div>
+                                            <label className="form-label" htmlFor="sale_price">{t("saleprice")} (RP)</label>
                                             <input
                                                 className={`form-control ${errorObj422.sale_price ? "is-invalid" : ""}`}
                                                 type="text"
@@ -1139,6 +1158,7 @@ export default function VendorSell() {
                                             )}
                                         </div>
                                         <div>
+                                            <label className="form-label" htmlFor="sale_usd">{t("saleprice")} (USD)</label>
                                             <input
                                                 className={`form-control ${errorObj422.sale_usd ? "is-invalid" : ""}`}
                                                 type="text"
@@ -1165,6 +1185,7 @@ export default function VendorSell() {
                                     </div>
                                     <div className="one-col col">
                                         <div className="one-col col">
+                                            <label className="form-label" htmlFor="inputColor">{t("color")}</label>
                                             <Select
                                                 styles={{
                                                     placeholder: defaultStyles => {
@@ -1226,6 +1247,7 @@ export default function VendorSell() {
                                                     })
                                                 }}
                                                 name=""
+                                                id="inputColor"
                                                 defaultOptions
                                                 placeholder={t("color").toUpperCase()}
                                                 value={selectedColor}
@@ -1251,10 +1273,11 @@ export default function VendorSell() {
                                 </div>
                                 <div className="form-area">
                                     <div className="one-col col">
+                                        <label className="form-label" htmlFor="inputDescriptionId">{t("descriptionindonesia")}</label>
                                         <textarea
                                             className={`form-control ${errorObj422.description ? "is-invalid" : ""}`}
                                             name=""
-                                            id=""
+                                            id="inputDescriptionId"
                                             cols="30"
                                             rows="10"
                                             placeholder={t("descriptionindonesia")}
@@ -1271,10 +1294,11 @@ export default function VendorSell() {
                                         )}
                                     </div>
                                     <div className="one-col col">
+                                        <label className="form-label" htmlFor="inputDescriptionEn">{t("descriptionenglish")}</label>
                                         <textarea
                                             className={`form-control ${errorObj422.description_en ? "is-invalid" : ""}`}
                                             name=""
-                                            id=""
+                                            id="inputDescriptionEn"
                                             cols="30"
                                             rows="10"
                                             placeholder={t("descriptionenglish")}
@@ -1291,10 +1315,11 @@ export default function VendorSell() {
                                         )}
                                     </div>
                                     <div className="one-col col">
+                                        <label className="form-label" htmlFor="inputHistoryId">{t("historyindonesia")}</label>
                                         <textarea
                                             className="form-control"
                                             name=""
-                                            id=""
+                                            id="inputHistoryId"
                                             cols="30"
                                             rows="10"
                                             placeholder={t("historyindonesia")}
@@ -1306,10 +1331,11 @@ export default function VendorSell() {
                                         />
                                     </div>
                                     <div className="one-col col">
+                                        <label className="form-label" htmlFor="inputHistoryEn">{t("historyenglish")}</label>
                                         <textarea
                                             className="form-control"
                                             name=""
-                                            id=""
+                                            id="inputHistoryEn"
                                             cols="30"
                                             rows="10"
                                             placeholder={t("historyenglish")}

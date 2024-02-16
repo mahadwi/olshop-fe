@@ -2,7 +2,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import "./vendoredit.scoped.scss";
 import { useLocation, useParams } from "react-router-dom";
 import "react-responsive-modal/styles.css";
-import CreatableSelect from "react-select/creatable";
+import CreatableSelect from "react-select";
 import Api from "../../../utils/Api";
 import Modal from "react-bootstrap/Modal";
 import { LoadingContext } from "../../../context/LoadingContext";
@@ -115,10 +115,19 @@ export default function VendorEdit() {
     const [formData, setFormData] = useState({});
     const [errorObj422, setErrorObj422] = useState({});
 
+    const [newBrandName, setNewBrandName] = useState("");
+
     // Automatically scrolls to top whenever pathname changes
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [pathname]);
+
+    useEffect(() => {
+        setBrands((c) => {
+            c.pop();
+            return [...c, { value: -1, label: t("otherbrand") }];
+        });
+    }, [t]);
 
     useEffect(() => {
         setLoading(true);
@@ -159,7 +168,7 @@ export default function VendorEdit() {
         let fetchBrands = [];
         const bra = Api.get("/brand")
             .then(res => {
-                fetchBrands = res.data.data.map(c => ({ value: c.id, label: c.name }));
+                fetchBrands = [...res.data.data.map(c => ({ value: c.id, label: c.name })), { value: -1, label: t("otherbrand") }];
             })
             .catch(err => {
                 console.log(err);
@@ -181,7 +190,7 @@ export default function VendorEdit() {
             setCategories(fetchCategories);
             setBrands(fetchBrands);
 
-            const { brand, category, color, commission_type, id, images, ...d } = fetchProduct;
+            const { brand, category, color, commission_type, id, images, product_deadline, ...d } = fetchProduct;
 
             for (const brandOption of fetchBrands) {
                 if (brandOption.label == brand) {
@@ -222,6 +231,8 @@ export default function VendorEdit() {
                 type: "URL",
                 url: img,
             })));
+
+            d.product_deadline = product_deadline.split("-").reverse().join("-")
 
             setFormData(d);
 
@@ -740,11 +751,12 @@ export default function VendorEdit() {
                                 </div>
                                 <div className="form-area">
                                     <div className="one-col col">
+                                        <label className="form-label" htmlFor="inputName">{t("name")}</label>
                                         <input
                                             className={`form-control ${errorObj422.name ? "is-invalid" : ""}`}
                                             type="text"
                                             name=""
-                                            id=""
+                                            id="inputName"
                                             placeholder={t("name")}
                                             value={formData?.name ?? ""}
                                             onInput={event => {
@@ -759,113 +771,133 @@ export default function VendorEdit() {
                                             <></>
                                         )}
                                     </div>
-                                    <div className="one-col col">
-                                        <CreatableSelect
-                                            styles={{
-                                                placeholder: defaultStyles => {
-                                                    return {
-                                                        ...defaultStyles,
-                                                        color: "#A2A3B1",
-                                                        fontSize: "10px",
-                                                        fontWeight: "600",
-                                                        fontFamily: "'Inter', sans-serif",
-                                                        marginLeft: ".6rem"
-                                                    };
-                                                },
-                                                control: (baseStyles, state) => ({
-                                                    ...baseStyles,
-                                                    borderColor: errorObj422.brand_id ? "#dc3545" : "#C4C4C4",
-                                                    borderWidth: "1px",
-                                                    boxShadow: "none",
-                                                    backgroundColor: state.isDisabled ? "transparent" : "transparent",
-                                                    "&:hover": {
-                                                        borderColor: "#C4C4C4"
-                                                    }
-                                                }),
-                                                singleValue: (baseStyles, state) => ({
-                                                    ...baseStyles,
-                                                    color: "#000",
-                                                    fontSize: "12px",
-                                                    fontWeight: "500",
-                                                    fontFamily: "'Cabin', sans-serif"
-                                                }),
-                                                container: (baseStyles, state) => ({
-                                                    ...baseStyles,
-                                                    width: "100%"
-                                                }),
-                                                input: (baseStyles, state) => ({
-                                                    ...baseStyles,
-                                                    color: "#545454",
-                                                    fontSize: "10px",
-                                                    fontWeight: "normal",
-                                                    fontFamily: "'Inter', sans-serif"
-                                                }),
-                                                option: (baseStyles, state) => ({
-                                                    ...baseStyles,
-                                                    backgroundColor: state.isDisabled ? "transparent" : "transparent",
-                                                    color: "#000",
-                                                    fontSize: "10px",
-                                                    fontWeight: state.isDisabled ? "700" : "400",
-                                                    fontFamily: "'Inter', sans-serif",
-                                                    borderBottom: state.isDisabled ? "1px solid #C4C4C4;" : "0px",
-                                                    "&:hover": {
-                                                        backgroundColor: state.isDisabled ? "#FFF" : "#000",
-                                                        color: state.isDisabled ? "#000" : "#FFF"
-                                                    }
-                                                })
-                                            }}
-                                            name=""
-                                            formatCreateLabel={inputValue => {
-                                                return `${t("addbrand")} "${inputValue}"`;
-                                            }}
-                                            isDisabled={isLoadingBrands}
-                                            isLoading={isLoadingBrands}
-                                            onCreateOption={inputValue => {
-                                                setIsLoadingBrands(true);
-                                                Api.post(
-                                                    `/brand`,
-                                                    {
-                                                        name: inputValue
-                                                    },
-                                                    {
-                                                        headers: {
-                                                            Authorization: "Bearer " + localStorage.getItem("apiToken")
-                                                        }
-                                                    }
-                                                )
-                                                    .then(res => {
-                                                        const newOption = {
-                                                            label: inputValue,
-                                                            value: res.data.data.id
+                                    <div className={`${ selectedBrand?.value != -1 ? "one-col" : "two-col" } col`}>
+                                        <div>
+                                            <label className="form-label" htmlFor="inputBrand">Brand</label>
+                                            <CreatableSelect
+                                                styles={{
+                                                    placeholder: defaultStyles => {
+                                                        return {
+                                                            ...defaultStyles,
+                                                            color: "#A2A3B1",
+                                                            fontSize: "10px",
+                                                            fontWeight: "600",
+                                                            fontFamily: "'Inter', sans-serif",
+                                                            marginLeft: ".6rem"
                                                         };
-                                                        setBrands(prev => [...prev, newOption]);
-                                                        setSelectedBrand(newOption);
+                                                    },
+                                                    control: (baseStyles, state) => ({
+                                                        ...baseStyles,
+                                                        borderColor: errorObj422.brand_id ? "#dc3545" : "#C4C4C4",
+                                                        borderWidth: "1px",
+                                                        boxShadow: "none",
+                                                        backgroundColor: state.isDisabled ? "transparent" : "transparent",
+                                                        "&:hover": {
+                                                            borderColor: "#C4C4C4"
+                                                        }
+                                                    }),
+                                                    singleValue: (baseStyles, state) => ({
+                                                        ...baseStyles,
+                                                        color: "#000",
+                                                        fontSize: "12px",
+                                                        fontWeight: "500",
+                                                        fontFamily: "'Cabin', sans-serif"
+                                                    }),
+                                                    container: (baseStyles, state) => ({
+                                                        ...baseStyles,
+                                                        width: "100%"
+                                                    }),
+                                                    input: (baseStyles, state) => ({
+                                                        ...baseStyles,
+                                                        color: "#545454",
+                                                        fontSize: "10px",
+                                                        fontWeight: "normal",
+                                                        fontFamily: "'Inter', sans-serif"
+                                                    }),
+                                                    option: (baseStyles, state) => ({
+                                                        ...baseStyles,
+                                                        backgroundColor: state.isDisabled ? "transparent" : "transparent",
+                                                        color: "#000",
+                                                        fontSize: "10px",
+                                                        fontWeight: state.isDisabled ? "700" : "400",
+                                                        fontFamily: "'Inter', sans-serif",
+                                                        borderBottom: state.isDisabled ? "1px solid #C4C4C4;" : "0px",
+                                                        "&:hover": {
+                                                            backgroundColor: state.isDisabled ? "#FFF" : "#000",
+                                                            color: state.isDisabled ? "#000" : "#FFF"
+                                                        }
                                                     })
-                                                    .catch(err => {
-                                                        console.log(err);
-                                                    })
-                                                    .finally(() => {
-                                                        setIsLoadingBrands(false);
-                                                    });
-                                            }}
-                                            defaultOptions
-                                            placeholder={"Brand"}
-                                            value={selectedBrand}
-                                            onChange={option => {
-                                                const d = Object.assign({}, formData);
-                                                d.brand_id = option.value;
-                                                setFormData(d);
-                                                setSelectedBrand(option);
-                                            }}
-                                            options={brands}
-                                        />
-                                        {errorObj422.brand_id ? (
-                                            <span className="invalid-feedback">{errorObj422.brand_id}</span>
-                                        ) : (
-                                            <></>
-                                        )}
+                                                }}
+                                                name=""
+                                                // formatCreateLabel={inputValue => {
+                                                //     return `${t("addbrand")} "${inputValue}"`;
+                                                // }}
+                                                isDisabled={isLoadingBrands}
+                                                isLoading={isLoadingBrands}
+                                                // onCreateOption={inputValue => {
+                                                //     setIsLoadingBrands(true);
+                                                //     Api.post(
+                                                //         `/brand`,
+                                                //         {
+                                                //             name: inputValue
+                                                //         },
+                                                //         {
+                                                //             headers: {
+                                                //                 Authorization: "Bearer " + localStorage.getItem("apiToken")
+                                                //             }
+                                                //         }
+                                                //     )
+                                                //         .then(res => {
+                                                //             const newOption = {
+                                                //                 label: inputValue,
+                                                //                 value: res.data.data.id
+                                                //             };
+                                                //             setBrands(prev => [...prev, newOption]);
+                                                //             setSelectedBrand(newOption);
+                                                //         })
+                                                //         .catch(err => {
+                                                //             console.log(err);
+                                                //         })
+                                                //         .finally(() => {
+                                                //             setIsLoadingBrands(false);
+                                                //         });
+                                                // }}
+                                                defaultOptions
+                                                placeholder={"Brand"}
+                                                value={selectedBrand}
+                                                onChange={option => {
+                                                    const d = Object.assign({}, formData);
+                                                    d.brand_id = option.value;
+                                                    setFormData(d);
+                                                    setSelectedBrand(option);
+                                                }}
+                                                options={brands}
+                                            />
+                                            {errorObj422.brand_id ? (
+                                                <span className="invalid-feedback">{errorObj422.brand_id}</span>
+                                            ) : (
+                                                <></>
+                                            )}
+                                        </div>
+                                        { selectedBrand?.value == -1?
+                                        <div>
+                                            <label className="form-label" htmlFor="inputBrandName">Brand {t("name")}</label>
+                                            <input
+                                                className={`form-control`}
+                                                type="text"
+                                                name=""
+                                                id="inputBrandName"
+                                                placeholder={`Brand ${t("name")}`}
+                                                value={newBrandName}
+                                                onInput={event => {
+                                                    setNewBrandName(event.target.value);
+                                                }}
+                                            />
+                                        </div>
+                                        : null }
                                     </div>
                                     <div className="one-col col">
+                                        <label className="form-label" htmlFor="inputCategory">{t("category")}</label>
                                         <Select
                                             styles={{
                                                 placeholder: defaultStyles => {
@@ -942,6 +974,7 @@ export default function VendorEdit() {
                                     </div>
                                     <div className="two-col col">
                                         <div>
+                                            <label className="form-label" htmlFor="inputCondition">{t("condition")}</label>
                                             <Select
                                                 styles={{
                                                     placeholder: defaultStyles => {
@@ -1019,14 +1052,16 @@ export default function VendorEdit() {
                                             )}
                                         </div>
                                         <div>
+                                            <label className="form-label" htmlFor="inputDeadline">{t("deadline")}</label>
                                             <input
                                                 className={`form-control ${
                                                     errorObj422.product_deadline ? "is-invalid" : ""
                                                 }`}
                                                 type="date"
                                                 name=""
-                                                id=""
+                                                id="inputDeadline"
                                                 placeholder={`${t("productdeadline")} (cm)`}
+                                                value={formData.product_deadline}
                                                 onInput={event => {
                                                     const d = Object.assign({}, formData);
                                                     d.product_deadline = event.target.value;
@@ -1042,12 +1077,13 @@ export default function VendorEdit() {
                                     </div>
                                     <div className="two-col col">
                                         <div>
+                                            <label className="form-label" htmlFor="inputWeight">{t("weight")}</label>
                                             <input
                                                 className={`form-control ${errorObj422.weight ? "is-invalid" : ""}`}
                                                 type="number"
                                                 min={1}
                                                 name=""
-                                                id=""
+                                                id="inputWeight"
                                                 placeholder={`${t("weight")} (Kg)`}
                                                 value={formData.weight}
                                                 onInput={event => {
@@ -1064,12 +1100,13 @@ export default function VendorEdit() {
                                             )}
                                         </div>
                                         <div>
+                                            <label className="form-label" htmlFor="inputLength">{t("length")}</label>
                                             <input
                                                 className={`form-control ${errorObj422.length ? "is-invalid" : ""}`}
                                                 type="number"
                                                 min={1}
                                                 name=""
-                                                id=""
+                                                id="inputLength"
                                                 placeholder={`${t("length")} (cm)`}
                                                 value={formData.length}
                                                 onInput={event => {
@@ -1088,12 +1125,13 @@ export default function VendorEdit() {
                                     </div>
                                     <div className="two-col col">
                                         <div>
+                                            <label className="form-label" htmlFor="inputWidth">{t("width")}</label>
                                             <input
                                                 className={`form-control ${errorObj422.width ? "is-invalid" : ""}`}
                                                 type="number"
                                                 min={1}
                                                 name=""
-                                                id=""
+                                                id="inputWidth"
                                                 placeholder={`${t("width")} (cm)`}
                                                 value={formData.width}
                                                 onInput={event => {
@@ -1110,12 +1148,13 @@ export default function VendorEdit() {
                                             )}
                                         </div>
                                         <div>
+                                            <label className="form-label" htmlFor="inputHeight">{t("height")}</label>
                                             <input
-                                                className={`form-control ${errorObj422.width ? "is-invalid" : ""}`}
+                                                className={`form-control ${errorObj422.height ? "is-invalid" : ""}`}
                                                 type="number"
                                                 min={1}
                                                 name=""
-                                                id=""
+                                                id="inputHeight"
                                                 placeholder={`${t("height")} (cm)`}
                                                 value={formData.height}
                                                 onInput={event => {
@@ -1134,11 +1173,12 @@ export default function VendorEdit() {
                                     </div>
                                     <div className="two-col col">
                                         <div>
+                                            <label className="form-label" htmlFor="inputPrice">{t("price")} (RP)</label>
                                             <input
                                                 className={`form-control ${errorObj422.price ? "is-invalid" : ""}`}
                                                 type="text"
                                                 name=""
-                                                id=""
+                                                id="inputPrice"
                                                 placeholder={`${t("price")} (RP)`}
                                                 value={formData.price}
                                                 onInput={event => {
@@ -1155,12 +1195,13 @@ export default function VendorEdit() {
                                             )}
                                         </div>
                                         <div>
+                                            <label className="form-label" htmlFor="inputPriceUsd">{t("price")} (USD)</label>
                                             <input
                                                 className={`form-control ${errorObj422.price_usd ? "is-invalid" : ""}`}
                                                 type="text"
                                                 min={1}
                                                 name=""
-                                                id=""
+                                                id="inputPriceUsd"
                                                 placeholder={`${t("price")} (USD)`}
                                                 value={formData.price_usd}
                                                 onInput={event => {
@@ -1179,6 +1220,7 @@ export default function VendorEdit() {
                                     </div>
                                     <div className="two-col col">
                                         <div>
+                                            <label className="form-label" htmlFor="inputCommissionType">{t("commissiontype")}</label>
                                             <Select
                                                 styles={{
                                                     placeholder: defaultStyles => {
@@ -1269,6 +1311,7 @@ export default function VendorEdit() {
                                             )}
                                         </div>
                                         <div>
+                                            <label className="form-label" htmlFor="commision">{t("commission")} (%)</label>
                                             <input
                                                 className={`form-control ${errorObj422.commission ? "is-invalid" : ""}`}
                                                 style={{
@@ -1297,6 +1340,7 @@ export default function VendorEdit() {
                                     </div>
                                     <div className="two-col col">
                                         <div>
+                                            <label className="form-label" htmlFor="sale_price">{t("saleprice")} (RP)</label>
                                             <input
                                                 className={`form-control ${errorObj422.sale_price ? "is-invalid" : ""}`}
                                                 type="text"
@@ -1322,6 +1366,7 @@ export default function VendorEdit() {
                                             )}
                                         </div>
                                         <div>
+                                            <label className="form-label" htmlFor="sale_usd">{t("saleprice")} (USD)</label>
                                             <input
                                                 className={`form-control ${errorObj422.sale_usd ? "is-invalid" : ""}`}
                                                 type="text"
@@ -1349,6 +1394,7 @@ export default function VendorEdit() {
                                     </div>
                                     <div className="one-col col">
                                         <div className="one-col col">
+                                            <label className="form-label" htmlFor="inputColor">{t("color")}</label>
                                             <Select
                                                 styles={{
                                                     placeholder: defaultStyles => {
@@ -1435,10 +1481,11 @@ export default function VendorEdit() {
                                 </div>
                                 <div className="form-area">
                                     <div className="one-col col">
+                                        <label className="form-label" htmlFor="inputDescriptionId">{t("descriptionindonesia")}</label>
                                         <textarea
                                             className={`form-control ${errorObj422.description ? "is-invalid" : ""}`}
                                             name=""
-                                            id=""
+                                            id="inputDescriptionId"
                                             cols="30"
                                             rows="10"
                                             placeholder={t("descriptionindonesia")}
@@ -1456,10 +1503,11 @@ export default function VendorEdit() {
                                         )}
                                     </div>
                                     <div className="one-col col">
+                                        <label className="form-label" htmlFor="inputDescriptionEn">{t("descriptionenglish")}</label>
                                         <textarea
                                             className={`form-control ${errorObj422.description_en ? "is-invalid" : ""}`}
                                             name=""
-                                            id=""
+                                            id="inputDescriptionEn"
                                             cols="30"
                                             rows="10"
                                             value={formData.description_en}
@@ -1477,10 +1525,11 @@ export default function VendorEdit() {
                                         )}
                                     </div>
                                     <div className="one-col col">
+                                        <label className="form-label" htmlFor="inputHistoryId">{t("historyindonesia")}</label>
                                         <textarea
                                             className="form-control"
                                             name=""
-                                            id=""
+                                            id="inputHistoryId"
                                             cols="30"
                                             rows="10"
                                             placeholder={t("historyindonesia")}
@@ -1493,10 +1542,11 @@ export default function VendorEdit() {
                                         />
                                     </div>
                                     <div className="one-col col">
+                                        <label className="form-label" htmlFor="inputHistoryEn">{t("historyenglish")}</label>
                                         <textarea
                                             className="form-control"
                                             name=""
-                                            id=""
+                                            id="inputHistoryEn"
                                             cols="30"
                                             rows="10"
                                             placeholder={t("historyenglish")}
