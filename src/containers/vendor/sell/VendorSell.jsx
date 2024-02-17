@@ -15,7 +15,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import ApiErrorHandling from "../../../utils/ApiErrorHandling";
 import toast from "react-hot-toast";
-import parse from 'html-react-parser';
+import parse from "html-react-parser";
 import { IconX } from "@tabler/icons-react";
 
 const inputNonNegativeValue = event => {
@@ -75,7 +75,7 @@ export default function VendorSell() {
     const { setLoading } = useContext(LoadingContext);
     const { user, refreshUser } = useContext(AuthUserContext);
     const { language } = useContext(LanguageContext);
-    const suffix = language == 'id' ? '' : '_en';
+    const suffix = language == "id" ? "" : "_en";
     const { currency } = useContext(CurrencyContext);
     const [modalPratinjau, setModalPratinjau] = useState(false);
     const [commissionType, setCommissionType] = useState(null);
@@ -122,7 +122,7 @@ export default function VendorSell() {
     }, [pathname]);
 
     useEffect(() => {
-        setBrands((c) => {
+        setBrands(c => {
             c.pop();
             return [...c, { value: -1, label: t("otherbrand") }];
         });
@@ -166,7 +166,10 @@ export default function VendorSell() {
             });
         const bra = Api.get("/brand")
             .then(res => {
-                setBrands([...res.data.data.map(c => ({ value: c.id, label: c.name })), { value: -1, label: t("otherbrand") }]);
+                setBrands([
+                    ...res.data.data.map(c => ({ value: c.id, label: c.name })),
+                    { value: -1, label: t("otherbrand") }
+                ]);
             })
             .catch(err => {
                 console.log(err);
@@ -178,19 +181,19 @@ export default function VendorSell() {
 
     const inputImageOnChange = event => {
         const file = event.currentTarget.files[0];
-        setImageBlobs((blobs) => {
+        setImageBlobs(blobs => {
             const c = [...blobs];
             c.push({
                 file: file,
-                url: URL.createObjectURL(file),
+                url: URL.createObjectURL(file)
             });
             return c;
         });
     };
 
-    const removeImageBlog = (i) => {
-        setImageBlobs((blobs) => {
-            const c = [...blobs].filter(({url}, j) => {
+    const removeImageBlog = i => {
+        setImageBlobs(blobs => {
+            const c = [...blobs].filter(({ url }, j) => {
                 const r = j != i;
                 if (!r) {
                     URL.revokeObjectURL(url);
@@ -199,7 +202,7 @@ export default function VendorSell() {
             });
             return c;
         });
-    }
+    };
 
     const doSellProduct = () => {
         setLoading(true);
@@ -226,41 +229,49 @@ export default function VendorSell() {
         let brandPromise;
 
         if (selectedBrand?.value == -1 && newBrandName) {
-            brandPromise = Api.post(`/brand`, {
-                name: newBrandName,
-            }, {
-                headers: {
-                    Authorization: "Bearer " + localStorage.getItem("apiToken")
+            brandPromise = Api.post(
+                `/brand`,
+                {
+                    name: newBrandName
+                },
+                {
+                    headers: {
+                        Authorization: "Bearer " + localStorage.getItem("apiToken")
+                    }
                 }
-            }).then((res) => {
-                form_data_insert.set("brand_id", res.data.data.id);
-            }).catch((err) => {
-                console.log(err);
-            });
+            )
+                .then(res => {
+                    form_data_insert.set("brand_id", res.data.data.id);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
         } else {
-            form_data_insert.delete("brand_id");
+            form_data_insert.set("brand_id", selectedBrand?.value);
             brandPromise = Promise.resolve(true);
         }
 
-        brandPromise.then(() => {
-            Api.post("/vendor-product", form_data_insert, {
-                headers: {
-                    Authorization: "Bearer " + localStorage.getItem("apiToken")
-                }
+        brandPromise
+            .then(() => {
+                Api.post("/vendor-product", form_data_insert, {
+                    headers: {
+                        Authorization: "Bearer " + localStorage.getItem("apiToken")
+                    }
+                })
+                    .then(res => {
+                        navigate(`/account/vendor/review/${res.data.data.id}`);
+                    })
+                    .catch(err => {
+                        toast.error("Error validations");
+                        ApiErrorHandling.handlingErr(err, [setErrorObj422]);
+                    })
+                    .finally(() => {
+                        setLoading(false);
+                    });
             })
-                .then(res => {
-                    navigate(`/account/vendor/review/${res.data.data.id}`);
-                })
-                .catch(err => {
-                    toast.error("Error validations");
-                    ApiErrorHandling.handlingErr(err, [setErrorObj422]);
-                })
-                .finally(() => {
-                    setLoading(false);
-                });
-        }).catch((err) => {
-            console.log(err);
-        })
+            .catch(err => {
+                console.log(err);
+            });
     };
 
     return (
@@ -282,57 +293,140 @@ export default function VendorSell() {
                         <p className="title-body">{t("preview")}</p>
                         <div className="body">
                             <div className="left">
-                            { imageBlobs.length != 0 ?
-                            <>
-                                { selectedImageBlob != -1 ?
-                                <img src={imageBlobs[selectedImageBlob].url} className="image-preview-main" alt="main preview" />
-                                : null }
-                                {
-                                    imageBlobs.length > 1 ?
-                                    <div className="preview-photos">
-                                    {
-                                        imageBlobs.map(({url}, i) => (
-                                            <button className="preview-photo" onClick={() => setSelectedImageBlob(i)}>
-                                                <img src={url} alt="preview product" />
-                                            </button>
-                                        ))
-                                    }
+                                {imageBlobs.length != 0 ? (
+                                    <>
+                                        {selectedImageBlob != -1 ? (
+                                            <img
+                                                src={imageBlobs[selectedImageBlob].url}
+                                                className="image-preview-main"
+                                                alt="main preview"
+                                            />
+                                        ) : null}
+                                        {imageBlobs.length > 1 ? (
+                                            <div className="preview-photos">
+                                                {imageBlobs.map(({ url }, i) => (
+                                                    <button
+                                                        className="preview-photo"
+                                                        onClick={() => setSelectedImageBlob(i)}
+                                                    >
+                                                        <img src={url} alt="preview product" />
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        ) : null}
+                                    </>
+                                ) : (
+                                    <div className="empty">
+                                        <h2>{t("previewyouroffers")}</h2>
+                                        <p>{t("whencreatinganofferyoucanpreviewhowitwilllook")}</p>
                                     </div>
-                                    : null
-                                }
-                            </>
-                            :
-                                <div className="empty">
-                                    <h2>{t("previewyouroffers")}</h2>
-                                    <p>{t("whencreatinganofferyoucanpreviewhowitwilllook")}</p>
-                                </div>
-                            }
+                                )}
                             </div>
                             <div className="right">
                                 <div className="top">
-                                    <h2 className={`title ${formData?.name ? "active" : ""}`}>{formData?.name ? formData.name : t("title")}</h2>
-                                    <h3 className={`price ${selectedBrand?.label ? "active" : ""}`}>Brand{selectedBrand?.label ? `: ${selectedBrand.label}` : ""}</h3>
-                                    <h3 className={`price ${formData?.price || formData?.price_usd ? "active" : ""}`}>{t("price")}{formData?.price || formData?.price_usd ? ": " : ""}{formData?.price ? ` ${Number(formData?.price)?.toLocaleString('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 })}` : ""}{formData?.price && formData?.price_usd ? " | " : ""}{formData?.price_usd ? ` ${Number(formData?.price_usd)?.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}` : ""}</h3>
-                                    {commissionType?.value == "selling" ?
-                                    <h3 className={`price ${formData?.sale_price || formData?.sale_usd ? "active" : ""}`}>{t("saleprice")}{formData?.sale_price || formData?.sale_usd ? ": " : ""}{formData?.sale_price ? ` ${Number(formData?.sale_price)?.toLocaleString('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 })}` : ""}{formData?.sale_price && formData?.sale_usd ? " | " : ""}{formData?.sale_usd ? ` ${Number(formData?.sale_usd)?.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}` : ""}</h3>
-                                    : null}
-                                    {commissionType?.value == "percent" ?
-                                    <h3 className={`price ${formData?.commission ? "active" : ""}`}>{t("commission")}{formData?.commission ? `: ${formData.commission}%` : ""}</h3>
-                                    : null}
-                                    <h3 className={`price ${selectedColor?.label ? "active" : ""}`}>{t("color")}{selectedColor?.label ? `: ${selectedColor.label}` : ""}</h3>
-                                    <p className="p">{t("offeredon")} {new Date().toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })} {new Date().toLocaleString("id-ID", { day: "2-digit", month: "2-digit", year: "numeric" })}</p>
+                                    <h2 className={`title ${formData?.name ? "active" : ""}`}>
+                                        {formData?.name ? formData.name : t("title")}
+                                    </h2>
+                                    <h3 className={`price ${selectedBrand?.label ? "active" : ""}`}>
+                                        Brand{selectedBrand?.label ? `: ${selectedBrand.label}` : ""}
+                                    </h3>
+                                    <h3 className={`price ${formData?.price || formData?.price_usd ? "active" : ""}`}>
+                                        {t("price")}
+                                        {formData?.price || formData?.price_usd ? ": " : ""}
+                                        {formData?.price
+                                            ? ` ${Number(formData?.price)?.toLocaleString("id-ID", {
+                                                  style: "currency",
+                                                  currency: "IDR",
+                                                  maximumFractionDigits: 0
+                                              })}`
+                                            : ""}
+                                        {formData?.price && formData?.price_usd ? " | " : ""}
+                                        {formData?.price_usd
+                                            ? ` ${Number(formData?.price_usd)?.toLocaleString("en-US", {
+                                                  style: "currency",
+                                                  currency: "USD"
+                                              })}`
+                                            : ""}
+                                    </h3>
+                                    {commissionType?.value == "selling" ? (
+                                        <h3
+                                            className={`price ${
+                                                formData?.sale_price || formData?.sale_usd ? "active" : ""
+                                            }`}
+                                        >
+                                            {t("saleprice")}
+                                            {formData?.sale_price || formData?.sale_usd ? ": " : ""}
+                                            {formData?.sale_price
+                                                ? ` ${Number(formData?.sale_price)?.toLocaleString("id-ID", {
+                                                      style: "currency",
+                                                      currency: "IDR",
+                                                      maximumFractionDigits: 0
+                                                  })}`
+                                                : ""}
+                                            {formData?.sale_price && formData?.sale_usd ? " | " : ""}
+                                            {formData?.sale_usd
+                                                ? ` ${Number(formData?.sale_usd)?.toLocaleString("en-US", {
+                                                      style: "currency",
+                                                      currency: "USD"
+                                                  })}`
+                                                : ""}
+                                        </h3>
+                                    ) : null}
+                                    {commissionType?.value == "percent" ? (
+                                        <h3 className={`price ${formData?.commission ? "active" : ""}`}>
+                                            {t("commission")}
+                                            {formData?.commission ? `: ${formData.commission}%` : ""}
+                                        </h3>
+                                    ) : null}
+                                    <h3 className={`price ${selectedColor?.label ? "active" : ""}`}>
+                                        {t("color")}
+                                        {selectedColor?.label ? `: ${selectedColor.label}` : ""}
+                                    </h3>
+                                    <p className="p">
+                                        {t("offeredon")}{" "}
+                                        {new Date().toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })}{" "}
+                                        {new Date().toLocaleString("id-ID", {
+                                            day: "2-digit",
+                                            month: "2-digit",
+                                            year: "numeric"
+                                        })}
+                                    </p>
                                 </div>
                                 <div className="bottom">
                                     <div className="content">
                                         <div className="wrapper">
-                                            { formData['description'+suffix] ? null
-                                            : <div className="title">Detail</div> }
-                                            { formData['description'+suffix] ?
-                                            <div>{parse(formData['description'+suffix] ? formData['description'+suffix] : '')}</div>
-                                            : null }
-                                            { formData?.length && formData.width && formData.height ?
-                                            <div className="title active">{t("measurements")}<span>: {`${formData.length}*${formData.width}*${formData.height}`} ({t("length").charAt(0).toUpperCase()}*{t("width").charAt(0).toUpperCase()}*{t("height").charAt(0).toUpperCase()}) (cm)</span></div>
-                                            : null }
+                                            {formData["description" + suffix] ? null : (
+                                                <div className="title">Detail</div>
+                                            )}
+                                            {formData["description" + suffix] ? (
+                                                <div>
+                                                    {parse(
+                                                        formData["description" + suffix]
+                                                            ? formData["description" + suffix]
+                                                            : ""
+                                                    )}
+                                                </div>
+                                            ) : null}
+                                            {formData?.length && formData.width && formData.height ? (
+                                                <div className="title active">
+                                                    {t("measurements")}
+                                                    <span>
+                                                        : {`${formData.length}*${formData.width}*${formData.height}`} (
+                                                        {t("length")
+                                                            .charAt(0)
+                                                            .toUpperCase()}
+                                                        *
+                                                        {t("width")
+                                                            .charAt(0)
+                                                            .toUpperCase()}
+                                                        *
+                                                        {t("height")
+                                                            .charAt(0)
+                                                            .toUpperCase()}
+                                                        ) (cm)
+                                                    </span>
+                                                </div>
+                                            ) : null}
                                         </div>
                                     </div>
                                     <hr />
@@ -461,18 +555,61 @@ export default function VendorSell() {
                                     hidden
                                     onChange={inputImageOnChange}
                                 />
-                                { imageBlobs.length != 0 ?
-                                <div className="multiple-photos">
-                                    {
-                                        imageBlobs.map(({url}, i) => (
+                                {imageBlobs.length != 0 ? (
+                                    <div className="multiple-photos">
+                                        {imageBlobs.map(({ url }, i) => (
                                             <div className="photo">
-                                                <img src={url} alt="preview product" className={`${errorObj422['image.'+i] ? "is-invalid" : ""}`}/>
-                                                <button onClick={() => {removeImageBlog(i)}}><IconX /></button>
+                                                <img
+                                                    src={url}
+                                                    alt="preview product"
+                                                    className={`${errorObj422["image." + i] ? "is-invalid" : ""}`}
+                                                />
+                                                <button
+                                                    onClick={() => {
+                                                        removeImageBlog(i);
+                                                    }}
+                                                >
+                                                    <IconX />
+                                                </button>
                                             </div>
-                                        ))
-                                    }
-                                    { imageBlobs.length != 4 ?
-                                    <button onClick={() => inputImage.current?.click()}>
+                                        ))}
+                                        {imageBlobs.length != 4 ? (
+                                            <button onClick={() => inputImage.current?.click()}>
+                                                <div className="cursor-pointer">
+                                                    <svg
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        width="21"
+                                                        height="21"
+                                                        viewBox="0 0 21 21"
+                                                        fill="none"
+                                                    >
+                                                        <g clip-path="url(#clip0_2390_8792)">
+                                                            <path
+                                                                d="M20.0268 3.81V5.51667H17.4668V8.07667H15.7601V5.51667H13.2001V3.81H15.7601V1.25H17.4668V3.81H20.0268ZM12.7735 9.78333C13.1131 9.78322 13.4387 9.64821 13.6787 9.408C13.9188 9.1678 14.0536 8.84207 14.0535 8.50248C14.0534 8.16289 13.9184 7.83725 13.6781 7.59721C13.4379 7.35716 13.1122 7.22237 12.7726 7.22248C12.6045 7.22254 12.438 7.25571 12.2827 7.32011C12.1273 7.38451 11.9862 7.47887 11.8673 7.59781C11.7485 7.71675 11.6542 7.85793 11.5899 8.0133C11.5256 8.16867 11.4926 8.33519 11.4926 8.50333C11.4927 8.67148 11.5259 8.83797 11.5903 8.9933C11.6547 9.14863 11.749 9.28975 11.868 9.40861C11.9869 9.52747 12.1281 9.62173 12.2834 9.68603C12.4388 9.75033 12.6053 9.78339 12.7735 9.78333ZM15.7601 12.543L15.3224 12.0566C15.1623 11.8784 14.9665 11.7359 14.7478 11.6383C14.529 11.5407 14.2922 11.4903 14.0526 11.4903C13.8131 11.4903 13.5762 11.5407 13.3575 11.6383C13.1387 11.7359 12.9429 11.8784 12.7829 12.0566L12.2231 12.6804L8.08014 8.07667L5.52014 10.9208V5.51667H11.4935V3.81H5.52014C5.06751 3.81 4.63341 3.98981 4.31335 4.30987C3.99329 4.62993 3.81348 5.06403 3.81348 5.51667V15.7567C3.81348 16.2093 3.99329 16.6434 4.31335 16.9635C4.63341 17.2835 5.06751 17.4633 5.52014 17.4633H15.7601C16.2128 17.4633 16.6469 17.2835 16.9669 16.9635C17.287 16.6434 17.4668 16.2093 17.4668 15.7567V9.78333H15.7601V12.543Z"
+                                                                fill="#111111"
+                                                            />
+                                                        </g>
+                                                        <defs>
+                                                            <clipPath id="clip0_2390_8792">
+                                                                <rect
+                                                                    width="20.48"
+                                                                    height="20.48"
+                                                                    fill="white"
+                                                                    transform="translate(0.399902 0.398438)"
+                                                                />
+                                                            </clipPath>
+                                                        </defs>
+                                                    </svg>
+                                                </div>
+                                                <p>{t("addphoto")}</p>
+                                            </button>
+                                        ) : null}
+                                    </div>
+                                ) : (
+                                    <div
+                                        className={`add-photo-wrap ${errorObj422.image ? "is-invalid" : ""}`}
+                                        onClick={() => inputImage.current?.click()}
+                                    >
                                         <div className="cursor-pointer">
                                             <svg
                                                 xmlns="http://www.w3.org/2000/svg"
@@ -499,60 +636,24 @@ export default function VendorSell() {
                                                 </defs>
                                             </svg>
                                         </div>
-                                        <p>
-                                            {t("addphoto")}
-                                        </p>
-                                    </button>
-                                    : null }
-                                </div>
-                                :
-                                <div className={`add-photo-wrap ${errorObj422.image ? "is-invalid" : ""}`} onClick={() => inputImage.current?.click()}>
-                                    <div className="cursor-pointer">
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            width="21"
-                                            height="21"
-                                            viewBox="0 0 21 21"
-                                            fill="none"
-                                        >
-                                            <g clip-path="url(#clip0_2390_8792)">
-                                                <path
-                                                    d="M20.0268 3.81V5.51667H17.4668V8.07667H15.7601V5.51667H13.2001V3.81H15.7601V1.25H17.4668V3.81H20.0268ZM12.7735 9.78333C13.1131 9.78322 13.4387 9.64821 13.6787 9.408C13.9188 9.1678 14.0536 8.84207 14.0535 8.50248C14.0534 8.16289 13.9184 7.83725 13.6781 7.59721C13.4379 7.35716 13.1122 7.22237 12.7726 7.22248C12.6045 7.22254 12.438 7.25571 12.2827 7.32011C12.1273 7.38451 11.9862 7.47887 11.8673 7.59781C11.7485 7.71675 11.6542 7.85793 11.5899 8.0133C11.5256 8.16867 11.4926 8.33519 11.4926 8.50333C11.4927 8.67148 11.5259 8.83797 11.5903 8.9933C11.6547 9.14863 11.749 9.28975 11.868 9.40861C11.9869 9.52747 12.1281 9.62173 12.2834 9.68603C12.4388 9.75033 12.6053 9.78339 12.7735 9.78333ZM15.7601 12.543L15.3224 12.0566C15.1623 11.8784 14.9665 11.7359 14.7478 11.6383C14.529 11.5407 14.2922 11.4903 14.0526 11.4903C13.8131 11.4903 13.5762 11.5407 13.3575 11.6383C13.1387 11.7359 12.9429 11.8784 12.7829 12.0566L12.2231 12.6804L8.08014 8.07667L5.52014 10.9208V5.51667H11.4935V3.81H5.52014C5.06751 3.81 4.63341 3.98981 4.31335 4.30987C3.99329 4.62993 3.81348 5.06403 3.81348 5.51667V15.7567C3.81348 16.2093 3.99329 16.6434 4.31335 16.9635C4.63341 17.2835 5.06751 17.4633 5.52014 17.4633H15.7601C16.2128 17.4633 16.6469 17.2835 16.9669 16.9635C17.287 16.6434 17.4668 16.2093 17.4668 15.7567V9.78333H15.7601V12.543Z"
-                                                    fill="#111111"
-                                                />
-                                            </g>
-                                            <defs>
-                                                <clipPath id="clip0_2390_8792">
-                                                    <rect
-                                                        width="20.48"
-                                                        height="20.48"
-                                                        fill="white"
-                                                        transform="translate(0.399902 0.398438)"
-                                                    />
-                                                </clipPath>
-                                            </defs>
-                                        </svg>
+                                        <p>{t("addphoto")}</p>
                                     </div>
-                                    <p>
-                                        {t("addphoto")}
-                                    </p>
-                                </div>
-                                }
-                                {
-                                    [0, 1, 2, 3].map((_, i) => {
-                                        if (errorObj422['image.'+i]) {
-                                            return <div className="invalid-feedback">{errorObj422['image.'+i]}</div>
-                                        }
-                                        return null
-                                    })
-                                }
+                                )}
+                                {[0, 1, 2, 3].map((_, i) => {
+                                    if (errorObj422["image." + i]) {
+                                        return <div className="invalid-feedback">{errorObj422["image." + i]}</div>;
+                                    }
+                                    return null;
+                                })}
                                 <div className="input-title">
                                     <h4>{t("required")}</h4>
                                     <p>{t("giveascompleteanexplanationaspossible")}</p>
                                 </div>
                                 <div className="form-area">
                                     <div className="one-col col">
-                                        <label className="form-label" htmlFor="inputName">{t("name")}</label>
+                                        <label className="form-label" htmlFor="inputName">
+                                            {t("name")}
+                                        </label>
                                         <input
                                             className={`form-control ${errorObj422.name ? "is-invalid" : ""}`}
                                             type="text"
@@ -571,9 +672,11 @@ export default function VendorSell() {
                                             <></>
                                         )}
                                     </div>
-                                    <div className={`${ selectedBrand?.value != -1 ? "one-col" : "two-col" } col`}>
+                                    <div className={`${selectedBrand?.value != -1 ? "one-col" : "two-col"} col`}>
                                         <div>
-                                            <label className="form-label" htmlFor="inputBrand">Brand</label>
+                                            <label className="form-label" htmlFor="inputBrand">
+                                                Brand
+                                            </label>
                                             <CreatableSelect
                                                 styles={{
                                                     placeholder: defaultStyles => {
@@ -591,7 +694,9 @@ export default function VendorSell() {
                                                         borderColor: errorObj422.brand_id ? "#dc3545" : "#C4C4C4",
                                                         borderWidth: "1px",
                                                         boxShadow: "none",
-                                                        backgroundColor: state.isDisabled ? "transparent" : "transparent",
+                                                        backgroundColor: state.isDisabled
+                                                            ? "transparent"
+                                                            : "transparent",
                                                         "&:hover": {
                                                             borderColor: "#C4C4C4"
                                                         }
@@ -616,7 +721,9 @@ export default function VendorSell() {
                                                     }),
                                                     option: (baseStyles, state) => ({
                                                         ...baseStyles,
-                                                        backgroundColor: state.isDisabled ? "transparent" : "transparent",
+                                                        backgroundColor: state.isDisabled
+                                                            ? "transparent"
+                                                            : "transparent",
                                                         color: "#000",
                                                         fontSize: "10px",
                                                         fontWeight: state.isDisabled ? "700" : "400",
@@ -673,25 +780,29 @@ export default function VendorSell() {
                                                 <></>
                                             )}
                                         </div>
-                                        { selectedBrand?.value == -1?
-                                        <div>
-                                            <label className="form-label" htmlFor="inputBrandName">Brand {t("name")}</label>
-                                            <input
-                                                className={`form-control`}
-                                                type="text"
-                                                name=""
-                                                id="inputBrandName"
-                                                placeholder={`Brand ${t("name")}`}
-                                                value={newBrandName}
-                                                onInput={event => {
-                                                    setNewBrandName(event.target.value);
-                                                }}
-                                            />
-                                        </div>
-                                        : null }
+                                        {selectedBrand?.value == -1 ? (
+                                            <div>
+                                                <label className="form-label" htmlFor="inputBrandName">
+                                                    Brand {t("name")}
+                                                </label>
+                                                <input
+                                                    className={`form-control`}
+                                                    type="text"
+                                                    name=""
+                                                    id="inputBrandName"
+                                                    placeholder={`Brand ${t("name")}`}
+                                                    value={newBrandName}
+                                                    onInput={event => {
+                                                        setNewBrandName(event.target.value);
+                                                    }}
+                                                />
+                                            </div>
+                                        ) : null}
                                     </div>
                                     <div className="one-col col">
-                                        <label className="form-label" htmlFor="inputCategory">{t("category")}</label>
+                                        <label className="form-label" htmlFor="inputCategory">
+                                            {t("category")}
+                                        </label>
                                         <Select
                                             styles={{
                                                 placeholder: defaultStyles => {
@@ -769,7 +880,9 @@ export default function VendorSell() {
                                     </div>
                                     <div className="two-col col">
                                         <div>
-                                            <label className="form-label" htmlFor="inputCondition">{t("condition")}</label>
+                                            <label className="form-label" htmlFor="inputCondition">
+                                                {t("condition")}
+                                            </label>
                                             <Select
                                                 styles={{
                                                     placeholder: defaultStyles => {
@@ -848,7 +961,9 @@ export default function VendorSell() {
                                             )}
                                         </div>
                                         <div>
-                                            <label className="form-label" htmlFor="inputDeadline">{t("deadline")}</label>
+                                            <label className="form-label" htmlFor="inputDeadline">
+                                                {t("deadline")}
+                                            </label>
                                             <input
                                                 className={`form-control ${
                                                     errorObj422.product_deadline ? "is-invalid" : ""
@@ -872,7 +987,9 @@ export default function VendorSell() {
                                     </div>
                                     <div className="two-col col">
                                         <div>
-                                            <label className="form-label" htmlFor="inputWeight">{t("weight")}</label>
+                                            <label className="form-label" htmlFor="inputWeight">
+                                                {t("weight")}
+                                            </label>
                                             <input
                                                 className={`form-control ${errorObj422.weight ? "is-invalid" : ""}`}
                                                 type="number"
@@ -894,7 +1011,9 @@ export default function VendorSell() {
                                             )}
                                         </div>
                                         <div>
-                                            <label className="form-label" htmlFor="inputLength">{t("length")}</label>
+                                            <label className="form-label" htmlFor="inputLength">
+                                                {t("length")}
+                                            </label>
                                             <input
                                                 className={`form-control ${errorObj422.length ? "is-invalid" : ""}`}
                                                 type="number"
@@ -918,7 +1037,9 @@ export default function VendorSell() {
                                     </div>
                                     <div className="two-col col">
                                         <div>
-                                            <label className="form-label" htmlFor="inputWidth">{t("width")}</label>
+                                            <label className="form-label" htmlFor="inputWidth">
+                                                {t("width")}
+                                            </label>
                                             <input
                                                 className={`form-control ${errorObj422.width ? "is-invalid" : ""}`}
                                                 type="number"
@@ -940,7 +1061,9 @@ export default function VendorSell() {
                                             )}
                                         </div>
                                         <div>
-                                            <label className="form-label" htmlFor="inputHeight">{t("height")}</label>
+                                            <label className="form-label" htmlFor="inputHeight">
+                                                {t("height")}
+                                            </label>
                                             <input
                                                 className={`form-control ${errorObj422.height ? "is-invalid" : ""}`}
                                                 type="number"
@@ -964,7 +1087,9 @@ export default function VendorSell() {
                                     </div>
                                     <div className="two-col col">
                                         <div>
-                                            <label className="form-label" htmlFor="inputPrice">{t("price")} (RP)</label>
+                                            <label className="form-label" htmlFor="inputPrice">
+                                                {t("price")} (RP)
+                                            </label>
                                             <input
                                                 className={`form-control ${errorObj422.price ? "is-invalid" : ""}`}
                                                 type="text"
@@ -985,7 +1110,9 @@ export default function VendorSell() {
                                             )}
                                         </div>
                                         <div>
-                                            <label className="form-label" htmlFor="inputPriceUsd">{t("price")} (USD)</label>
+                                            <label className="form-label" htmlFor="inputPriceUsd">
+                                                {t("price")} (USD)
+                                            </label>
                                             <input
                                                 className={`form-control ${errorObj422.price_usd ? "is-invalid" : ""}`}
                                                 type="text"
@@ -1009,7 +1136,9 @@ export default function VendorSell() {
                                     </div>
                                     <div className="two-col col">
                                         <div>
-                                            <label className="form-label" htmlFor="inputCommissionType">{t("commissiontype")}</label>
+                                            <label className="form-label" htmlFor="inputCommissionType">
+                                                {t("commissiontype")}
+                                            </label>
                                             <Select
                                                 styles={{
                                                     placeholder: defaultStyles => {
@@ -1105,7 +1234,9 @@ export default function VendorSell() {
                                             )}
                                         </div>
                                         <div>
-                                            <label className="form-label" htmlFor="commision">{t("commission")} (%)</label>
+                                            <label className="form-label" htmlFor="commision">
+                                                {t("commission")} (%)
+                                            </label>
                                             <input
                                                 className={`form-control ${errorObj422.commission ? "is-invalid" : ""}`}
                                                 style={{
@@ -1133,7 +1264,9 @@ export default function VendorSell() {
                                     </div>
                                     <div className="two-col col">
                                         <div>
-                                            <label className="form-label" htmlFor="sale_price">{t("saleprice")} (RP)</label>
+                                            <label className="form-label" htmlFor="sale_price">
+                                                {t("saleprice")} (RP)
+                                            </label>
                                             <input
                                                 className={`form-control ${errorObj422.sale_price ? "is-invalid" : ""}`}
                                                 type="text"
@@ -1158,7 +1291,9 @@ export default function VendorSell() {
                                             )}
                                         </div>
                                         <div>
-                                            <label className="form-label" htmlFor="sale_usd">{t("saleprice")} (USD)</label>
+                                            <label className="form-label" htmlFor="sale_usd">
+                                                {t("saleprice")} (USD)
+                                            </label>
                                             <input
                                                 className={`form-control ${errorObj422.sale_usd ? "is-invalid" : ""}`}
                                                 type="text"
@@ -1185,7 +1320,9 @@ export default function VendorSell() {
                                     </div>
                                     <div className="one-col col">
                                         <div className="one-col col">
-                                            <label className="form-label" htmlFor="inputColor">{t("color")}</label>
+                                            <label className="form-label" htmlFor="inputColor">
+                                                {t("color")}
+                                            </label>
                                             <Select
                                                 styles={{
                                                     placeholder: defaultStyles => {
@@ -1273,7 +1410,9 @@ export default function VendorSell() {
                                 </div>
                                 <div className="form-area">
                                     <div className="one-col col">
-                                        <label className="form-label" htmlFor="inputDescriptionId">{t("descriptionindonesia")}</label>
+                                        <label className="form-label" htmlFor="inputDescriptionId">
+                                            {t("descriptionindonesia")}
+                                        </label>
                                         <textarea
                                             className={`form-control ${errorObj422.description ? "is-invalid" : ""}`}
                                             name=""
@@ -1294,7 +1433,9 @@ export default function VendorSell() {
                                         )}
                                     </div>
                                     <div className="one-col col">
-                                        <label className="form-label" htmlFor="inputDescriptionEn">{t("descriptionenglish")}</label>
+                                        <label className="form-label" htmlFor="inputDescriptionEn">
+                                            {t("descriptionenglish")}
+                                        </label>
                                         <textarea
                                             className={`form-control ${errorObj422.description_en ? "is-invalid" : ""}`}
                                             name=""
@@ -1315,7 +1456,9 @@ export default function VendorSell() {
                                         )}
                                     </div>
                                     <div className="one-col col">
-                                        <label className="form-label" htmlFor="inputHistoryId">{t("historyindonesia")}</label>
+                                        <label className="form-label" htmlFor="inputHistoryId">
+                                            {t("historyindonesia")}
+                                        </label>
                                         <textarea
                                             className="form-control"
                                             name=""
@@ -1331,7 +1474,9 @@ export default function VendorSell() {
                                         />
                                     </div>
                                     <div className="one-col col">
-                                        <label className="form-label" htmlFor="inputHistoryEn">{t("historyenglish")}</label>
+                                        <label className="form-label" htmlFor="inputHistoryEn">
+                                            {t("historyenglish")}
+                                        </label>
                                         <textarea
                                             className="form-control"
                                             name=""
