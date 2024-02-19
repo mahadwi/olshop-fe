@@ -358,21 +358,35 @@ export default function VendorReview() {
                                             <tr>
                                                 <td>{reviewObj?.approve_file?.name}</td>
                                                 <td>
-                                                    <a
-                                                        href={reviewObj?.approve_file?.draft}
-                                                        target="_blank"
-                                                        rel="noreferrer"
-                                                    >
-                                                        {t("agreementview")}
-                                                    </a>{" "}
-                                                    |{" "}
-                                                    <a
-                                                        href={reviewObj?.approve_file?.draft}
-                                                        target="_blank"
-                                                        rel="noreferrer"
-                                                    >
-                                                        {t("download")}
-                                                    </a>
+                                                    {reviewObj?.approve_file?.draft ? (
+                                                        <>
+                                                            <a
+                                                                href={reviewObj?.approve_file?.draft}
+                                                                target="_blank"
+                                                                rel="noreferrer"
+                                                            >
+                                                                {t("agreementview")}
+                                                            </a>
+
+                                                            <span className="mx-1">|</span>
+                                                            <a
+                                                                href={
+                                                                    process.env.REACT_APP_API_URL +
+                                                                    "/download-file/" +
+                                                                    reviewObj?.approve_file?.draft.split("/")[
+                                                                        reviewObj?.approve_file?.draft.split("/")
+                                                                            .length - 1
+                                                                    ]
+                                                                }
+                                                                target="_blank"
+                                                                rel="noreferrer"
+                                                            >
+                                                                {t("download")}
+                                                            </a>
+                                                        </>
+                                                    ) : (
+                                                        <></>
+                                                    )}
                                                 </td>
                                                 <td>
                                                     <input

@@ -230,7 +230,17 @@ export default function VendorAgreement() {
                                                                 {t("agreementview")}
                                                             </a>
                                                             {" | "}
-                                                            <a href={agreementObj.draft} target="_blank">
+                                                            <a
+                                                                href={
+                                                                    process.env.REACT_APP_API_URL +
+                                                                    "/download-file/" +
+                                                                    agreementObj.draft.split("/")[
+                                                                        agreementObj.draft.split("/").length - 1
+                                                                    ]
+                                                                }
+                                                                target="_blank"
+                                                                rel="noreferrer"
+                                                            >
                                                                 {t("download")}
                                                             </a>
                                                         </>
