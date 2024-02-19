@@ -124,7 +124,7 @@ export default function VendorEdit() {
     }, [pathname]);
 
     useEffect(() => {
-        setBrands((c) => {
+        setBrands(c => {
             c.pop();
             return [...c, { value: -1, label: t("otherbrand") }];
         });
@@ -169,7 +169,10 @@ export default function VendorEdit() {
         let fetchBrands = [];
         const bra = Api.get("/brand")
             .then(res => {
-                fetchBrands = [...res.data.data.map(c => ({ value: c.id, label: c.name })), { value: -1, label: t("otherbrand") }];
+                fetchBrands = [
+                    ...res.data.data.map(c => ({ value: c.id, label: c.name })),
+                    { value: -1, label: t("otherbrand") }
+                ];
             })
             .catch(err => {
                 console.log(err);
@@ -228,12 +231,17 @@ export default function VendorEdit() {
 
             setSelectedCondition({ value: d.condition, label: d.condition == "New" ? t("new") : t("likenew") });
 
-            setImageBlobs(images.map((img) => ({
-                type: "URL",
-                url: img,
-            })));
+            setImageBlobs(
+                images.map(img => ({
+                    type: "URL",
+                    url: img
+                }))
+            );
 
-            d.product_deadline = product_deadline.split("-").reverse().join("-")
+            d.product_deadline = product_deadline
+                .split("-")
+                .reverse()
+                .join("-");
 
             setFormData(d);
 
@@ -251,31 +259,36 @@ export default function VendorEdit() {
         if (commission_type == "percent" && brand_id && price && product_category_id) {
             let targetBrandId = brand_id;
             if (brand_id == -1) {
-                for (const {value, label} of brands) {
+                for (const { value, label } of brands) {
                     if (label.toUpperCase() == "OTHER") {
                         targetBrandId = value;
                         break;
                     }
                 }
             }
-            Api.post(`/check-commission`, {
-                brand_id: targetBrandId,
-                product_category_id: product_category_id,
-                price: price,
-            }, {
-                headers: {
-                    Authorization: "Bearer " + localStorage.getItem("apiToken")
+            Api.post(
+                `/check-commission`,
+                {
+                    brand_id: targetBrandId,
+                    product_category_id: product_category_id,
+                    price: price
+                },
+                {
+                    headers: {
+                        Authorization: "Bearer " + localStorage.getItem("apiToken")
+                    }
                 }
-            }).then((res) => {
-                setCommissionPercent(res.data.data.percent);
-            }).catch((err) => {
-                console.log(err);
-            })
+            )
+                .then(res => {
+                    setCommissionPercent(res.data.data.percent);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
         } else {
             setCommissionPercent("");
         }
     }, [formData]);
-
 
     const inputImageOnChange = event => {
         const file = event.currentTarget.files[0];
@@ -300,18 +313,24 @@ export default function VendorEdit() {
                     }
                     if (type == "URL") {
                         setLoading(true);
-                        Api.post("/vendor-product-delete-image", {
-                            vendor_product_id: id,
-                            images: [url.split("/").pop()],
-                        }, {
-                            headers: {
-                                Authorization: "Bearer " + localStorage.getItem("apiToken"),
+                        Api.post(
+                            "/vendor-product-delete-image",
+                            {
+                                vendor_product_id: id,
+                                images: [url.split("/").pop()]
+                            },
+                            {
+                                headers: {
+                                    Authorization: "Bearer " + localStorage.getItem("apiToken")
+                                }
                             }
-                        }).catch((err) => {
-                            console.log(err);
-                        }).finally(() => {
-                            setLoading(false);
-                        });
+                        )
+                            .catch(err => {
+                                console.log(err);
+                            })
+                            .finally(() => {
+                                setLoading(false);
+                            });
                     }
                 }
                 return r;
@@ -330,7 +349,7 @@ export default function VendorEdit() {
             if (img.type == "BLOB") {
                 r.push({
                     index: i,
-                    file:  img.file,
+                    file: img.file
                 });
             }
             return r;
@@ -348,12 +367,11 @@ export default function VendorEdit() {
 
             i = Api.post(`/vendor-product-upload-image`, imageFormData, {
                 headers: {
-                    Authorization: "Bearer " + localStorage.getItem("apiToken"),
+                    Authorization: "Bearer " + localStorage.getItem("apiToken")
                 }
-            })
-                .then(res => {
-                    console.log(res);
-                })
+            }).then(res => {
+                console.log(res);
+            });
         }
 
         const form_data_insert = new FormData();
@@ -377,19 +395,25 @@ export default function VendorEdit() {
         let brandPromise;
 
         if (selectedBrand?.value == -1 && newBrandName) {
-            brandPromise = Api.post(`/brand`, {
-                name: newBrandName,
-            }, {
-                headers: {
-                    Authorization: "Bearer " + localStorage.getItem("apiToken")
+            brandPromise = Api.post(
+                `/brand`,
+                {
+                    name: newBrandName
+                },
+                {
+                    headers: {
+                        Authorization: "Bearer " + localStorage.getItem("apiToken")
+                    }
                 }
-            }).then((res) => {
-                form_data_insert.set("brand_id", res.data.data.id);
-            }).catch((err) => {
-                console.log(err);
-            });
+            )
+                .then(res => {
+                    form_data_insert.set("brand_id", res.data.data.id);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
         } else {
-            form_data_insert.delete("brand_id");
+            form_data_insert.set("brand_id", selectedBrand?.value);
             brandPromise = Promise.resolve(true);
         }
 
@@ -412,10 +436,10 @@ export default function VendorEdit() {
                     .catch(err => {
                         toast.error("Error validations");
                         ApiErrorHandling.handlingErr(err, [setErrorObj422]);
-                        setImageBlobs((c) => {
-                            return c.map(({url}) => ({
+                        setImageBlobs(c => {
+                            return c.map(({ url }) => ({
                                 type: "URL",
-                                url: url,
+                                url: url
                             }));
                         });
                     })
@@ -807,7 +831,9 @@ export default function VendorEdit() {
                                 </div>
                                 <div className="form-area">
                                     <div className="one-col col">
-                                        <label className="form-label" htmlFor="inputName">{t("name")}</label>
+                                        <label className="form-label" htmlFor="inputName">
+                                            {t("name")}
+                                        </label>
                                         <input
                                             className={`form-control ${errorObj422.name ? "is-invalid" : ""}`}
                                             type="text"
@@ -827,9 +853,11 @@ export default function VendorEdit() {
                                             <></>
                                         )}
                                     </div>
-                                    <div className={`${ selectedBrand?.value != -1 ? "one-col" : "two-col" } col`}>
+                                    <div className={`${selectedBrand?.value != -1 ? "one-col" : "two-col"} col`}>
                                         <div>
-                                            <label className="form-label" htmlFor="inputBrand">Brand</label>
+                                            <label className="form-label" htmlFor="inputBrand">
+                                                Brand
+                                            </label>
                                             <CreatableSelect
                                                 styles={{
                                                     placeholder: defaultStyles => {
@@ -847,7 +875,9 @@ export default function VendorEdit() {
                                                         borderColor: errorObj422.brand_id ? "#dc3545" : "#C4C4C4",
                                                         borderWidth: "1px",
                                                         boxShadow: "none",
-                                                        backgroundColor: state.isDisabled ? "transparent" : "transparent",
+                                                        backgroundColor: state.isDisabled
+                                                            ? "transparent"
+                                                            : "transparent",
                                                         "&:hover": {
                                                             borderColor: "#C4C4C4"
                                                         }
@@ -872,7 +902,9 @@ export default function VendorEdit() {
                                                     }),
                                                     option: (baseStyles, state) => ({
                                                         ...baseStyles,
-                                                        backgroundColor: state.isDisabled ? "transparent" : "transparent",
+                                                        backgroundColor: state.isDisabled
+                                                            ? "transparent"
+                                                            : "transparent",
                                                         color: "#000",
                                                         fontSize: "10px",
                                                         fontWeight: state.isDisabled ? "700" : "400",
@@ -935,25 +967,29 @@ export default function VendorEdit() {
                                                 <></>
                                             )}
                                         </div>
-                                        { selectedBrand?.value == -1?
-                                        <div>
-                                            <label className="form-label" htmlFor="inputBrandName">Brand {t("name")}</label>
-                                            <input
-                                                className={`form-control`}
-                                                type="text"
-                                                name=""
-                                                id="inputBrandName"
-                                                placeholder={`Brand ${t("name")}`}
-                                                value={newBrandName}
-                                                onInput={event => {
-                                                    setNewBrandName(event.target.value);
-                                                }}
-                                            />
-                                        </div>
-                                        : null }
+                                        {selectedBrand?.value == -1 ? (
+                                            <div>
+                                                <label className="form-label" htmlFor="inputBrandName">
+                                                    Brand {t("name")}
+                                                </label>
+                                                <input
+                                                    className={`form-control`}
+                                                    type="text"
+                                                    name=""
+                                                    id="inputBrandName"
+                                                    placeholder={`Brand ${t("name")}`}
+                                                    value={newBrandName}
+                                                    onInput={event => {
+                                                        setNewBrandName(event.target.value);
+                                                    }}
+                                                />
+                                            </div>
+                                        ) : null}
                                     </div>
                                     <div className="one-col col">
-                                        <label className="form-label" htmlFor="inputCategory">{t("category")}</label>
+                                        <label className="form-label" htmlFor="inputCategory">
+                                            {t("category")}
+                                        </label>
                                         <Select
                                             styles={{
                                                 placeholder: defaultStyles => {
@@ -1030,7 +1066,9 @@ export default function VendorEdit() {
                                     </div>
                                     <div className="two-col col">
                                         <div>
-                                            <label className="form-label" htmlFor="inputCondition">{t("condition")}</label>
+                                            <label className="form-label" htmlFor="inputCondition">
+                                                {t("condition")}
+                                            </label>
                                             <Select
                                                 styles={{
                                                     placeholder: defaultStyles => {
@@ -1108,7 +1146,9 @@ export default function VendorEdit() {
                                             )}
                                         </div>
                                         <div>
-                                            <label className="form-label" htmlFor="inputDeadline">{t("deadline")}</label>
+                                            <label className="form-label" htmlFor="inputDeadline">
+                                                {t("deadline")}
+                                            </label>
                                             <input
                                                 className={`form-control ${
                                                     errorObj422.product_deadline ? "is-invalid" : ""
@@ -1133,7 +1173,9 @@ export default function VendorEdit() {
                                     </div>
                                     <div className="two-col col">
                                         <div>
-                                            <label className="form-label" htmlFor="inputWeight">{t("weight")}</label>
+                                            <label className="form-label" htmlFor="inputWeight">
+                                                {t("weight")}
+                                            </label>
                                             <input
                                                 className={`form-control ${errorObj422.weight ? "is-invalid" : ""}`}
                                                 type="number"
@@ -1156,7 +1198,9 @@ export default function VendorEdit() {
                                             )}
                                         </div>
                                         <div>
-                                            <label className="form-label" htmlFor="inputLength">{t("length")}</label>
+                                            <label className="form-label" htmlFor="inputLength">
+                                                {t("length")}
+                                            </label>
                                             <input
                                                 className={`form-control ${errorObj422.length ? "is-invalid" : ""}`}
                                                 type="number"
@@ -1181,7 +1225,9 @@ export default function VendorEdit() {
                                     </div>
                                     <div className="two-col col">
                                         <div>
-                                            <label className="form-label" htmlFor="inputWidth">{t("width")}</label>
+                                            <label className="form-label" htmlFor="inputWidth">
+                                                {t("width")}
+                                            </label>
                                             <input
                                                 className={`form-control ${errorObj422.width ? "is-invalid" : ""}`}
                                                 type="number"
@@ -1204,7 +1250,9 @@ export default function VendorEdit() {
                                             )}
                                         </div>
                                         <div>
-                                            <label className="form-label" htmlFor="inputHeight">{t("height")}</label>
+                                            <label className="form-label" htmlFor="inputHeight">
+                                                {t("height")}
+                                            </label>
                                             <input
                                                 className={`form-control ${errorObj422.height ? "is-invalid" : ""}`}
                                                 type="number"
@@ -1229,7 +1277,9 @@ export default function VendorEdit() {
                                     </div>
                                     <div className="two-col col">
                                         <div>
-                                            <label className="form-label" htmlFor="inputPrice">{t("price")} (RP)</label>
+                                            <label className="form-label" htmlFor="inputPrice">
+                                                {t("price")} (RP)
+                                            </label>
                                             <input
                                                 className={`form-control ${errorObj422.price ? "is-invalid" : ""}`}
                                                 type="text"
@@ -1251,7 +1301,9 @@ export default function VendorEdit() {
                                             )}
                                         </div>
                                         <div>
-                                            <label className="form-label" htmlFor="inputPriceUsd">{t("price")} (USD)</label>
+                                            <label className="form-label" htmlFor="inputPriceUsd">
+                                                {t("price")} (USD)
+                                            </label>
                                             <input
                                                 className={`form-control ${errorObj422.price_usd ? "is-invalid" : ""}`}
                                                 type="text"
@@ -1276,7 +1328,9 @@ export default function VendorEdit() {
                                     </div>
                                     <div className="two-col col">
                                         <div>
-                                            <label className="form-label" htmlFor="inputCommissionType">{t("commissiontype")}</label>
+                                            <label className="form-label" htmlFor="inputCommissionType">
+                                                {t("commissiontype")}
+                                            </label>
                                             <Select
                                                 styles={{
                                                     placeholder: defaultStyles => {
@@ -1367,11 +1421,13 @@ export default function VendorEdit() {
                                             )}
                                         </div>
                                         <div>
-                                            <label className="form-label" htmlFor="commision">{t("commission")} (%)</label>
+                                            <label className="form-label" htmlFor="commision">
+                                                {t("commission")} (%)
+                                            </label>
                                             <input
                                                 className={`form-control ${errorObj422.commission ? "is-invalid" : ""}`}
                                                 style={{
-                                                    background: "#EEE",
+                                                    background: "#EEE"
                                                 }}
                                                 type="number"
                                                 min={1}
@@ -1396,7 +1452,9 @@ export default function VendorEdit() {
                                     </div>
                                     <div className="two-col col">
                                         <div>
-                                            <label className="form-label" htmlFor="sale_price">{t("saleprice")} (RP)</label>
+                                            <label className="form-label" htmlFor="sale_price">
+                                                {t("saleprice")} (RP)
+                                            </label>
                                             <input
                                                 className={`form-control ${errorObj422.sale_price ? "is-invalid" : ""}`}
                                                 type="text"
@@ -1422,7 +1480,9 @@ export default function VendorEdit() {
                                             )}
                                         </div>
                                         <div>
-                                            <label className="form-label" htmlFor="sale_usd">{t("saleprice")} (USD)</label>
+                                            <label className="form-label" htmlFor="sale_usd">
+                                                {t("saleprice")} (USD)
+                                            </label>
                                             <input
                                                 className={`form-control ${errorObj422.sale_usd ? "is-invalid" : ""}`}
                                                 type="text"
@@ -1450,7 +1510,9 @@ export default function VendorEdit() {
                                     </div>
                                     <div className="one-col col">
                                         <div className="one-col col">
-                                            <label className="form-label" htmlFor="inputColor">{t("color")}</label>
+                                            <label className="form-label" htmlFor="inputColor">
+                                                {t("color")}
+                                            </label>
                                             <Select
                                                 styles={{
                                                     placeholder: defaultStyles => {
@@ -1537,7 +1599,9 @@ export default function VendorEdit() {
                                 </div>
                                 <div className="form-area">
                                     <div className="one-col col">
-                                        <label className="form-label" htmlFor="inputDescriptionId">{t("descriptionindonesia")}</label>
+                                        <label className="form-label" htmlFor="inputDescriptionId">
+                                            {t("descriptionindonesia")}
+                                        </label>
                                         <textarea
                                             className={`form-control ${errorObj422.description ? "is-invalid" : ""}`}
                                             name=""
@@ -1559,7 +1623,9 @@ export default function VendorEdit() {
                                         )}
                                     </div>
                                     <div className="one-col col">
-                                        <label className="form-label" htmlFor="inputDescriptionEn">{t("descriptionenglish")}</label>
+                                        <label className="form-label" htmlFor="inputDescriptionEn">
+                                            {t("descriptionenglish")}
+                                        </label>
                                         <textarea
                                             className={`form-control ${errorObj422.description_en ? "is-invalid" : ""}`}
                                             name=""
@@ -1581,7 +1647,9 @@ export default function VendorEdit() {
                                         )}
                                     </div>
                                     <div className="one-col col">
-                                        <label className="form-label" htmlFor="inputHistoryId">{t("historyindonesia")}</label>
+                                        <label className="form-label" htmlFor="inputHistoryId">
+                                            {t("historyindonesia")}
+                                        </label>
                                         <textarea
                                             className="form-control"
                                             name=""
@@ -1598,7 +1666,9 @@ export default function VendorEdit() {
                                         />
                                     </div>
                                     <div className="one-col col">
-                                        <label className="form-label" htmlFor="inputHistoryEn">{t("historyenglish")}</label>
+                                        <label className="form-label" htmlFor="inputHistoryEn">
+                                            {t("historyenglish")}
+                                        </label>
                                         <textarea
                                             className="form-control"
                                             name=""
