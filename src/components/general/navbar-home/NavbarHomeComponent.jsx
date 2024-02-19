@@ -84,7 +84,7 @@ function NavbarHomeComponent({ t }) {
     }, []);
 
     const loadBrands = () => {
-        Api.get("/brand").then(res => {
+        Api.get("/brand?is_valid=true").then(res => {
             if (res) {
                 setBrands(res.data.data);
             }
@@ -222,7 +222,12 @@ function NavbarHomeComponent({ t }) {
                         </ul>
                         <div className="actions-wrapper" ref={actionsWrapperRef}>
                             <ul>
-                                <li className="search-act" onClick={() => { setSearchOpen(true) }}>
+                                <li
+                                    className="search-act"
+                                    onClick={() => {
+                                        setSearchOpen(true);
+                                    }}
+                                >
                                     <IconSearch color="#FFFFFF" />
                                 </li>
                                 <li>
@@ -312,7 +317,9 @@ function NavbarHomeComponent({ t }) {
                 brands={brands}
                 aboutUs={aboutUs}
             />
-            { searchOpen ? <SearchComponent setSearchOpen={setSearchOpen} brands={brands} categories={categories} /> : null }
+            {searchOpen ? (
+                <SearchComponent setSearchOpen={setSearchOpen} brands={brands} categories={categories} />
+            ) : null}
         </div>
     );
 }
