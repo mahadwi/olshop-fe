@@ -183,8 +183,17 @@ export default function VendorSell() {
     useEffect(() => {
         const { brand_id, commission_type, price, product_category_id } = formData;
         if (commission_type == "percent" && brand_id && price && product_category_id) {
+            let targetBrandId = brand_id;
+            if (brand_id == -1) {
+                for (const {value, label} of brands) {
+                    if (label.toUpperCase() == "OTHER") {
+                        targetBrandId = value;
+                        break;
+                    }
+                }
+            }
             Api.post(`/check-commission`, {
-                brand_id: brand_id,
+                brand_id: targetBrandId,
                 product_category_id: product_category_id,
                 price: price,
             }, {
