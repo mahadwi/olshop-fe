@@ -115,6 +115,7 @@ export default function VendorSell() {
     const [errorObj422, setErrorObj422] = useState({});
 
     const [newBrandName, setNewBrandName] = useState("");
+    const [commissionPercent, setCommissionPercent] = useState("");
 
     // Automatically scrolls to top whenever pathname changes
     useEffect(() => {
@@ -179,6 +180,36 @@ export default function VendorSell() {
         });
     }, []);
 
+    useEffect(() => {
+        const { brand_id, commission_type, price, product_category_id } = formData;
+        if (commission_type == "percent" && brand_id && price && product_category_id) {
+            let targetBrandId = brand_id;
+            if (brand_id == -1) {
+                for (const {value, label} of brands) {
+                    if (label.toUpperCase() == "OTHER") {
+                        targetBrandId = value;
+                        break;
+                    }
+                }
+            }
+            Api.post(`/check-commission`, {
+                brand_id: targetBrandId,
+                product_category_id: product_category_id,
+                price: price,
+            }, {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("apiToken")
+                }
+            }).then((res) => {
+                setCommissionPercent(res.data.data.percent);
+            }).catch((err) => {
+                console.log(err);
+            })
+        } else {
+            setCommissionPercent("");
+        }
+    }, [formData]);
+
     const inputImageOnChange = event => {
         const file = event.currentTarget.files[0];
         setImageBlobs(blobs => {
@@ -220,10 +251,11 @@ export default function VendorSell() {
         }
 
         if (form_data_insert.get("commission_type") == "percent") {
-            form_data_insert.append("sale_price", 0);
-            form_data_insert.append("sale_usd", 0);
+            form_data_insert.set("sale_price", 0);
+            form_data_insert.set("sale_usd", 0);
+            form_data_insert.set("commission", commissionPercent);
         } else {
-            form_data_insert.append("commission", 0);
+            form_data_insert.set("commission", 0);
         }
 
         let brandPromise;
@@ -1240,20 +1272,21 @@ export default function VendorSell() {
                                             <input
                                                 className={`form-control ${errorObj422.commission ? "is-invalid" : ""}`}
                                                 style={{
-                                                    background: commissionType?.value == "percent" ? "white" : "#EEE"
+                                                    background: "#EEE",
                                                 }}
                                                 type="number"
                                                 min={1}
                                                 name=""
                                                 id="commision"
-                                                disabled={commissionType?.value != "percent"}
+                                                disabled
                                                 placeholder={`${t("commission")} (%)`}
-                                                onInput={event => {
-                                                    const v = inputNonNegativeValue(event);
-                                                    const d = Object.assign({}, formData);
-                                                    d.commission = v;
-                                                    setFormData(d);
-                                                }}
+                                                value={commissionPercent}
+                                                // onInput={event => {
+                                                //     const v = inputNonNegativeValue(event);
+                                                //     const d = Object.assign({}, formData);
+                                                //     d.commission = v;
+                                                //     setFormData(d);
+                                                // }}
                                             />
                                             {errorObj422.commission ? (
                                                 <span className="invalid-feedback">{errorObj422.commission}</span>
