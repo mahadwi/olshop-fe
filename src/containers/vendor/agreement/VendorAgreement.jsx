@@ -224,13 +224,13 @@ export default function VendorAgreement() {
                                             <tr>
                                                 <td>{agreementObj.name}</td>
                                                 <td>
-                                                    {agreementObj.file ? (
+                                                    {agreementObj.draft ? (
                                                         <>
-                                                            <a href={agreementObj.file} target="_blank">
+                                                            <a href={agreementObj.draft} target="_blank">
                                                                 {t("agreementview")}
                                                             </a>
                                                             {" | "}
-                                                            <a href={agreementObj.file} target="_blank">
+                                                            <a href={agreementObj.draft} target="_blank">
                                                                 {t("download")}
                                                             </a>
                                                         </>
@@ -239,6 +239,18 @@ export default function VendorAgreement() {
                                                     )}
                                                 </td>
                                                 <td>
+                                                    {agreementObj.file ? (
+                                                        <>
+                                                            <a
+                                                                href={agreementObj.file}
+                                                                target="_blank"
+                                                                rel="noreferrer"
+                                                            >
+                                                                {t("agreementview")}
+                                                            </a>
+                                                            {" | "}
+                                                        </>
+                                                    ) : null}
                                                     <span
                                                         onClick={() => {
                                                             document
