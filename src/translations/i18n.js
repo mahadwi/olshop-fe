@@ -265,6 +265,7 @@ i18n
                     toastuploaddocumentsuccess: 'Document uploaded successfully',
                     toastuploaddocumentfailed: 'Document failed to upload',
                     consigner: 'Consigner',
+                    productnotavailable: 'Product not available',
                     // Add other EN translations here
                 },
             },
@@ -524,6 +525,7 @@ i18n
                     toastuploaddocumentsuccess: 'Dokumen berhasil diunggah',
                     toastuploaddocumentfailed: 'Dokumen gagal diunggah',
                     consigner: 'Konsinyor',
+                    productnotavailable: 'Produk tidak tersedia',
                     // Add other ID translations here
                 },
             },

@@ -3,6 +3,19 @@
 .products-wrapper {
     flex: 4;
 
+    .product-not-available {
+        font-family: 'Poppins', sans-serif;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        text-align: center;
+
+        img {
+            width: 400px;
+        }
+    }
+
     .inner-products-wrapper {
         display: flex;
         flex-direction: row;
