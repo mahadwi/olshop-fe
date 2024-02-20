@@ -23,7 +23,9 @@ export default function LeftFilterCategoriesComponent({ productCategories, selec
                 </div>
                 <ul className='open'>
                     {
-                        productCategories.map((productCategory) => (
+                        productCategories.map((productCategory) => {
+                            if (productCategory.name.toUpperCase() == "OTHER") return null;
+                            return (
                             <li>
                                 <Checkbox
                                     icon={<div style={{ backgroundColor: "#E4A951", borderRadius: 5, padding: 5 }} />}
@@ -45,7 +47,7 @@ export default function LeftFilterCategoriesComponent({ productCategories, selec
                                 />
                                 <span>{t(productCategory.name)}</span>
                             </li>
-                        ))
+                        )})
                     }
                 </ul>
                 { productCategories.length > 5 ?

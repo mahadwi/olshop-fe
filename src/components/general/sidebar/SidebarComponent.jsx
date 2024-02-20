@@ -60,11 +60,13 @@ export default function SidebarComponent({ toggleSidebar, sidebarOpen, categorie
                     </Link>
 
                     <ul className="dropdown-content">
-                        {categories.map((data, index) => (
+                        {categories.map((data, index) => {
+                            if (data.name.toUpperCase() == "OTHER") return null;
+                            return (
                             <li key={index}>
                                 <a href={`/collective/${data.id}`}>{data.name}</a>
                             </li>
-                        ))}
+                        )})}
                     </ul>
                 </li>
                 <li

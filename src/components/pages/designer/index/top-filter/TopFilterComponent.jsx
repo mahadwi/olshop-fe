@@ -58,7 +58,9 @@ export default function TopFilterComponent({ searchNameProduct, setSearchNamePro
                         <hr />
                         <ul>
                             {
-                                categories.map((brand) => (
+                                categories.map((brand) => {
+                                    if (brand.name.toUpperCase() == "OTHER") return null;
+                                    return(
                                     <li>
                                         <Checkbox
                                             icon={<div style={{ backgroundColor: "#E4A951", borderRadius: 5, padding: 5 }} />}
@@ -79,7 +81,7 @@ export default function TopFilterComponent({ searchNameProduct, setSearchNamePro
                                         />
                                         <span>{brand.name}</span>
                                     </li>
-                                ))
+                                )})
                             }
                         </ul>
                     </div>
@@ -136,6 +138,7 @@ export default function TopFilterComponent({ searchNameProduct, setSearchNamePro
                 <div className='categories-filter-title'>Brand</div>
                 <ul>
                 {categories?.map(({id, name}) => {
+                    if (name.toUpperCase() == "OTHER") return null;
                     return <li>
                         <Checkbox
                             icon={<div style={{ backgroundColor: "#E4A951", borderRadius: 5, padding: 5 }} />}

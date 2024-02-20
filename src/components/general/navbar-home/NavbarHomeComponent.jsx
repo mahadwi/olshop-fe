@@ -187,11 +187,13 @@ function NavbarHomeComponent({ t }) {
                                     <li className="dropdown-content-title">
                                         {StringUtil.capitalizeFirstLetter(t("collective").toLowerCase())}
                                     </li>
-                                    {categories.map((data, index) => (
+                                    {categories.map((data, index) => {
+                                      if (data.name.toUpperCase() == "OTHER") return null;
+                                      return (
                                         <li key={index}>
                                             <a href={`/collective/${data.id}`}>{data.name}</a>
                                         </li>
-                                    ))}
+                                    )})}
                                 </ul>
                             </li>
                             <li>
