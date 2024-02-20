@@ -266,6 +266,8 @@ i18n
                     toastuploaddocumentfailed: 'Document failed to upload',
                     consigner: 'Consigner',
                     productnotavailable: 'Product not available',
+                    verificationsuccess: 'Verification success, please wait for redirect to login page',
+                    verificationfailed: 'Verification failed',
                     // Add other EN translations here
                 },
             },
@@ -526,6 +528,8 @@ i18n
                     toastuploaddocumentfailed: 'Dokumen gagal diunggah',
                     consigner: 'Konsinyor',
                     productnotavailable: 'Produk tidak tersedia',
+                    verificationsuccess: 'Verifikasi berhasil, anda akan segera dipindahkan ke halaman masuk',
+                    verificationfailed: 'Verifikasi gagal',
                     // Add other ID translations here
                 },
             },
