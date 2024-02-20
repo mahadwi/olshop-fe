@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import BreadCrumb from '../../../components/general/breadcrumb/BreadCrumbComponent'
 import ContainerComponent from '../../../components/general/container/ContainerComponent'
 import './event-booking.scss'
@@ -7,6 +7,7 @@ import FormBookComponent from '../../../components/pages/event/booking/form-book
 import FormPaymentComponent from '../../../components/pages/event/booking/form-payment/FormPaymentComponent'
 import TicketBookingSummaryComponent from '../../../components/pages/event/booking/ticket-booking-summary/TicketBookingSummaryComponent'
 import { useLocation } from 'react-router-dom'
+import { AuthUserContext } from "../../../context/AuthUserContext";
 
 export default function EventBooking() {
 
@@ -15,6 +16,12 @@ export default function EventBooking() {
      * 
      */
     const { pathname } = useLocation();
+
+    /**
+     * Context
+     * 
+     */
+    const { user } = useContext(AuthUserContext)
 
     /**
      * Main State
@@ -75,7 +82,7 @@ export default function EventBooking() {
                 <div className='stepper-content-wrapper'>
                     {
                         activedIndexState == 0 ?
-                            <FormBookComponent setActivedIndexState={setActivedIndexState} />
+                            <FormBookComponent setActivedIndexState={setActivedIndexState} user={user} />
                             : <>{
                                 activedIndexState == 1 ?
                                     <FormPaymentComponent setActivedIndexState={setActivedIndexState} /> : <h1 style={{ width: '70%', float: 'right' }}>E-Ticket</h1>
