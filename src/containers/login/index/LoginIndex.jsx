@@ -14,6 +14,7 @@ import { AuthUserContext } from '../../../context/AuthUserContext'
 import { LoadingContext } from '../../../context/LoadingContext'
 import { GoogleLogin } from '@react-oauth/google';
 import toast from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
 
 const FORGOT_PASSWORD_TITLE = [
     'Find your LUXURYHUB account',
@@ -29,6 +30,7 @@ export default function LoginIndex() {
      */
     const navigate = useNavigate();
     const { pathname } = useLocation();
+    const { t } = useTranslation();
 
     /**
      * Context
@@ -57,7 +59,10 @@ export default function LoginIndex() {
     const [correctOtpForgotPassword, setCorrectOtpForgotPassword] = useState(true)
     const inputOtpRef = useRef()
 
+    const [showVerification] = useState(localStorage.getItem('verificationSuccess'));
+
     useEffect(() => {
+        localStorage.removeItem('verificationSuccess');
         setLoading(true);
         Api.get('/auth?provider=google', {
             provider: 'google',
@@ -339,6 +344,13 @@ export default function LoginIndex() {
                                 <p>- OR -</p>
                             </div>
                             <form action="">
+                                { showVerification ?
+                                <div className='form-group'>
+                                    <div class="alert alert-primary" role="alert">
+                                        {t("verificationsuccesslogin")}
+                                    </div>
+                                </div>
+                                : null }
                                 <div className='form-group'>
                                     <label htmlFor="email">Email</label>
                                     <input className={`${errorObj422.email ? 'is-invalid' : ''}`} type="text" name="email" id="email" placeholder='Email' value={email} onChange={(e) => { setEmail(e.target.value) }} />

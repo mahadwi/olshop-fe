@@ -268,6 +268,7 @@ i18n
                     productnotavailable: 'Product not available',
                     verificationsuccess: 'Verification success, please wait for redirect to login page',
                     verificationfailed: 'Verification failed',
+                    verificationsuccesslogin: 'Verification success',
                     // Add other EN translations here
                 },
             },
@@ -530,6 +531,7 @@ i18n
                     productnotavailable: 'Produk tidak tersedia',
                     verificationsuccess: 'Verifikasi berhasil, anda akan segera dipindahkan ke halaman masuk',
                     verificationfailed: 'Verifikasi gagal',
+                    verificationsuccesslogin: 'Verifikasi berhasil',
                     // Add other ID translations here
                 },
             },
