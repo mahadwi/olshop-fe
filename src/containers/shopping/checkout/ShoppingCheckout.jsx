@@ -966,17 +966,9 @@ export default function ShoppingCheckout() {
                                             }
                                             return p;
                                         },
-                                        selectedVoucher != null && selectedVoucher.type == "Price"
-                                            ? Number(
-                                                  currency == "id"
-                                                      ? selectedVoucher.disc_price
-                                                      : selectedVoucher.disc_price_usd
-                                              ) * -1
-                                            : 0
+                                        0
                                     ),
-                                    selectedVoucher != null && selectedVoucher.type == "Percent"
-                                        ? selectedVoucher.disc_percent
-                                        : 0
+                                    0
                                 )
                             )}
                         </div>
@@ -996,6 +988,43 @@ export default function ShoppingCheckout() {
                             )}
                         </div>
                     </div>
+
+                    { selectedVoucher != null ?
+                        <div>
+                            <div>Voucher</div>
+                            <div>
+                                { selectedVoucher.type == "B1G1" ?
+                                    t("b1g1")
+                                    :
+                                    formater.format(
+                                        selectedVoucher.type == "Percent" ?
+                                            arrCarts.reduce(
+                                                (p, c) => {
+                                                    const key = `${c.id}`;
+                                                    if (key in selected) {
+                                                        const { qty } = selected[key];
+                                                        return (
+                                                            p +
+                                                            (currency == "id"
+                                                                ? Number(c.product.sale_price)
+                                                                : Number(c.product.sale_usd)) *
+                                                                qty
+                                                        );
+                                                    }
+                                                    return p;
+                                                },
+                                                0
+                                            ) * (selectedVoucher.disc_percent / 100)
+                                        : Number(
+                                              currency == "id"
+                                                  ? selectedVoucher.disc_price
+                                                  : selectedVoucher.disc_price_usd
+                                          )
+                                    )
+                                }
+                            </div>
+                        </div>
+                    : null }
 
                     <div className="total">
                         <div>{t("totalpayment")}</div>
@@ -1079,18 +1108,18 @@ export default function ShoppingCheckout() {
                                                           : selectedVoucher.disc_price_usd
                                                   ) * -1
                                                 : 0
-                                        ) +
-                                            (selectedShippingFees != -1
-                                                ? Number(
-                                                      currency == "id"
-                                                          ? shippingFees[selectedShippingFees].cost[0].value
-                                                          : shippingFees[selectedShippingFees].cost[0].value_usd
-                                                  )
-                                                : 0),
+                                        ),
                                         selectedVoucher != null && selectedVoucher.type == "Percent"
                                             ? selectedVoucher.disc_percent
                                             : 0
-                                    )
+                                    ) +
+                                        (selectedShippingFees != -1
+                                            ? Number(
+                                                  currency == "id"
+                                                      ? shippingFees[selectedShippingFees].cost[0].value
+                                                      : shippingFees[selectedShippingFees].cost[0].value_usd
+                                              )
+                                            : 0)
                                 )}
                             </span>
                         </div>
@@ -1220,7 +1249,7 @@ export default function ShoppingCheckout() {
                     ) : null}
                     <div className="price-row">
                         <div>
-                            <h4>Transfer bank</h4>
+                            <h4>{t("totalorder")}</h4>
                             <h4>
                                 {formater.format(
                                     subtractByPercent(
@@ -1239,17 +1268,9 @@ export default function ShoppingCheckout() {
                                                 }
                                                 return p;
                                             },
-                                            selectedVoucher != null && selectedVoucher.type == "Price"
-                                                ? Number(
-                                                      currency == "id"
-                                                          ? selectedVoucher.disc_price
-                                                          : selectedVoucher.disc_price_usd
-                                                  ) * -1
-                                                : 0
+                                            0
                                         ),
-                                        selectedVoucher != null && selectedVoucher.type == "Percent"
-                                            ? selectedVoucher.disc_percent
-                                            : 0
+                                        0
                                     )
                                 )}
                             </h4>
@@ -1268,6 +1289,42 @@ export default function ShoppingCheckout() {
                                 )}
                             </h4>
                         </div>
+                        { selectedVoucher != null ?
+                            <div>
+                                <h4>Voucher</h4>
+                                <h4>
+                                    { selectedVoucher.type == "B1G1" ?
+                                        t("b1g1")
+                                        :
+                                        formater.format(
+                                            selectedVoucher.type == "Percent" ?
+                                                arrCarts.reduce(
+                                                    (p, c) => {
+                                                        const key = `${c.id}`;
+                                                        if (key in selected) {
+                                                            const { qty } = selected[key];
+                                                            return (
+                                                                p +
+                                                                (currency == "id"
+                                                                    ? Number(c.product.sale_price)
+                                                                    : Number(c.product.sale_usd)) *
+                                                                    qty
+                                                            );
+                                                        }
+                                                        return p;
+                                                    },
+                                                    0
+                                                ) * (selectedVoucher.disc_percent / 100)
+                                            : Number(
+                                                  currency == "id"
+                                                      ? selectedVoucher.disc_price
+                                                      : selectedVoucher.disc_price_usd
+                                              )
+                                        )
+                                    }
+                                </h4>
+                            </div>
+                        : null }
                         {/* <div>
                             <h4>Handling fee</h4>
                             <h4>
@@ -1310,18 +1367,18 @@ export default function ShoppingCheckout() {
                                                           : selectedVoucher.disc_price_usd
                                                   ) * -1
                                                 : 0
-                                        ) +
-                                            (selectedShippingFees != -1
-                                                ? Number(
-                                                      currency == "id"
-                                                          ? shippingFees[selectedShippingFees].cost[0].value
-                                                          : shippingFees[selectedShippingFees].cost[0].value_usd
-                                                  )
-                                                : 0),
+                                        ),
                                         selectedVoucher != null && selectedVoucher.type == "Percent"
                                             ? selectedVoucher.disc_percent
                                             : 0
-                                    )
+                                    ) +
+                                        (selectedShippingFees != -1
+                                            ? Number(
+                                                  currency == "id"
+                                                      ? shippingFees[selectedShippingFees].cost[0].value
+                                                      : shippingFees[selectedShippingFees].cost[0].value_usd
+                                              )
+                                            : 0)
                                 )}
                             </h4>
                         </div>

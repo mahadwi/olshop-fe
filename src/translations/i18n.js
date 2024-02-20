@@ -247,7 +247,7 @@ i18n
                     viewmore: 'View More',
                     viewless: 'View Less',
                     addbrand: 'Add Brand',
-                    totalorder: 'Total Order',
+                    totalorder: 'Order Total',
                     product: 'Product',
                     bills: 'Bills',
                     changeaddress: 'Change Address',
@@ -269,6 +269,7 @@ i18n
                     verificationsuccess: 'Verification success, please wait for redirect to login page',
                     verificationfailed: 'Verification failed',
                     verificationsuccesslogin: 'Verification success',
+                    b1g1: 'Buy 1 Get 1 Free',
                     // Add other EN translations here
                 },
             },
@@ -510,7 +511,7 @@ i18n
                     viewmore: 'Lihat Lebih Banyak',
                     viewless: 'Lihat Lebih Sedikit',
                     addbrand: 'Tambahkan Brand',
-                    totalorder: 'Jumlah Pesanan',
+                    totalorder: 'Total Pesanan',
                     product: 'Produk',
                     bills: 'Tagihan',
                     changeaddress: 'Ganti Alamat',
@@ -532,6 +533,7 @@ i18n
                     verificationsuccess: 'Verifikasi berhasil, anda akan segera dipindahkan ke halaman masuk',
                     verificationfailed: 'Verifikasi gagal',
                     verificationsuccesslogin: 'Verifikasi berhasil',
+                    b1g1: 'Beli 1 Gratis 1',
                     // Add other ID translations here
                 },
             },
