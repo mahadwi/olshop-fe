@@ -270,6 +270,11 @@ i18n
                     verificationfailed: 'Verification failed',
                     verificationsuccesslogin: 'Verification success',
                     b1g1: 'Buy 1 Get 1 Free',
+                    orderreview: 'Review',
+                    contactseller: 'Contact Seller',
+                    orderreviewproduct: 'Review Product',
+                    qualityproduct: 'Quality Product',
+                    comment: 'Comment',
                     // Add other EN translations here
                 },
             },
@@ -534,6 +539,11 @@ i18n
                     verificationfailed: 'Verifikasi gagal',
                     verificationsuccesslogin: 'Verifikasi berhasil',
                     b1g1: 'Beli 1 Gratis 1',
+                    orderreview: 'Nilai',
+                    contactseller: 'Hubungi Penjual',
+                    orderreviewproduct: 'Nilai Produk',
+                    qualityproduct: 'Kualitas Produk',
+                    comment: 'Komentar',
                     // Add other ID translations here
                 },
             },
