@@ -182,7 +182,7 @@ export default function VendorSell() {
 
     useEffect(() => {
         const { brand_id, commission_type, price, product_category_id } = formData;
-        if (commission_type == "percent" && brand_id && price && product_category_id) {
+        if (commission_type == "Percent" && brand_id && price && product_category_id) {
             let targetBrandId = brand_id;
             if (brand_id == -1) {
                 for (const { value, label } of brands) {
@@ -256,7 +256,7 @@ export default function VendorSell() {
             form_data_insert.append("image[]", file);
         }
 
-        if (form_data_insert.get("commission_type") == "percent") {
+        if (form_data_insert.get("commission_type") == "Percent") {
             form_data_insert.set("sale_price", 0);
             form_data_insert.set("sale_usd", 0);
             form_data_insert.set("commission", commissionPercent);
@@ -1261,8 +1261,8 @@ export default function VendorSell() {
                                                     setCommissionType(option);
                                                 }}
                                                 options={[
-                                                    { value: "percent", label: "Percent" },
-                                                    { value: "selling", label: "Selling" }
+                                                    { value: "Percent", label: "Percent" },
+                                                    { value: "Selling", label: "Selling" }
                                                 ]}
                                             />
                                             {errorObj422.commission_type ? (
