@@ -244,7 +244,10 @@ export default function ShoppingCart() {
                     <div className="body-price">
                         <div className="top-desc">
                             <div className="left-select">
-                                <button className="delete" onClick={doDeleteSelectedCart}>{t('delete')}</button>
+                                <button className="delete" disabled={!arrCarts.find((cartObj) => {
+                                    if (cartObj.selected) return true;
+                                    return false;
+                                })} onClick={doDeleteSelectedCart}>{t('delete')}</button>
                             </div>
                             <div className="right-price">
                                 <div className="left-select-text">
