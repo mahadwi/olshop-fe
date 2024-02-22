@@ -4,7 +4,7 @@ import { IconChevronRight } from '@tabler/icons-react';
 import ReviewItemComponent from '../review-item/ReviewItemComponent';
 import { useTranslation } from 'react-i18next';
 
-export default function ReviewSectionComponent() {
+export default function ReviewSectionComponent({ productObj }) {
     /**
      * Hooks
      * 
@@ -22,12 +22,15 @@ export default function ReviewSectionComponent() {
             </div>
             <div className='review-recap'>
                 <span className='stars-amount'>5.0 / 5</span>
-                <span className='review'>(1 {t('review')})</span>
+                <span className='review'>({productObj.review?.length ?? 0} {t('review')})</span>
             </div>
             <hr />
             <div className='reviews'>
-                <ReviewItemComponent />
-                <ReviewItemComponent />
+                {
+                    productObj.review?.map((review) => {
+                        return (<ReviewItemComponent review={review} />)
+                    })
+                }
             </div>
         </div>
     )

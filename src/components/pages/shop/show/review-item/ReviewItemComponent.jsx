@@ -4,26 +4,34 @@ import Bag1Image from './../../../../../images/temp/f55f82dc90262fa6c63ee79d67c3
 import Bag2Image from './../../../../../images/temp/5fb8a0cc92545f8e96dc1dac70ac5fd2.png'
 import './review-item.scoped.scss'
 
-export default function ReviewItemComponent() {
+export default function ReviewItemComponent({ review }) {
+    const stars = [];
+
+    for (let i = 0; i < review.rating; i++) {
+        stars.push(
+            <IconStarFilled size={15} style={{ color: '#FFAC33' }} />
+        );
+    }
+    for (let i = 0; i < 5 - review.rating; i++) {
+        stars.push(
+            <IconStarFilled size={15} style={{ color: '#CEC9C1' }} />
+        );
+    }
+
     return (
         <div className="review-item">
             <div className="inner">
                 <div className="top">
                     <div className="left">
                         <div className="photo-wrap">
-                            <img src={PhotoProfile} alt="" />
+                            <img src={review.user.image} alt="" />
                         </div>
                         <div className="profile-wrap">
-                            <h3>Hiroshi Takamoto</h3>
+                            <h3>{ review.user.name }</h3>
                             <div className='stars'>
-
-                                <IconStarFilled size={15} style={{ color: '#FFAC33' }} />
-                                <IconStarFilled size={15} style={{ color: '#FFAC33' }} />
-                                <IconStarFilled size={15} style={{ color: '#FFAC33' }} />
-                                <IconStarFilled size={15} style={{ color: '#FFAC33' }} />
-                                <IconStarFilled size={15} style={{ color: '#CEC9C1' }} />
+                                {stars}
                             </div>
-                            <span className='date'>20-01-2023</span>
+                            <span className='date'>{ review.date }</span>
                         </div>
                     </div>
                     <div className="right">
@@ -33,11 +41,16 @@ export default function ReviewItemComponent() {
                     </div>
                 </div>
                 <div className="body">
-                    <p>The product is really very satisfying and really real as in the picture, and the certificate attached is also very complete</p>
+                    <p>{ review.review }</p>
                 </div>
                 <div className="images">
-                    <img src={Bag1Image} alt="" />
-                    <img src={Bag2Image} alt="" />
+                    {
+                        review.images.map((u) => {
+                            return (
+                                <img src={u} alt="" />
+                            )
+                        })
+                    }
                 </div>
                 <div className="actions">
                     <IconThumbUp size={20} style={{ color: '#C4C4C4' }} />

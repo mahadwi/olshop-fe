@@ -242,7 +242,7 @@ export default function ShopShow() {
                 <hr className='only-mobile' />
                 <ProductDescriptionMobileComponent productObj={productObj} />
                 <hr />
-                <ReviewSectionComponent />
+                <ReviewSectionComponent productObj={productObj} />
             </ContainerComponent>
         </div>
     )
