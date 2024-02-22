@@ -275,6 +275,8 @@ i18n
                     orderreviewproduct: 'Review Product',
                     qualityproduct: 'Quality Product',
                     comment: 'Comment',
+                    addnewaddress: 'Add New Address',
+                    confirmaddnewaddress: 'Please fill in the address first, before checkout',
                     // Add other EN translations here
                 },
             },
@@ -544,6 +546,8 @@ i18n
                     orderreviewproduct: 'Nilai Produk',
                     qualityproduct: 'Kualitas Produk',
                     comment: 'Komentar',
+                    addnewaddress: 'Tambahkan Alamat Baru',
+                    confirmaddnewaddress: 'Mohon isi alamat terlebih dahulu, sebelum checkout',
                     // Add other ID translations here
                 },
             },

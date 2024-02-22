@@ -11,6 +11,7 @@ import { CartContext } from "../context/CartContext";
 import { Toaster } from 'react-hot-toast';
 import LanguageComponent from '../components/general/language/LanguageComponent';
 import WhatsappComponent from '../components/general/whatsapp/WhatsappComponent';
+import ModalAddressComponent from '../components/general/modalAddress/ModalAddressComponent';
 
 export default function MainLayout() {
 
@@ -54,6 +55,7 @@ export default function MainLayout() {
             }
             <LanguageComponent loading={loading} />
             <FooterComponent />
+            <ModalAddressComponent />
         </div>
     )
 }

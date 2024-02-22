@@ -10,6 +10,7 @@ import { LoadingContext } from '../../../context/LoadingContext';
 import { CartContext } from '../../../context/CartContext';
 import { LanguageContext } from '../../../context/LanguageContext';
 import { CurrencyContext } from '../../../context/CurrencyContext';
+import { ModalAddressContext } from '../../../context/ModalAddressContext';
 import { useTranslation } from "react-i18next";
 
 export default function ProductItemComponent({ product, className, blur, wishlistId }) {
@@ -30,6 +31,7 @@ export default function ProductItemComponent({ product, className, blur, wishlis
     const { language } = useContext(LanguageContext)
     const { currency } = useContext(CurrencyContext)
     const formater = new Intl.NumberFormat(currency == 'id' ? 'id-ID' : 'en-EN', { style: 'currency', currency: currency == 'id' ? 'IDR' : 'USD', minimumFractionDigits: 0, maximumFractionDigits: 2 })
+    const { setShowModalAddress } = useContext(ModalAddressContext)
 
     /**
      * State
@@ -133,6 +135,10 @@ export default function ProductItemComponent({ product, className, blur, wishlis
 
     const doBuyNow = (tempProduct) => {
         if (user) {
+            if (user.addresses.length == 0) {
+                setShowModalAddress(true);
+                return;
+            }
             setLoading(true)
             Api.post('/cart', {
                 product_id: tempProduct.id,

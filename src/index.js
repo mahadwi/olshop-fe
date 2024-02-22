@@ -12,6 +12,7 @@ import AuthUserContextProvider from './context/AuthUserContext';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import CartContextProvider from './context/CartContext';
 import SiteSettingContextProvider from './context/SiteSettingContext';
+import ModalAddressContextProvider from './context/ModalAddressContext';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
@@ -26,7 +27,9 @@ root.render(
                             <LoadingContextProvider>
                                 <AuthUserContextProvider>
                                     <CartContextProvider>
-                                        <App />
+                                        <ModalAddressContextProvider>
+                                            <App />
+                                        </ModalAddressContextProvider>
                                     </CartContextProvider>
                                 </AuthUserContextProvider>
                             </LoadingContextProvider>

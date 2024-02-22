@@ -4,9 +4,11 @@ import { IconMinus, IconPlus, IconTrash } from "@tabler/icons-react";
 import './shopping-cart.scoped.scss'
 import ContainerComponent from "../../../components/general/container/ContainerComponent";
 import { useContext, useEffect, useState } from "react";
+import { AuthUserContext } from "../../../context/AuthUserContext";
 import { LoadingContext } from "../../../context/LoadingContext";
 import { LanguageContext } from "../../../context/LanguageContext";
 import { CurrencyContext } from "../../../context/CurrencyContext";
+import { ModalAddressContext } from "../../../context/ModalAddressContext";
 import Api from "../../../utils/Api";
 import StringUtil from "../../../utils/StringUtil";
 import toast from 'react-hot-toast';
@@ -18,10 +20,12 @@ export default function ShoppingCart() {
      * Context
      * 
      */
+    const { user } = useContext(AuthUserContext)
     const { setLoading } = useContext(LoadingContext)
     const { language } = useContext(LanguageContext)
     const { currency } = useContext(CurrencyContext)
     const formater = new Intl.NumberFormat(currency == 'id' ? 'id-ID' : 'en-EN', { style: 'currency', currency: currency == 'id' ? 'IDR' : 'USD', minimumFractionDigits: 0, maximumFractionDigits: 2 })
+    const { setShowModalAddress } = useContext(ModalAddressContext)
 
     /**
      * Hooks
@@ -134,6 +138,11 @@ export default function ShoppingCart() {
 
         if (Object.keys(selectedObj).length == 0) {
             toast.error("No selection made. Please choose an item before proceeding")
+            return false;
+        }
+
+        if (user.addresses.length == 0) {
+            setShowModalAddress(true);
             return false;
         }
 

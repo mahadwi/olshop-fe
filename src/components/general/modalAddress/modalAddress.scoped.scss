@@ -1,0 +1,57 @@
+@use './../../../styles/func.scoped.scss' as *;
+
+.modal-confirm-body {
+    color: #666;
+    text-align: justify;
+    font-family: Cabin;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-align: center;
+}
+
+.modal-confirm-body-footer {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    justify-content: center;
+    width: 100%;
+
+    button {
+        border-radius: 5px;
+        border: 1px solid #151b4f;
+        background: #fff;
+        color: #151b4f;
+        padding: 0.25rem 1rem;
+        text-align: center;
+        font-family: Cabin;
+        font-size: 10px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+        display: inline-block;
+
+        &.blue {
+            color: #fff;
+            background: #151b4f;
+        }
+
+        &.desktop {
+            display: none;
+
+            @include lg {
+                display: inline-block;
+            }
+        }
+
+        &.mobile {
+            display: inline-block;
+
+            @include lg {
+                display: none;
+            }
+        }
+    }
+}
+

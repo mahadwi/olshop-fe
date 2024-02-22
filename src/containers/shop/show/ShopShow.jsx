@@ -14,6 +14,7 @@ import { AuthUserContext } from "../../../context/AuthUserContext";
 import { useNavigate } from 'react-router-dom'
 import { LoadingContext } from "../../../context/LoadingContext";
 import { CartContext } from "../../../context/CartContext";
+import { ModalAddressContext } from "../../../context/ModalAddressContext";
 
 export default function ShopShow() {
 
@@ -32,6 +33,7 @@ export default function ShopShow() {
     const { user } = useContext(AuthUserContext)
     const { setLoading } = useContext(LoadingContext)
     const { refreshCarts } = useContext(CartContext)
+    const { setShowModalAddress } = useContext(ModalAddressContext)
 
     /**
      * Main State
@@ -192,6 +194,10 @@ export default function ShopShow() {
 
     const doBuyNow = (tempProduct) => {
         if (user) {
+            if (user.addresses.length == 0) {
+                setShowModalAddress(true);
+                return;
+            }
             setLoading(true)
             Api.post('/cart', {
                 product_id: tempProduct.id,
@@ -231,7 +237,7 @@ export default function ShopShow() {
                 <hr />
                 <OtherProductsComponent user={user} productsByCategory={productsByCategory} />
                 <hr className='only-mobile' />
-                <ProductCartComponent onlyMobile={true} productObj={productObj} qty={qty} doSubtractQty={doSubtractQty} doAddQty={doAddQty} shipTo={shipTo} setShipTo={setShipTo} loadDistricts={loadDistricts} couriers={couriers} selectedCourier={selectedCourier} setSelectedCourier={setSelectedCourier} shippingFeeOpened={shippingFeeOpened} setShippingFeeOpened={setShippingFeeOpened} shippingFees={shippingFees} selectedShippingFees={selectedShippingFees} setSelectedShippingFees={setSelectedShippingFees} doAddToCart={doAddToCart} />
+                <ProductCartComponent onlyMobile={true} productObj={productObj} qty={qty} doSubtractQty={doSubtractQty} doAddQty={doAddQty} shipTo={shipTo} setShipTo={setShipTo} loadDistricts={loadDistricts} couriers={couriers} selectedCourier={selectedCourier} setSelectedCourier={setSelectedCourier} shippingFeeOpened={shippingFeeOpened} setShippingFeeOpened={setShippingFeeOpened} shippingFees={shippingFees} selectedShippingFees={selectedShippingFees} setSelectedShippingFees={setSelectedShippingFees} doAddToCart={doAddToCart} doBuyNow={doBuyNow} />
                 <hr className='only-mobile' />
                 <ProductDescriptionMobileComponent productObj={productObj} />
                 <hr />

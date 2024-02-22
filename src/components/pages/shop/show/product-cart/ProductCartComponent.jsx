@@ -194,7 +194,7 @@ export default function ProductCartComponent({ onlyDesktop, onlyMobile, productO
                         </button>
                     </div>
                 </div>
-                <button className='buy-now'>{t('buynow')}</button>
+                <button className='buy-now' onClick={() => {doBuyNow(productObj)}}>{t('buynow')}</button>
             </div>
         </div>
     )
