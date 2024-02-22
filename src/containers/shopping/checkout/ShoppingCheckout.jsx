@@ -256,6 +256,7 @@ export default function ShoppingCheckout() {
             total: total + ongkir,
             note: "tes",
             is_offline: isOffline,
+            is_direct: localStorage.getItem("isDirect") == "1",
             pickup_deadline: pickupDeadlineDate.toLocaleDateString("id-ID", { day: "2-digit", month: "2-digit", year: "numeric" }).replace(/\//g, "-"),
             details: details
         };

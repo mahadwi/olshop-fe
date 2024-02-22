@@ -147,6 +147,7 @@ export default function ShoppingCart() {
         }
 
         localStorage.setItem('selectedObj', JSON.stringify(selectedObj));
+        localStorage.setItem('isDirect', '0');
         return true
     }
 

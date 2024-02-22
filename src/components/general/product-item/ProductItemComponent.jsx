@@ -156,6 +156,7 @@ export default function ProductItemComponent({ product, className, blur, wishlis
                     };
 
                     localStorage.setItem('selectedObj', JSON.stringify(p));
+                    localStorage.setItem('isDirect', '1');
                     window.location.href = '/shopping/checkout'
                 }
             }).finally(() => {
