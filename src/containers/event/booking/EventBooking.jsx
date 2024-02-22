@@ -75,22 +75,36 @@ export default function EventBooking() {
             <ContainerComponent>
                 <BreadCrumb lists={breadcrumbs} />
 
-                <TicketBookingSummaryComponent />
+                {
+                    activedIndexState == 2 ?
+                        <>
+                            <StepperComponent activedIndexState={activedIndexState} steps={arrFormStepStates} />
+                        </>
+                    : null
+                }
 
-                <StepperComponent activedIndexState={activedIndexState} steps={arrFormStepStates} />
+                <TicketBookingSummaryComponent activedIndexState={activedIndexState} />
 
-                <div className='stepper-content-wrapper'>
-                    {
-                        activedIndexState == 0 ?
-                            <FormBookComponent setActivedIndexState={setActivedIndexState} user={user} />
-                            : <>{
-                                activedIndexState == 1 ?
-                                    <FormPaymentComponent setActivedIndexState={setActivedIndexState} /> : <h1 style={{ width: '70%', float: 'right' }}>E-Ticket</h1>
-                            }</>
 
-                    }
-                </div>
-
+                {
+                    activedIndexState != 2 ?
+                        <>
+                            <StepperComponent activedIndexState={activedIndexState} steps={arrFormStepStates} />
+                            <div className='stepper-content-wrapper'>
+                                {
+                                    activedIndexState == 0 ?
+                                        <FormBookComponent setActivedIndexState={setActivedIndexState} user={user} />
+                                    : null
+                                }
+                                {
+                                    activedIndexState == 1 ?
+                                      <FormPaymentComponent setActivedIndexState={setActivedIndexState} />
+                                    : null
+                                }
+                            </div>
+                        </>
+                    : null
+                }
             </ContainerComponent>
         </div>
     )
