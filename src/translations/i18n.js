@@ -277,6 +277,8 @@ i18n
                     comment: 'Comment',
                     addnewaddress: 'Add New Address',
                     confirmaddnewaddress: 'Please fill in the address first, before checkout',
+                    toastorderreviewsuccess: 'Review success',
+                    toastorderreviewfailed: 'Review failed',
                     // Add other EN translations here
                 },
             },
@@ -548,6 +550,8 @@ i18n
                     comment: 'Komentar',
                     addnewaddress: 'Tambahkan Alamat Baru',
                     confirmaddnewaddress: 'Mohon isi alamat terlebih dahulu, sebelum checkout',
+                    toastorderreviewsuccess: 'Review berhasil',
+                    toastorderreviewfailed: 'Review gagal',
                     // Add other ID translations here
                 },
             },
