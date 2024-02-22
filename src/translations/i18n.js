@@ -279,6 +279,7 @@ i18n
                     confirmaddnewaddress: 'Please fill in the address first, before checkout',
                     toastorderreviewsuccess: 'Review success',
                     toastorderreviewfailed: 'Review failed',
+                    orderofflinesuccess: 'The goods have been successfully stored in the offline store. Please pick up the goods according to the specified time. If the pickup exceeds the specified time limit, please reorder',
                     // Add other EN translations here
                 },
             },
@@ -552,6 +553,7 @@ i18n
                     confirmaddnewaddress: 'Mohon isi alamat terlebih dahulu, sebelum checkout',
                     toastorderreviewsuccess: 'Review berhasil',
                     toastorderreviewfailed: 'Review gagal',
+                    orderofflinesuccess: 'Barang berhasil tersimpan di offline store. Harap ambil barang sesuai dengan waktu yang sudah ditentukan. Ketika pengambilan melebihi batas waktu yang telah ditentukan, harap lakukan pemesanan ulang',
                     // Add other ID translations here
                 },
             },
