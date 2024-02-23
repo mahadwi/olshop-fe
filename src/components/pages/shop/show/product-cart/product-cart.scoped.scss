@@ -363,7 +363,7 @@
 
                 button {
                     display: flex;
-                    padding: 0 0.5rem;
+                    padding: 0 0.25rem;
                     border-radius: 5px;
                     color: #fff;
                     border: 1px solid #151B4F;
@@ -374,7 +374,7 @@
                 }
 
                 input {
-                    width: 4rem;
+                    width: 4ch;
                 }
 
                 .total-stock {
@@ -416,7 +416,7 @@
             color: #FFF;
             text-align: justify;
             font-family: Cambay;
-            padding: 2.5rem;
+            padding: 2.5rem 1.5rem;
             font-size: 18px;
             font-style: normal;
             white-space: nowrap;
