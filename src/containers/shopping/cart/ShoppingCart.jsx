@@ -283,6 +283,14 @@ export default function ShoppingCart() {
                         </div>
                     </div>
                 </div>
+
+                <div className="delete-mobile">
+                    <button className="delete" disabled={!arrCarts.find((cartObj) => {
+                        if (cartObj.selected) return true;
+                        return false;
+                    })} onClick={doDeleteSelectedCart}>{t('delete')}</button>
+                </div>
+
                 <div className="box-bottom-checkout-mobile">
                     {/* <div className="top-voucher">
                         <div className="inner">

@@ -372,22 +372,6 @@
                     align-items: center;
                     gap: .75rem;
 
-                    .delete {
-                        color: #E82529;
-                        font-family: Cambay;
-                        font-size: 14px;
-                        font-style: normal;
-                        font-weight: 400;
-                        line-height: 16px; /* 114.286% */
-                        border:0;
-                        background: transparent;
-                        padding: 0;
-
-                        &:disabled {
-                            opacity: 0.4;
-                        }
-                    }
-
                     span {
                         color: #000;
                         font-family: 'Cambay', sans-serif;
@@ -560,6 +544,31 @@
                 font-weight: 700;
                 line-height: 16px; /* 114.286% */
             }
+        }
+    }
+
+    .delete-mobile {
+        display: block;
+        margin-top: 1rem;
+
+        @include lg {
+            display: none;
+        }
+    }
+
+    .delete {
+        color: #E82529;
+        font-family: Cambay;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 16px; /* 114.286% */
+        border:0;
+        background: transparent;
+        padding: 0;
+
+        &:disabled {
+            opacity: 0.4;
         }
     }
 }
