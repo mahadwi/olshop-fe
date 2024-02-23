@@ -1,5 +1,6 @@
 import './ticket-booking-summary.scoped.scss'
 import ticketBookingSummaryBg from './../../../../../images/62782f1f7146ee3c859503f63905372f.jpeg'
+import QrCode from '../../../../../images/qr-code.svg';
 
 export default function TicketBookingSummaryComponent({activedIndexState}) {
     return (
@@ -66,52 +67,56 @@ export default function TicketBookingSummaryComponent({activedIndexState}) {
                 <>
                     <div className="divider" />
                     <div className="card-bottom">
-                        <div className="id">
-                            <div className="item">
-                                <div>
-                                    Booking ID
-                                </div>
-                                <div className="id-number">
-                                    283429312321
+                        <div className="vertical">
+                            <div>
+                                <div className="item">
+                                    <div>
+                                        Booking ID
+                                    </div>
+                                    <div className="id-number">
+                                        283429312321
+                                    </div>
                                 </div>
                             </div>
-                            <img src={`https://i.ibb.co/1K3VCSd/image.png`} alt="barcode" />
+                            <div className="horizontal">
+                                <div className="item">
+                                    <div>
+                                        Full Name
+                                    </div>
+                                    <div>
+                                        Inon_5471
+                                    </div>
+                                </div>
+                                <div className="item">
+                                    <div>
+                                        Email Address
+                                    </div>
+                                    <div>
+                                        Inon@gmail.com
+                                    </div>
+                                </div>
+                                <div className="item">
+                                    <div>
+                                        Phone Number
+                                    </div>
+                                    <div>
+                                        081111222233
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div className="item">
+                                    <div>
+                                        Address
+                                    </div>
+                                    <div>
+                                        Jl. ABC,Kec.ABC,Jawa Tengah
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div className="detail">
-                            <div className="item">
-                                <div>
-                                    Full Name
-                                </div>
-                                <div>
-                                    Inon_5471
-                                </div>
-                            </div>
-                            <div className="item">
-                                <div>
-                                    Email Address
-                                </div>
-                                <div>
-                                    Inon@gmail.com
-                                </div>
-                            </div>
-                            <div className="item">
-                                <div>
-                                    Phone Number
-                                </div>
-                                <div>
-                                    081111222233
-                                </div>
-                            </div>
-                        </div>
-                        <div className="address">
-                            <div className="item">
-                                <div>
-                                    Address
-                                </div>
-                                <div>
-                                    Jl. ABC,Kec.ABC,Jawa Tengah
-                                </div>
-                            </div>
+                        <div className="vertical" style={{ alignItems: "center" }}>
+                            <img src={QrCode} alt="qr code" width="190" height="190" />
                             <a href="#" className="download">Download</a>
                         </div>
                     </div>
