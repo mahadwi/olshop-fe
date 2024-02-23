@@ -45,7 +45,7 @@ export default function FormBoxComponent() {
             recapcha: recaptchaValue
         })
             .then((res) => {
-                toast.success('Suggestion, sent successfully.')
+                toast.success(t('suggestionsentsuccessfully'))
 
                 setName('')
                 setEmail('')

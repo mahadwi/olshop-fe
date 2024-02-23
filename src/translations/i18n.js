@@ -286,6 +286,8 @@ i18n
                     inputyourname: 'Input your name',
                     inputyouremailaddress: 'Input your email address',
                     inputyoursuggestion: 'Input your suggestion',
+                    suggestionsentsuccessfully: 'Suggestion sent successfully.',
+                    messagesentsuccessfully: 'Message sent successfully.',
                     // Add other EN translations here
                 },
             },
@@ -566,6 +568,8 @@ i18n
                     inputyourname: 'Masukan nama anda',
                     inputyouremailaddress: 'Masukan alamat email anda',
                     inputyoursuggestion: 'Masukan saran anda',
+                    suggestionsentsuccessfully: 'Saran berhasil dikirim.',
+                    messagesentsuccessfully: 'Pesan berhasil dikirim.',
                     // Add other ID translations here
                 },
             },

@@ -52,7 +52,7 @@ export default function FormComponent() {
             recapcha: recaptchaValue
         })
             .then((res) => {
-                toast.success('Message, sent successfully.')
+                toast.success(t('messagesentsuccessfully'))
 
                 setFirstName('')
                 setLasName('')
