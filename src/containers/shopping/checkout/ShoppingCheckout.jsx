@@ -304,7 +304,7 @@ export default function ShoppingCheckout() {
                             <div className="mt-3">{t("orderofflinesuccess")}</div>
                         </div>
                     );
-                    setInterval(() => {
+                    setTimeout(() => {
                         navigate("/shop")
                     }, 3000);
                 } else {
