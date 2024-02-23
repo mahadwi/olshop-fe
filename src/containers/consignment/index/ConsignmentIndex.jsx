@@ -280,7 +280,9 @@ export default function ConsignmentIndex() {
             <div className="consignment-second-hero">
                 <div className="_title0">{sections[6]?.["title" + suffix]}</div>
                 <div className="_title1" dangerouslySetInnerHTML={{ __html: sections[6]?.["description" + suffix] }} />
-                <Link className="_button">BOOK APPOINTMENT</Link>
+                <a href="https://calendly.com/luxuryhub/perkenalan-luxury-hub" target="_blank" className="_button">
+                    BOOK APPOINTMENT
+                </a>
             </div>
         </div>
     );
