@@ -386,7 +386,7 @@ export default function VendorSell() {
                                               })}`
                                             : ""}
                                     </h3>
-                                    {commissionType?.value == "selling" ? (
+                                    {commissionType?.value == "Selling" ? (
                                         <h3
                                             className={`price ${
                                                 formData?.sale_price || formData?.sale_usd ? "active" : ""
@@ -1310,11 +1310,11 @@ export default function VendorSell() {
                                                 className={`form-control ${errorObj422.sale_price ? "is-invalid" : ""}`}
                                                 type="text"
                                                 style={{
-                                                    background: commissionType?.value == "selling" ? "white" : "#EEE"
+                                                    background: commissionType?.value == "Selling" ? "white" : "#EEE"
                                                 }}
                                                 name=""
                                                 id="sale_price"
-                                                disabled={commissionType?.value != "selling"}
+                                                disabled={commissionType?.value != "Selling"}
                                                 placeholder={`${t("saleprice")} (RP)`}
                                                 onInput={event => {
                                                     const v = inputNonNegativeValue(event);
@@ -1337,11 +1337,11 @@ export default function VendorSell() {
                                                 className={`form-control ${errorObj422.sale_usd ? "is-invalid" : ""}`}
                                                 type="text"
                                                 style={{
-                                                    background: commissionType?.value == "selling" ? "white" : "#EEE"
+                                                    background: commissionType?.value == "Selling" ? "white" : "#EEE"
                                                 }}
                                                 name=""
                                                 id="sale_usd"
-                                                disabled={commissionType?.value != "selling"}
+                                                disabled={commissionType?.value != "Selling"}
                                                 placeholder={`${t("saleprice")} (USD)`}
                                                 onInput={event => {
                                                     const v = inputUsdFormat(event);
