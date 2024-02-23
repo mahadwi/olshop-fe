@@ -78,7 +78,7 @@ export default function EventBooking() {
                 {
                     activedIndexState == 2 ?
                         <>
-                            <StepperComponent activedIndexState={activedIndexState} steps={arrFormStepStates} />
+                            <StepperComponent activedIndexState={activedIndexState} steps={arrFormStepStates} setActivedIndexState={setActivedIndexState} />
                         </>
                     : null
                 }
@@ -89,7 +89,7 @@ export default function EventBooking() {
                 {
                     activedIndexState != 2 ?
                         <>
-                            <StepperComponent activedIndexState={activedIndexState} steps={arrFormStepStates} />
+                            <StepperComponent activedIndexState={activedIndexState} steps={arrFormStepStates} setActivedIndexState={setActivedIndexState} />
                             <div className='stepper-content-wrapper'>
                                 {
                                     activedIndexState == 0 ?

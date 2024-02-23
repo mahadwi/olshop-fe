@@ -1,12 +1,16 @@
 import './stepper.scoped.scss'
 
-export default function StepperComponent({ steps, activedIndexState }) {
+export default function StepperComponent({ steps, activedIndexState, setActivedIndexState }) {
     return (
         <div className='stepper-wrapper'>
             {
                 steps.map((step, stepIndex) => (
                     <>
-                        <div className={`step-item ${activedIndexState > stepIndex ? 'completed' : ''}`}>
+                        <div className={`step-item ${activedIndexState > stepIndex ? 'completed' : ''}`} onClick={(e) => {
+                            if (e.currentTarget.classList.contains("completed")) {
+                                setActivedIndexState(stepIndex);
+                            }
+                        }}>
                             <div className='icon-wrapper'>
                                 {
                                     stepIndex == activedIndexState ?
