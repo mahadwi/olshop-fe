@@ -196,7 +196,7 @@ export default function ShoppingCheckout() {
         }
     }, [selectedCourier, selectedAddress]);
 
-    const doOrder = () => {
+    const doOrder = (isMobile) => {
         if (!selectedCourier) {
             setModalChangeCourier(true);
             return;
@@ -305,7 +305,7 @@ export default function ShoppingCheckout() {
                         </div>
                     );
                     setTimeout(() => {
-                        navigate("/shop")
+                        navigate(isMobile ? "/profile/orders" : "/account/orders")
                     }, 3000);
                 } else {
                     window.location.href = res.data.data.payment.invoice_url;
@@ -1157,7 +1157,7 @@ export default function ShoppingCheckout() {
                                 )}
                             </span>
                         </div>
-                        <button type="button" onClick={doOrder}>{t("placeorder")}</button>
+                        <button type="button" onClick={() => {doOrder(true)}}>{t("placeorder")}</button>
                     </div>
                 </div>
 
@@ -1426,7 +1426,7 @@ export default function ShoppingCheckout() {
                             </div>
                         </div>)
                         : null }
-                        <button onClick={doOrder}>{t("placeorder")}</button>
+                        <button onClick={() => {doOrder(false)}}>{t("placeorder")}</button>
                     </div>
                 </div>
             </div>
