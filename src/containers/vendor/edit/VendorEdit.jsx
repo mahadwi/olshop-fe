@@ -221,8 +221,8 @@ export default function VendorEdit() {
             }
 
             if (commission_type == "Percent") {
-                delete d.sale_price;
-                delete d.sale_usd;
+                // delete d.sale_price;
+                // delete d.sale_usd;
             } else {
                 delete d.commission;
             }
@@ -255,8 +255,8 @@ export default function VendorEdit() {
     }, []);
 
     useEffect(() => {
-        const { brand_id, commission_type, price, product_category_id } = formData;
-        if (commission_type == "Percent" && brand_id && price && product_category_id) {
+        const { brand_id, commission_type, price, price_usd, product_category_id } = formData;
+        if (commission_type == "Percent" && brand_id && price && price_usd && product_category_id) {
             let targetBrandId = brand_id;
             if (brand_id == -1) {
                 for (const { value, label } of brands) {
@@ -281,6 +281,13 @@ export default function VendorEdit() {
             )
                 .then(res => {
                     setCommissionPercent(res.data.data.percent);
+                    const d = Object.assign({}, formData);
+
+                    document.getElementById("sale_price").value =
+                        parseFloat(d.price) + parseFloat(d.price * res.data.data.percent) / 100;
+
+                    document.getElementById("sale_usd").value =
+                        parseFloat(d.price_usd) + parseFloat(d.price_usd * res.data.data.percent) / 100;
                 })
                 .catch(err => {
                     console.log(err);
@@ -385,8 +392,13 @@ export default function VendorEdit() {
         // }
 
         if (form_data_insert.get("commission_type") == "Percent") {
-            form_data_insert.set("sale_price", 0);
-            form_data_insert.set("sale_usd", 0);
+            const d = Object.assign({}, formData);
+
+            form_data_insert.set("sale_price", parseFloat(d.price) + parseFloat(d.price * commissionPercent) / 100);
+            form_data_insert.set(
+                "sale_usd",
+                parseFloat(d.price_usd) + parseFloat(d.price_usd * commissionPercent) / 100
+            );
             form_data_insert.set("commission", commissionPercent);
         } else {
             form_data_insert.set("commission", 0);
@@ -1400,8 +1412,8 @@ export default function VendorEdit() {
                                                     d.commission_type = option.value;
 
                                                     if (option.value == "percent") {
-                                                        delete d.sale_price;
-                                                        delete d.sale_usd;
+                                                        // delete d.sale_price;
+                                                        // delete d.sale_usd;
                                                     } else {
                                                         delete d.commission;
                                                     }
