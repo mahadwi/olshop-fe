@@ -158,7 +158,9 @@ function NavbarComponent({ t }) {
                 <ContainerComponent>
                     <nav className="navbar-olshop">
                         <Link to={"/"} className="brand-wrapper">
-                            <img src={siteSetting.logo_url} alt="brand-logo" />
+                            { siteSetting.logo_url ?
+                                <img src={siteSetting.logo_url} alt="brand-logo" />
+                            : null }
                         </Link>
                         <div
                             className="hamburger"

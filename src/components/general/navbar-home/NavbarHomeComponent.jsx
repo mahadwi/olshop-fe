@@ -167,7 +167,9 @@ function NavbarHomeComponent({ t }) {
                             }}
                             className="brand-wrapper"
                         >
-                            <img src={siteSetting.logo_url} alt="brand-logo" />
+                            { siteSetting.logo_url ?
+                                <img src={siteSetting.logo_url} alt="brand-logo" />
+                            : null }
                         </NavLink>
                         <div
                             className="hamburger"
