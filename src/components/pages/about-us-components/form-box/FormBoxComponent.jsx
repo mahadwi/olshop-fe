@@ -5,9 +5,16 @@ import Api from '../../../../utils/Api'
 import ApiErrorHandling from '../../../../utils/ApiErrorHandling'
 import toast from 'react-hot-toast';
 import { LoadingContext } from '../../../../context/LoadingContext'
-import ReCAPTCHA from 'react-google-recaptcha'
+import ReCAPTCHA from 'react-google-recaptcha';
+import { useTranslation } from 'react-i18next';
 
 export default function FormBoxComponent() {
+
+    /**
+     * Hook
+     * 
+     */
+    const { t } = useTranslation();
 
     /**
      * Context
@@ -54,10 +61,10 @@ export default function FormBoxComponent() {
 
     return (
         <div className='container-form'>
-            <HighlightTitleComponent title={'Suggestion'} background={'linear-gradient(270deg, #E4A951 0%, #E4E4EA 45.18%, #FFF 87.37%)'} />
+            <HighlightTitleComponent title={t('suggestion')} background={'linear-gradient(270deg, #E4A951 0%, #E4E4EA 45.18%, #FFF 87.37%)'} />
 
             <p>
-                To improve performance and service, if you have criticism or suggestions for our shop, you can input it in the form below :
+                {t('suggestionmessageform')} :
             </p>
 
             <div
@@ -65,8 +72,8 @@ export default function FormBoxComponent() {
             >
                 <form action="">
                     <div className='form-group'>
-                        <label className='form-label' htmlFor="name">Name</label>
-                        <input type="text" className={`form-control ${objError422.name ? 'is-invalid' : ''}`} name="name" id="name" placeholder='Input your name' value={name} onChange={(e) => {
+                        <label className='form-label' htmlFor="name">{t('name')}</label>
+                        <input type="text" className={`form-control ${objError422.name ? 'is-invalid' : ''}`} name="name" id="name" placeholder={t('inputyourname')} value={name} onChange={(e) => {
                             setName(e.target.value);
                         }} />
 
@@ -78,7 +85,7 @@ export default function FormBoxComponent() {
                     </div>
                     <div className='form-group'>
                         <label className='form-label' htmlFor="email">Email</label>
-                        <input type="email" className={`form-control ${objError422.email ? 'is-invalid' : ''}`} name="email" id="email" placeholder='Input your email address' value={email} onChange={(e) => {
+                        <input type="email" className={`form-control ${objError422.email ? 'is-invalid' : ''}`} name="email" id="email" placeholder={t('inputyouremailaddress')} value={email} onChange={(e) => {
                             setEmail(e.target.value)
                         }} />
 
@@ -89,8 +96,8 @@ export default function FormBoxComponent() {
                         }
                     </div>
                     <div className='form-group'>
-                        <label className='form-label' htmlFor="sugestion">Sugestion</label>
-                        <textarea className={`form-control ${objError422.suggestion ? 'is-invalid' : ''}`} name="sugestion" id="sugestion" cols="30" rows="10" placeholder='Input your sugestion' value={suggestion} onChange={(e) => {
+                        <label className='form-label' htmlFor="sugestion">{t('suggestion')}</label>
+                        <textarea className={`form-control ${objError422.suggestion ? 'is-invalid' : ''}`} name="sugestion" id="sugestion" cols="30" rows="10" placeholder={t('inputyoursuggestion')} value={suggestion} onChange={(e) => {
                             setSuggestion(e.target.value)
                         }}></textarea>
 
@@ -115,7 +122,7 @@ export default function FormBoxComponent() {
                     <div className='form-group form-group-button'>
                         <button type="button" onClick={() => {
                             submitSuggestion()
-                        }} className='btn'>Submit</button>
+                        }} className='btn'>{t("submit")}</button>
                     </div>
                 </form>
             </div>

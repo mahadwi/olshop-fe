@@ -1,7 +1,10 @@
 import StringUtil from '../../../../utils/StringUtil'
 import './description.scoped.scss'
+import { useTranslation } from 'react-i18next';
 
 export default function DescriptionComponent({ aboutUsObject }) {
+    const { t } = useTranslation();
+
     return (
         <div className='description-container'>
             {/* <div>
@@ -27,7 +30,7 @@ export default function DescriptionComponent({ aboutUsObject }) {
                     We are confident that Luxury Bags for the Elegant and Expensive is the best place to shop for luxury handbags and leather accessories. We invite you to browse our selection and experience the difference for yourself.</p>
             </div> */}
             <div className='location-container'>
-                <h4 className='paragraph-title'>Our Store Location: </h4>
+                <h4 className='paragraph-title'>{t('ourstorelocation')}: </h4>
                 <div className='location-wrapper'>
                     <div className='map-box'>
                         <iframe src={StringUtil.googleMapsURLToEmbedURL(aboutUsObject.maps)} style={{ border: 0 }} allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
