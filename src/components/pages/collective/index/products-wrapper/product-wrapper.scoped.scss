@@ -1,3 +1,5 @@
+@use './../../../../../styles/func.scoped.scss' as *;
+
 .product-not-available {
     font-family: 'Poppins', sans-serif;
     font-size: 18px;
@@ -7,7 +9,11 @@
     text-align: center;
 
     img {
-        width: 400px;
+        width: 220px;
+
+        @include lg {
+            width: 400px;
+        }
     }
 }
 
