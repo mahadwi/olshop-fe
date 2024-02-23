@@ -5,8 +5,10 @@ import Modal from 'react-bootstrap/Modal';
 import { useContext, useState } from "react";
 import { IconCalendar, IconChevronDown, IconPhone, IconReceiptRefund, IconUsers } from "@tabler/icons-react";
 import { IconClock } from "@tabler/icons-react";
+import { AuthUserContext } from '../../../../../context/AuthUserContext'
 import { LanguageContext } from '../../../../../context/LanguageContext'
 import { CurrencyContext } from '../../../../../context/CurrencyContext'
+import { ModalAddressContext } from '../../../../../context/ModalAddressContext'
 import { useTranslation } from 'react-i18next';
 
 export default function TicketPurchaseItemComponent({ ticket }) {
@@ -19,6 +21,13 @@ export default function TicketPurchaseItemComponent({ ticket }) {
     const { currency } = useContext(CurrencyContext)
     const formater = new Intl.NumberFormat(currency == 'id' ? 'id-ID' : 'en-EN', { style: 'currency', currency: currency == 'id' ? 'IDR' : 'USD', minimumFractionDigits: 0, maximumFractionDigits: 2 })
     const { t } = useTranslation();
+
+    /**
+     * Context
+     *
+     */
+    const { user } = useContext(AuthUserContext);
+    const { setShowModalAddress } = useContext(ModalAddressContext);
 
     const [showModal, setShowModal] = useState(false)
 
@@ -78,7 +87,15 @@ export default function TicketPurchaseItemComponent({ ticket }) {
                             </div>
                             <div className="right">
                                 <button type="button" onClick={() => {
-                                    navigate('/event/fashion-week-2023/booking')
+                                    if (user) {
+                                        if (user.addresses.length == 0) {
+                                            setShowModalAddress(true);
+                                        } else {
+                                            navigate('/event/fashion-week-2023/booking')
+                                        }
+                                    } else {
+                                        navigate('/login')
+                                    }
                                 }}>{t('booking')}</button>
                             </div>
                         </div>

@@ -1,8 +1,16 @@
 import './ticket-booking-summary.scoped.scss'
 import ticketBookingSummaryBg from './../../../../../images/62782f1f7146ee3c859503f63905372f.jpeg'
 import QrCode from '../../../../../images/qr-code.svg';
+import { AuthUserContext } from '../../../../../context/AuthUserContext';
+import { useContext } from 'react';
 
 export default function TicketBookingSummaryComponent({activedIndexState}) {
+    /**
+     * Context
+     *
+     */
+    const { user } = useContext(AuthUserContext);
+
     return (
         <div className={`card-ticket-purchase-item ${activedIndexState == 2 ? "last" : ""}`}>
             <h3 className="card-title">
@@ -84,7 +92,7 @@ export default function TicketBookingSummaryComponent({activedIndexState}) {
                                         Full Name
                                     </div>
                                     <div>
-                                        Inon_5471
+                                        {user.name}
                                     </div>
                                 </div>
                                 <div className="item">
@@ -92,7 +100,7 @@ export default function TicketBookingSummaryComponent({activedIndexState}) {
                                         Email Address
                                     </div>
                                     <div>
-                                        Inon@gmail.com
+                                        {user.email}
                                     </div>
                                 </div>
                                 <div className="item">
@@ -100,7 +108,7 @@ export default function TicketBookingSummaryComponent({activedIndexState}) {
                                         Phone Number
                                     </div>
                                     <div>
-                                        081111222233
+                                        {user.phone}
                                     </div>
                                 </div>
                             </div>
@@ -110,7 +118,7 @@ export default function TicketBookingSummaryComponent({activedIndexState}) {
                                         Address
                                     </div>
                                     <div>
-                                        Jl. ABC,Kec.ABC,Jawa Tengah
+                                        {user?.addresses[0]?.full_address}
                                     </div>
                                 </div>
                             </div>
