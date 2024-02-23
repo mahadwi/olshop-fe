@@ -56,13 +56,13 @@ export default function FormPaymentComponent({ setActivedIndexState }) {
                             <label>Order Total</label>
                             <h4>Rp. 500.000</h4>
                         </div>
-                        <div className='pricing-item'>
+                        {/* <div className='pricing-item'>
                             <label>Handling Fee</label>
                             <h4>Rp. 50.000</h4>
-                        </div>
+                        </div> */}
                         <div className='pricing-item'>
                             <label className='label-total'>Total Payment</label>
-                            <h4 className='price-total'>Rp. 550.000</h4>
+                            <h4 className='price-total'>Rp. 500.000</h4>
                         </div>
                     </div>
 
