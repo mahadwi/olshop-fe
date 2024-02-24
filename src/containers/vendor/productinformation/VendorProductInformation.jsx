@@ -176,14 +176,14 @@ export default function VendorProductInformation() {
                                         <IconShoppingBag size={22} />
                                     </div>
                                     <div>{t("goodssales")}</div>
-                                </Link >
+                                </Link>
                                 <Link to={`./goodssaleshistory`}>
                                     <div className="count">
                                         1
                                         <IconClock size={22} />
                                     </div>
                                     <div>{t("goodssaleshistory")}</div>
-                                </Link >
+                                </Link>
                             </div>
                         </div>
                     </div>
@@ -247,9 +247,7 @@ export default function VendorProductInformation() {
                                                         {formater.format(currency == "id" ? c.sale_price : c.sale_usd)}
                                                     </div>
                                                     {layout == "list" ? (
-                                                        <div className="stock">
-                                                            Stock: {c.stock ? c.stock : "belum ada data be"}
-                                                        </div>
+                                                        <div className="stock">Stock: {c.stock ? c.stock : "1"}</div>
                                                     ) : null}
                                                     <div className="date">
                                                         {t("offeredon")}{" "}

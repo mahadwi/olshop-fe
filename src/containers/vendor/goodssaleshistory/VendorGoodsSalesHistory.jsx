@@ -154,7 +154,6 @@ export default function VendorGoodsSalesHistory() {
                             <div className="step">{t("listingproduct")}</div>
                         </div>
                     </div>
-
                     <div className="step-main-mobile">
                         <button type="button" onClick={() => navigate("../productinformation")}>
                             <svg
@@ -172,7 +171,6 @@ export default function VendorGoodsSalesHistory() {
                         </button>
                         <div className="title text-center">{t("goodssaleshistory")}</div>
                     </div>
-
                     <div className="step-1-main">
                         <div className="left">
                             <button
@@ -194,8 +192,19 @@ export default function VendorGoodsSalesHistory() {
                                 <div className="search">
                                     <div className="text">{t("search")}</div>
                                     <div>
-                                        <input className="form-control input-desktop" type="text" name="q" id="search" />
-                                        <input className="form-control input-mobile" type="text" name="q" id="search" placeholder={t("search")} />
+                                        <input
+                                            className="form-control input-desktop"
+                                            type="text"
+                                            name="q"
+                                            id="search"
+                                        />
+                                        <input
+                                            className="form-control input-mobile"
+                                            type="text"
+                                            name="q"
+                                            id="search"
+                                            placeholder={t("search")}
+                                        />
                                     </div>
                                     <div className="layout">
                                         <button
@@ -234,9 +243,7 @@ export default function VendorGoodsSalesHistory() {
                                                         {formater.format(currency == "id" ? c.sale_price : c.sale_usd)}
                                                     </div>
                                                     {layout == "list" ? (
-                                                        <div className="stock">
-                                                            Stock: {c.stock ? c.stock : "belum ada data be"}
-                                                        </div>
+                                                        <div className="stock">Stock: {c.stock ? c.stock : "1"}</div>
                                                     ) : null}
                                                     <div className="date">
                                                         {t("offeredon")}{" "}

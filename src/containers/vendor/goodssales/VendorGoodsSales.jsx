@@ -243,9 +243,7 @@ export default function VendorGoodsSales() {
                                                         {formater.format(currency == "id" ? c.sale_price : c.sale_usd)}
                                                     </div>
                                                     {layout == "list" ? (
-                                                        <div className="stock">
-                                                            Stock: {c.stock ? c.stock : "belum ada data be"}
-                                                        </div>
+                                                        <div className="stock">Stock: {c.stock ? c.stock : "1"}</div>
                                                     ) : null}
                                                     <div className="date">
                                                         {t("offeredon")}{" "}
