@@ -209,11 +209,9 @@ export default function VendorSell() {
                     setCommissionPercent(res.data.data.percent);
                     const d = Object.assign({}, formData);
 
-                    document.getElementById("sale_price").value =
-                        parseFloat(d.price) + parseFloat(d.price * res.data.data.percent) / 100;
+                    document.getElementById("sale_price").value = d.price;
 
-                    document.getElementById("sale_usd").value =
-                        parseFloat(d.price_usd) + parseFloat(d.price_usd * res.data.data.percent) / 100;
+                    document.getElementById("sale_usd").value = d.price_usd;
                 })
                 .catch(err => {
                     console.log(err);
@@ -266,11 +264,8 @@ export default function VendorSell() {
         if (form_data_insert.get("commission_type") == "Percent") {
             const d = Object.assign({}, formData);
 
-            form_data_insert.set("sale_price", parseFloat(d.price) + parseFloat(d.price * commissionPercent) / 100);
-            form_data_insert.set(
-                "sale_usd",
-                parseFloat(d.price_usd) + parseFloat(d.price_usd * commissionPercent) / 100
-            );
+            form_data_insert.set("sale_price", d.price);
+            form_data_insert.set("sale_usd", d.price_usd);
             form_data_insert.set("commission", commissionPercent);
         } else {
             form_data_insert.set("commission", 0);
