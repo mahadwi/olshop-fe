@@ -429,7 +429,7 @@ export default function VendorEdit() {
                 const dataInsert = {};
 
                 for (var pair of form_data_insert.entries()) {
-                    dataInsert[pair[0]] = pair[1];
+                    dataInsert[pair[0]] = pair[1] == "null" ? null : pair[1];
                 }
 
                 Api.put(`/vendor-product/${id}`, dataInsert, {
