@@ -71,7 +71,7 @@ export default function ProductItemComponent({ product, className, blur, wishlis
                         objProduct.is_wishlist = false;
 
                         setTempProduct(objProduct);
-                        alert("Berhasil dihapus dari wishlist");
+                        toast.success("Berhasil dihapus dari wishlist");
                         productItemRef.current.remove();
                     }
                 });
@@ -95,7 +95,7 @@ export default function ProductItemComponent({ product, className, blur, wishlis
                         };
 
                         setTempProduct(objProduct);
-                        alert("Berhasil dimasukan wishlist");
+                        toast.success("Berhasil dimasukan wishlist");
                     }
                 });
             } else {
@@ -109,7 +109,7 @@ export default function ProductItemComponent({ product, className, blur, wishlis
                         objProduct.is_wishlist = false;
 
                         setTempProduct(objProduct);
-                        alert("Berhasil dihapus dari wishlist");
+                        toast.success("Berhasil dihapus dari wishlist");
                     }
                 });
             }
@@ -134,7 +134,7 @@ export default function ProductItemComponent({ product, className, blur, wishlis
                 .then(res => {
                     if (res) {
                         refreshCarts();
-                        alert("Berhasil dimasukan cart");
+                        toast.success("Berhasil dimasukan cart");
                     }
                 })
                 .catch(err => {
