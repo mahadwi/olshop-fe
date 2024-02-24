@@ -6,7 +6,7 @@ import StepperComponent from "../../../components/pages/event/booking/stepper/St
 import FormBookComponent from "../../../components/pages/event/booking/form-book/FormBookComponent";
 import FormPaymentComponent from "../../../components/pages/event/booking/form-payment/FormPaymentComponent";
 import TicketBookingSummaryComponent from "../../../components/pages/event/booking/ticket-booking-summary/TicketBookingSummaryComponent";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams, useSearchParams } from "react-router-dom";
 import { AuthUserContext } from "../../../context/AuthUserContext";
 import { LoadingContext } from "../../../context/LoadingContext";
 import Api from "../../../utils/Api";
@@ -18,6 +18,7 @@ export default function EventBooking() {
      */
     const { pathname } = useLocation();
     const { id, ticket } = useParams();
+    const [searchParams] = useSearchParams();
 
     /**
      * Context
@@ -44,6 +45,8 @@ export default function EventBooking() {
         loadBreadcrumbs();
         loadArrFormStepStates();
         loadEventDetailObj(id);
+
+        changeStateWhenBookingId();
     }, []);
 
     // Automatically scrolls to top whenever pathname changes
@@ -53,6 +56,12 @@ export default function EventBooking() {
 
     const loadArrFormStepStates = () => {
         setArrFormStepStates(["Book", "Payment", "E-Ticket"]);
+    };
+
+    const changeStateWhenBookingId = () => {
+        if (searchParams.get("booking_id")) {
+            setActivedIndexState(2);
+        }
     };
 
     const loadBreadcrumbs = () => {
@@ -101,6 +110,7 @@ export default function EventBooking() {
                 ) : null}
 
                 <TicketBookingSummaryComponent
+                    bookingCode={searchParams.get("booking_id")}
                     ticketId={ticket}
                     event={eventDetailObj}
                     activedIndexState={activedIndexState}

@@ -1,12 +1,13 @@
 import "./ticket-booking-summary.scoped.scss";
 import ticketBookingSummaryBg from "./../../../../../images/62782f1f7146ee3c859503f63905372f.jpeg";
-import QrCode from "../../../../../images/qr-code.svg";
+// import QrCode from "../../../../../images/qr-code.svg";
 import { AuthUserContext } from "../../../../../context/AuthUserContext";
 import { useContext, useEffect, useState } from "react";
 import { CurrencyContext } from "../../../../../context/CurrencyContext";
 import { useTranslation } from "react-i18next";
+import QRCode from "qrcode";
 
-export default function TicketBookingSummaryComponent({ event, ticketId, activedIndexState }) {
+export default function TicketBookingSummaryComponent({ event, ticketId, activedIndexState, bookingCode }) {
     /**
      * Hooks
      *
@@ -28,6 +29,7 @@ export default function TicketBookingSummaryComponent({ event, ticketId, actived
     });
     const [amountTicket, setAmountTicket] = useState(0);
     const [eventBookingSuccess, setEventBookingSuccess] = useState({});
+    const [qr, setQr] = useState("");
 
     useEffect(() => {
         setAmountTicket(localStorage.getItem("amount_ticket"));
@@ -38,6 +40,21 @@ export default function TicketBookingSummaryComponent({ event, ticketId, actived
     }, [event]);
 
     useEffect(() => {
+        if (bookingCode) {
+            QRCode.toDataURL(
+                bookingCode,
+                {
+                    width: 190
+                },
+                (err, url) => {
+                    console.log(err);
+                    setQr(url);
+                }
+            );
+        }
+    }, [bookingCode]);
+
+    useEffect(() => {
         const localstorageEventBookingSuccess = JSON.parse(localStorage.getItem("event_booking_success"));
 
         if (localstorageEventBookingSuccess) {
@@ -45,14 +62,6 @@ export default function TicketBookingSummaryComponent({ event, ticketId, actived
             localStorage.removeItem("event_booking_success");
         }
     }, [activedIndexState]);
-
-    useEffect(() => {
-        if (Object.keys(eventBookingSuccess).length > 0) {
-            setTimeout(() => {
-                window.open(eventBookingSuccess.payment.invoice_url, "_blank");
-            }, 200);
-        }
-    }, [eventBookingSuccess]);
 
     return (
         <div className={`card-ticket-purchase-item ${activedIndexState == 2 ? "last" : ""}`}>
@@ -69,7 +78,7 @@ export default function TicketBookingSummaryComponent({ event, ticketId, actived
             </h3>
             <div className="card-ticket-detail">
                 <div className="ticket-day-pax-wrapper">
-                    <img src={ticketBookingSummaryBg} alt="" />
+                    <img src={event.cover_image} alt="" />
                     <div>
                         <h4>{ticketObj.name}</h4>
                         <span>Pax : {amountTicket}</span>
@@ -165,16 +174,16 @@ export default function TicketBookingSummaryComponent({ event, ticketId, actived
                             <div>
                                 <div className="item">
                                     <div>Address</div>
-                                    <div>{user?.addresses[0]?.full_address}</div>
+                                    <div>{user?.addresses ? user?.addresses[0]?.full_address : ""}</div>
                                 </div>
                             </div>
                         </div>
                         <div className="vertical" style={{ alignItems: "center" }}>
-                            <img src={QrCode} alt="qr code" width="190" height="190" />
+                            <img src={qr} width={190} alt="" srcset="" />
                             <a
                                 href="#"
-                                href={QrCode}
-                                download="qrcode.svg"
+                                href={qr}
+                                download="qrcode.png"
                                 target="_blank"
                                 rel="noreferrer"
                                 className="download"

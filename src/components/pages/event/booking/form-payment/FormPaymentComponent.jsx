@@ -46,9 +46,8 @@ export default function FormPaymentComponent({ event, ticketId, setActivedIndexS
             }
         })
             .then(res => {
-                setActivedIndexState(2);
-
                 localStorage.setItem("event_booking_success", JSON.stringify(res.data.data));
+                window.location.href = res.data.data.payment.invoice_url;
             })
             .catch(err => {
                 toast(
