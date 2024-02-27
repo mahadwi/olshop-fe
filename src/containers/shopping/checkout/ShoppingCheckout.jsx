@@ -193,6 +193,8 @@ export default function ShoppingCheckout() {
                     }
                 });
             // }
+        } else {
+            setModalChangeCourier(true);
         }
     }, [selectedCourier, selectedAddress]);
 
