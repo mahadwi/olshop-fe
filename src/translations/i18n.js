@@ -294,6 +294,7 @@ i18n
                     outofstock: 'Out of stock.',
                     consignwithus: 'Consign With Us',
                     bookappointment: 'Book Appointment',
+                    tickets: 'Tickets',
                     // Add other EN translations here
                 },
             },
@@ -582,6 +583,7 @@ i18n
                     outofstock: 'Stok habis.',
                     consignwithus: 'Konsinyasi Bersama Kami',
                     bookappointment: 'Buat Janji Temu',
+                    tickets: 'Tiket',
                     // Add other ID translations here
                 },
             },
