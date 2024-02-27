@@ -155,15 +155,21 @@ export default function ShopShow() {
                 },
                 courier: selectedCourier.value,
                 destination: shipTo.value,
-                weight: productObj.weight
+                weight: productObj.weight * qty
             })
                 .then(res => {
                     setShippingFees(res.data.data);
-                    setSelectedShippingFees(-1);
+                    setSelectedShippingFees((current) => {
+                        if (res.data.data.length > current) {
+                            return current;
+                        } else {
+                            return -1
+                        }
+                    });
                 })
                 .catch(error => console.log(error));
         }
-    }, [selectedCourier, shipTo]);
+    }, [selectedCourier, shipTo, qty]);
 
     const doAddToCart = () => {
         if (user) {
