@@ -1202,13 +1202,14 @@ export default function ShoppingCheckout() {
                                     )}
                                 </div>
                                 <div>
-                                    <h4
+                                    <button
+                                        className="change-shipping"
                                         onClick={() => {
                                             setModalChangeCourier(true);
                                         }}
                                     >
                                         {t("change")}
-                                    </h4>
+                                    </button>
                                 </div>
                                 <div>
                                     <h4>
