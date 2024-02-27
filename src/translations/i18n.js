@@ -288,6 +288,8 @@ i18n
                     inputyoursuggestion: 'Input your suggestion',
                     suggestionsentsuccessfully: 'Suggestion sent successfully.',
                     messagesentsuccessfully: 'Message sent successfully.',
+                    addtocartsuccess: 'Successfully added to cart.',
+                    outofstock: 'Out of stock.',
                     // Add other EN translations here
                 },
             },
@@ -570,6 +572,8 @@ i18n
                     inputyoursuggestion: 'Masukan saran anda',
                     suggestionsentsuccessfully: 'Saran berhasil dikirim.',
                     messagesentsuccessfully: 'Pesan berhasil dikirim.',
+                    addtocartsuccess: 'Berhasil menambahkan ke keranjang.',
+                    outofstock: 'Stok habis.',
                     // Add other ID translations here
                 },
             },
