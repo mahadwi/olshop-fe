@@ -290,6 +290,8 @@ i18n
                     messagesentsuccessfully: 'Message sent successfully.',
                     addtocartsuccess: 'Successfully added to cart.',
                     outofstock: 'Out of stock.',
+                    consignwithus: 'Consign With Us',
+                    bookappointment: 'Book Appointment',
                     // Add other EN translations here
                 },
             },
@@ -574,6 +576,8 @@ i18n
                     messagesentsuccessfully: 'Pesan berhasil dikirim.',
                     addtocartsuccess: 'Berhasil menambahkan ke keranjang.',
                     outofstock: 'Stok habis.',
+                    consignwithus: 'Konsinyasi Bersama Kami',
+                    bookappointment: 'Buat Janji Temu',
                     // Add other ID translations here
                 },
             },
