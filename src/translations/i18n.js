@@ -295,6 +295,7 @@ i18n
                     consignwithus: 'Consign With Us',
                     bookappointment: 'Book Appointment',
                     tickets: 'Tickets',
+                    orderreceived: 'Order Received',
                     // Add other EN translations here
                 },
             },
@@ -584,6 +585,7 @@ i18n
                     consignwithus: 'Konsinyasi Bersama Kami',
                     bookappointment: 'Buat Janji Temu',
                     tickets: 'Tiket',
+                    orderreceived: 'Order Diterima',
                     // Add other ID translations here
                 },
             },

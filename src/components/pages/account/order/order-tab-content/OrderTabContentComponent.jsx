@@ -316,7 +316,8 @@ function OrderCard({order}) {
                 </div>
                 { order.status == 'Completed' ?
                 <div className={`review-item`}>
-                    <button onClick={() => {setModalReview(true)}}>{t('orderreview')}</button>
+                    <button>{t('orderreceived')}</button>
+                    {/* <button onClick={() => {setModalReview(true)}}>{t('orderreview')}</button> */}
                     <button>{t('contactseller')}</button>
                 </div>
                 : null }
