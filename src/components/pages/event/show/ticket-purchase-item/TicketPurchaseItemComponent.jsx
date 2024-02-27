@@ -37,7 +37,7 @@ export default function TicketPurchaseItemComponent({ ticket, ticketContainer })
 
     const [showModal, setShowModal] = useState(false);
     const [showPopupAmountTicket, setShowPopupAmountTicket] = useState(false);
-    const [tempSelectedAmountTicket, setTempSelectedAmountTicket] = useState(0);
+    const [tempSelectedAmountTicket, setTempSelectedAmountTicket] = useState(1);
 
     return (
         <div className="card-ticket-purchase-item">
