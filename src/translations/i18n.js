@@ -298,6 +298,9 @@ i18n
                     orderreceived: 'Order Received',
                     vendorregistrationsuccessfully: 'Registration successfully.',
                     listproduct: 'List Product',
+                    editaccount: 'Edit Account',
+                    editprofile: 'Edit Profile',
+                    eventconfirmnameemailphone: 'Name, email, and phone number is required to continue.',
                     // Add other EN translations here
                 },
             },
@@ -590,6 +593,9 @@ i18n
                     orderreceived: 'Order Diterima',
                     vendorregistrationsuccessfully: 'Pendaftaran berhasil.',
                     listproduct: 'Daftar Produk',
+                    editaccount: 'Sunting Akun',
+                    editprofile: 'Sunting Profile',
+                    eventconfirmnameemailphone: 'Dibutuhkan nama, email, dan nomor telepon, untuk melanjutkan.',
                     // Add other ID translations here
                 },
             },
