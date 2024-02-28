@@ -141,10 +141,10 @@ export default function ShoppingCart() {
             return false;
         }
 
-        if (user.addresses.length == 0) {
-            setShowModalAddress(true);
-            return false;
-        }
+        // if (user.addresses.length == 0) {
+        //     setShowModalAddress(true);
+        //     return false;
+        // }
 
         localStorage.setItem('selectedObj', JSON.stringify(selectedObj));
         localStorage.setItem('isDirect', '0');

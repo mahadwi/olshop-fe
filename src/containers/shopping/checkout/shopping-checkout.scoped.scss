@@ -1175,3 +1175,82 @@
         }
     }
 }
+
+.address-label {
+    color: #000;
+    font-family: Cambay;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px; /* 133.333% */
+}
+
+.address-mark-as {
+    border-radius: 3px;
+    border: 1px solid #FFAC33;
+    background: #FFF;
+    color: #FFAC33;
+    margin-left: 0.5rem;
+    padding: 0 1rem;
+    color: #FFAC33;
+    text-align: center;
+    font-family: Cambay;
+    font-size: 8px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px; /* 200% */
+
+    &.active {
+      color: #666;
+      background: #C4C4C4;
+      border-color: #C4C4C4;
+    }
+}
+
+.cancel-button {
+    padding:0.25rem 2rem;
+    border: 1px solid #151B4F;
+    background: #FFF;
+    color: #151B4F;
+    font-family: Cambay;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 20px; /* 166.667% */
+    letter-spacing: 0.1px;
+}
+
+.send-button {
+    padding:0.25rem 2rem;
+    border: 1px solid #151B4F;
+    background: #151B4F;
+    color: #fff;
+    font-family: Cambay;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 20px; /* 166.667% */
+    letter-spacing: 0.1px;
+}
+
+.form-group__phone-number {
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    select {
+        position: absolute;
+        width: 4rem;
+        font-family: 'Cabin', sans-serif;
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        padding: .5rem 1rem;
+        z-index: 1;
+    }
+
+    input {
+        padding-left: 5rem;
+    }
+}

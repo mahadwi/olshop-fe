@@ -17,6 +17,8 @@ import Checkbox from "react-custom-checkbox";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from 'react-router-dom'
+import AsyncSelect from 'react-select/async';
+import ApiErrorHandling from "../../../utils/ApiErrorHandling";
 
 const subtractByPercent = (total, percent) => {
     return total - total * (percent / 100);
@@ -33,6 +35,11 @@ const PAYMENT_OPTIONS = [
     }
 ];
 
+const PHONE_NUMBER_CODE = [
+    '+62',
+    '+1',
+];
+
 export default function ShoppingCheckout() {
     /**
      * Hooks
@@ -45,7 +52,7 @@ export default function ShoppingCheckout() {
      * Context
      *
      */
-    const { user } = useContext(AuthUserContext);
+    const { user, refreshUser } = useContext(AuthUserContext)
     const { setLoading } = useContext(LoadingContext);
     const { language } = useContext(LanguageContext);
     const { currency } = useContext(CurrencyContext);
@@ -76,6 +83,15 @@ export default function ShoppingCheckout() {
 
     const [modalVoucher, setModalVoucher] = useState(false);
 
+    const [modalCreateAddress, setModalCreateAddress] = useState(false);
+    const [nameCreateAddress, setNameCreateAddress] = useState('')
+    const [phonePrefixCreateAddress, setPhonePrefixCreateAddress] = useState('+62')
+    const [phoneCreateAddress, setPhoneCreateAddress] = useState('')
+    const [addressCreateAddress, setAddressCreateAddress] = useState('')
+    const [subDistrictCreateAddress, setSubDistrictCreateAddress] = useState({ value: '', label: '' })
+    const [tagCreateAddress, setTagCreateAddress] = useState('Home')
+    const [errorObj422, setErrorObj422] = useState({})
+
     useEffect(() => {
         setLoading(true);
         setSelected(JSON.parse(localStorage.getItem("selectedObj")));
@@ -99,9 +115,20 @@ export default function ShoppingCheckout() {
             })
             .finally(() => {
                 setLoading(false);
-                setModalChangeCourier(true);
+                // setModalChangeCourier(true);
             });
     };
+
+    useEffect(() => {
+        if (user) {
+            if (user.addresses?.length == 0) {
+                setModalChangeCourier(false);
+                setModalCreateAddress(true);
+            } else {
+                setModalChangeCourier(true);
+            }
+        }
+    }, [user])
 
     const loadCouriers = () => {
         Api.get(`/courier`).then(res => {
@@ -367,8 +394,161 @@ export default function ShoppingCheckout() {
             });
     };
 
+    const loadDistricts = (inputValue, cb) => {
+        if (inputValue.length > 2) {
+            setTimeout(async () => {
+                try {
+                    const response = await Api.get(`/kecamatan?name=${inputValue}`)
+
+                    cb(response.data.data.map((e) => {
+                        return {
+                            value: e.id,
+                            label: e.fullname
+                        }
+                    }))
+                } catch (error) {
+
+                }
+            }, 1000);
+        }
+    }
+
+    const doSaveAddress = () => {
+        setErrorObj422({})
+        setLoading(true)
+
+        Api.post('/address', {
+            name: nameCreateAddress,
+            phone: `${phonePrefixCreateAddress}${phoneCreateAddress}`,
+            address: addressCreateAddress,
+            subdistrict_id: subDistrictCreateAddress.value,
+            tag: tagCreateAddress,
+            is_primary: false
+        }, {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('apiToken')
+            }
+        }).then((res) => {
+            if (res) {
+                setModalCreateAddress(false)
+                setNameCreateAddress('')
+                setPhonePrefixCreateAddress('+62')
+                setPhoneCreateAddress('')
+                setAddressCreateAddress('')
+                setSubDistrictCreateAddress({ value: '', label: '' })
+                setTagCreateAddress('')
+
+                refreshUser()
+
+                setModalChangeCourier(true)
+            }
+        }).catch((err) => {
+            ApiErrorHandling.handlingErr(err, [setErrorObj422])
+        }).finally(() => {
+            setLoading(false)
+        })
+    }
+
     return (
         <ContainerComponent>
+            {/* Modal Create Address */}
+            <Modal
+                show={modalCreateAddress}
+                centered
+            >
+                <Modal.Header>
+                    <Modal.Title>Create Address</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div>
+                        <div className='row gx-3'>
+                            <div className="col form-group mb-3">
+                                <label htmlFor="name" className="d-none">Name</label>
+                                <input type="text" name="name" id="name" className={`form-control ${errorObj422.name ? 'is-invalid' : ''}`} placeholder="Name" value={nameCreateAddress} onChange={(e) => {
+                                    setNameCreateAddress(e.target.value)
+                                }} />
+
+                                {
+                                    errorObj422.name ?
+                                        <div className="invalid-feedback">
+                                            {errorObj422.name}
+                                        </div> : <></>
+                                }
+                            </div>
+                            <div className="col form-group mb-3 form-group__phone-number">
+                                <label htmlFor="phone" className="d-none">Phone</label>
+                                <select name="" id="" className='form-control' onChange={(event) => setPhonePrefixCreateAddress(event.currentTarget.value)}>
+                                    {
+                                        PHONE_NUMBER_CODE.map((v) => <option selected={v == phonePrefixCreateAddress} value={v}>{v}</option>)
+                                    }
+                                </select>
+                                <input type="number" name="phone" id="phone" className={`form-control ${errorObj422.phone ? 'is-invalid' : ''}`} placeholder="Phone" value={phoneCreateAddress} onChange={(e) => {
+                                    setPhoneCreateAddress(e.target.value)
+                                }} />
+
+                                {
+                                    errorObj422.phone ?
+                                        <div className="invalid-feedback">
+                                            {errorObj422.phone}
+                                        </div> : <></>
+                                }
+                            </div>
+                        </div>
+                        <div className="form-group mb-3">
+                            <label htmlFor="address" className="d-none">Address</label>
+                            <textarea name="address" style={{ height: '200px' }} id="address" className={`form-control ${errorObj422.address ? 'is-invalid' : ''}`} placeholder="Address" cols="30" rows="10" value={addressCreateAddress} onChange={(e) => {
+                                setAddressCreateAddress(e.target.value)
+                            }}></textarea>
+
+                            {
+                                errorObj422.address ?
+                                    <div className="invalid-feedback">
+                                        {errorObj422.address}
+                                    </div> : <></>
+                            }
+                        </div>
+                        <div className="form-group mb-3">
+                            <label htmlFor="sub_district" className="d-none">Sub District</label>
+                            <AsyncSelect cacheOptions loadOptions={loadDistricts} defaultOptions value={subDistrictCreateAddress} onChange={(val) => {
+                                setSubDistrictCreateAddress(val)
+                            }} />
+
+                            {
+                                errorObj422.subdistrict_id ?
+                                    <div className="text-danger">
+                                        {errorObj422.subdistrict_id}
+                                    </div> : <></>
+                            }
+                        </div>
+                        <div className="form-group">
+                            <div className="row justify-content-between align-items-center">
+                                <div className="col address-label">Mark as:</div>
+                                <div className="col text-end">
+                                    <button className={`address-mark-as ${tagCreateAddress == "Office" ? "active":""}`} onClick={() => setTagCreateAddress('Office')}>
+                                        Office
+                                    </button>
+                                    <button className={`address-mark-as ${tagCreateAddress == "Home" ? "active":""}`} onClick={() => setTagCreateAddress('Home')}>
+                                        Home
+                                    </button>
+                                </div>
+                            </div>
+                            {
+                                errorObj422.tag ?
+                                    <div className="invalid-feedback">
+                                        {errorObj422.tag}
+                                    </div> : <></>
+                            }
+                        </div>
+                    </div>
+                </Modal.Body>
+                <Modal.Footer>
+                    <button type="button" className="send-button" onClick={() => {
+                        doSaveAddress()
+                    }}>Send</button>
+                </Modal.Footer>
+            </Modal>
+            {/* End of Modal Create Adress */}
+
             {/* Modal Create */}
             <Modal
                 show={modalChangeCourier}
@@ -745,28 +925,33 @@ export default function ShoppingCheckout() {
                     </div>
                 </div>
 
-                <div className="box-shipping-address-mobile">
-                    <div>
-                        <IconMapPin size={22} color="#F24E1E" />
-                    </div>
-                    <div>
-                        <div className="tag">
-                            {user.addresses?.[selectedAddress].tag}
+                { user.addresses?.length != 0 ?
+                    <>
+                        <div className="box-shipping-address-mobile">
+                            <div>
+                                <IconMapPin size={22} color="#F24E1E" />
+                            </div>
+                            <div>
+                                <div className="tag">
+                                    {user.addresses?.[selectedAddress].tag}
+                                </div>
+                                <div className="name-phone-number">
+                                    <div>{user.addresses?.[selectedAddress].name} | {user.addresses?.[selectedAddress].phone}</div>
+                                </div>
+                                <div className="address">
+                                    {user.addresses?.[selectedAddress].address} {user.addresses?.[selectedAddress].full_address}
+                                </div>
+                            </div>
+                            <button onClick={() => setModalChangeAddresses(true)}>
+                                <IconChevronRight />
+                            </button>
                         </div>
-                        <div className="name-phone-number">
-                            <div>{user.addresses?.[selectedAddress].name} | {user.addresses?.[selectedAddress].phone}</div>
-                        </div>
-                        <div className="address">
-                            {user.addresses?.[selectedAddress].address} {user.addresses?.[selectedAddress].full_address}
-                        </div>
-                    </div>
-                    <button onClick={() => setModalChangeAddresses(true)}>
-                        <IconChevronRight />
-                    </button>
-                </div>
-                <div className="box-shipping-address-mobile-border" />
+                        <div className="box-shipping-address-mobile-border" />
 
-                <hr />
+                        <hr />
+                    </>
+                    : null 
+                }
 
                 <div className="box-product-order">
                     <div className="head-row">
