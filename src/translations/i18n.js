@@ -296,6 +296,7 @@ i18n
                     bookappointment: 'Book Appointment',
                     tickets: 'Tickets',
                     orderreceived: 'Order Received',
+                    vendorregistrationsuccessfully: 'Registration successfully.',
                     // Add other EN translations here
                 },
             },
@@ -586,6 +587,7 @@ i18n
                     bookappointment: 'Buat Janji Temu',
                     tickets: 'Tiket',
                     orderreceived: 'Order Diterima',
+                    vendorregistrationsuccessfully: 'Pendaftaran berhasil.',
                     // Add other ID translations here
                 },
             },
