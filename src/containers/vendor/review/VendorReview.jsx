@@ -251,9 +251,12 @@ export default function VendorReview() {
                                 ) : null}
                                 <div className="wrapper">
                                     <div className="detail">
+                                        <div className="title">Status</div>
                                         <div className="status" data-status={reviewObj?.status?.toLowerCase()}>
-                                            {t(reviewObj?.status?.toLowerCase())} .
+                                            {t(reviewObj?.status?.toLowerCase())}
                                         </div>
+                                    </div>
+                                    <div className="detail">
                                         <div className="title">{reviewObj?.name}</div>
                                     </div>
                                     <div className="detail">
