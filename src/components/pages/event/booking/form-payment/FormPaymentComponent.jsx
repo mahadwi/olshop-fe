@@ -67,6 +67,7 @@ export default function FormPaymentComponent({ event, ticketId, setActivedIndexS
         formData.append("event_detail_id", ticketId);
         formData.append("qty", amountTicket);
         formData.append("total", total);
+        formData.append("voucher", (selectedVoucher != null && selectedVoucher.code) || "");
         formData.append("note", note);
         formData.append("message", tempEventFormBook.message);
 
