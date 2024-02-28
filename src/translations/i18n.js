@@ -297,6 +297,7 @@ i18n
                     tickets: 'Tickets',
                     orderreceived: 'Order Received',
                     vendorregistrationsuccessfully: 'Registration successfully.',
+                    listproduct: 'List Product',
                     // Add other EN translations here
                 },
             },
@@ -588,6 +589,7 @@ i18n
                     tickets: 'Tiket',
                     orderreceived: 'Order Diterima',
                     vendorregistrationsuccessfully: 'Pendaftaran berhasil.',
+                    listproduct: 'Daftar Produk',
                     // Add other ID translations here
                 },
             },
