@@ -10,6 +10,10 @@ import { useTranslation } from "react-i18next";
 import Modal from "react-bootstrap/Modal";
 import Checkbox from "react-custom-checkbox";
 
+const subtractByPercent = (total, percent) => {
+    return total - total * (percent / 100);
+};
+
 export default function FormPaymentComponent({ event, ticketId, setActivedIndexState }) {
     const { t } = useTranslation();
 
@@ -44,9 +48,25 @@ export default function FormPaymentComponent({ event, ticketId, setActivedIndexS
         const tempEventFormBook = JSON.parse(localStorage.getItem("temp_event_book"));
         const formData = new FormData();
 
+        const total = subtractByPercent(
+                ticketObj.price * amountTicket,
+                selectedVoucher != null && selectedVoucher.type == "Percent"
+                    ? selectedVoucher.disc_percent
+                    : 0
+            ) +
+            (
+                selectedVoucher != null && selectedVoucher.type == "Price"
+                    ? Number(
+                          currency == "id"
+                              ? selectedVoucher.disc_price
+                              : selectedVoucher.disc_price_usd
+                      ) * -1
+                    : 0
+        );
+
         formData.append("event_detail_id", ticketId);
         formData.append("qty", amountTicket);
-        formData.append("total", ticketObj.price * amountTicket);
+        formData.append("total", total);
         formData.append("note", note);
         formData.append("message", tempEventFormBook.message);
 
@@ -222,7 +242,9 @@ export default function FormPaymentComponent({ event, ticketId, setActivedIndexS
                         <h3>Platform Voucher</h3>
                     </div>
                     <div className='box-item code'>
-                        <button onClick={doLoadVouchers}>{t("entercode")}</button>
+                        <button onClick={doLoadVouchers}>
+                            {selectedVoucher == null ? t("entercode") : selectedVoucher.code}
+                        </button>
                     </div>
                 </div>
                 {/* <div className='payment-method-and-bank'>
@@ -250,17 +272,53 @@ export default function FormPaymentComponent({ event, ticketId, setActivedIndexS
                 </div> */}
                 <div className="box-item pricing-recap">
                     <div className="pricing-items">
-                        {/* <div className="pricing-item">
-                            <label>Order Total</label>
-                            <h4>Rp. 500.000</h4>
-                        </div> */}
-                        {/* <div className='pricing-item'>
-                            <label>Handling Fee</label>
-                            <h4>Rp. 50.000</h4>
-                        </div> */}
+                        { selectedVoucher != null ?
+                            <>
+                                <div className="pricing-item">
+                                    <label>{t("totalorder")}</label>
+                                    <h4>{formater.format(ticketObj.price * amountTicket)}</h4>
+                                </div>
+                                <div className='pricing-item'>
+                                    <label>Voucher</label>
+                                    <h4>
+                                        { selectedVoucher.type == "B1G1" ?
+                                            t("b1g1")
+                                            :
+                                            formater.format(
+                                                selectedVoucher.type == "Percent" ?
+                                                    ticketObj.price * amountTicket * (selectedVoucher.disc_percent / 100)
+                                                : Number(
+                                                      currency == "id"
+                                                          ? selectedVoucher.disc_price
+                                                          : selectedVoucher.disc_price_usd
+                                                  )
+                                            )
+                                        }
+                                    </h4>
+                                </div>
+                            </>
+                        : null }
                         <div className="pricing-item">
                             <label className="label-total">{t("totalpayment")}</label>
-                            <h4 className="price-total">{formater.format(ticketObj.price * amountTicket)}</h4>
+                            <h4 className="price-total">
+                                {formater.format(
+                                    subtractByPercent(
+                                        ticketObj.price * amountTicket,
+                                        selectedVoucher != null && selectedVoucher.type == "Percent"
+                                            ? selectedVoucher.disc_percent
+                                            : 0
+                                    ) +
+                                    (
+                                        selectedVoucher != null && selectedVoucher.type == "Price"
+                                            ? Number(
+                                                  currency == "id"
+                                                      ? selectedVoucher.disc_price
+                                                      : selectedVoucher.disc_price_usd
+                                              ) * -1
+                                            : 0
+                                    )
+                                )}
+                            </h4>
                         </div>
                     </div>
 
