@@ -7,6 +7,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@react-oauth/google": "^0.12.1",
+    "@react-pdf/renderer": "^3.3.8",
     "@reduxjs/toolkit": "^1.9.7",
     "@tabler/icons-react": "^2.42.0",
     "@testing-library/jest-dom": "^5.17.0",
