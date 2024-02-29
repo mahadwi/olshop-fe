@@ -102,7 +102,7 @@ export default function ProductItemComponent({ product, className, blur, wishlis
                                         />
                                     </svg>
                                 </div>
-                                <div className="mt-3">{t("addtowishlistsuccess")}</div>
+                                <div className="mt-3">{t("deletefromwishlistsuccess")}</div>
                             </div>
                         );
                         productItemRef.current.remove();
