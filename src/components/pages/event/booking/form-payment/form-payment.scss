@@ -114,14 +114,12 @@
             align-items: center;
             justify-content: flex-end;
 
-            input {
+            button {
                 border: 0px;
                 outline: 0px;
                 text-align: right;
-                width: 100%;
-            }
-
-            input::placeholder {
+                opacity: 0.5;
+                background: transparent;
                 color: #151B4F;
                 font-family: 'Cambay', sans-serif;
                 font-size: 15px;
@@ -129,6 +127,7 @@
                 font-weight: 400;
                 line-height: 16px;
                 margin-bottom: 0;
+                cursor: pointer;
             }
         }
     }
@@ -250,6 +249,201 @@
             background: #151B4F;
             outline: none;
             border: 0px;
+        }
+    }
+}
+
+.modal-courier {
+    .courier-option {
+        background: #f9f9f9;
+        display: flex;
+        justify-content: stretch;
+        align-items: center;
+        padding: 1rem;
+        gap: 1rem;
+
+        .title {
+            color: #545454;
+            font-family: Inter;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: normal;
+            letter-spacing: 0.56px;
+        }
+
+        .select,
+        .input-text {
+            flex: 1 0;
+        }
+
+        button {
+            border-radius: 5px;
+            border: 1px solid #c8d1e1;
+            background: #111;
+            color: #fff;
+            font-family: Inter;
+            font-size: 12px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;
+            letter-spacing: 0.48px;
+            padding: 0.5rem 2rem;
+        }
+    }
+
+    .shipping-fee-contents,
+    .voucher-contents {
+        margin-top: 2rem;
+        display: flex;
+        flex-direction: column;
+        max-height: 50vh;
+        overflow: auto;
+        gap: 1rem;
+
+        .m-0 {
+            margin-top: 0;
+        }
+
+        .title-list-options {
+            color: #a2a3b1;
+            font-family: Inter;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+            letter-spacing: 0.56px;
+        }
+
+        .shipping-fee-content {
+            border-radius: 5px;
+            border: 1px solid #dadada;
+            border-left: 6px solid #dadada;
+            background: #fff;
+            padding: 1.5rem;
+            cursor: pointer;
+            pointer-events: all;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+
+            &.active {
+                border-left-color: #ffac33;
+            }
+
+            .top {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: start;
+
+                .name,
+                .price {
+                    color: #111;
+                    font-family: Inter;
+                    font-size: 12px;
+                    font-style: normal;
+                    font-weight: 700;
+                    line-height: normal;
+                    letter-spacing: 0.48px;
+                }
+
+                .price {
+                    color: #ffac33;
+                }
+            }
+
+            .bottom {
+                color: #a2a3b1;
+                font-family: Inter;
+                font-size: 8px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: normal;
+                letter-spacing: 0.32px;
+            }
+        }
+
+        .voucher-content {
+            border-radius: 5px;
+            border: 1px solid #dadada;
+            background: #fff;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: row;
+            gap: 0.25rem;
+            align-items: center;
+
+            .left {
+                display: flex;
+                flex: 1 0;
+                flex-direction: column;
+
+                .name {
+                    color: #111;
+                    font-family: Inter;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 700;
+                    line-height: normal;
+                    letter-spacing: 0.56px;
+                }
+
+                .code {
+                    color: #a2a3b1;
+                    font-family: Inter;
+                    font-size: 13px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: normal;
+                    letter-spacing: 0.52px;
+                }
+
+                .expiring {
+                    color: #f44336;
+                    font-family: Inter;
+                    font-size: 12px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: normal;
+                    letter-spacing: 0.48px;
+                    margin-top: 0.5rem;
+                }
+            }
+        }
+    }
+}
+
+.modal-courier-bottom {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    gap: 1rem;
+
+    button {
+        border-radius: 5px;
+        border: 1px solid #c8d1e1;
+        background: #111;
+        color: #fff;
+        font-family: Inter;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        letter-spacing: 0.48px;
+        padding: 0.5rem 2rem;
+
+        &:first-child {
+            border-radius: 5px;
+            border: 1px solid #c8d1e1;
+            background: #fff;
+            color: #151b4f;
+            font-family: Inter;
+            font-size: 12px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;
+            letter-spacing: 0.48px;
         }
     }
 }

@@ -1,4 +1,4 @@
-import { IconStarFilled, IconHeart, IconHeartFilled } from "@tabler/icons-react";
+import { IconStarFilled, IconHeart, IconHeartFilled, IconCircleX } from "@tabler/icons-react";
 import "./product-item.scoped.scss";
 import { Link, useNavigate } from "react-router-dom";
 import NoPhotoProduct from "./../../../images/product-item/no-photo-product.png";
@@ -71,7 +71,40 @@ export default function ProductItemComponent({ product, className, blur, wishlis
                         objProduct.is_wishlist = false;
 
                         setTempProduct(objProduct);
-                        toast.success("Berhasil dihapus dari wishlist");
+                        toast(
+                            <div style={{textAlign: 'center'}}>
+                                <div>
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="90"
+                                        height="83"
+                                        viewBox="0 0 90 83"
+                                        fill="none"
+                                    >
+                                        <path
+                                            d="M26.25 76.082H63.75"
+                                            stroke="#00AE65"
+                                            stroke-width="8"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        />
+                                        <path
+                                            d="M7.5 58.791V13.8327C7.5 11.9983 8.29018 10.239 9.6967 8.94186C11.1032 7.64473 13.0109 6.91602 15 6.91602H75C76.9891 6.91602 78.8968 7.64473 80.3033 8.94186C81.7098 10.239 82.5 11.9983 82.5 13.8327V58.791C82.5 60.6254 81.7098 62.3847 80.3033 63.6818C78.8968 64.979 76.9891 65.7077 75 65.7077H15C13.0109 65.7077 11.1032 64.979 9.6967 63.6818C8.29018 62.3847 7.5 60.6254 7.5 58.791Z"
+                                            stroke="#00AE65"
+                                            stroke-width="8"
+                                        />
+                                        <path
+                                            d="M33.75 36.3112L41.25 43.2279L56.25 29.3945"
+                                            stroke="#00AE65"
+                                            stroke-width="8"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        />
+                                    </svg>
+                                </div>
+                                <div className="mt-3">{t("deletefromwishlistsuccess")}</div>
+                            </div>
+                        );
                         productItemRef.current.remove();
                     }
                 });
@@ -95,7 +128,40 @@ export default function ProductItemComponent({ product, className, blur, wishlis
                         };
 
                         setTempProduct(objProduct);
-                        toast.success("Berhasil dimasukan wishlist");
+                        toast(
+                            <div style={{textAlign: 'center'}}>
+                                <div>
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="90"
+                                        height="83"
+                                        viewBox="0 0 90 83"
+                                        fill="none"
+                                    >
+                                        <path
+                                            d="M26.25 76.082H63.75"
+                                            stroke="#00AE65"
+                                            stroke-width="8"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        />
+                                        <path
+                                            d="M7.5 58.791V13.8327C7.5 11.9983 8.29018 10.239 9.6967 8.94186C11.1032 7.64473 13.0109 6.91602 15 6.91602H75C76.9891 6.91602 78.8968 7.64473 80.3033 8.94186C81.7098 10.239 82.5 11.9983 82.5 13.8327V58.791C82.5 60.6254 81.7098 62.3847 80.3033 63.6818C78.8968 64.979 76.9891 65.7077 75 65.7077H15C13.0109 65.7077 11.1032 64.979 9.6967 63.6818C8.29018 62.3847 7.5 60.6254 7.5 58.791Z"
+                                            stroke="#00AE65"
+                                            stroke-width="8"
+                                        />
+                                        <path
+                                            d="M33.75 36.3112L41.25 43.2279L56.25 29.3945"
+                                            stroke="#00AE65"
+                                            stroke-width="8"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        />
+                                    </svg>
+                                </div>
+                                <div className="mt-3">{t("addtowishlistsuccess")}</div>
+                            </div>
+                        );
                     }
                 });
             } else {
@@ -109,7 +175,40 @@ export default function ProductItemComponent({ product, className, blur, wishlis
                         objProduct.is_wishlist = false;
 
                         setTempProduct(objProduct);
-                        toast.success("Berhasil dihapus dari wishlist");
+                        toast(
+                            <div style={{textAlign: 'center'}}>
+                                <div>
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="90"
+                                        height="83"
+                                        viewBox="0 0 90 83"
+                                        fill="none"
+                                    >
+                                        <path
+                                            d="M26.25 76.082H63.75"
+                                            stroke="#00AE65"
+                                            stroke-width="8"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        />
+                                        <path
+                                            d="M7.5 58.791V13.8327C7.5 11.9983 8.29018 10.239 9.6967 8.94186C11.1032 7.64473 13.0109 6.91602 15 6.91602H75C76.9891 6.91602 78.8968 7.64473 80.3033 8.94186C81.7098 10.239 82.5 11.9983 82.5 13.8327V58.791C82.5 60.6254 81.7098 62.3847 80.3033 63.6818C78.8968 64.979 76.9891 65.7077 75 65.7077H15C13.0109 65.7077 11.1032 64.979 9.6967 63.6818C8.29018 62.3847 7.5 60.6254 7.5 58.791Z"
+                                            stroke="#00AE65"
+                                            stroke-width="8"
+                                        />
+                                        <path
+                                            d="M33.75 36.3112L41.25 43.2279L56.25 29.3945"
+                                            stroke="#00AE65"
+                                            stroke-width="8"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        />
+                                    </svg>
+                                </div>
+                                <div className="mt-3">{t("deletefromwishlistsuccess")}</div>
+                            </div>
+                        );
                     }
                 });
             }
@@ -134,12 +233,54 @@ export default function ProductItemComponent({ product, className, blur, wishlis
                 .then(res => {
                     if (res) {
                         refreshCarts();
-                        toast.success("Berhasil dimasukan cart");
+                        toast(
+                            <div style={{textAlign: 'center'}}>
+                                <div>
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="90"
+                                        height="83"
+                                        viewBox="0 0 90 83"
+                                        fill="none"
+                                    >
+                                        <path
+                                            d="M26.25 76.082H63.75"
+                                            stroke="#00AE65"
+                                            stroke-width="8"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        />
+                                        <path
+                                            d="M7.5 58.791V13.8327C7.5 11.9983 8.29018 10.239 9.6967 8.94186C11.1032 7.64473 13.0109 6.91602 15 6.91602H75C76.9891 6.91602 78.8968 7.64473 80.3033 8.94186C81.7098 10.239 82.5 11.9983 82.5 13.8327V58.791C82.5 60.6254 81.7098 62.3847 80.3033 63.6818C78.8968 64.979 76.9891 65.7077 75 65.7077H15C13.0109 65.7077 11.1032 64.979 9.6967 63.6818C8.29018 62.3847 7.5 60.6254 7.5 58.791Z"
+                                            stroke="#00AE65"
+                                            stroke-width="8"
+                                        />
+                                        <path
+                                            d="M33.75 36.3112L41.25 43.2279L56.25 29.3945"
+                                            stroke="#00AE65"
+                                            stroke-width="8"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        />
+                                    </svg>
+                                </div>
+                                <div className="mt-3">{t("addtocartsuccess")}</div>
+                            </div>
+                        );
                     }
                 })
                 .catch(err => {
                     if (err.response.data.message == "Out Of Stock") {
-                        toast.error(err.response.data.message);
+                        toast(
+                            <div style={{textAlign: 'center'}}>
+                            <div>
+                                <IconCircleX size={212} color={`#ff3333`} />
+                            </div>
+                                <div>
+                                    {t("outofstock")}
+                                </div>
+                            </div>
+                        );
                     }
                 })
                 .finally(() => {

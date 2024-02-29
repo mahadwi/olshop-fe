@@ -581,6 +581,7 @@
             .review-item-footer {
                 margin-top: 0;
                 display: flex;
+                flex-wrap: wrap;
                 justify-content: center;
                 gap: 0.25rem;
                 position: sticky;
@@ -608,7 +609,7 @@
                     padding: 0.25rem 0;
                     outline: 0px;
                     border: 0px;
-                    flex: 1 0;
+                    flex: 1 0 calc(50% - 2.5rem);
 
                     @include lg {
                         font-family: "Roboto", sans-serif;

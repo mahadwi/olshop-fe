@@ -27,7 +27,7 @@ const TABS = [
     'On Going',
     'Completed',
     'Cancel',
-    'Return',
+//    'Return',
     'Offline',
 ];
 

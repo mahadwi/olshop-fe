@@ -100,7 +100,7 @@
             align-items: center;
             gap:1.5rem;
 
-            ._button:first-child {
+            ._button:not(:last-child) {
                 border-radius: 4px;
                 border: 1px solid #FFF;
                 background: #FFF;

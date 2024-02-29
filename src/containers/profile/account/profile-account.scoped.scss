@@ -115,29 +115,23 @@
 
                     &.form-group__phone-number {
                         display: flex;
+                        align-items: center;
                         position: relative;
 
-                        label.any-code {
+                        select {
                             position: absolute;
-                            top: -.9rem;
-                            left: .35rem;
-                            z-index: 20;
-                            color: #000;
+                            width: 4rem;
                             font-family: 'Cabin', sans-serif;
-                            font-size: 10px;
+                            font-size: 13px;
                             font-style: normal;
                             font-weight: 500;
                             line-height: normal;
-                        }
-
-                        select.form-control__phone-code {
-                            width: 4rem;
-                            z-index: 10;
+                            padding: .5rem 1rem;
+                            z-index: 1;
                         }
 
                         input {
-                            transform: translateX(-10px);
-                            padding-left: 1rem;
+                            padding-left: 5rem;
                         }
                     }
                 }

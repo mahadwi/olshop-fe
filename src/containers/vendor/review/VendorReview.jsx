@@ -251,9 +251,12 @@ export default function VendorReview() {
                                 ) : null}
                                 <div className="wrapper">
                                     <div className="detail">
+                                        <div className="title">Status</div>
                                         <div className="status" data-status={reviewObj?.status?.toLowerCase()}>
-                                            {t(reviewObj?.status?.toLowerCase())} .
+                                            {t(reviewObj?.status?.toLowerCase())}
                                         </div>
+                                    </div>
+                                    <div className="detail">
                                         <div className="title">{reviewObj?.name}</div>
                                     </div>
                                     <div className="detail">
@@ -479,7 +482,7 @@ export default function VendorReview() {
                                     type="button"
                                     onClick={() => navigate(`../productinformation/edit/${id}`)}
                                 >
-                                    {t("backto")} {t("productinformation")}
+                                    {t("edit")} {t("productinformation")}
                                 </button>
                             ) : null}
                             {reviewObj?.status == "Not Approved" ? (
@@ -492,6 +495,13 @@ export default function VendorReview() {
                                     {t("next")}
                                 </button>
                             ) : null}
+                            <button
+                                className="preview list-product"
+                                type="button"
+                                onClick={() => navigate(`../productinformation/goodssales`)}
+                            >
+                                {t("listproduct")}
+                            </button>
                         </div>
                     </div>
                 </>

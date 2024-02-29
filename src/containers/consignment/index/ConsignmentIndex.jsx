@@ -6,6 +6,7 @@ import "./consignment.scoped.scss";
 import Api from "../../../utils/Api";
 import { LoadingContext } from "../../../context/LoadingContext";
 import { LanguageContext } from "../../../context/LanguageContext";
+import { AuthUserContext } from "../../../context/AuthUserContext";
 import { useTranslation } from "react-i18next";
 import Modal from "react-bootstrap/Modal";
 
@@ -21,6 +22,7 @@ export default function ConsignmentIndex() {
      * Context
      *
      */
+    const { user } = useContext(AuthUserContext);
     const { setLoading } = useContext(LoadingContext);
     const { language } = useContext(LanguageContext);
     const suffix = language == "id" ? "" : "_en";
@@ -164,14 +166,17 @@ export default function ConsignmentIndex() {
                                 dangerouslySetInnerHTML={{ __html: sections[1]?.["description" + suffix] ?? "" }}
                             />
                             <div className="_buttons">
-                                <Link className="_button">CONSIGN WITH US</Link>
+                                { user ?
+                                    <Link to={`/account/vendor`} className="_button">{t("consignwithus").toUpperCase()}</Link>
+                                    : <Link to={`/login`} className="_button">{t("consignwithus").toUpperCase()}</Link>
+                                }
                                 <button
                                     className="_button"
                                     onClick={() => {
                                         document.getElementById("consignment-about").scrollIntoView();
                                     }}
                                 >
-                                    LEARN MORE
+                                    {t("learnmore").toUpperCase()}
                                 </button>
                             </div>
                         </div>
@@ -281,7 +286,7 @@ export default function ConsignmentIndex() {
                 <div className="_title0">{sections[6]?.["title" + suffix]}</div>
                 <div className="_title1" dangerouslySetInnerHTML={{ __html: sections[6]?.["description" + suffix] }} />
                 <a href="https://calendly.com/luxuryhub/perkenalan-luxury-hub" target="_blank" className="_button">
-                    BOOK APPOINTMENT
+                    {t("bookappointment").toUpperCase()}
                 </a>
             </div>
         </div>
