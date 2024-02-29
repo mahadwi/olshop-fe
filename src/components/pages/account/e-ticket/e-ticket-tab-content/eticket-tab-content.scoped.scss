@@ -1,0 +1,144 @@
+.order-tab-content {
+    margin-top: 1rem;
+
+    .body-order-history-tab-content {
+        margin-top: 1.5rem;
+        padding-bottom: 5rem;
+
+        .inner {
+            margin-bottom: 1rem;
+
+            .status {
+                background: #A2A3B1;
+                color: #222B45;
+                font-family: Poppins;
+                font-size: 12px;
+                padding: 0.5rem 1rem;
+
+                &[data-status="cancel"] {
+                    background: #F24E1E;
+                }
+
+                &[data-status="on going"] {
+                    background: #FFAC33;
+                }
+
+                &[data-status="completed"] {
+                    background: #00AE65;
+                }
+
+                a {
+                    color: #063BC1;
+                    text-decoration: none;
+                }
+            }
+
+            .items {
+                display: flex;
+                flex-direction: column;
+                padding: 1rem;
+                border: 1px solid #C4C4C4;
+                border-top: 0;
+                background: #FFF;
+                gap: 1.5rem;
+                color: #000;
+                font-family: Cambay;
+                font-size: 12px;
+                font-style: normal;
+                font-weight: 400;
+
+                .item {
+                    display: flex;
+                    gap: 1.5rem;
+                    align-items: center;
+
+                    img {
+                        width: 114px;
+                        aspect-ratio: 1;
+                        object-fit: cover;
+                        object-position: center;
+                    }
+
+                    .product-detail {
+                        display: flex;
+                        flex-direction: row;
+                        flex: 1 0;
+                        gap: 2rem;
+
+                        > div {
+                            display: flex;
+                            flex-direction: column;
+                            gap: 0.5rem;
+
+                            &:first-child {
+                                flex: 1 0;
+                            }
+
+                            div:first-child {
+                                font-weight: 700;
+                            }
+                        }
+                    }
+                }
+
+                .view-more {
+                    background: transparent;
+                    border: 0;
+                    font-weight: 700;
+                    color: #081CC9;
+                }
+
+                .footer-item {
+                    text-align: right;
+                    font-weight: 700;
+                    margin: -1rem;
+                    padding: 1rem;
+                    color: #000;
+                    font-family: Cambay;
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 700;
+                    line-height: 16px; /* 100% */
+
+                    &.border-top-no-bb {
+                        border-top: 1px solid #C4C4C4;
+                    }
+
+                    span {
+                        color: #FFAC33;
+                    }
+                }
+
+                .review-item {
+                    margin: 0 -1rem -1rem;
+                    padding: 1rem;
+                    border-top: 1px solid #C4C4C4;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: flex-end;
+                    gap: 0.5rem;
+
+                    button, a {
+                        background: #FFAC33;
+                        border: 1px solid #FFAC33;
+                        display: inline-block;
+                        color: #FFF;
+                        font-family: Poppins;
+                        font-size: 12px;
+                        font-style: normal;
+                        font-weight: 700;
+                        line-height: normal;
+                        padding: 0.4rem;
+                        width: 9.5rem;
+                        text-decoration: none;
+
+                        &:nth-child(2) {
+                            background: #fff;
+                            color: #FFAC33;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

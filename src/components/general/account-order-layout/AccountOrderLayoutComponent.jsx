@@ -23,7 +23,7 @@ export default function AccountOrderLayoutComponent({ children, breadcrumb, titl
                             <ul>
                                 <li><Link to={'/account'} className={position == 'My Account' ? 'active' : ''}>My Account</Link></li>
                                 <li><Link to={'/account/orders'} className={position == 'Orders' ? 'active' : ''}>Orders</Link></li>
-                                <li><Link to={'/account/tickets'} className={position == 'Tickets' ? 'active' : ''}>{t("tickets")}</Link></li>
+                                <li><Link to={'/account/e-ticket'} className={position == 'E-Ticket' ? 'active' : ''}>{t("e-ticket")}</Link></li>
                                 <li><Link to={'/account/wishlist'} className={position == 'Wishlist' ? 'active' : ''}>Wishlist</Link></li>
                             </ul>
                             <hr />
