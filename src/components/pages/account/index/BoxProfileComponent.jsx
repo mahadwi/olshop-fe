@@ -86,7 +86,7 @@ export default function BoxProfileComponent({ user }) {
         const formData = new FormData()
         formData.append('user_name', tempUser.userName)
         formData.append('name', tempUser.name)
-        formData.append('no_hp', `${tempUser.phonePrefix}${tempUser.phone}`)
+        formData.append('no_hp', `${tempUser.phonePrefix ?? PHONE_NUMBER_CODE[0]}${tempUser.phone}`)
         formData.append('gender', tempUser.gender ? tempUser.gender.toLowerCase() : '')
         formData.append('birth_date', `${selectedYear}-${selectedMonth.value}-${selectedDateMonth}`)
         formData.append('email', tempUser.email)
