@@ -65,7 +65,16 @@ export default function ProfileAccount() {
     }, [availableDatesInMonth])
 
     useEffect(() => {
-        setTempUser(user)
+        const { phone, ...rest } = user;
+        rest.phoneCode = PHONE_NUMBER_CODE[0];
+        for (const phoneCode of PHONE_NUMBER_CODE) {
+            if (phone.startsWith(phoneCode)) {
+                rest.phone = phone.substring(phoneCode.length);
+                rest.phonePrefix = phoneCode;
+                break;
+            }
+        }
+        setTempUser(rest)
     }, [user])
 
     const loadAvailableYear = () => {
