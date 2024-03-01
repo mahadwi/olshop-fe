@@ -1505,7 +1505,6 @@ export default function VendorEdit() {
                                                     const v = inputUsdFormat(event);
                                                     const d = Object.assign({}, formData);
                                                     d.sale_usd = v;
-                                                    console.log(d);
                                                     setFormData(d);
                                                 }}
                                             />
