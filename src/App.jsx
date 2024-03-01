@@ -42,6 +42,7 @@ import MainLayout from './layouts/MainLayout';
 import AuthenticateMiddleware from './middleware/AuthenticateMiddleware';
 import AccountOrder from './containers/account/order/AccountOrder';
 import AccountEticket from './containers/account/e-ticket/AccountEticket';
+import AccountEticketBooking from './containers/account/e-ticket-booking/AccountEticketBooking';
 import AccountWishlist from './containers/account/wishlist/AccountWishlist';
 import ProfileIndex from './containers/profile/index/ProfileIndex';
 import ProfileAccount from './containers/profile/account/ProfileAccount';
@@ -103,6 +104,7 @@ function App() {
                             <Route index element={<AccountIndex />} />
                             <Route path='orders' element={<AccountOrder />} />
                             <Route path='e-ticket' element={<AccountEticket />} />
+                            <Route path='e-ticket/:id/:ticket' element={<AccountEticketBooking />} />
                             <Route path='wishlist' element={<AccountWishlist />} />
                             <Route path='address' element={<AddressIndex />} />
                             <Route path='vendor' element={<VendorMiddleware />}>

@@ -7,6 +7,7 @@ import { LoadingContext } from '../../../../../context/LoadingContext'
 import { IconChevronDown, IconChevronUp, IconCircleX, IconPhoto, IconStar, IconStarFilled, IconX } from '@tabler/icons-react';
 import Api from '../../../../../utils/Api';
 import { toast } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 function EticketCard({ticket}) {
 
@@ -14,6 +15,7 @@ function EticketCard({ticket}) {
      * Hooks
      * 
      */
+    const navigate = useNavigate();
     const { t } = useTranslation();
     const { currency } = useContext(CurrencyContext)
     const formater = new Intl.NumberFormat(
@@ -64,7 +66,7 @@ function EticketCard({ticket}) {
                     {t('totalpayment')} : <span>{formater.format(Number(ticket.total))}</span>
                 </div>
                 <div className={`review-item`}>
-                    <button>{t('e-ticket')}</button>
+                    <button onClick={() => {navigate("1/42")}}>{t('e-ticket')}</button>
                     <button>{t('contactseller')}</button>
                 </div>
             </div>
