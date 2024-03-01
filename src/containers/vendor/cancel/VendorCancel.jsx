@@ -284,6 +284,14 @@ export default function VendorCancel() {
                                 </div>
                             </div>
                         ) : null}
+
+                        { true ? (
+                            <div className="notification-message bg-white">
+                                { t("notificationreviewcancel") }
+                            </div>
+                        ) : (
+                            null
+                        )}
                     </div>
                 </>
             </ContainerComponent>

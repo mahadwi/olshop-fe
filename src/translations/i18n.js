@@ -301,6 +301,11 @@ i18n
                     editaccount: 'Edit Account',
                     editprofile: 'Edit Profile',
                     eventconfirmnameemailphone: 'Name, email, and phone number is required to continue.',
+                    notificationreviewdownloadfile: '*Please download the following file, then sign and upload it when giving the goods to our team*',
+                    notificationreviewnotapprove: '*Do you want to re-bid? edit product information to be able to re-bid*',
+                    notificationreviewwait: '*Please wait, the product is being reviewed by our team*',
+                    notificationreviewcancel: '*Please download the following file, then sign and upload it*',
+                    notificationagreement: '*Please download some of the files above, to be signed and then upload the files again*',
                     // Add other EN translations here
                 },
             },
@@ -596,6 +601,11 @@ i18n
                     editaccount: 'Sunting Akun',
                     editprofile: 'Sunting Profile',
                     eventconfirmnameemailphone: 'Dibutuhkan nama, email, dan nomor telepon, untuk melanjutkan.',
+                    notificationreviewdownloadfile: '*Silahkan download berkas berikut, untuk kemudian di tandatangani dan  upload pada saat  pemberian barang ke team kami*',
+                    notificationreviewnotapprove: '*Apakah anda ingin melakukan penawaran ulang ? sunting informasi produk untuk dapat melakukan penawaran ulang*',
+                    notificationreviewwait: '*Harap menunggu, product sedang direview oleh tim kami*',
+                    notificationreviewcancel: '*Silahkan download berkas berikut, untuk kemudian di tandatangani dan upload*',
+                    notificationagreement: '*Silahkan download beberapa berkas  diatas, untuk ditandatangani dan kemudian upload kembali berkas tersebut*',
                     // Add other ID translations here
                 },
             },

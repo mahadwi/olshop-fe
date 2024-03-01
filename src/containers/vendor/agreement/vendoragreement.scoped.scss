@@ -235,43 +235,68 @@
                         }
                     }
                 }
+            }
 
-                .agreement-footer {
+            .notification-message {
+                color: #F24E1E;
+                font-family: Inter;
+                font-size: 12px;
+                font-style: normal;
+                font-weight: 800;
+                line-height: normal;
+                letter-spacing: 0.48px;
+                width: 100%;
+                margin: auto;
+                border: 0px;
+                padding: 1rem;
+
+                @include lg {
+                    width: 80%;
+                }
+            }
+
+            .agreement-footer {
+                margin-top: 0;
+                padding: 1rem;
+                display: flex;
+                justify-content: center;
+                gap: 1.15rem;
+                background: #fff;
+
+                @include lg {
                     margin-top: 1.75rem;
-                    display: flex;
-                    justify-content: center;
-                    gap: 1.15rem;
+                    background: transparent;
+                }
 
-                    button {
-                        text-align: center;
-                        font-family: Cambay;
-                        font-size: 12px;
-                        font-style: normal;
-                        font-weight: 700;
-                        line-height: 20px;
-                        /* 166.667% */
-                        letter-spacing: 0.1px;
-                        border-radius: 4px;
-                        padding: 0.25rem 0;
-                        outline: 0px;
-                        border: 0px;
-                        flex: 1 0;
+                button {
+                    text-align: center;
+                    font-family: Cambay;
+                    font-size: 12px;
+                    font-style: normal;
+                    font-weight: 700;
+                    line-height: 20px;
+                    /* 166.667% */
+                    letter-spacing: 0.1px;
+                    border-radius: 4px;
+                    padding: 0.25rem 0;
+                    outline: 0px;
+                    border: 0px;
+                    flex: 1 0;
 
-                        @include lg {
-                            font-family: "Roboto", sans-serif;
-                            font-size: 14px;
-                            line-height: 0px;
-                            /* 0% */
-                            letter-spacing: 2.1px;
-                            border-radius: 15px;
-                            padding: 1.5rem 3.5rem;
-                            flex: unset;
-                        }
+                    @include lg {
+                        font-family: "Roboto", sans-serif;
+                        font-size: 14px;
+                        line-height: 0px;
+                        /* 0% */
+                        letter-spacing: 2.1px;
+                        border-radius: 15px;
+                        padding: 1.5rem 3.5rem;
+                        flex: unset;
+                    }
 
-                        &.next {
-                            background: #151b4f;
-                            color: #fff;
-                        }
+                    &.next {
+                        background: #151b4f;
+                        color: #fff;
                     }
                 }
             }
