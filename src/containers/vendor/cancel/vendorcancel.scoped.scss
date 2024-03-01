@@ -449,6 +449,27 @@
                 }
             }
 
+            .notification-message {
+                color: #F24E1E;
+                font-family: Inter;
+                font-size: 12px;
+                font-style: normal;
+                font-weight: 800;
+                line-height: normal;
+                letter-spacing: 0.48px;
+                width: 100%;
+                margin: auto;
+                border: 0px;
+                padding: 1rem;
+                padding-bottom: 1.5rem;
+                margin-top: -.35rem;
+
+                @include lg {
+                    width: 80%;
+                    padding-bottom: 1rem;
+                }
+            }
+
             .bank {
                 width: 100%;
                 margin: auto;

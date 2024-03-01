@@ -287,17 +287,25 @@ export default function VendorAgreement() {
                                     </tbody>
                                 </table>
                             </div>
-
-                            {reviewObj.status == "Completed" ? (
-                                <div className="agreement-footer">
-                                    <button className="next" onClick={() => navigate(`../listingproduct/${id}`)}>
-                                        {t("next")}
-                                    </button>
-                                </div>
-                            ) : (
-                                <></>
-                            )}
                         </div>
+
+                        { true ? (
+                            <div className="notification-message bg-white">
+                                {t("notificationagreement")}
+                            </div>
+                        ) : (
+                            <></>
+                        )}
+
+                        {reviewObj.status == "Completed" ? (
+                            <div className="agreement-footer">
+                                <button className="next" onClick={() => navigate(`../listingproduct/${id}`)}>
+                                    {t("next")}
+                                </button>
+                            </div>
+                        ) : (
+                            <></>
+                        )}
                     </div>
                 </>
             </ContainerComponent>

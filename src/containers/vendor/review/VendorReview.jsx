@@ -423,6 +423,16 @@ export default function VendorReview() {
                             </div>
                         ) : null}
 
+                        { true ? (
+                            <div className="notification-message bg-white">
+                                { reviewObj?.status != "Not Approved" ? t("notificationreviewdownloadfile") : null }
+                                { reviewObj?.status == "Not Approved" ? t("notificationreviewnotapprove") : null }
+                                { false ? t("notificationreviewwait") : null }
+                            </div>
+                        ) : (
+                            null
+                        )}
+
                         {reviewObj?.status == "Approved" || reviewObj?.status == "Completed" ? (
                             <div className="bank bg-white">
                                 <div>{t("depositmoneypaymentaccountinformation")}</div>
