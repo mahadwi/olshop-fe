@@ -51,7 +51,7 @@ const inputUsdFormat = event => {
     } else {
         const s = target.value.split(".");
         if (target.value[target.value.length - 1] == "." && s.length == 2) {
-            return s.join("");
+            return s.join("") + ".";
         }
         const v = Number(s.slice(0, 2).join("."));
         target.value = isNaN(v) || v == 0 ? 1 : v;
@@ -1505,6 +1505,7 @@ export default function VendorEdit() {
                                                     const v = inputUsdFormat(event);
                                                     const d = Object.assign({}, formData);
                                                     d.sale_usd = v;
+                                                    console.log(d);
                                                     setFormData(d);
                                                 }}
                                             />
