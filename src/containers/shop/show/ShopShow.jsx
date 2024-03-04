@@ -152,6 +152,7 @@ export default function ShopShow() {
 
     useEffect(() => {
         if (selectedCourier != "" && shipTo != "" && user) {
+            setLoading(true);
             Api.post("/ongkir", {
                 headers: {
                     Authorization: "Bearer " + localStorage.getItem("apiToken")
@@ -170,7 +171,10 @@ export default function ShopShow() {
                         }
                     });
                 })
-                .catch(error => console.log(error));
+                .catch(error => console.log(error))
+                .finally(() => {
+                    setLoading(false);
+                })
         }
     }, [selectedCourier, shipTo, qty]);
 
