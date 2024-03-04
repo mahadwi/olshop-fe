@@ -304,8 +304,8 @@ export default function ShoppingCheckout() {
                             <div>
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
-                                    width="90"
-                                    height="83"
+                                    width="220"
+                                    height="202.89"
                                     viewBox="0 0 90 83"
                                     fill="none"
                                 >
