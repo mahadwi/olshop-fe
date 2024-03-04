@@ -35,11 +35,16 @@ export default function MainLayout() {
 
     return (
         <div>
-            <Toaster containerStyle={{
-                top: '50%',
-                left: 0,
-                right: 0,
-            }} />
+            <Toaster
+                containerStyle={{
+                    top: '50%',
+                    left: 0,
+                    right: 0,
+                }}
+                toastOptions={{
+                    duration: 1500,
+                }}
+            />
             <WhatsappComponent />
             <LoadingComponent loading={loading} />
             {
