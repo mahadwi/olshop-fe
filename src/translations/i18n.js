@@ -306,6 +306,7 @@ i18n
                     notificationreviewwait: '*Please wait, the product is being reviewed by our team*',
                     notificationreviewcancel: '*Please download the following file, then sign and upload it*',
                     notificationagreement: '*Please download some of the files above, to be signed and then upload the files again*',
+                    paid: "Terbayar",
                     // Add other EN translations here
                 },
             },
@@ -606,6 +607,7 @@ i18n
                     notificationreviewwait: '*Harap menunggu, product sedang direview oleh tim kami*',
                     notificationreviewcancel: '*Silahkan download berkas berikut, untuk kemudian di tandatangani dan upload*',
                     notificationagreement: '*Silahkan download beberapa berkas  diatas, untuk ditandatangani dan kemudian upload kembali berkas tersebut*',
+                    paid: "Terbayar",
                     // Add other ID translations here
                 },
             },

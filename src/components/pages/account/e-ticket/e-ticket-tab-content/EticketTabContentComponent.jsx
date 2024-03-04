@@ -37,19 +37,19 @@ function EticketCard({ticket}) {
 
     return (
         <div className='inner'>
-            <div className='status' data-status={ticket.status.toLowerCase()}>
-                {t('orderstatus')}: <strong>{t('order')} {t(ticket.status.toLowerCase())}</strong> / <a href="#">{ticket.invoice_id}</a> / {user.name} / Status: <strong>{t(ticket.status.toLowerCase())}</strong> / 2024-01-17 13:00:15
+            <div className='status' data-status={ticket.payment.status.toLowerCase()}>
+                {t('orderstatus')}: <strong>{t('order')} {t(ticket.payment.status.toLowerCase())}</strong> / <a href="#">{ticket.code}</a> / {ticket.user.name} / Status: <strong>{t(ticket.payment.status.toLowerCase())}</strong> / 2024-01-17 13:00:15
             </div>
             <div className='items'>
                 <div className='item'>
-                    <img src={"https://dev-olshop.berkatsoft.com/image/product/656a762817ffc.jpg"} alt="" />
+                    <img src={ticket.ticket.event.cover_image} alt="" />
                     <div className='product-detail'>
                         <div>
                             <div className='title'>
-                                NAME
+                                {ticket.ticket.name}
                             </div>
                             <div>
-                                Pax: 29
+                                Pax: {ticket.qty}
                             </div>
                         </div>
                         <div className='text-center'>
@@ -57,7 +57,7 @@ function EticketCard({ticket}) {
                                 {t('paymentoption')}
                             </div>
                             <div>
-                                {ticket.payment.invoice_url ? 'Bank' : 'Offline'}
+                                {ticket.payment.payment_channel ?? "-"}
                             </div>
                         </div>
                     </div>
@@ -66,7 +66,7 @@ function EticketCard({ticket}) {
                     {t('totalpayment')} : <span>{formater.format(Number(ticket.total))}</span>
                 </div>
                 <div className={`review-item`}>
-                    <button onClick={() => {navigate("1/42")}}>{t('e-ticket')}</button>
+                    <button onClick={() => {navigate(`${ticket.ticket.event.id}/${ticket.ticket.id}`)}}>{t('e-ticket')}</button>
                     <button>{t('contactseller')}</button>
                 </div>
             </div>
