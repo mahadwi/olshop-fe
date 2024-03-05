@@ -74,7 +74,7 @@ export default function VendorListingProduct() {
                         >
                             {t("accountinformation")}
                         </button>
-                        <button className="active">{t("productinformation")}</button>
+                        <button className="active">{t("listproduct")}</button>
                     </div>
                     <div className="step-1 bg-white">
                         <div className="steps">
@@ -111,15 +111,15 @@ export default function VendorListingProduct() {
                             </div>
                             <div className="body">
                                 <img src={reviewObj?.images?.at(selectedImage) ?? ""} alt="review" className="main" />
-                                {reviewObj?.images?.length != 1 ?
-                                <div className="thumbnail">
-                                    { reviewObj?.images?.map((u, i) => (
-                                        <button onClick={() => setSelectedImage(i)}>
-                                            <img src={u} alt="foo" />
-                                        </button>
-                                    )) }
-                                </div>
-                                : null}
+                                {reviewObj?.images?.length != 1 ? (
+                                    <div className="thumbnail">
+                                        {reviewObj?.images?.map((u, i) => (
+                                            <button onClick={() => setSelectedImage(i)}>
+                                                <img src={u} alt="foo" />
+                                            </button>
+                                        ))}
+                                    </div>
+                                ) : null}
                                 <div className="wrapper">
                                     <div className="detail">
                                         <div className="status" data-status={reviewObj?.status?.toLowerCase()}>
@@ -213,7 +213,7 @@ export default function VendorListingProduct() {
                                 </div>
                             </div>
                             <div className="listingproduct-footer">
-                                <a className="preview" href={reviewObj?.consignment_file} >
+                                <a className="preview" href={reviewObj?.consignment_file}>
                                     {t("receiptconsignment")}
                                 </a>
                                 <button className="next" onClick={() => navigate(`../productinformation`)}>

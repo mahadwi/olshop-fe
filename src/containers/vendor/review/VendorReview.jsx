@@ -208,6 +208,13 @@ export default function VendorReview() {
                             {t("accountinformation")}
                         </button>
                         <button className="active">{t("productinformation")}</button>
+                        <button
+                            onClick={() => {
+                                navigate("../productinformation");
+                            }}
+                        >
+                            {t("listproduct")}
+                        </button>
                     </div>
                     <div className="step-1 bg-white">
                         <div className="steps">
@@ -424,22 +431,34 @@ export default function VendorReview() {
                         ) : null}
 
                         {(reviewObj?.status == "Not Approved" ||
-                        (reviewObj?.confirm_date
-                            ? new Date() >=
-                              new Date(
-                                  `${reviewObj?.confirm_date.split("-")[2]}-${reviewObj?.confirm_date.split("-")[1]}-${
-                                      reviewObj?.confirm_date.split("-")[0]
-                                  }`
-                              )
-                            : false)) && reviewObj?.status != "Approved" ? (
+                            (reviewObj?.confirm_date
+                                ? new Date() >=
+                                  new Date(
+                                      `${reviewObj?.confirm_date.split("-")[2]}-${
+                                          reviewObj?.confirm_date.split("-")[1]
+                                      }-${reviewObj?.confirm_date.split("-")[0]}`
+                                  )
+                                : false)) &&
+                        reviewObj?.status != "Approved" ? (
                             <div className="notification-message bg-white">
-                                { reviewObj?.status != "Not Approved" && reviewObj?.approve_file.status != "Review" && (reviewObj?.confirm_date ? new Date() >= new Date(`${reviewObj?.confirm_date.split("-")[2]}-${reviewObj?.confirm_date.split("-")[1]}-${ reviewObj?.confirm_date.split("-")[0]}`) : false) ? t("notificationreviewdownloadfile") : null }
-                                { reviewObj?.status == "Not Approved" ? t("notificationreviewnotapprove") : null }
-                                { reviewObj?.status != "Not Approved" && reviewObj?.approve_file.status == "Review" ? t("notificationreviewwait") : null }
+                                {reviewObj?.status != "Not Approved" &&
+                                reviewObj?.approve_file.status != "Review" &&
+                                (reviewObj?.confirm_date
+                                    ? new Date() >=
+                                      new Date(
+                                          `${reviewObj?.confirm_date.split("-")[2]}-${
+                                              reviewObj?.confirm_date.split("-")[1]
+                                          }-${reviewObj?.confirm_date.split("-")[0]}`
+                                      )
+                                    : false)
+                                    ? t("notificationreviewdownloadfile")
+                                    : null}
+                                {reviewObj?.status == "Not Approved" ? t("notificationreviewnotapprove") : null}
+                                {reviewObj?.status != "Not Approved" && reviewObj?.approve_file.status == "Review"
+                                    ? t("notificationreviewwait")
+                                    : null}
                             </div>
-                        ) : (
-                            null
-                        )}
+                        ) : null}
 
                         {reviewObj?.status == "Approved" || reviewObj?.status == "Completed" ? (
                             <div className="bank bg-white">
@@ -513,13 +532,6 @@ export default function VendorReview() {
                                     {t("next")}
                                 </button>
                             ) : null}
-                            <button
-                                className="preview list-product"
-                                type="button"
-                                onClick={() => navigate(`../productinformation/goodssales`)}
-                            >
-                                {t("listproduct")}
-                            </button>
                         </div>
                     </div>
                 </>

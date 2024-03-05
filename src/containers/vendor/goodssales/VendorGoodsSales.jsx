@@ -144,7 +144,7 @@ export default function VendorGoodsSales() {
                         >
                             {t("accountinformation")}
                         </button>
-                        <button className="active">{t("productinformation")}</button>
+                        <button className="active">{t("listproduct")}</button>
                     </div>
                     <div className="step-1 bg-white">
                         <div className="steps">

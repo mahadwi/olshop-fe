@@ -89,32 +89,31 @@ export default function VendorCancel() {
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("apiToken")
             }
-        }).then(() => {
-            toast(
-                <div>
-                    <div className="text-center">
-                        <IconCircleCheck size={212} color={`#5cb85c`} />
-                    </div>
+        })
+            .then(() => {
+                toast(
                     <div>
-                        {t("toastuploaddocumentsuccess")}
+                        <div className="text-center">
+                            <IconCircleCheck size={212} color={`#5cb85c`} />
+                        </div>
+                        <div>{t("toastuploaddocumentsuccess")}</div>
                     </div>
-                </div>
-            );
-            loadReviewObj();
-        }).catch(err => {
-            toast(
-                <div>
-                    <div className="text-center">
-                        <IconCircleX size={212} color={`#ff3333`} />
-                    </div>
+                );
+                loadReviewObj();
+            })
+            .catch(err => {
+                toast(
                     <div>
-                        {t("toastuploaddocumentfailed")}
+                        <div className="text-center">
+                            <IconCircleX size={212} color={`#ff3333`} />
+                        </div>
+                        <div>{t("toastuploaddocumentfailed")}</div>
                     </div>
-                </div>
-            );
-        }).finally(() => {
-            setLoading(false);
-        });
+                );
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     };
 
     return (
@@ -130,6 +129,13 @@ export default function VendorCancel() {
                             {t("accountinformation")}
                         </button>
                         <button className="active">{t("productinformation")}</button>
+                        <button
+                            onClick={() => {
+                                navigate("../productinformation");
+                            }}
+                        >
+                            {t("listproduct")}
+                        </button>
                     </div>
                     <div className="step-1 bg-white">
                         <div className="steps">
@@ -162,15 +168,15 @@ export default function VendorCancel() {
                             </div>
                             <div className="body">
                                 <img src={reviewObj?.images?.at(selectedImage) ?? ""} alt="review" className="main" />
-                                {reviewObj?.images?.length != 1 ?
-                                <div className="thumbnail">
-                                    { reviewObj?.images?.map((u, i) => (
-                                        <button onClick={() => setSelectedImage(i)}>
-                                            <img src={u} alt="foo" />
-                                        </button>
-                                    )) }
-                                </div>
-                                : null}
+                                {reviewObj?.images?.length != 1 ? (
+                                    <div className="thumbnail">
+                                        {reviewObj?.images?.map((u, i) => (
+                                            <button onClick={() => setSelectedImage(i)}>
+                                                <img src={u} alt="foo" />
+                                            </button>
+                                        ))}
+                                    </div>
+                                ) : null}
                                 <div className="wrapper">
                                     <div className="detail">
                                         <div className="status" data-status={reviewObj?.status?.toLowerCase()}>
@@ -248,11 +254,19 @@ export default function VendorCancel() {
                                             <tr>
                                                 <td>{reviewObj?.cancel_file?.name}</td>
                                                 <td>
-                                                    <a href={reviewObj?.cancel_file?.draft} target="_blank" rel="noreferrer">
+                                                    <a
+                                                        href={reviewObj?.cancel_file?.draft}
+                                                        target="_blank"
+                                                        rel="noreferrer"
+                                                    >
                                                         {t("agreementview")}
                                                     </a>{" "}
                                                     |{" "}
-                                                    <a href={reviewObj?.cancel_file?.draft} target="_blank" rel="noreferrer">
+                                                    <a
+                                                        href={reviewObj?.cancel_file?.draft}
+                                                        target="_blank"
+                                                        rel="noreferrer"
+                                                    >
                                                         {t("download")}
                                                     </a>
                                                 </td>
@@ -264,15 +278,18 @@ export default function VendorCancel() {
                                                         hidden
                                                         onChange={inputFileOnChange}
                                                     />
-                                                    { reviewObj?.cancel_file?.cancel_file ?
+                                                    {reviewObj?.cancel_file?.cancel_file ? (
                                                         <>
-                                                            <a href={reviewObj?.cancel_file?.cancel_file} target="_blank" rel="noreferrer">
+                                                            <a
+                                                                href={reviewObj?.cancel_file?.cancel_file}
+                                                                target="_blank"
+                                                                rel="noreferrer"
+                                                            >
                                                                 {t("agreementview")}
                                                             </a>
                                                             {" | "}
                                                         </>
-                                                        : null
-                                                    }
+                                                    ) : null}
                                                     <button onClick={() => inputFile.current?.click()}>
                                                         {t("upload")}
                                                     </button>
@@ -285,13 +302,9 @@ export default function VendorCancel() {
                             </div>
                         ) : null}
 
-                        { true ? (
-                            <div className="notification-message bg-white">
-                                { t("notificationreviewcancel") }
-                            </div>
-                        ) : (
-                            null
-                        )}
+                        {true ? (
+                            <div className="notification-message bg-white">{t("notificationreviewcancel")}</div>
+                        ) : null}
                     </div>
                 </>
             </ContainerComponent>

@@ -559,6 +559,13 @@ export default function VendorSell() {
                             {t("accountinformation")}
                         </button>
                         <button className="active">{t("productinformation")}</button>
+                        <button
+                            onClick={() => {
+                                navigate("../productinformation");
+                            }}
+                        >
+                            {t("listproduct")}
+                        </button>
                     </div>
                     <div className="step-1 bg-white">
                         <div className="steps">

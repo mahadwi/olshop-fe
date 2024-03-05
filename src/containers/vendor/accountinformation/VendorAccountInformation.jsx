@@ -58,29 +58,29 @@ export default function VendorAccountInformation() {
     const [errorObj422, setErrorObj422] = useState({});
 
     const doReg = () => {
-         const data = {
-             name: name,
-             email: user.email,
-             phone: `${phoneCode}${phone}`,
-             ktp: ktp,
-             bank: selectedBank?.value,
-             bank_account_holder: bankAccountHolder,
-             bank_account_number: bankAccountNumber,
-             address: address
-         };
-         setErrorObj422({});
-         setLoading(true);
-         Api.post("/vendor", data, {
-             headers: {
-                 Authorization: "Bearer " + localStorage.getItem("apiToken")
-             }
-         })
-             .then(res => {
+        const data = {
+            name: name,
+            email: user.email,
+            phone: `${phoneCode}${phone}`,
+            ktp: ktp,
+            bank: selectedBank?.value,
+            bank_account_holder: bankAccountHolder,
+            bank_account_number: bankAccountNumber,
+            address: address
+        };
+        setErrorObj422({});
+        setLoading(true);
+        Api.post("/vendor", data, {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("apiToken")
+            }
+        })
+            .then(res => {
                 // navigate("../productinformation");
                 setUpdateVendor(true);
                 setEditVendor(false);
                 toast(
-                    <div style={{textAlign: 'center'}}>
+                    <div style={{ textAlign: "center" }}>
                         <div>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -113,13 +113,13 @@ export default function VendorAccountInformation() {
                         <div className="mt-3">{t("vendorregistrationsuccessfully")}</div>
                     </div>
                 );
-             })
-             .catch(err => {
-                 ApiErrorHandling.handlingErr(err, [setErrorObj422]);
-             })
-             .finally(() => {
-                 setLoading(false);
-             });
+            })
+            .catch(err => {
+                ApiErrorHandling.handlingErr(err, [setErrorObj422]);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     };
 
     const doUpdate = () => {
@@ -244,7 +244,7 @@ export default function VendorAccountInformation() {
                             }
                         }}
                     >
-                        {t("productinformation")}
+                        {t("listproduct")}
                     </button>
                 </div>
                 <div className="step-1 bg-white">
@@ -534,7 +534,9 @@ export default function VendorAccountInformation() {
                         {!updateVendor ? <button onClick={doReg}>{t("save")}</button> : null}
                         {!editVendor ? (
                             <>
-                                <button onClick={() => navigate("../productinformation")}>{t("productinformation")}</button>
+                                <button onClick={() => navigate("../productinformation")}>
+                                    {t("productinformation")}
+                                </button>
                                 <button
                                     className="dark"
                                     onClick={() => {
