@@ -1479,7 +1479,7 @@ export default function VendorEdit() {
                                                 id="sale_price"
                                                 disabled={commissionType?.value != "Selling"}
                                                 placeholder={`${t("saleprice")} (RP)`}
-                                                value={formData.sale_price}
+                                                defaultValue={formData.sale_price}
                                                 onInput={event => {
                                                     const v = inputNonNegativeValue(event);
                                                     const d = Object.assign({}, formData);
@@ -1507,7 +1507,7 @@ export default function VendorEdit() {
                                                 id="sale_usd"
                                                 disabled={commissionType?.value != "Selling"}
                                                 placeholder={`${t("saleprice")} (USD)`}
-                                                value={formData.sale_usd}
+                                                defaultValue={formData.sale_usd}
                                                 onInput={event => {
                                                     const v = inputUsdFormat(event);
                                                     const d = Object.assign({}, formData);
