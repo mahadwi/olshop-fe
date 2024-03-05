@@ -224,6 +224,7 @@ export default function VendorAgreement() {
                                                 {t("upload")} {t("document")}
                                             </td>
                                             <td>Status</td>
+                                            <td>Note</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -269,6 +270,7 @@ export default function VendorAgreement() {
                                                         </>
                                                     ) : null}
                                                     <span
+                                                        style={{ cursor: "pointer" }}
                                                         onClick={() => {
                                                             document
                                                                 .getElementById("uploadAgreement" + agreementObj.id)
@@ -289,6 +291,7 @@ export default function VendorAgreement() {
                                                     />
                                                 </td>
                                                 <td style={{ textAlign: "center" }}>{agreementObj.status}</td>
+                                                <td style={{ textAlign: "center" }}>{agreementObj.note}</td>
                                             </tr>
                                         ))}
                                     </tbody>

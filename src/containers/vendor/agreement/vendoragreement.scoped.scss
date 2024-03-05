@@ -11,7 +11,7 @@
         margin: 0 -1rem;
         background: #fff;
         padding: 0 1rem 1rem;
-        border-bottom: 3px solid #DADADA;
+        border-bottom: 3px solid #dadada;
 
         @include lg {
             background: transparent;
@@ -21,15 +21,15 @@
         }
 
         button {
-            color: #FFAC33;
+            color: #ffac33;
             font-family: Inter;
             font-size: 12px;
             font-style: normal;
             font-weight: 700;
             line-height: normal;
             letter-spacing: 0.48px;
-            border: 1px solid #FFAC33;
-            background: #FFF;
+            border: 1px solid #ffac33;
+            background: #fff;
             padding: 0.5rem 1.5rem;
             flex: 1 0;
 
@@ -38,7 +38,7 @@
             }
 
             &.active {
-                background: #FFAC33;
+                background: #ffac33;
                 color: #fff;
             }
         }
@@ -135,8 +135,8 @@
                 width: 100%;
                 margin: auto;
                 border: 0px;
-                padding: 1rem .5rem;
-                margin-top: .35rem;
+                padding: 1rem 0.5rem;
+                margin-top: 0.35rem;
 
                 @include lg {
                     width: 80%;
@@ -193,7 +193,7 @@
 
                             td {
                                 border: 1px solid #b9b9b9;
-                                width: 25%;
+                                width: 20%;
                                 padding: 0.5rem;
                             }
                         }
@@ -208,7 +208,7 @@
 
                             td {
                                 border: 1px solid #b9b9b9;
-                                width: 25%;
+                                width: 20%;
                                 padding: 0.5rem;
 
                                 a {
@@ -238,7 +238,7 @@
             }
 
             .notification-message {
-                color: #F24E1E;
+                color: #f24e1e;
                 font-family: Inter;
                 font-size: 12px;
                 font-style: normal;

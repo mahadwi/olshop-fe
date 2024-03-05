@@ -438,8 +438,10 @@ export default function VendorReview() {
                                           reviewObj?.confirm_date.split("-")[1]
                                       }-${reviewObj?.confirm_date.split("-")[0]}`
                                   )
-                                : false)) &&
-                        reviewObj?.status != "Approved" ? (
+                                : false) ||
+                            !reviewObj?.confirm_date) &&
+                        reviewObj?.status != "Approved" &&
+                        reviewObj?.status ? (
                             <div className="notification-message bg-white">
                                 {reviewObj?.status != "Not Approved" &&
                                 reviewObj?.approve_file.status != "Review" &&
@@ -454,7 +456,8 @@ export default function VendorReview() {
                                     ? t("notificationreviewdownloadfile")
                                     : null}
                                 {reviewObj?.status == "Not Approved" ? t("notificationreviewnotapprove") : null}
-                                {reviewObj?.status != "Not Approved" && reviewObj?.approve_file.status == "Review"
+                                {reviewObj?.status != "Not Approved" &&
+                                (reviewObj?.approve_file.status == "Review" || reviewObj?.approve_file.status == null)
                                     ? t("notificationreviewwait")
                                     : null}
                             </div>
