@@ -10,7 +10,6 @@ import { LoadingContext } from "../../../context/LoadingContext";
 import { CartContext } from "../../../context/CartContext";
 import { LanguageContext } from "../../../context/LanguageContext";
 import { CurrencyContext } from "../../../context/CurrencyContext";
-import { ModalAddressContext } from "../../../context/ModalAddressContext";
 import { useTranslation } from "react-i18next";
 import toast from "react-hot-toast";
 
@@ -37,7 +36,6 @@ export default function ProductItemComponent({ product, className, blur, wishlis
         minimumFractionDigits: 0,
         maximumFractionDigits: 2
     });
-    const { setShowModalAddress } = useContext(ModalAddressContext);
 
     /**
      * State
@@ -293,10 +291,6 @@ export default function ProductItemComponent({ product, className, blur, wishlis
 
     const doBuyNow = tempProduct => {
         if (user) {
-            if (user.addresses.length == 0) {
-                setShowModalAddress(true);
-                return;
-            }
             setLoading(true);
             Api.post(
                 "/cart",

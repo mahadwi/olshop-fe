@@ -14,7 +14,6 @@ import { AuthUserContext } from "../../../context/AuthUserContext";
 import { useNavigate } from "react-router-dom";
 import { LoadingContext } from "../../../context/LoadingContext";
 import { CartContext } from "../../../context/CartContext";
-import { ModalAddressContext } from "../../../context/ModalAddressContext";
 import toast from "react-hot-toast";
 import { IconCircleX } from "@tabler/icons-react";
 import { useTranslation } from "react-i18next";
@@ -36,7 +35,6 @@ export default function ShopShow() {
     const { user } = useContext(AuthUserContext);
     const { setLoading } = useContext(LoadingContext);
     const { refreshCarts, carts } = useContext(CartContext);
-    const { setShowModalAddress } = useContext(ModalAddressContext);
 
     /**
      * Main State
@@ -256,10 +254,6 @@ export default function ShopShow() {
 
     const doBuyNow = tempProduct => {
         if (user) {
-            if (user.addresses.length == 0) {
-                setShowModalAddress(true);
-                return;
-            }
             setLoading(true);
             Api.post(
                 "/cart",
